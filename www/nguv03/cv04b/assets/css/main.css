@@ -1,0 +1,65 @@
+header {
+    background-color: rgb(148, 65, 50);
+    color: white;
+    padding: 10px;
+    font-family: sans-serif;
+}
+
+nav li {
+    background-color: rgb(89, 150, 204);
+    padding: 5px;
+    display: inline;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+}
+
+ul {
+    list-style-type: none;
+}
+
+h2 {
+    font-family: sans-serif;
+    font-size: 32px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+article {
+    font-family: sans-serif;
+}
+
+h3 {
+    font-style: italic;
+    color: rgb(39, 39, 167);
+}
+
+p {
+    text-align: justify;
+}
+
+.centered-text {
+    text-align: center;
+}
+
+img {
+    width: 100%;
+}
+
+footer {
+    padding: 50px;
+    background-image: url('https://data.whicdn.com/images/142865766/superthumb.jpg?t=1413937164');
+    
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 10px 50px;
+}
+
+aside {
+    background-color: red;
+    padding: 20px;
+    margin-top: 100px;
+    margin-bottom: 500px;
+}
