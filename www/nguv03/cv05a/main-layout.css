@@ -1,0 +1,20 @@
+.box {
+    height: 100px;
+    width: 100px;
+    float: left;
+}
+.box-01 {
+    background-color: red;
+    width: 30%;
+}
+.box-02 {
+    background-color: green;
+    width: 20%;
+}
+.box-03 {
+    background-color: blue;
+    width: 50%;
+}
+.clear {
+    clear: both;
+}

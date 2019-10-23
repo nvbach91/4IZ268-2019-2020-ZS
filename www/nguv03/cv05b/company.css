@@ -1,0 +1,104 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: sans-serif;
+}
+
+header {
+    border-top: 5px solid rgb(56, 151, 235)
+}
+
+.logo {
+    padding: 20px;
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/cf/Bitcoin.com_logo.png);
+    background-position: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    text-indent: 50px;
+    font-weight: bold;
+    float: left;
+}
+.clear {
+    clear: both;
+}
+ul {
+    list-style-type: none;
+}
+nav a {
+    text-decoration: none;
+}
+nav li {
+    float: left;
+    padding: 10px;
+}
+nav li:hover {
+    background-color: rgb(104, 104, 207);
+}
+.banner {
+    padding: 60px;
+    background-image: url(https://linkedinbackground.com/download/Business-HQ.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+}
+.banner h1, .banner h3 {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+main {
+    padding: 50px;
+}
+.poster {
+    background-image: url(https://www.raconteur.net/wp-content/uploads/2016/11/increase-productivity.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+}
+.poster h2 {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 5px;
+}
+.product {
+    float: left;
+    width: 25%;
+    height: 360px;
+    padding: 5px;
+}
+.product h2 {
+    border-bottom: 5px solid purple;
+}
+.product:nth-child(1) h2 {
+    border-color: red;
+}
+.product:nth-child(2) h2 {
+    border-color: rgb(36, 189, 16);
+}
+.product:nth-child(3) h2 {
+    border-color: rgb(22, 29, 129);
+}
+.product:nth-child(4) h2 {
+    border-color: rgb(230, 92, 223);
+}
+.product:nth-child(5) h2 {
+    border-color: rgb(229, 255, 0);
+}
+.product:nth-child(6) h2 {
+    border-color: rgb(49, 218, 189);
+}
+.product:nth-child(7) h2 {
+    border-color: rgb(16, 83, 170);
+}
+.product:nth-child(8) h2 {
+    border-color: rgb(225, 0, 255);
+}
+.product p {
+    height: 240px;
+}

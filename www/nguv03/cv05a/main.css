@@ -1,0 +1,31 @@
+.box {
+    height: 300px;
+    width: 400px;
+    position: absolute;
+}
+.box-01 {
+    background-color: red;
+    z-index: 2;
+    top: 10px;
+    left: 10px;
+}
+.box-02 {
+    background-color: green;
+    z-index: 1;
+    top: 50px;
+    left: 50px;
+}
+.box-03 {
+    background-color: blue;
+    z-index: 5;
+    top: 100px;
+    left: 100px;
+}
+.box-inner {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    height: 100px;
+    width: 100px;
+    background-color: purple;
+}

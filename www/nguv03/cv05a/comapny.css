@@ -1,0 +1,101 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: sans-serif;
+}
+header {
+    border-top: 5px solid rgb(72, 151, 219)
+}
+header .logo, header > nav {
+    float: left;
+}
+header .logo {
+    margin-right: auto;
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/cf/Bitcoin.com_logo.png);
+    padding: 20px;
+    background-position: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    text-indent: 50px;
+    font-weight: bold;
+}
+nav {
+    margin-left: auto;
+}
+nav ul {
+    list-style-type: none;
+}
+nav ul li {
+    float: left;
+}
+nav a {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+}
+.search {
+    background-image: url(https://cdn3.iconfinder.com/data/icons/eightyshades/512/11_Search-512.png);
+    padding: 20px;
+    float: left;
+    background-position: center;
+    background-size: contain;
+}
+.clear {
+    clear: both;
+}
+.showcase {
+    padding: 50px;
+    background-image: url(https://linkedinbackground.com/download/Business-HQ.jpg);
+    color: white;
+}
+.showcase h1, .showcase h3 {
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    padding: 20px;
+}
+main {
+    padding: 40px;
+}
+.poster {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+    
+    background-image: url(https://www.raconteur.net/wp-content/uploads/2016/11/increase-productivity.jpg);
+    background-position: center;
+    background-size: contain;
+}
+.poster h2 {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+ul {
+    padding: 0;
+}
+.products {
+    list-style-type: none;
+}
+.product {
+    float: left;
+    width: 25%;
+    height: 340px;
+}
+.product h2 {
+    font-weight: bold;
+    border-bottom: 5px solid red;
+}
+.product:nth-child(1) h2 {
+    border-color: red;
+}
+.product:nth-child(2) h2 {
+    border-color: blue;
+}
+.product:nth-child(3) h2 {
+    border-color: purple;
+}
+.product:nth-child(4) h2 {
+    border-color: orange;
+}
+.product p {
+    min-height: 220px;
+}
