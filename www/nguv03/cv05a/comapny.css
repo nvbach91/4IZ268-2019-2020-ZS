@@ -7,7 +7,7 @@ body {
 header {
     border-top: 5px solid rgb(72, 151, 219)
 }
-header .logo, header > nav {
+header .logo {
     float: left;
 }
 header .logo {
@@ -22,12 +22,15 @@ header .logo {
 }
 nav {
     margin-left: auto;
+    float: right;
 }
 nav ul {
     list-style-type: none;
+    margin: 0;
 }
 nav ul li {
     float: left;
+    padding: 20px 0;
 }
 nav a {
     text-decoration: none;
@@ -36,10 +39,11 @@ nav a {
 }
 .search {
     background-image: url(https://cdn3.iconfinder.com/data/icons/eightyshades/512/11_Search-512.png);
-    padding: 20px;
-    float: left;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    padding: 29px;
+    float: right;
     background-position: center;
-    background-size: contain;
 }
 .clear {
     clear: both;
@@ -56,6 +60,8 @@ nav a {
 }
 main {
     padding: 40px;
+    max-width: 1280px;
+    margin: 0 auto;
 }
 .poster {
     padding-top: 40px;
@@ -79,6 +85,7 @@ ul {
     float: left;
     width: 25%;
     height: 340px;
+    border: 10px solid transparent;
 }
 .product h2 {
     font-weight: bold;
@@ -99,3 +106,97 @@ ul {
 .product p {
     min-height: 220px;
 }
+
+.product button {
+    border: none;
+    background-color: cadetblue;
+    padding: 15px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    background-color: rgb(79, 79, 179);
+    color: white;
+}
+footer p {
+    margin: 0;
+    padding: 20px 0;
+    background-color: rgb(55, 55, 98);
+}
+footer div {
+    padding: 20px 0;
+}
+
+
+@media screen and (max-width: 880px) {
+
+    .product {
+        width: calc(100% / 3);
+    }
+    .product p {
+        height: 180px;
+    }
+}
+@media screen and (max-width: 680px) {
+
+    .product {
+        width: 50%;
+    }
+
+}
+
+@media print {
+    .showcase {
+        padding: 0;
+        background-image: none;
+        color: initial;
+    }
+    .showcase h1, .showcase h3 {
+        background-color: transparent;
+        font-size: initial;
+        text-align: left;
+        padding: 0;
+    }
+    .poster {
+        background-image: none;
+        padding: 0;
+    }
+    main {
+        padding: 0;
+    }
+    .product button {
+        display: none;
+    }
+    .product {
+        height: initial;
+        float: none;
+        width: 100%;
+        border: none;
+    }
+    
+    .product h2 {
+        border: none;
+    }
+    .product p {
+        min-height: initial;
+    }
+    nav, .search {
+        display: none;
+    }
+    footer {
+        text-align: left;
+        background-color: transparent;
+        color: initial;
+    }
+    footer p {
+        background-color: transparent;
+    }
+    header {
+        border: none;
+    }
+}
+
+

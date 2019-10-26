@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+.row {
+    display: flex;
+    width: 100%;
+}
+.col {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.red { background-color: rgb(170, 43, 43) }
+.blue { background-color: rgb(48, 48, 153) }
+.green { background-color: rgb(43, 110, 43) }
+.yellow { background-color: rgb(214, 214, 77) }
+.turquois { background-color: rgb(94, 184, 175) }
+.purple { background-color: rgb(155, 76, 155) }
+.header, .aside, .news, .posts, .info, .contact {
+    border: 5px solid white;
+}
+.header {
+    height: 100px;
+}
+.aside {
+    height: 400px;
+    flex-grow: 1
+}
+.main {
+    height: 300px;
+    flex-grow: 2;
+}
+.news, .posts {
+    min-height: 100px;
+    width: 100%;
+}
+.info, .contact {
+    height: 200px;
+}

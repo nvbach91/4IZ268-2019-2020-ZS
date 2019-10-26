@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+}
+.gallery {
+    max-width: 1024px;
+    margin: 0 auto;
+}
+.row {
+    display: flex;
+    width: 100%;
+}
+.col {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.col div {
+    border: 10px solid white;
+}
+.red { 
+    background-color: rgb(170, 43, 43);
+    height: 100px; 
+}
+.blue { 
+    background-color: rgb(48, 48, 153);
+    height: 100px; 
+}
+.green { 
+    background-color: rgb(43, 110, 43);
+    height: 300px; 
+}
+.yellow { 
+    background-color: rgb(214, 214, 77);
+    height: 200px; 
+}
+.pink { 
+    background-color: rgb(214, 77, 207);
+    height: 80px; 
+}
+.turquoise { 
+    background-color: rgb(94, 184, 175);
+    height: 150px; 
+}
+.purple { 
+    background-color: rgb(155, 76, 155);
+    height: 300px;
+ }
+.orange { 
+    background-color: rgb(211, 137, 0);
+    height: 100px;
+}
+.darkgray { 
+    background-color: rgb(63, 81, 116);
+    height: 270px;
+}
+ 

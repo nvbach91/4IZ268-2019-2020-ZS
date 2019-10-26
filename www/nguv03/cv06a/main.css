@@ -1,0 +1,57 @@
+* {
+    box-sizing: border-box;
+}
+
+.spinner {
+    width: 200px;
+    height: 200px;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid red;
+    border-bottom: 20px solid rgb(51, 255, 0);
+    border-radius: 50%;
+    animation: spinning 1s ease infinite;
+}
+
+@keyframes spinning {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.flex-layout {
+    height: 100px;
+    width: 300px;
+}
+
+.flex-layout div {
+    border: 5px solid white;
+    height: 100px;
+}
+.row {
+    display: flex;
+    flex-direction: row;
+}
+.red {
+    background: red;
+    width: 60%;
+}
+.col {
+    width: 40%;
+}
+.green {
+    background: green;
+    width: 50%;
+}
+.blue {
+    background: blue;
+}
+.yellow {
+    background: yellow;
+    width: 50%;
+}
+
+

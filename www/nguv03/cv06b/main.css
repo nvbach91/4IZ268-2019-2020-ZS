@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+}
+
+.spinner {
+    width: 200px;
+    height: 200px;
+    border-right: 20px solid transparent;
+    border-left: 20px solid transparent;
+    border-top: 20px solid rgb(209, 90, 90);
+    border-bottom: 20px solid rgb(147, 68, 149);
+    border-radius: 50%;
+    animation: spinning 50s ease infinite;
+    transition: border-top 0.5s ease;
+}
+.spinner:hover {
+    border-top: 20px solid rgb(13, 148, 58);
+    border-bottom: 20px solid rgb(34, 19, 167);
+}
+@keyframes spinning {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
