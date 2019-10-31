@@ -9,6 +9,7 @@ key used - encrypted text
       12 - M YMZ ITA PMDQE FA IMEFQ AZQ TAGD AR FUYQ TME ZAF PUEOAHQDQP FTQ HMXGQ AR XURQ. ― OTMDXQE PMDIUZ
 ```
 Následně vytvořte **uživatelské rozhraní**, ve kterém bude možné zadat zmíněné dvě vstupní hodnoty (zašifrovaný text a použitý klíč) a po kliknutí na tlačítko **Decipher!** se na určeném místě zobrazí dešifrovaný text. Rozhraní také **vhodně nastylujte**.
+
 ![ui-image](https://user-images.githubusercontent.com/20724910/48301975-52f9f200-e4f6-11e8-9525-8363fa95f427.png)
 
 (Nepovinné) Poté pošlete svému kamarádovi/kamarádce na e-mail jednu zašifrovanou zprávu s klíčem a nechte ho dešifrovat a přečíst to, co k němu/ní máte na srdci :)
