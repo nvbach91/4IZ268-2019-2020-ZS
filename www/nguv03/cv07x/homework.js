@@ -1,9 +1,10 @@
 /* HOMEWORK NUMERO CINCO */
 /**
  * 1) Pepe's age. Vypište na konzoli smysluplnou oznamovací větu ohledně věku Pepy, pokud znáte jeho rok narození, 
- * který je uložený v proměnné a pro výpis použijte zřetězení stringů. Pro názvy proměnných používejte anglické pojmy.
+ * který je uložený v proměnné a pro výpis použijte zřetězení stringů. Pro názvy proměnných používejte smysluplnou 
+ * angličtinu.
  */
-// SPOILER ALERT!
+// Solution here
 
 
 
@@ -15,7 +16,7 @@
  *     z C na F: vynásobit devíti, vydělit pěti a přičíst 32. 
  *     z F na C: odečíst 32, vynásobit pěti a vydělit devítkou. 
  */
-// SPOILER ALERT!
+// Solution here
 
 
 
@@ -26,7 +27,7 @@
  * které přijímají argumenty, a na základě argumentů po zavolání vypíše výsledek na konzoli. 
  * Párkrát zavolejte tyto funkce s různými argumenty. V konzoli také vyzkoušejte, zda fungují vaše funkce. 
  */
-// SPOILER ALERT!
+// Solution here
 
 
 
@@ -37,7 +38,7 @@
  * v procentech. Výsledek vypište do konzole, např. 21 je 50% z 42. Pro zkrácení / zaokrouhlování desetinných 
  * míst použijte funkci .toFixed(n). Např. var pi = 3.1415926535; pi.toFixed(2); Pozor na dělení nulou! 
  */
-// SPOILER ALERT!
+// Solution here
 
 
 
@@ -48,7 +49,7 @@
  * rovnají, vypište, že se rovnají. Vyzkoušejte funkčnost pro celá čísla, desetinná čísla, zlomky. Zkuste 
  * je párkrát zavolat v kódu a výsledky uložit do proměnných. 
  */
-// SPOILER ALERT!
+// Solution here
 
 
 
@@ -58,7 +59,7 @@
  * 6) I can cleary see the pattern. Vytvořte funkci, která vypíše popořadě všechny násobky 13, které jsou menší 
  * nebo rovno 730, včetě nuly. Používejte for loop. 
  */
-// SPOILER ALERT!
+// Solution here
 
 
 
@@ -67,7 +68,7 @@
 /**
  * 7) Around and about. Vytvořte funkci, která vypočte obsah kružnice podle dodaného poloměru v argumentu. 
  */
-// SPOILER ALERT!
+// Solution here
 
 
 
@@ -76,7 +77,7 @@
 /**
  * 8) Another dimension. Vytvořte funkci, která vypočte objem kuželu, pokud dostanete na argumentech výšku a poloměr. 
  */
-// SPOILER ALERT!
+// Solution here
 
 
 
@@ -86,7 +87,7 @@
  * 9) Not sure if triangle, or just some random values. Vytvořte funkci, která rozhodne, zda se z 
  * dodaných 3 délek dá postavit trojúhelník, tj. vypíše buď true/yes nebo false/no. 
  */
-// SPOILER ALERT!
+// Solution here
 
 
 
@@ -97,7 +98,7 @@
  * tj. funkce dostane délky všech 3 stran. Použijte přitom předchozí validaci, tj. počítejte pouze, 
  * když to má smysl. Hint: funkce pro odmocninu je Math.sqrt() 
  */
-// SPOILER ALERT!
+// Solution here
 
 
 
