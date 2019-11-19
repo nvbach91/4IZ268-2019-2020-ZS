@@ -12,4 +12,9 @@ Následně vytvořte **uživatelské rozhraní**, ve kterém bude možné zadat 
 
 ![ui-image](https://user-images.githubusercontent.com/20724910/48301975-52f9f200-e4f6-11e8-9525-8363fa95f427.png)
 
+**IMPORTANT**
+Použijte výchozí zdrojové kódy, které jsou uvedené na této stránce.
+- https://github.com/nvbach91/4IZ268-2019-2020-ZS/blob/master/www/nguv03/cv09x/homework/js/main.js
+- https://github.com/nvbach91/4IZ268-2019-2020-ZS/blob/master/www/nguv03/cv09x/homework/index.html
+
 (Nepovinné) Poté pošlete svému kamarádovi/kamarádce na e-mail jednu zašifrovanou zprávu s klíčem a nechte ho dešifrovat a přečíst to, co k němu/ní máte na srdci :)
