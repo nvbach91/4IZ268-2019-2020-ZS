@@ -54,9 +54,32 @@ submitButton.addEventListener('click', function () {
     // pokemonList.innerHTML += pokemon;
 
     // creating elements using createElement 
-    var pokemon = document.createElement('li');
-    pokemon.innerText = pokemonNameInput.value;
-    pokemonList.appendChild(pokemon);
+
+    var pokemonName = pokemonNameInput.value;
+    pokemonName = pokemonName.toLowerCase().trim();
+    //
+    if (!pokemonName) {
+        return alert('Please enter a valid pokemon name');
+    }
+
+    var pokemonNames = pokemonName.split(' ');
+
+    for(var i = 0; i < pokemonNames.length; i++) {
+        createPokemon(pokemonNames[i]);
+    }
+
 });
 
+var createPokemon = function (pokemonName) {
+    var pokemon = document.createElement('li');
+    pokemon.innerText = pokemonName;
+    pokemonList.appendChild(pokemon);
+
+    var pokemonImage = document.createElement('img');
+    pokemonImage.alt = pokemonName;
+    pokemonImage.src = 'https://img.pokemondb.net/artwork/large/' + pokemonName + '.jpg';
+
+    pokemon.appendChild(pokemonImage);
+    pokemonNameInput.value = '';
+};
 

@@ -5,8 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
+    <form>
+        <label>Username / Email</label>
+        <input type="email" required name="email" placeholder="Username / Email">
+        <label>Password</label>
+        <input type="password" required name="password" placeholder="Password">
+        
+        <label>Gender</label>
+        <select name="gender">
+            <option>M</option>
+            <option>F</option>
+        </select>
+
+        <input type="checkbox" name="terms">
+
+        <textarea name="story"></textarea>
+        
+        <button>Login</button>
+
+    </form>
     <script src="main.js"></script>
 </body>
 </html>

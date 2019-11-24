@@ -5,8 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
+    <form>
+        <h2>Registration form</h2>
+        <label>Email/Username</label>
+        <input name="email" type="email" required placeholder="Email/Username">
+        <label>Password</label>
+        <input name="password" type="password" required placeholder="Password">
+        
+        <label>Phone</label>
+        <input pattern="(\+\d{3})?\d{9}" title="A valid phone number" name="phone" required placeholder="Email/Username">
+        
+        <label>Married</label>
+        <input name="married" type="checkbox">
+
+        <select name="gender">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select>
+        
+        <textarea name="resume"></textarea>
+
+        <button>Submit</button>
+    </form>
     <script src="main.js"></script>
 </body>
 </html>
