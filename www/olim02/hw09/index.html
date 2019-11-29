@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>For Gondor!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="./assets/main.css" />
+  <link rel="icon" href="./assets/laurel.png">
+</head>
+
+<body>
+  <div class="layout">
+    <header>Minas Tirith's code</header>
+    <div class="main flex-row">
+      
+      <textarea id="cipher" type="text" placeholder="Enter your text here..."></textarea>
+      <button id="decipher-button" class="buttons button">DECIPHER</button>
+      <div class="buttons"><input id="key" type="number" placeholder="Key (0-25)" min="0" max="25"></div>
+      <button id="cipher-button" class="buttons button">CIPHER</button>
+      <div id="output"></div>
+    </div>
+  </div>
+  <script src="./assets/main.js"></script>
+</body>
+
+</html>

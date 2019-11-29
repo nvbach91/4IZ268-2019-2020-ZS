@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Caesar Cipher</title>
+    <style>
+        .content {
+            width: 500px;
+            margin: 0 auto;
+            display: table;
+        }
+        textarea {
+            width: 500px;
+            min-height: 200px;
+            font-size: 18px;
+        }
+        textarea:disabled {
+            background: lightgray;
+        }
+        input {
+            width: 500px;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            margin-top: 25px;
+            margin-bottom: 5px;
+        }
+        .button {
+            width: 48%;
+            padding: 20px 0;
+            font-size: 20px;
+            margin: 25px 1% 0 1%;
+        }
+        .button:hover {
+            cursor: pointer;
+        }
+        .encrypt {
+            background: firebrick;
+            color: white;
+        }
+        .decrypt {
+            background: white;
+            color: firebrick;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Caesar cihper</h1>
+        <label for="input">Text to encrypt</label>
+        <textarea id="input"></textarea>
+        <label for="key">Encryption key</label>
+        <input type="number" value="1" id="key" />
+        <button id="encrypt" class="button encrypt">Encrypt</button>
+        <button id="decrypt" class="button decrypt">Decrypt</button>
+        <label for="result">Result</label>
+        <textarea id="result" disabled="disabled"></textarea>
+    </div>
+
+
+    <script type="text/javascript">
+        var input = document.querySelector('#input');
+        var key = document.querySelector('#key');
+        var encryptButton = document.querySelector('#encrypt');
+        var decryptionButton = document.querySelector('#decrypt');
+        var result = document.querySelector('#result');
+
+        function encryptText(text, key) {
+            key = key ? key : 1;
+            let encryptedText = '';
+            for (let i = 0; i < text.length; i++) {
+                encryptedText += String.fromCharCode(Number.parseInt(text.charCodeAt(i)) + key);
+            }
+            return encryptedText;
+        }
+
+        function decryptText(text, key) {
+            key = key ? key : 1;
+            let encryptedText = '';
+            for (let i = 0; i < text.length; i++) {
+                encryptedText += String.fromCharCode(Number.parseInt(text.charCodeAt(i)) - key);
+            }
+            return encryptedText;
+        }
+
+        encryptButton.addEventListener('click', function onClickAction() {
+            result.value = encryptText(input.value, Number.parseInt(key.value));
+        });
+
+        decryptionButton.addEventListener('click', function onClickAction() {
+            result.value = decryptText(input.value, Number.parseInt(key.value));
+        });
+    </script>
+</body>
+</html>

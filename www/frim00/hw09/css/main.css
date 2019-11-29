@@ -1,0 +1,43 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    font-family: sans-serif;
+    border: none;
+}
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+h1 {
+    margin: 5px 0;
+}
+textarea, input[type=number], button {
+    margin: 5px 0;
+    padding: 10px;
+}
+textarea {
+    height: 4em;
+    resize: none;
+    width: 100%;
+}
+input[type=number] {
+    width: 100%;
+}
+button {
+    background: cadetblue;
+    color: white;
+}
+.input, .output{
+    width: 500px;
+    padding: 50px;
+}
+.input {
+    background: #cdcdcd;
+}
+.output {    
+    text-align: center;
+}

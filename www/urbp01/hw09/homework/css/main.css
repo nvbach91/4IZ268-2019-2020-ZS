@@ -1,0 +1,57 @@
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+    align-items: center;
+}
+
+h1 {
+    margin: 15px 0 5px 0;
+    font-size: 28px;
+}
+
+textarea, button {
+    margin: 10px 0;
+    padding: 10px;
+    border: none;
+}
+
+textarea {
+    width: 100%;
+}
+
+button {
+    width: 100px;
+    height: 45px;
+    background: cadetblue;
+    color: white;
+}
+
+#text {
+    height: 100px;
+    resize: vertical;
+}
+
+#key {
+    height: 40px;
+    resize: none;
+    margin: 0 auto;
+}
+
+.in, .out {
+    width: 450px;
+    padding: 20px;
+}
+
+.in {
+    background: rgb(187, 187, 187);
+}
+
+.out {
+    text-align: center;
+}

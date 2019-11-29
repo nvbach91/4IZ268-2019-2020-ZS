@@ -1,0 +1,26 @@
+.container{
+  display: flex;
+  justify-content: center;
+}
+
+.enter_value{
+  flex-basis: auto;
+  background-color: rgb(211,211,211, 0.8);
+  padding: 15px;
+}
+.btn{
+  padding: 10px;
+  border-radius: 5px;
+}
+.btn:hover{
+  text-decoration: underline;
+
+}
+.btn-blue{
+  background-color: rgba(60, 60, 201, 0.8);
+  margin-right: 10px;
+}
+
+.btn-red{
+  background-color: rgba(236, 116, 60, 0.8);
+}

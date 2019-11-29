@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+h1{
+    text-align: center;
+}
+
+h2{
+    text-align:center;
+}
+
+#game-field {
+    width:1000px;
+    display: flex;
+    flex-wrap: wrap;
+    margin:0 auto;
+}
+.card {
+    flex: 0 0 200px;
+    height:200px;
+    border: 10px solid white;
+    border-radius: 10px;
+    background-color: blue;
+    color:transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.card:hover {
+    background-color: blueviolet;
+
+}
+.card.revealed {
+    background-color: turquoise;
+    color: black;
+}

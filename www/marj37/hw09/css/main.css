@@ -1,0 +1,34 @@
+*{
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+.wrapping{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: auto;
+    justify-content: space-between;
+    max-width: 400px;
+    background-color: lightgrey;
+    padding: 25px;
+    height: 400px;
+}
+#message-input{ 
+    width: 100%;
+    height: 100px;  
+}
+#shift-input{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    font-size: 24px;
+    
+}
+#submit-button{
+    margin-top: 20px;
+    padding: 25px;
+    height: 20px;
+}
+li{
+    list-style-type: square;
+}

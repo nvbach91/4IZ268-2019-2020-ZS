@@ -1,0 +1,55 @@
+.input-and-button{
+    float: left;
+    background-color: rgb(238, 227, 227);
+    padding: 20px;
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+#cipher{
+    width: 100%;
+    height: 100px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+#key{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#decipher{
+    resize: none;
+    background-color: rgb(54, 154, 235);
+    color: white;
+    font-size: 20px;
+    border: none;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+#result{
+    clear: both;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    padding-top: 35px;
+    height: 70px;
+    border-bottom: 2px grey solid;
+    border-top: 2px grey solid;
+}
+
+#decipher:hover{
+    background-color: rgb(64, 64, 177);
+    /* color: rgb(54, 154, 235); */
+}
+
+#decipher:focus #key:focus {
+    border: 3px solid #555;
+}
+
+/* result{
+
+} */

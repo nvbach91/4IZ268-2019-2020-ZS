@@ -1,0 +1,72 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: silver;
+}
+
+.Card-Middle{
+    max-width: 800px;
+    margin:auto;
+    height: 600px;
+    background-color: gray;
+}
+
+.Card-Middle textarea {
+    margin-left: 100px;
+    max-width: 600px;
+    min-width: 600px;
+    max-height: 300px;
+    min-height: 300px;
+}
+
+.Card-Middle input {
+    margin-left: 100px;
+    max-width: 100px;
+    min-width: 100px;
+    margin-top: 50px;
+    
+}
+
+.Card-Middle h2{
+    font-size: 52px;
+    padding-top: 20px;
+    text-align: center;
+    color: blanchedalmond;
+}
+
+.result{
+    text-align: center;
+    color:white;
+}
+
+.Card-Bottom{
+    max-width: 800px;
+    margin:10px auto;
+    height: 600px;
+    background-color: gray;
+}
+
+.Card-Bottom textarea {
+    margin-left: 100px;
+    max-width: 600px;
+    min-width: 600px;
+    max-height: 300px;
+    min-height: 300px;
+}
+
+.Card-Bottom input {
+    margin-left: 100px;
+    max-width: 100px;
+    min-width: 100px;
+    margin-top: 50px;
+    
+}
+
+.Card-Bottom h2{
+    font-size: 52px;
+    padding-top: 20px;
+    text-align: center;
+    color: blanchedalmond;
+}

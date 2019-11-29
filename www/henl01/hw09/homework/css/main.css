@@ -1,0 +1,40 @@
+body {
+    font-family: sans-serif;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: 10px auto;
+    background-color: rgb(238, 238, 238);
+    border: 20px solid transparent;
+}
+
+.content * {
+    margin: 5px 0;
+}
+
+textarea, input {
+    font-size: 16px;
+    padding: 10px;
+}
+
+button {
+    width: 100px;
+    height: 40px;
+    background-color: teal;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.result {
+    border-top: 3px solid rgb(238, 238, 238);
+    border-bottom: 3px solid rgb(238, 238, 238);
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}

@@ -1,0 +1,126 @@
+* {
+    box-sizing: border-box;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    max-width: 1280px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+}
+
+header {
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: darkolivegreen;
+    margin-bottom: 20px;
+    font-size: 84px;
+    text-align: center;
+}
+
+#output {
+    width: 100%;
+    height: 200px;
+    margin-top: 20px;
+    border: 2px solid #ccc;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    font-size: 36px;
+}
+
+#cipher {
+    width: 100%;
+    padding: 12px 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    padding-bottom: 150px;
+    font-size: 24px;
+}
+
+#key{
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 36px;
+}
+
+.buttons{
+    width: 30%;
+    border-radius: 5px;
+    height: 60px;
+    justify-content: space-evenly;
+    margin: 10px auto;
+}
+
+.button{
+    background-color: rgb(24, 65, 0);
+    color: white;
+    font-size: 24px;
+}
+
+@media screen and (max-width:375px){
+    #key{
+        font-size: 12px;
+    }
+    #cipher{
+        font-size: 12px;
+    }
+    header{
+        font-size: 24px;
+    }
+    .buttons{
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 376px) and (max-width:520px){
+    #key{
+        font-size: 16px;
+    }
+    #cipher{
+        font-size: 16px;
+    }
+    header{
+        font-size: 36px;
+    }
+    .buttons{
+        font-size: 14px;
+    }
+}
+@media screen and (min-width:521px) and (max-width:750px){
+    #key{
+        font-size: 24px;
+    }
+    #cipher{
+        font-size: 24px;
+    }
+    header{
+        font-size: 48px;
+    }
+    .buttons{
+        font-size: 18px;
+    }
+}

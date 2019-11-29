@@ -1,0 +1,37 @@
+* {
+    box-sizing: border-box;
+}
+h1, h2 {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+h1 {
+    color: lightseagreen;
+}
+#game-field {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.card {
+    display: flex;
+    width: 20%;
+    height: 200px;
+    background-color: lightseagreen;
+    color: black;
+    border: 5px solid white;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.images {
+    display: none;
+    cursor: auto;
+    width: 100%;
+}
+.card:hover{
+    background: rgb(19, 117, 112);
+}
+.turned .images{
+    display: flex;
+}

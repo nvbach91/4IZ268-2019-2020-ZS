@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 20px;
+    border: 5px solid red;
+}
+
+.window {
+    width: 600px;
+    height: 400px;
+    margin: 0 auto;
+    background-color: rgba(228, 226, 226, 0.856);
+    padding: 15px;
+}
+
+#cipher {
+    width: 95%;
+    height: 180px;
+    padding: 0px;
+}
+
+#key {
+    width: 95%;
+    height: 25px;
+    margin-top: 8px;
+}
+
+#decipher {
+    margin-top: 20px;
+    height: 50px;
+    width: 100px;
+    background-color: #1f5372;
+    border: none;
+    color: white;
+}
+
+.morph {
+    margin: 10px auto;
+    border-top: 3px solid gainsboro;
+    border-bottom: 3px solid gainsboro;
+    text-align: center;
+}
+
+p {
+    font-style: italic;
+}

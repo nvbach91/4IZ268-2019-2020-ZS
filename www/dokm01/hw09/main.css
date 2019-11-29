@@ -1,0 +1,47 @@
+body {
+    font-family: sans-serif;
+    
+}
+
+.container>div {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(197, 219, 226);
+    padding-bottom: 20px;
+}
+
+.cipher, .result {
+    margin: auto;
+    padding: 10px;
+    width: 80%;
+    height: 150px;
+}
+
+.key {
+    margin: auto;
+    padding: 10px;
+    width: 20%;
+    height: 10px;
+}
+
+.button {
+    margin: 10px;
+    max-width: 25%;
+    height: justify;
+    font-size: 22px;
+    margin: auto;
+}
+
+label {
+    padding: 10px;
+}
+h1{
+    padding-bottom: 20px;
+    margin: auto;
+    text-align: center;
+}
