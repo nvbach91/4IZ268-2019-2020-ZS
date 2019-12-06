@@ -30,6 +30,35 @@ App.createPokemon = (pokemonName) => {
     });
     pokemon.append(pokemonRemoveButton);
 
+    const spinner = $('<div class="spinner"></div>');
+    pokemon.append(spinner);
+    $.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}/`).done((resp) => {
+        // console.log(resp.name);
+        // console.log(resp.height);
+        // console.log(resp.id);
+        // console.log(resp.weight);
+        const pokemonInfo = $(`<div class="pokemon-info">
+            <div class="pi-row">
+                <label>Name</label>
+                <input value="${resp.name}">
+            </div>
+            <div class="pi-row">
+                <label>Height</label>
+                <input value="${resp.height}">
+            </div>
+            <div class="pi-row">
+                <label>ID</label>
+                <input value="${resp.id}">
+            </div>
+            <div class="pi-row">
+                <label>Weight</label>
+                <input value="${resp.weight}">
+            </div>
+        </div>`);
+        pokemon.append(pokemonInfo);
+    }).always(() => {
+        spinner.remove();
+    });
 
 };
 
