@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap&subset=cyrillic,cyrillic-ext,latin-ext');
+
+body {
+    max-width: 1920px;
+    display: block;
+    margin: 0 auto;
+    background-color: #404552;
+    font-family: "roboto", sans-serif;
+}
+#email {
+}
+.sprava_uzivatele {
+    height: 50px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-around;
+}
+.image {
+    display: inline-block;
+    cursor: pointer;
+}
+.image img {
+    height: 50px;
+    width: auto;
+    display: inline-block;
+    position: relative;
+    filter: invert(0.75);
+    margin-top: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+p#pozdrav {
+    position: relative;
+    color: #5294e2;
+    display: inline-block;
+    margin-top: 5px;
+    line-height: 50px;
+}
+.zprava_uzivatele {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+.zprava_uzivatele form {
+    width: 100%;
+    position: relative;
+}
+.zprava_uzivatele form input {
+    box-sizing: border-box;
+    width: 100%;
+    display: block;
+    padding: 10px 40px;
+    border-radius: 60px;
+    border: none;
+    margin: 0 auto 5px auto;
+    position: relative;
+}
+.zprava_uzivatele form textarea {
+    box-sizing: border-box; 
+    width: 100%;
+    display: block;
+    padding: 10px 40px;
+    resize: none;
+    margin: 0 auto 5px auto;
+    position: relative;
+    border-radius: 15px;
+}
