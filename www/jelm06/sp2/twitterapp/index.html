@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>PLTweets</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/twitterApp.css" />
+
+</head>
+<body>
+<div id="app">
+    <header>
+        <h1>Premier League Tweets</h1>
+        <p>Select two teams to find your match tweets!</p>
+    </header>
+    <main>
+        <div class="team-buttons">
+            <button id="btn-bou">BOU</button>
+            <button id="btn-ars">ARS</button>
+            <button id="btn-ava">AVA</button>
+            <button id="btn-brh">BRH</button>
+            <button id="btn-bur">BUR</button>
+            <button id="btn-che">CHE</button>
+            <button id="btn-cry">CRY</button>
+            <button id="btn-eve">EVE</button>
+            <button id="btn-lei">LEI</button>
+            <button id="btn-liv">LIV</button>
+            <button id="btn-mci">MCI</button>
+            <button id="btn-mun">MUN</button>
+            <button id="btn-new">NEW</button>
+            <button id="btn-nor">NOR</button>
+            <button id="btn-shu">SHU</button>
+            <button id="btn-sou">SOU</button>
+            <button id="btn-tot">TOT</button>
+            <button id="btn-wat">WAT</button>
+            <button id="btn-whu">WHU</button>
+            <button id="btn-wlv">WLV</button>
+        </div>
+        <p id="current-hashtag-value">Your hashtag is: #</p>
+        <div class="action-buttons">
+            <button id="btn-clear">CLEAR</button>
+            <button id="btn-search">SEARCH</button>
+        </div>
+
+        <div class="tweets">
+        </div>
+
+    </main>
+    <footer>2019 &copy; Martin Jelínek</footer>
+</div>
+<script></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/sha1hmac.js"></script>
+<script src="js/searchTweets.js"></script>
+<script src="js/basicButtons.js"></script>
+
+</body>
+</html>

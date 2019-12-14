@@ -1,0 +1,88 @@
+* {
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+
+header {
+    width: 40em;
+    margin: 0 auto;
+    border: none;
+    background-color: #00acee ;
+    color: white;
+}
+
+header p {
+    padding: 10px;
+    margin: 0;
+}
+
+h1 {
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 0px
+}
+
+main {
+    min-height: 100vh;
+}
+
+button {
+    background-color: darkslategray;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    color: white;
+}
+
+.team-buttons {
+    margin: 10px auto 0;
+    width: 800px;
+}
+
+.team-buttons button {
+    width: 60px;
+    margin: 5px;
+}
+
+.team-buttons button:hover {
+    background-color: #cccccc;
+    color: black;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+.action-buttons {
+    display: inline-block;
+    margin-top: 10px;
+    max-width: 30em;
+}
+
+.action-buttons button {
+    margin-right: 0em;
+    background-color: #00acee;
+    width: 10em;
+}
+
+.action-buttons p {
+    margin: 0 auto;
+    padding: 0;
+}
+
+.tweets {
+    visibility: hidden;
+    margin: 6em auto 0;
+    max-width: 50em;
+    border: 1px solid darkslategray;
+}
+
+footer {
+    margin-top: 20px;
+    color: white;
+    background-color: darkslategray;
+    padding: 20px 0;
+}
