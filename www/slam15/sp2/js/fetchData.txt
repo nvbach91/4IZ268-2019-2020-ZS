@@ -1,0 +1,8 @@
+// fetch user data using Facebook Graph API 
+export const getUser = () => {};
+
+// fetch user's location using Graph API
+export const getLocation = () => {};
+
+// fetch user's latest post using Graph API
+export const getLatestPosts = () => {};
