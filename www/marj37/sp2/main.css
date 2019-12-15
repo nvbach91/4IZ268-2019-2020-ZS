@@ -1,0 +1,23 @@
+*{
+    box-sizing: border-box;
+}
+
+h1{
+    text-align: center;
+    padding-top: 50px;
+}
+.col, .col-5, .col-12{
+    background-color: lightcyan;
+    border: 1px solid lightgray;
+    margin: 5px;
+}
+.col-12{
+    height: 150px;
+}
+.layout{
+    max-width: 1280px;
+    margin: 0 auto;
+}
+#m{
+    height: 380px
+}
