@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    font-family: 'Roboto';
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.logo {
+    position: absolute;
+    height: 70%;
+}
+
+img {
+    height: 80px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #306030;
+    padding-bottom: 25px;
+}
+
+ul {
+    list-style-type: none;
+    text-decoration: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+}
+
+nav li {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 15px;
+}
+
+.layout {
+    max-width: 1024px;
+    margin: auto;
+    display: flex;
+    width: 100%;
+    background-color: #f0f0d8;
+    margin-top: 20px;
+    border-radius: 5px
+}
+
+.search {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-bar {
+    flex: 1 70%;
+    padding: 20px;
+}
+
+.create-button {
+    padding: 20px;
+}
+
+#patient-name-input {
+    width: 80%;
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#new-patient-btn {
+    background-color: #e68331;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #e67e29;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 2px 6px 0 rgba(0, 0, 0, 0.19);
+}
+
+.list {
+    max-width: 1024px;
+    margin: auto;
+    display: flex;
+    width: 100%;
+    background-color: #f0f0d8;
+    margin-top: 20px;
+    border-radius: 5px
+}
+
+#patient-list {
+    width: 100%;
+    text-align: left;
+    padding: 20px;
+}
+
+.options {
+    list-style-type: none;
+    text-decoration: none;
+    padding-left: 0;
+}
+
+.options li {
+    display: inline-block;
+    font-size: 10px;
+}
+
+.options a {
+    color: black;
+}
+
+th, td {
+    width: 25%;
+}
+
+.btn-primary {
+    background-color: #306030;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #234623;
+}

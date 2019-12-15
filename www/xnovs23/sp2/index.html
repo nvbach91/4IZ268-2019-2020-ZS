@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Card index for ">
+    <meta name="keywords" content="card index, patients">
+    <meta name="author" content="Silvia Novakova">
+    <title>Document</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:thin,light,regular,medium,bold,black' rel='stylesheet'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+
+
+</head>
+
+<body>
+    <header>
+        <div class="logo"><a href="index.html"><img src="logo.jpg" alt="Juraj Makovický"></a></div>
+        <nav>
+            <ul>
+                <li><a href="">Účet</a></li>
+            </ul>
+        </nav>
+        <div class="clear"></div>
+    </header>
+    <main>
+        <div class="layout">
+            <div class="search">
+                <div class="search-item search-bar">
+                    <input id="patient-name-input" placeholder="Meno pacienta...">
+                </div>
+                <div class="search-item create-button">
+                    <button id="new-patient-btn" data-toggle="modal" data-target="#exampleModal"
+                        data-whatever="@getbootstrap"> Založiť nového pacienta</button>
+                </div>
+            </div>
+        </div>
+        <div class="list">
+            <table id="patient-list">
+                <tr>
+                    <th>Krstné meno</th>
+                    <th>Priezvisko</th>
+                    <th>Dátum založenia</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <ul class="options">
+                            <li><a href="">Editovať &#124;</a></li>
+                            <li><a href="" data-toggle="modal" data-target="#staticBackdrop">Vymazať &#124;</a></li>
+                            <li><a href="">Zobraziť cvičenia></a></li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Modal Delete Patient-->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Výmaz pacienta z kartotéky</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Naozaj si prajete natrvalo vymazať tohto pacienta z kartotéky?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Áno</button>
+                        <button type="button" class="btn btn-primary">Nie</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal New Patient -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Založiť nového pacienta</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="patient-first-name" class="col-form-label">Krstné meno</label>
+                                <input type="text" class="form-control" id="patient-first-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="patient-last-name" class="col-form-label">Priezvisko</label>
+                                <input type="text" class="form-control" id="patient-last-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="create-date" class="col-form-label">Dátum založenia</label>
+                                <input type="text" class="form-control" id="create-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="exercise" class="col-form-label">Cvičenie</label>
+                                <input type="text" class="form-control" id="exercise">
+                            </div>
+                            <div class="form-group">
+                                <label for="add-note" class="col-form-label">Poznámka</label>
+                                <input type="text" class="form-control" id="add-note">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Uložiť</button>
+                        <button type="button" class="btn btn-primary">Zrušiť</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
