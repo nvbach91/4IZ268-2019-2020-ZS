@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SP2 - lasj03</title>
+    <script type="text/javascript" src="https://api.mapy.cz/loader.js"></script>
+    <script type="text/javascript">
+        Loader.load(null, {
+            suggest: true
+        });
+    </script>
+    <script type="text/javascript">
+        Loader.load();
+    </script>
+    <link rel="stylesheet" href="resources/main.css">
+</head>
+
+<body id="advanced-geocoding">
+
+    <form id="form">
+        <p>
+            <label>Hledaná oblast: <input type="text" id="query" value="Radlická 2" /></label>
+            <input type="submit" value="Hledat" />
+        </p>
+    </form>
+    <div class="forecast-wrapper"></div>
+    <script src="resources/pokus.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</body>
+
+</html>
