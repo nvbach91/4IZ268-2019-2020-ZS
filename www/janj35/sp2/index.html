@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script src="jquery.js"></script>
+    <script src="script.js"></script>
+    <script type="module"  src="mine.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Hedání min</title>
+  </head>
+  <body>
+
+
+  <div id="frontpanel">
+    <label for="rowcount">Hráč</label>
+    <input type="text" id="player" name="rowcount" value="Kuba">
+    <label for="rowcount">Počet řádků</label>
+    <input type="text" id="rowcount" name="rowcount" value="10">
+    <label for="colcount">Počet sloupců</label>
+    <input type="text" id="colcount" name="colcount" value="10">
+    <button id="start" type="button" name="button">Načíst hru</button>
+    <div id="timer">
+      <span id="time">0</span>
+    </div>
+    <table id="gameboard">
+
+    </table>
+    <canvas id="model" width="300" height="300"></canvas>
+
+  </div>
+
+  <div id="highscore">
+    <table id="scores" rules="rows">
+      <thead>
+          <th>Jméno</th><th>Level</th><th>Čas</th>
+      </thead>
+      <tbody id="score_records">
+        <tr>
+          <td>Kuba</td>
+          <td>20x20</td>
+          <td>14s</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+  </body>
+</html>
