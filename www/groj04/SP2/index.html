@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link href="main.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="bordered">
+      <div class="calculator-body">
+        <div class="output">
+          <div data-previous-operand class="previous-operand">123+</div>
+          <div data-current-operand class="current-operand">456</div>
+        </div>
+        <button data-all-clear class="btn btn-danger">AC</button>
+        <button data-operation class="btn btn-primary">+</button>
+        <button data-operation class="btn btn-primary">-</button>
+        <button data-delete class="btn btn-warning">DEL</button>
+        <button data-number class="btn btn-light">1</button>
+        <button data-number class="btn btn-light">2</button>
+        <button data-number class="btn btn-light">3</button>
+        <button data-operation class="btn btn-primary">*</button>
+        <button data-number class="btn btn-light">4</button>
+        <button data-number class="btn btn-light">6</button>
+        <button data-number class="btn btn-light">5</button>
+        <button data-operation class="btn btn-primary">÷</button>
+        <button data-number class="btn btn-light">7</button>
+        <button data-number class="btn btn-light">8</button>
+        <button data-number class="btn btn-light">9</button>
+        <button data-number class="btn btn-secondary">.</button>
+        <button data-operation class="btn btn-primary">x<sup>2</sup></button>
+        <button data-number class="btn btn-light">0</button>
+        <button data-operation class="btn btn-primary">√x</button>
+        <button data-equals class="btn btn-success">=</button>
+      </div>
+    </div>
+
+    <script src="main.js" defer></script>
+  </body>
+</html>
