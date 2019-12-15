@@ -1,0 +1,138 @@
+*{
+  font-family: Product Sans;
+  box-sizing: border-box;
+}
+:root {
+  --header1 : #67758D;
+  --header2 : #1d486d;
+  --secondary : #8899B7;
+  --redtext : #EF5757;
+  --greentext : #39B54A;
+  --blue : #3794FC;
+  --violet : #9D60FB;
+  --yellow : #DDAB24;
+  --background: #F6F9FC;
+  --border: #eaf0f7;
+  --modal-blur-background : #C0C0C070;
+  --green-button-border: #6CA45C;
+  --red-button-border: #C05350;
+}
+
+body{
+  /* background-image: url("../img/signup_backgnd.png"); */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+  /* overflow:hidden; */
+  /* text-align: center; */
+  margin: 0;
+  padding:0;
+  /* justify-content: center; */
+}
+
+.signup-container{
+  width: 100%;
+  max-width: 700px;
+  background-color: var(--blue);
+  position: relative;
+  /* display: flex; */
+  height: 100%;
+  text-align: center;
+  padding-left: 120px;
+  padding-right: 120px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding-top: 100px;
+  padding-bottom: 150px;
+}
+
+@media screen and (max-width: 800px){
+  .signup-container{
+    width: 100%;
+    max-width: none;
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+
+.signup-capture{
+  color: white;
+  font-size: 50px;
+}
+
+.usr_lbl,
+.pswrd_lbl,
+.name_lbl,
+.surname_lbl{
+  color:white;
+  font-size: 15px;
+  width: 100%;
+  text-align: left;
+  /* background:green; */
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+input[type=text], input[type=password]{
+  outline: none;
+  font-size: 20px;
+  line-height: 35px;
+  border: 0px #999 solid;
+  border-radius: 10px;
+  padding-left: 10px;
+  width: 100%;
+  background: white;
+  margin-bottom: 20px;
+}
+
+.oznameni{
+  color: red;
+  font-size: 18px;
+}
+
+input[type=submit]{
+  font-size: 25px;
+  background: var(--blue);
+  border: 1px white solid;
+  border-radius: 10px;
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 25px;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input[type=submit]:hover{
+  cursor: pointer;
+}
+
+.alreadyex{
+  color: white;
+  /* margin-top: 30px; */
+}
+
+.studoblog-capture{
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  color: var(--blue);
+  font-size: 35px;
+}
+
+.logo-container{
+  width: calc(100%);
+  /* margin-top: 100px; */
+}
+
+.logo{
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  max-width:160px;
+  /* margin: 0 auto; */
+}

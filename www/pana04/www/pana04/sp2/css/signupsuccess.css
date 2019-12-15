@@ -1,0 +1,54 @@
+*{
+  font-family: Product Sans;
+  box-sizing: border-box;
+}
+
+:root {
+  --header1 : #67758D;
+  --header2 : #1d486d;
+  --secondary : #8899B7;
+  --redtext : #EF5757;
+  --greentext : #39B54A;
+  --blue : #3794FC;
+  --violet : #9D60FB;
+  --yellow : #DDAB24;
+  --background: #F6F9FC;
+  --border: #eaf0f7;
+  --modal-blur-background : #C0C0C070;
+  --green-button-border: #6CA45C;
+  --red-button-border: #C05350;
+}
+
+body{
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.logo{
+  width:150px; margin-top:40px; margin-bottom:40px;
+}
+
+.back{
+  color: white;
+}
+
+.message-container{
+  width: 900px;
+  height: 700px;
+  text-align: center;
+  vertical-align: center;
+  background-color: var(--blue);
+  margin-left: 380px;
+  margin-top: 100px;
+  /* justify-content: center; */
+  /* position: absolute; */
+}
+
+.message{
+  color:white;
+  font-size: 50px;
+  font-weight: bold;
+  margin-top: 105px;
+  /* position: absolute; */
+}
