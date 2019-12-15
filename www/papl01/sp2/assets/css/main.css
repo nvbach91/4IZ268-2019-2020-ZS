@@ -1,0 +1,114 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    width: 80%;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: seagreen 5px solid;
+    border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    font-size: 15px;
+}
+
+.wrapper_top {
+    display: flex;
+    flex-direction: row;
+    color: salmon;
+    align-items: center;
+    padding: 10px;
+}
+
+.wrapper_body {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px;
+}
+
+.wrapper_map {
+    order: 1;
+    flex: 4;
+}
+
+#map {
+    width: 730px;
+    height: 620px;
+}
+
+.start,
+.destination {
+    width: 200px;
+    height: 20px;
+}
+
+.destination {
+    margin-left: 20px;
+}
+
+.search {
+    margin-left: 70px;
+    width: 70px;
+    height: 40px;
+}
+
+.save {
+    margin: auto;
+    width: 200px;
+    height: 40px;
+}
+
+.wrapper_data {
+    order: 2;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.wrapper_data {
+    border: black 1px solid;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.general_information_info {
+    height: 200px;
+    border: 2px black solid;
+    border-radius: 10px;
+}
+
+.saved_points_info,
+.saved_trips_info {
+    height: 100px;
+    border: 2px black solid;
+    border-radius: 10px;
+}
+
+.buttons {
+    margin-top: 10px;
+    display: flex;
+}
+
+.delete,
+.load {
+    width: 90px;
+    height: 50px;
+}
+
+.button1 {
+    flex: 1;
+    text-align: center;
+}
+
+.button1 {
+    flex: 1;
+    text-align: center;
+}
