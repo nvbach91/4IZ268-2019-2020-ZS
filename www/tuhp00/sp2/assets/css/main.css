@@ -1,0 +1,109 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    color: white;
+    font-family: roboto;
+}
+
+.header-left {
+    float: left;
+    margin-left: 5px;
+}
+
+.header-right {
+    float: right;
+}
+
+header a {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(44, 3, 194);
+}
+
+header a:hover {
+    background-color: rgb(51, 50, 51);
+    border-radius: 5px;
+    color: white;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 5%;
+}
+
+footer a:hover {
+    background-color: white;
+    border-radius: 5px;
+    color: rgb(51, 50, 51);
+}
+
+.container {
+    background-color: rgb(51, 50, 51);
+    margin: 15px 0;
+    padding: 10px 0;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border: 5px solid grey;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    background-color: white;
+}
+
+input {
+    width: 100%;
+    border: none;
+    border-radius: 15px;
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+input:focus {
+    outline: none;
+}
+
+button {
+    border: none;
+    background: none;
+    color: grey;
+    height: 20px;
+}
+
+button:hover {
+    color: black
+}
+
+.movie-list {
+    display: table;
+    clear: both;
+    padding: 10px;
+}
+
+.movie-box {
+    float: left;
+    width: 25%;
+    height: 400px;
+    background-color: rgb(51, 50, 51);
+}
+
+.movie-box-info {
+    border: 10px solid white;
+    text-align: center;
+    height: 400px;
+}
+
+.movie-box-info img {
+    height: 260px;
+    width: 90%;
+    margin-top: 10px;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Movie Database</title>
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.0/css/all.css">
+</head>
+<body>
+    <header>
+        <div>
+            <div class="header-left">
+                <a href="index.html">Movie Database</a>
+            </div>
+            <div class="header-right">
+                <a href="favorite.html">Favorite Movies</a>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <h3>Search for any movie</h3>
+            <form id="search">
+                <input type="text" id="movie-input" placeholder="Search movie...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </header>
+
+    <main>
+        <div>
+            <div id="movies" class="movie-list"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-menu">
+                <a href="index.html">Movie Database</a>
+                <a href="favorite.html">Favorite Movies</a>
+            </div>
+            <div>
+                <p>&copy; 2019 Tuháček Patrik</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>
