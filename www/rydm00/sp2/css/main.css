@@ -1,0 +1,121 @@
+* {
+    box-sizing: border-box;
+}
+body, html {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    font-family: Verdana, Tahoma, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.left-info {
+    width: 35%;
+    height: 100%;
+    background-image: url('../img/clouds.jpg');
+    background-size: cover;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    border-right: 5px solid #07394C;
+}
+.start-container {
+    margin: 20px;
+    margin-bottom: 35px;
+}
+.mapycz {
+    width: 65%;
+    height: 100%;
+}
+h1 {
+    color: #07394C;
+    margin-top: 0;
+    font-size: 40px;
+    font-variant: small-caps;
+}
+.intro-paragraph {
+    font-size: 17px;
+}
+.delete-button, .location-button {
+    margin-top: 40px;
+    padding: 10px;
+    font-size: 15px;
+    color: white;
+    background-color: #07394C;
+    border-radius: 10px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+.delete-button:hover, .location-button:hover {
+    background-color: #696969;
+    transition: background-color 200ms linear;
+}
+.markers-area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.wrapper-destination1, .wrapper-destination2 {
+    display: flex;
+    height: 150px; 
+    background-color: #8CA4C3;
+    width: 100%;
+    margin: 20px;
+    text-align: center;
+    word-wrap: break-word;
+    border-radius: 15px;
+}
+.weather-destination1, .weather-destination2, .time-destination1, .time-destination2 {
+    width: 50%;
+}
+.weather-description, .error, .date-time {
+    margin: 10px;
+}
+.weather-icon {
+    width: 100px;
+}
+.spinner {
+    border-radius: 100%;
+    margin: 20px auto;
+    width: 50px;
+    height: 50px; 
+    border-left: 10px solid #07394C;
+    border-right: 10px solid #07394C;
+    border-top: 10px solid #8CA4C3;
+    border-bottom: 10px solid #8CA4C3; 
+    animation: spinning 1s linear infinite;
+  }
+  @keyframes spinning {
+    from { 
+      transform: rotate(0deg); 
+    }
+      to { 
+        transform: rotate(360deg); 
+    }
+  }
+.svg-calLoader {
+    width: 200px;
+    height: 200px;
+    margin-top: 200px;
+    animation: 2s linear infinite loader-spin;
+}
+.cal-loader__path {
+    animation: 2s infinite loader-path;
+}
+@keyframes loader-spin {
+    to{
+        transform: rotate(360deg);
+   }
+}
+@keyframes loader-path {
+    0%{
+        stroke-dasharray: 0, 580, 0, 0, 0, 0, 0, 0, 0;
+   }
+    50%{
+        stroke-dasharray: 0, 450, 10, 30, 10, 30, 10, 30, 10;
+   }
+    100%{
+        stroke-dasharray: 0, 580, 0, 0, 0, 0, 0, 0, 0;
+   }
+}
