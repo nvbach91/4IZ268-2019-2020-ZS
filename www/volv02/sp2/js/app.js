@@ -1,7 +1,4 @@
 const apiKey = '21f6de551a459859c11aa47bc21a1d33';
-const now = new Date();
-// let currentDay = now.getFullYear()+'-'+now.getMonth()+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds();
-const currentDay = Math.floor(Date.now() / 1000);
 
 window.addEventListener('load', () => {
     let long;
@@ -9,18 +6,29 @@ window.addEventListener('load', () => {
     let timeZone = document.querySelector('.timeZone')
     let temperatureSection = document.querySelector('.temperature-degree');
     let temperatureSpan = document.querySelector('.temperature-section span');
-
     let nextDayInfo = document.querySelector('.fiveDayInfo');
     let iconWether = document.querySelector('.icon_main');
     let iconDescription = document.querySelector('.icon_text');
+    var api = '';
+    const searchedValue = document.querySelector('.searchInput');
+    var searchResult;
 
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-            long = position.coords.longitude;
-            lat = position.coords.latitude;
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                long = position.coords.longitude;
+                lat = position.coords.latitude;
+                api = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&APPID=${apiKey}&cnt=40`;
+                getWeather();
+                citySearch();
+            },
+            function (error) {
+                citySearch();
+                alert(error.message);
+            }
+        );
 
-            const api = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&APPID=${apiKey}&cnt=40`;
-
+        function getWeather() {
             fetch(api)
                 .then(response => {
                     return response.json();
@@ -100,25 +108,33 @@ window.addEventListener('load', () => {
                         }
                     }
                 });
+        }
 
-        });
-    };
+        function citySearch() {
+            searchedValue.addEventListener('change', () => {
+                const apiSearc = `https://api.teleport.org/api/cities/?search=${searchedValue.value}`;
 
-    const searchedValue = document.querySelector('.searchInput');
+                fetch(apiSearc)
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
 
-    searchedValue.addEventListener('change', () => {
-    const apiSearc = `https://api.teleport.org/api/cities/?search=${searchedValue.value}`;
+                        let searchResult = data._embedded["city:search-results"][0].matching_full_name.split(',')[0];
+                        searchResult = searchResult.split(',')[0];
+                        console.log(searchResult)
+                        console.log(data)
 
-        fetch(apiSearc)
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            console.log(data._embedded["city:search-results"][0].matching_full_name)
-        })
-    });
+                        api = `http://api.openweathermap.org/data/2.5/forecast?q=${searchResult}&APPID=${apiKey}&cnt=40`
+                        iconWether.innerText='';
+                        nextDayInfo.innerText='';
+                        getWeather();
+                    });
+            });
+        }
 
 
+    } else {
+        alert('Geolocation is not supported for this Browser/OS version yet.');
+    }
 });
-
-
