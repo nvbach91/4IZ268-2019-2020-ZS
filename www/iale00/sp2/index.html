@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Databáze knih</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css" />
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html"><img src="images/favicon.png" width="40px" height="40px">
+                    Databáze knih</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h3 class="text-center">Vyhledávání knih</h3>
+            <form id="searchForm">
+                <input type="text" class="form-control" id="searchText" placeholder="Zadejte název, nebo autora knihy..">
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="books" class="row"></div>
+    </div>
+
+    <div class="container">
+        <div id="book" class="well"></div>
+    </div>
+</body>
+
+</html>
