@@ -1,0 +1,12 @@
+canvas {
+    height: 400px;
+    width: 750px;
+    border: 1px solid black;
+    position: relative;
+    margin-left: 500px;
+}
+
+.head {
+    height: 50px;
+    width: 50px;
+}
