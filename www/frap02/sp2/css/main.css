@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    color: blue;
+}
+
+header {
+    background-color: aquamarine;
+    padding: 40px;
+}
+
+footer {
+    background-color: aqua;
+    padding: 35px;
+}
+
+.main {
+    display: flex;
+    height: 600px;
+}
+
+.main-box1 {
+    background-color: blue;
+    flex-direction: column;
+    width: 85%;
+
+}
+
+.main-box2 {
+    flex-direction: column;
+    width: 15%;
+    display: flex;
+}
+
+.main-box2-content1 {
+    flex-direction: row;
+    background-color: black;
+    height: 50%;
+    color: white;
+}
+
+.main-box2-content2 {
+    flex-direction: row;
+    background-color: blueviolet;
+    height: 50%;
+}
