@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: trebuchet ms;
+}
+body {
+  width: 900px;
+  position: realtive;
+  margin: 0 auto;
+}
+table {
+  margin: 0 auto 10px auto;
+  border: 1px solid lightgreen;
+}
+td {
+  width: 6px;
+  height: 6px;
+  border: 1px solid #fff;
+  cellpadding: 0;
+  cellspacing: 0;
+}
+td.snakeCell {
+  background: #000;
+  -moz-border-radius: 5px;
+  border: 1px solid #000;
+}
+td.snakeHead {
+  background: red;
+  -moz-border-radius: 5px;
+  border: 1px solid red;
+}
+td.fruitCell {
+  background: green;
+  -moz-border-radius: 5px;
+  border: 1px solid green;
+}
+
+#scoreBoard {
+  box-shadow: 0 -3px 5px #aaa;
+  width: 482px;
+  margin: 50px auto 0 auto;
+  border: 1px solid #ccc;
+  background: black;
+  font-weight: bold;
+  padding: 10px;
+  color: yellow;
+}
+.gameOver {
+  font-weight: bold;
+  position: absolute;
+  top: 250px;
+  left: 46.5%;
+  background: black;
+  color: yellow;
+  width: 150px;
+  height: 50px;
+  text-align: center;
+  padding-top: 15px;
+}
