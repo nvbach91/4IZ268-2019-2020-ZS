@@ -1,8 +1,6 @@
-
-
-let hashtagLabelValue = "Your hashtag is: #";
-let teamsChosen = 0;
-let currentBtnSelected = "";
+var hashtagLabelValue = "Your hashtag is: #";
+var teamsChosen = 0;
+var currentBtnSelected = "";
 var hashtagValue = "";
 
 
@@ -10,7 +8,7 @@ var hashtagValue = "";
  * Handles all team-buttons and creates hashtags.
  */
 function addToCurrentHashtag() {
-    let tappedBtnText = $(this).text();
+    var tappedBtnText = $(this).text();
     // the user can select only two teams, there can not be two same teams in one hashtag
     if (teamsChosen < 2 && currentBtnSelected !== tappedBtnText) {
         hashtagLabelValue += tappedBtnText;
@@ -34,11 +32,14 @@ function clearCurrentHashtag() {
     teamsChosen = 0;
     hashtagLabelValue = "Your hashtag is: #";
     $('#current-hashtag-value').text(hashtagLabelValue);
+    hashtagValue = '';
 }
 
-App.init = function () {
+init = function () {
     $('#btn-clear').click(clearCurrentHashtag);
     $('#btn-search').click(search);
+    $('#btn-login').click(login);
+
     $('#btn-bou').click(addToCurrentHashtag);
     $('#btn-ars').click(addToCurrentHashtag);
     $('#btn-ava').click(addToCurrentHashtag);
@@ -63,6 +64,6 @@ App.init = function () {
 
 $(document).ready(
     function () {
-        App.init()
+        init()
     }
 );
