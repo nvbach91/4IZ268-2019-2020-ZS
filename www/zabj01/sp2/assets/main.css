@@ -1,0 +1,436 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+	font-size: 25px;
+	text-align: center;
+}
+
+h3 {
+	font-size: 20px;
+}
+
+a {
+	color: black;
+}
+
+p.author {
+	text-align: center;
+	color: rgb(100,100,100);
+}
+
+.description {
+	text-align: justify;
+}
+
+.logo-container {
+	width: 100%;
+	border-bottom: 1px solid rgb(215,215,215);
+}
+
+.logo {
+	padding-top: 20px;
+	margin: 0 auto;
+	max-width: 300px;
+}
+
+.logo > img {
+	width: 100%;
+}
+
+.logo > img:hover {
+	cursor: pointer;
+}
+
+nav {
+	display: flex;
+	flex-direction: column;
+	font-size: 18px;
+}
+
+nav > div {
+	width: 100%;
+	text-align: center;
+	border-bottom: 1px solid black;
+	padding: 10px 0px;
+}
+
+nav > div:hover {
+	background: black;
+	color: white;
+	cursor:pointer;
+}
+
+nav > div.on {
+	background: black;
+	color: white;
+}
+
+footer {
+	width: 100%;
+	padding: 10px;
+	border-top: 1px solid rgb(215,215,215);
+}
+
+footer p {
+	font-size: 13px;
+	text-align: center;
+	color: rgb(95,95,95);
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+footer p a {
+	color: rgb(95,95,95);
+}
+
+main {
+	padding: 10px;
+	margin: 20px auto;
+	max-width: 980px;
+}
+
+main ul {
+	font-size: 20px;
+	list-style-type: none;
+}
+
+main ul li {
+	padding: 10px 0px;
+	border-bottom: 1px solid rgb(100,100,100);
+}
+
+main ul li:hover  {
+	text-decoration: underline;
+	background: rgb(240,240,240);
+	cursor: pointer;
+}
+
+main ul li.load-button {
+	text-align: center;
+	border-bottom: 0px none;
+}
+
+main ul li.load-button:hover {
+	background: initial;
+	cursor: initial;
+}
+
+button {
+	cursor: pointer;
+	padding: 10px;
+	border-radius: 5px;
+	border: 0px none;
+	font-size: 16px;
+	background: black;
+	color: white;
+}
+
+button:hover {
+	opacity: 0.5;
+}
+
+button.secondary {
+	background: rgb(210, 210, 210);
+	color: black;
+}
+
+.breadcrumbs {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin: 10px 0px;
+}
+
+.breadcrumbs .link {
+	text-decoration: underline;
+}
+
+.breadcrumbs .link:hover {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.breadcrumbs .arrow {
+	padding: 0px 10px;
+}
+
+.title {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	padding: 10px;
+	border-bottom: 1px solid black;
+}
+
+.title .headline h1 {
+	margin-top: 10px;
+	text-align: left;
+}
+
+.title .date-input {
+	padding-top: 10px;
+}
+
+input[type="text"], select {
+	padding: 10px;
+	font-size: 16px;
+	border-radius: 5px;
+	border: 1px solid rgb(215,215,215);
+}
+
+.books {
+	display: flex;
+	flex-direction: column;
+	margin: 20px 0px;
+}
+
+.books .book {
+	margin-top: 10px;
+	padding: 10px 0px;
+	border-bottom: 1px solid rgb(215,215,215);
+}
+
+.books .book:last-of-type {
+	border-bottom: 0px none;
+}
+
+.books .book h3 {
+	padding: 10px 0px;
+	text-align: center;
+}
+
+.books .book .book-image {
+	max-width: 350px;
+}
+
+.books .book .book-image img {
+	width: 100%;
+}
+
+.books .book p.description {
+	padding: 10px 0px;
+}
+
+.books .book .review-button {
+	text-align: center;
+}
+
+.search-section {
+	border-bottom: 1px solid rgb(215,215,215);
+}
+
+.search-section h1 {
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.search-form {
+	display:flex;
+	flex-direction: column;
+}
+
+.search-form input, .search-form select {
+	width: 100%;
+}
+
+.search-form > div {
+	padding: 10px;
+}
+
+.search-form .button {
+	text-align: center;
+}
+
+
+.reviews {
+	margin: 20px 10px;
+}
+
+.reviews .review {
+	text-align: center;
+	border-bottom: 1px solid rgb(215,215,215);
+	padding: 15px 0px; 
+}
+
+.reviews .review:last-child {
+	border: 0px none;
+}
+
+.reviews .review h3 {
+	text-align: center;
+}
+
+.reviews .review .author {
+	padding: 10px 0px;	
+}
+
+.reviews .review .description {
+	padding: 10px 0px;	
+}
+
+.reviews .review button {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.error {
+	text-align: center;
+}
+
+.error p {
+	text-align: center;
+	margin-top: 20px;
+	font-size: 18px;
+	font-weight: bold;
+	padding-bottom: 10px;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg)
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.loader {
+	border: 5px solid rgb(49,49,49);
+	border-top: 5px solid #ccc;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+	margin: 10px auto;
+}
+
+@media screen and (min-width: 600px) {
+
+	.reviews .review {
+		text-align: left;
+	}
+
+	.reviews .review .author {
+		text-align: left;
+	}
+
+	.reviews .review button {
+		text-align: left;
+	}
+
+	.reviews .review h3 {
+		text-align: left;
+	}
+
+	.search-form {
+		flex-direction: row;
+	}
+	
+	.search-form .input {
+		width: 60%;
+	}
+
+	.search-form .input.next-button {
+		width: 80%;
+	}
+	
+	.search-form .select {
+		width: 20%;
+	}
+	
+	.search-form .button {
+		width: 20%;
+	}
+	
+	.search-form .button button {
+		width: 100%;
+	}
+
+	nav {
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	nav > div {
+		width: calc(100% / 2); 
+		border-bottom: 1px solid black;
+	}
+
+	.title {
+		flex-direction: row;
+	}
+
+	.title .headline {
+		width: 70%;
+		text-align: left;
+	}
+
+	.title .headline.only {
+		width: 100%;
+	}
+
+	.title .date-input {
+		width: 30%;
+		text-align: right;
+	}
+
+	.title .date-input input[type="text"] {
+		width: 100%;
+	}
+
+	.books .book {
+		width: 50%;
+		padding: 15px;
+		border: 0px none;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.books {
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	.books .book .review-button {
+		flex-grow: 100;
+		display:flex;
+		align-items:flex-end;
+	}
+
+	.books .book .review-button button {
+		display:inline-block;
+		margin: 0 auto;
+	}
+
+
+
+}
+
+@media screen and (min-width: 900px) {
+
+	.books .book {
+		width: calc(100% / 3);
+	}
+
+	nav {
+		flex-direction: row;
+		flex-wrap: nowrap;
+	}
+
+	nav > div {
+		width: calc(100% / 4); 
+		border-bottom: 2px solid black;
+	}
+
+}
+
