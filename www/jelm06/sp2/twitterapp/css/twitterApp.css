@@ -1,18 +1,21 @@
+
 * {
     box-sizing: border-box;
-    border-radius: 3px;
 }
 
 body {
     font-family: 'Open Sans', sans-serif;
     text-align: center;
+    min-width: 100%;
+    margin: 0;
 }
 
 header {
-    width: 40em;
-    margin: 0 auto;
-    border: none;
-    background-color: #00acee ;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #00acee;
     color: white;
 }
 
@@ -24,19 +27,65 @@ header p {
 h1 {
     text-align: center;
     padding: 10px;
-    margin-bottom: 0px
+    margin: 0;
+    width: auto;
+    height: auto;
 }
 
 main {
-    min-height: 100vh;
+    margin-top: 5em;
 }
 
 button {
-    background-color: darkslategray;
+    color: #fff;
+
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.05));
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#0C000000)";
+    border: 1px solid #3b94d9;
+
+    padding: 2em;
+}
+
+button {
+    background-color: #55acee;
     cursor: pointer;
     padding: 10px;
     border: none;
     color: white;
+    font-weight: bold;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+
+.before-login {
+    width: 30em;
+    max-width: 80%;
+    margin: 0 auto;
+    display: block;
+}
+
+.before-login button {
+    margin-bottom: 2em;
+    width: auto;
+}
+
+button:hover {
+    -moz-box-shadow: inset 4px 0px 9px -6px black;
+    -webkit-box-shadow: inset 4px 1px 9px -6px black;
+    box-shadow: inset 4px 0px 9px -4px black;
+}
+
+.after-login {
+    display: none;
+    visibility: hidden;
+}
+
+#menu {
+    margin-bottom: 1em;
 }
 
 .team-buttons {
@@ -47,13 +96,11 @@ button {
 .team-buttons button {
     width: 60px;
     margin: 5px;
+    background-color: white;
+    color: black;
 }
 
-.team-buttons button:hover {
-    background-color: #cccccc;
-    color: black;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
+#current-hashtag-value {
 }
 
 .action-buttons {
@@ -63,8 +110,8 @@ button {
 }
 
 .action-buttons button {
-    margin-right: 0em;
-    background-color: #00acee;
+    background-color: whitesmoke;
+    color: black;
     width: 10em;
 }
 
@@ -73,16 +120,84 @@ button {
     padding: 0;
 }
 
-.tweets {
-    visibility: hidden;
-    margin: 6em auto 0;
+#show-hide {
+    width: auto;
+    height: auto;
+    color: #00acee;
+    position: absolute;
+    margin-left: 0.2em;
+    right: 0.3em;
+    font-size: 2.5em;
+    top: 0.2em;
+}
+
+#show-hide:hover {
+    color: black;
+    cursor: pointer;
+}
+
+#tweets {
     max-width: 50em;
-    border: 1px solid darkslategray;
+    margin: 18em auto 3.5em;
+}
+
+.tweet {
+    background-color: lightgray;
+    margin: 10px auto 0;
+    padding: 1em;
+    width: auto;
+    text-align: justify;
+}
+
+.tweet a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #3b94d9;
+}
+
+.tweet a:hover {
+    text-decoration: underline;
+}
+
+.tweet-text {
+    margin-top: 1em;
+    font-style: italic;
+}
+
+.tweet-metadata {
+    text-align: left;
+    font-size: 0.7em;
 }
 
 footer {
-    margin-top: 20px;
+    position: fixed;
+    overflow: hidden;
+    bottom: 0;
+    width: 100%;
     color: white;
-    background-color: darkslategray;
-    padding: 20px 0;
+    background-color: #00acee;
+    padding: 0.3em;
+}
+
+@media only screen and (max-width: 800px) {
+
+    #show-hide {
+        position: relative;
+        color: white;
+    }
+
+    .team-buttons {
+        max-width: 80%;
+    }
+
+    #tweets {
+        margin-top: 30em;
+        max-width: 80%;
+    }
+}
+
+@media only screen and (max-width: 430px) {
+    .before-login {
+        margin-top: 7.7em;
+    }
 }
