@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
-import './SearchBar.scss';
+import { withStyles } from '@material-ui/core';
+import { TextField, Button, Grid } from '@material-ui/core';
+
+const styles = {
+  root: {
+    padding: '8px',
+  },
+  input: {
+    width: '100%',
+    height: '100%',
+  },
+};
 
 class SearchBarComponent extends Component {
   onFormSubmit = (event) => {
@@ -10,39 +21,41 @@ class SearchBarComponent extends Component {
   };
 
   render() {
-    const { searchPhrase, updateSearchPhrase, isSearching } = this.props;
+    const { searchPhrase, updateSearchPhrase, isSearching, classes } = this.props;
     return (
-      <div className="ui segment search-bar">
-        <form
-          onSubmit={this.onFormSubmit}
-          className="ui form grid"
-        >
-          <div className="ui row">
-            <div className="fourteen wide centered column">
-              <div className="field">
-                <input
-                  type="text"
-                  value={searchPhrase}
-                  onChange={(e) => updateSearchPhrase(e.target.value)}
-                  placeholder="Vyhledej video"
-                />
-              </div>
-            </div>
-            <div className="two wide centered column">
-              <div className="field">
-                <button
-                  className={`ui primary ${isSearching ? 'loading' : ''} ${isSearching || !searchPhrase ? 'disabled' : 'active'} button`}
-                  onClick={this.onFormSubmit}
-                >
-                  {isSearching ? 'Loading' : 'Hledej'}
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
+      <form
+        className={classes.root}
+        noValidate
+        autoComplete="off"
+        onSubmit={this.onFormSubmit}
+      >
+        <Grid container spacing={1}>
+          <Grid item xs={12} md={9}>
+            <TextField
+              label="Vyhledejte video"
+              variant="outlined"
+              value={searchPhrase}
+              onChange={(e) => updateSearchPhrase(e.target.value)}
+              placeholder="Vyhledej video"
+              className={classes.input}
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.onFormSubmit}
+              disabled={isSearching || !searchPhrase}
+              className={classes.input}
+              size="large"
+            >
+              {isSearching ? 'Loading' : 'Hledej'}
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
     );
   }
 }
 
-export default SearchBarComponent;
+export default withStyles(styles)(SearchBarComponent);

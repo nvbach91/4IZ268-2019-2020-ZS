@@ -1,5 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import { VideoItem } from '../VideoItem';
+
+const styles = {
+  root: {
+    margin: '25px auto',
+  },
+};
 
 class VideoListComponent extends Component {
   renderVideos = (searchResult) => {
@@ -9,18 +17,18 @@ class VideoListComponent extends Component {
       return (
         <VideoItem
           video={result}
-          onClick={() => onVideoSelect(result)}
+          onVideoSelect={() => onVideoSelect(result)}
         />
       )
     });
   };
 
   render() {
-    const { searchResult } = this.props;
-    if (searchResult && searchResult.length > 0) {
+    const { classes, searchResult } = this.props;
+    if (searchResult && searchResult.length) {
       return (
-        <div className="ui relaxed divided list">
-          {`I have ${searchResult.length} videos`}
+        <div className={classes.root}>
+          <h1>Nalezeno {searchResult.length} výsledků</h1>
           {this.renderVideos(searchResult)}
         </div>
       )
@@ -32,4 +40,4 @@ class VideoListComponent extends Component {
   }
 }
 
-export default VideoListComponent;
+export default withStyles(styles)(VideoListComponent);

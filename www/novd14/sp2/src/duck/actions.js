@@ -6,6 +6,8 @@ import {
   SEARCHING_VIDEOS_FAILURE,
   SEARCHING_VIDEOS_STOPPED,
   VIDEO_DETAIL_SELECT,
+  GET_FAVOURITES_VIDEOS,
+  SET_VIDEO_AS_FAVOURITE,
 } from './types';
 
 const updateSearchPhrase = (searchPhrase) => (dispatch) => {
@@ -37,8 +39,33 @@ const videoDetailSelect = (video) => (dispatch) => {
   }
 };
 
+const getFavouritesVideos = () => (dispatch) => {
+  const localStorage = window.localStorage;
+  const key = 'favouriteVideos';
+
+  dispatch({ type: GET_FAVOURITES_VIDEOS, payload: JSON.parse(localStorage.getItem(key)) || [] })
+};
+
+const setVideoAsFavourite = (videoDetail) => (dispatch) => {
+  const localStorage = window.localStorage;
+  const key = 'favouriteVideos';
+
+  let favouriteVideos = JSON.parse(localStorage.getItem(key)) || [];
+  const isVideoAlreadyFavourite = favouriteVideos.filter((video) => video.id.videoId === videoDetail.id.videoId)[0];
+  if (isVideoAlreadyFavourite) {
+    favouriteVideos = favouriteVideos.filter((video) => video.id.videoId !== videoDetail.id.videoId)
+  } else {
+    favouriteVideos.push(videoDetail);
+  }
+
+  localStorage.setItem(key, JSON.stringify(favouriteVideos));
+  dispatch({ type: SET_VIDEO_AS_FAVOURITE, payload: favouriteVideos })
+};
+
 export {
   updateSearchPhrase,
   searchVideos,
   videoDetailSelect,
+  getFavouritesVideos,
+  setVideoAsFavourite,
 }

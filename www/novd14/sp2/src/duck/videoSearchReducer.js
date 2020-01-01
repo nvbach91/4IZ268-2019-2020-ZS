@@ -4,6 +4,8 @@ import {
   SEARCHING_VIDEOS_STARTED,
   SEARCHING_VIDEOS_SUCCESS,
   VIDEO_DETAIL_SELECT,
+  GET_FAVOURITES_VIDEOS,
+  SET_VIDEO_AS_FAVOURITE,
 } from './types';
 
 const initialState = {
@@ -11,6 +13,7 @@ const initialState = {
   isSearching: false,
   searchResult: null,
   videoDetail: null, // selected video
+  favouriteVideos: [],
 };
 
 const VideoSearchReducer = (state = initialState, action) => {
@@ -51,6 +54,20 @@ const VideoSearchReducer = (state = initialState, action) => {
       return {
         ...state,
         videoDetail: action.payload,
+      };
+    }
+
+    case GET_FAVOURITES_VIDEOS: {
+      return {
+        ...state,
+        favouriteVideos: action.payload,
+      };
+    }
+
+    case SET_VIDEO_AS_FAVOURITE: {
+      return {
+        ...state,
+        favouriteVideos: action.payload,
       };
     }
 

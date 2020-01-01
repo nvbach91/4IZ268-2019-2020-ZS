@@ -1,22 +1,56 @@
-import React, {Component} from 'react';
-import './VideoItem.scss';
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core';
+import { Grid, Divider } from '@material-ui/core';
+
+const styles = {
+  root: {
+    marginBottom: '20px',
+  },
+  videoImage: {
+    width: '100%',
+    borderRadius: '5px',
+  },
+  content: {
+
+  },
+  videoTitle: {
+    '&:hover': {
+      cursor: 'pointer',
+      textDecoration: 'underline',
+    },
+  },
+};
 
 class VideoItemComponent extends Component {
   render() {
-    const { video, onClick } = this.props;
+    const { classes, video, onVideoSelect } = this.props;
 
     return (
-      <div className="video-item item" onClick={onClick}>
-        <img
-          src={video.snippet.thumbnails.medium.url}
-          alt={video.snippet.title}
-        />
-        <div className="content">
-          <div className="header">{video.snippet.title}</div>
-        </div>
-      </div>
+      <Grid
+        className={classes.root}
+        container
+        spacing={2}
+      >
+        <Grid item xs={12} md={5}>
+          <img
+            className={classes.videoImage}
+            src={video.snippet.thumbnails.medium.url}
+            alt={video.snippet.title}
+          />
+        </Grid>
+        <Grid item xs={12} md={7}>
+          <div className={classes.content}>
+            <h2
+              onClick={onVideoSelect}
+              className={classes.videoTitle}
+            >
+              {video.snippet.title}
+            </h2>
+          </div>
+        </Grid>
+      </Grid>
     );
   }
 }
 
-export default VideoItemComponent;
+export default withStyles(styles)(VideoItemComponent);
