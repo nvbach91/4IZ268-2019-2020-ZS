@@ -10,35 +10,41 @@ body, html {
     margin: 0;
     padding: 0;
 }
+h1, h2 {
+    color: #07394C;
+    margin-top: 0;
+    font-size: 40px;
+    font-variant: small-caps;
+}
+h2 {
+    margin: 5px 0;
+    font-size: 25px;
+}
 .left-info {
     width: 35%;
     height: 100%;
     background-image: url('../img/clouds.jpg');
     background-size: cover;
     padding-top: 40px;
-    padding-bottom: 30px;
+    padding-bottom: 15px;
     border-right: 5px solid #07394C;
-}
-.start-container {
-    margin: 20px;
-    margin-bottom: 35px;
 }
 .mapycz {
     width: 65%;
     height: 100%;
 }
-h1 {
-    color: #07394C;
-    margin-top: 0;
-    font-size: 40px;
-    font-variant: small-caps;
+.start-container {
+    margin-bottom: 10px;
 }
-.intro-paragraph {
-    font-size: 17px;
+.buttons {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
 }
 .delete-button, .location-button {
-    margin-top: 40px;
-    padding: 10px;
+    margin: 10px;
+    padding: 15px;
     font-size: 15px;
     color: white;
     background-color: #07394C;
@@ -53,27 +59,42 @@ h1 {
 }
 .markers-area {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
 }
 .wrapper-destination1, .wrapper-destination2 {
-    display: flex;
-    height: 150px; 
+    height: 100%; 
     background-color: #8CA4C3;
     width: 100%;
-    margin: 20px;
+    margin: 10px;
     text-align: center;
     word-wrap: break-word;
     border-radius: 15px;
 }
-.weather-destination1, .weather-destination2, .time-destination1, .time-destination2 {
-    width: 50%;
-}
-.weather-description, .error, .date-time {
+.weather-place, .weather-temperature, .error, .date-time {
     margin: 10px;
+}
+.gmt-offset {
+    margin-bottom: 10px;
+}
+.weather-temperature {
+    margin-bottom: 0;
+}
+.date-time {
+    margin-top: 0;
+    font-weight: bold;
 }
 .weather-icon {
     width: 100px;
+}
+.weather-destination1, .weather-destination2 {
+    line-height: 20px;
+}
+.results {
+    background-color: #8CA4C3;
+    margin: 10px;
+    padding: 10px 5px;
+    /* border: 3px solid #07394C; */
+    border-radius: 15px;
 }
 .spinner {
     border-radius: 100%;
