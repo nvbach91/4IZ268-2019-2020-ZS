@@ -2,30 +2,34 @@ var hashtagLabelValue = "Your hashtag is: #";
 var teamsChosen = 0;
 var currentBtnSelected = "";
 var hashtagValue = "";
-var welcomeText = 'This is a twitter app made as final school work for course 4IZ268, University of Economics, Prague. To be able to use it, you need to login with your twitter account.';
-var isMenuDisplayed = true;
+var teamButtonsDisplayed = true;
+var infoBoxDisplayed = false;
 
 /**
  * Handles all team-buttons and creates hashtags.
  */
 var addToCurrentHashtag = function () {
-    var tappedBtnText = $(this).text();
+    console.log($(this).attr("data-team"));
+    var tappedBtnText = $(this).attr("data-team");
     // the user can select only two teams, there can not be two same teams in one hashtag
     if (teamsChosen < 2 && currentBtnSelected !== tappedBtnText) {
         hashtagLabelValue += tappedBtnText;
         hashtagValue += tappedBtnText;
         teamsChosen += 1;
-        currentBtnSelected = tappedBtnText;
     } else {
         hashtagLabelValue = "Your hashtag is: #" + tappedBtnText;
-        App.hashtagValue = tappedBtnText;
+        hashtagValue = tappedBtnText;
         teamsChosen = 1;
-        currentBtnSelected = tappedBtnText;
     }
+    currentBtnSelected = tappedBtnText;
     $('#current-hashtag-value').text(hashtagLabelValue);
-}
+};
 
+/**
+ * Handles functionality of 'clear' button.
+ */
 var clear = function () {
+    showTeamButtons();
     clearCurrentHashtag();
     $('#tweets').empty();
 };
@@ -43,7 +47,6 @@ var clearCurrentHashtag = function () {
 
 /**
  * Shows or hides loader.
- *
  * @param desiredState
  */
 var loaderOnOff = function (desiredState) {
@@ -54,53 +57,56 @@ var loaderOnOff = function (desiredState) {
     }
 };
 
-var showAndHide = function () {
-    if (isMenuDisplayed === true) {
-        // hiding menu
-        $('.team-buttons').css('display', 'none');
-        $('#show-hide').find("i").removeClass("fa-angle-double-up").addClass("fa-angle-double-down");
-        $('#tweets').css('margin-top', '12em');
-        isMenuDisplayed = false;
+var showTeamButtons = function () {
+    // showing menu
+    $('.team-buttons').css({'height': 'auto', 'transform': 'scaleY(1)'});
+    $('#show-hide-teambuttons').find("i").removeClass("fa-angle-double-down").addClass("fa-angle-double-up");
+    $('#tweets').css('margin-top', '18em');
+    teamButtonsDisplayed = true;
+    $('#show-hide-teambuttons').click(hideTeamButtons);
+    $('h2').css('display', 'block');
+};
+
+var hideTeamButtons = function () {
+    $('.team-buttons').css({'height': '0', 'transform': 'scaleY(0)'});
+    $('#show-hide-teambuttons').find("i").removeClass("fa-angle-double-up").addClass("fa-angle-double-down");
+    $('#tweets').css('margin-top', '12em');
+    teamButtonsDisplayed = false;
+    $('#show-hide-teambuttons').click(showTeamButtons);
+    $('h2').css('display', 'none');
+};
+
+var showInfobox = function () {
+    $('#infobox').css({'height': 'auto', 'transform': 'scaleY(1)'});
+    $('#menu').css({'height': '0', 'transform': 'scaleY(0)'});
+    $('#show-hide-teambuttons').css('display', 'none');
+};
+
+var hideInfoBox = function () {
+    $('#infobox').css({'height': '0', 'transform': 'scaleY(0)'});
+    $('#menu').css({'height': 'auto', 'transform': 'scaleY(1)'});
+    $('#show-hide-teambuttons').css('display', 'block');
+};
+
+var showHideInfo = function () {
+    if (infoBoxDisplayed) {
+        hideInfoBox();
+        infoBoxDisplayed = false;
     } else {
-        // showing menu
-        $('.team-buttons').css('display', 'block');
-        $('#show-hide').find("i").removeClass("fa-angle-double-down").addClass("fa-angle-double-up");
-        $('#tweets').css('margin-top', '18em');
-        isMenuDisplayed = true;
+        showInfobox();
+        infoBoxDisplayed = true;
     }
-}
+};
 
 var init = function () {
+    $('#btn-login').click(login);
     $('#btn-clear').click(clear);
     $('#btn-search').click(search);
-    $('#btn-login').click(login);
-
-    $('#btn-bou').click(addToCurrentHashtag);
-    $('#btn-ars').click(addToCurrentHashtag);
-    $('#btn-ava').click(addToCurrentHashtag);
-    $('#btn-brh').click(addToCurrentHashtag);
-    $('#btn-bur').click(addToCurrentHashtag);
-    $('#btn-che').click(addToCurrentHashtag);
-    $('#btn-cry').click(addToCurrentHashtag);
-    $('#btn-eve').click(addToCurrentHashtag);
-    $('#btn-lei').click(addToCurrentHashtag);
-    $('#btn-liv').click(addToCurrentHashtag);
-    $('#btn-mci').click(addToCurrentHashtag);
-    $('#btn-mun').click(addToCurrentHashtag);
-    $('#btn-new').click(addToCurrentHashtag);
-    $('#btn-nor').click(addToCurrentHashtag);
-    $('#btn-shu').click(addToCurrentHashtag);
-    $('#btn-sou').click(addToCurrentHashtag);
-    $('#btn-tot').click(addToCurrentHashtag);
-    $('#btn-wat').click(addToCurrentHashtag);
-    $('#btn-whu').click(addToCurrentHashtag);
-    $('#btn-wlv').click(addToCurrentHashtag);
-
-    $('#show-hide').click(showAndHide);
+    $('.team-button').click(addToCurrentHashtag);
+    $('#show-hide-teambuttons').click(hideTeamButtons);
+    $('#show-hide-info').click(showHideInfo);
 };
 
 $(document).ready(
-    function () {
         init()
-    }
 );

@@ -17,7 +17,6 @@ var placeContent = function (status) {
 // TODO feature - include / exclude retweets
 // TODO feature idea - get most retweeted stats
 // TODO feature - chose number of tweets searched
-// TODO info div in header
 
 /**
  * Searches for Tweets based on @hashtagValue.
@@ -30,21 +29,26 @@ var search = function () {
             $('#tweets').empty();
         }
         loaderOnOff(true);
-        console.log('searching for ' + hashtagValue)
+        console.log('searching for ' + hashtagValue);
         userLoggedIn.get(queryURL)
             .done(function (result) {
-                loaderOnOff(false);
-                isResultDisplayed = true;
                 console.log(result);
-                console.log(result.statuses[0].text);
-                console.log(result.statuses.length);
-                $('.after-search')
-                    .css('visibility', 'visible')
-                result.statuses.forEach(function (status) {
-                    placeContent(status);
-                });
+                loaderOnOff(false);
+                if (result.statuses.length === 0) {
+                    alert('No tweets were found. Try another hashtag!');
+                    clear();
+                } else {
+                    isResultDisplayed = true;
+                    hideTeamButtons();
+                    $('.after-search').css('visibility', 'visible');
+                    result.statuses.forEach(function (status) {
+                        placeContent(status);
+                    });
+                }
+
             })
             .fail(function (err) {
+                loaderOnOff(false);
                 console.log(err);
                 alert(err);
             });

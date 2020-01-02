@@ -1,66 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>PLTweets</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="css/twitterApp.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="css/loader.css" />
+    <link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/twitterApp.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/loader.css"/>
 
 </head>
 <body>
-<div id="app">
-    <header>
-        <h1>Premier League Tweets <i class="fa fa-twitter"></i></h1>
-        <div id="show-hide" class="after-login"><i class="fa fa-angle-double-up"></i></div>
+<header>
+    <h1>Premier League Tweets <i class="fa fa-twitter"></i></h1>
+    <h2 class="after-login">Get tweets related to Premier League match! Just select two teams and press the search
+        button.</h2>
+    <div title="Show or hide the team buttons" id="show-hide-teambuttons" class="after-login"><i
+            class="fa fa-angle-double-up"></i></div>
 
-        <div id="menu" class="after-login">
-            <div class="team-buttons after-login">
-                <button id="btn-bou">BOU</button>
-                <button id="btn-ars">ARS</button>
-                <button id="btn-ava">AVA</button>
-                <button id="btn-brh">BRH</button>
-                <button id="btn-bur">BUR</button>
-                <button id="btn-che">CHE</button>
-                <button id="btn-cry">CRY</button>
-                <button id="btn-eve">EVE</button>
-                <button id="btn-lei">LEI</button>
-                <button id="btn-liv">LIV</button>
-                <button id="btn-mci">MCI</button>
-                <button id="btn-mun">MUN</button>
-                <button id="btn-new">NEW</button>
-                <button id="btn-nor">NOR</button>
-                <button id="btn-shu">SHU</button>
-                <button id="btn-sou">SOU</button>
-                <button id="btn-tot">TOT</button>
-                <button id="btn-wat">WAT</button>
-                <button id="btn-whu">WHU</button>
-                <button id="btn-wlv">WLV</button>
-            </div>
-            <p id="current-hashtag-value" class="after-login">Your hashtag is: #</p>
-            <div class="action-buttons after-login">
-                <button id="btn-clear">CLEAR</button>
-                <button id="btn-search">SEARCH</button>
-            </div>
+    <div id="menu" class="after-login">
+        <div class="after-login team-buttons">
+            <button class="team-button" data-team="BOU">BOU</button>
+            <button class="team-button" data-team="ARS">ARS</button>
+            <button class="team-button" data-team="AVA">AVA</button>
+            <button class="team-button" data-team="BRH">BRH</button>
+            <button class="team-button" data-team="BUR">BUR</button>
+            <button class="team-button" data-team="CHE">CHE</button>
+            <button class="team-button" data-team="CRY">CRY</button>
+            <button class="team-button" data-team="EVE">EVE</button>
+            <button class="team-button" data-team="LEI">LEI</button>
+            <button class="team-button" data-team="LIV">LIV</button>
+            <button class="team-button" data-team="MCI">MCI</button>
+            <button class="team-button" data-team="MUN">MUN</button>
+            <button class="team-button" data-team="NEW">NEW</button>
+            <button class="team-button" data-team="NOR">NOR</button>
+            <button class="team-button" data-team="SHU">SHU</button>
+            <button class="team-button" data-team="SOU">SOU</button>
+            <button class="team-button" data-team="TOT">TOT</button>
+            <button class="team-button" data-team="WAT">WAT</button>
+            <button class="team-button" data-team="WHU">WHU</button>
+            <button class="team-button" data-team="WLV">WLV</button>
         </div>
-    </header>
-    <main>
-        <div class="before-login">
-            <p>This is a Twitter app made as final work for course 4IZ268 at University of Economics, Prague.
-                To use it, you need to login with your twitter account.</p>
+        <p id="current-hashtag-value" class="after-login">Your hashtag is: #</p>
+        <div class="action-buttons after-login">
+            <button id="btn-clear">CLEAR</button>
+            <button id="btn-search">SEARCH</button>
+        </div>
+    </div>
+    <div id="infobox" class="after-login">
+        <p>Premier League is the best football league in the United Kingdom. Every PL team has a three-lettered unique
+            code. To make
+            searching on social sites easier, PL officially tells people to use hashtags made from the team codes joined
+            to one match code.
+            This app is designed to get the match tweets from Twitter. Unfortunately Twitter basic search API does not
+            provide tweets older
+            than 7 days and the maximum total count of tweets you can get is 100.
+            <br>Author: <a href="mailto:jelm06@vse.cz">Martin Jelínek</a>, student at University of Economics, Prague
+        </p>
+    </div>
+</header>
+<main>
+    <div class="before-login">
+        <p>This is a Twitter app made as final work for course 4IZ268 at University of Economics, Prague.
+            To use it, you need to login with your twitter account.</p>
+        <button id="btn-login"><i class="fa fa-twitter"></i> Login to Twitter</button>
+    </div>
+    <div id="tweets" class="after-login after-search"></div>
+    <div id="loader"></div>
 
-            <button id="btn-login"><i class="fa fa-twitter"></i> Login to Twitter</button>
-        </div>
-
-        <div id="tweets" class="after-login after-search">
-        </div>
-        <div id="loader"></div>
-    </main>
-    <footer>2019 &copy; Martin Jelínek</footer>
-</div>
+    <div title="Show info" id="show-hide-info" class="after-login"><i class="fa fa-info"></i></div>
+</main>
+<footer>2019 &copy; Martin Jelínek</footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <script src="https://cdn.rawgit.com/oauth-io/oauth-js/c5af4519/dist/oauth.js"></script>

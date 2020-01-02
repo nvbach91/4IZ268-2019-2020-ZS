@@ -65,3 +65,10 @@ Source: https://loading.io/css/
         transform: translate(24px, 0);
     }
 }
+
+@media only screen and (max-width: 430px) {
+    .lds-ellipsis div {
+        position: absolute;
+        bottom: 4em;
+    }
+}

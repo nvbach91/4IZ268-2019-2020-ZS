@@ -7,7 +7,6 @@ var isUserLogedIn = false;
  */
 var login = function () {
     loaderOnOff(true);
-    console.log('searching for ' + hashtagValue);
     OAuth.initialize('RqDiAoEGjM7O8Eno938FoMuHTmk');
     OAuth.popup('twitter')
         .done(function (result) {
@@ -21,6 +20,7 @@ var login = function () {
             $(':header').css({'background-color': 'white', 'color': '#00acee'});
         })
         .fail(function (err) {
+            loaderOnOff(false);
             alert("Unknown error: login failed.");
             console.log(err);
         });
