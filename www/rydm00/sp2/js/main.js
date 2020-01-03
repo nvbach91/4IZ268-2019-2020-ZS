@@ -54,6 +54,7 @@ $(document).ready(() => {
         layerMarker.enable();
 
         var numberOfMarkers = 0; //for counting markers on the map
+        var objectInfo = {};
 
         //create delete Button and add click function
         const markersDeleteButton = $('<button>');
@@ -72,43 +73,17 @@ $(document).ready(() => {
             App.timezoneB = null;
             $('.results').text('');
             App.result.hide();
+            history.replaceState({}, null, "without-destinations");
         });
 
+        //create locate button and add click function
         const locateButton = $('<button>');
         locateButton.attr('class', 'location-button');
         locateButton.text('PŘIDEJ MOU POLOHU');
 
         locateButton.click(() => {
             var myCoords = SMap.Coords.fromWGS84(App.longitude, App.latitude);
-            if (numberOfMarkers == 0) {
-                var marker1 = new SMap.Marker(myCoords, 'marker1');
-                layerMarker.addMarker(marker1);
-
-                const spinner = $('<div class="spinner"></div>');
-                addWeather(App.latitude, App.longitude, App.weatherDestination1, spinner);
-                const spinner2 = $('<div class="spinner"></div>');
-                addTimezone(App.latitude, App.longitude, App.timeDestination1, spinner2);
-                numberOfMarkers++;
-
-                App.button.append(markersDeleteButton);
-                markersDeleteButton.show();
-
-            } else if (numberOfMarkers == 1) {
-                var marker1 = new SMap.Marker(myCoords, 'marker2');
-                layerMarker.addMarker(marker1);
-
-                const spinner = $('<div class="spinner"></div>');
-                addWeather(App.latitude, App.longitude, App.weatherDestination2, spinner);
-                const spinner2 = $('<div class="spinner"></div>');
-                addTimezone(App.latitude, App.longitude, App.timeDestination2, spinner2);
-                numberOfMarkers++;
-
-                App.button.append(markersDeleteButton);
-                markersDeleteButton.show();
-
-            } else {
-                alert('Lze přidat pouze dvě lokace. Pro zadání další, smaž stávající.');
-            }
+            addContent(myCoords, App.latitude, App.longitude);
         });
 
         App.locationButton.append(locateButton);
@@ -118,38 +93,47 @@ $(document).ready(() => {
             var coordinates = coords.toString().split(',');
             var coordsLon = coordinates[0].slice(1, coordinates[0].length);
             var coordsLat = coordinates[1].slice(0, coordinates[1].length - 1);
+            addContent(coords, coordsLat, coordsLon);
+        };
+
+        function addContent(coords, coordsLatitude, coordsLongitude) {
+            objectInfo = { coords, coordsLatitude, coordsLongitude };
             if (numberOfMarkers == 0) {
                 var marker1 = new SMap.Marker(coords, 'marker1');
                 layerMarker.addMarker(marker1);
 
                 const spinner = $('<div class="spinner"></div>');
-                addWeather(coordsLat, coordsLon, App.weatherDestination1, spinner);
+                addWeather(coordsLatitude, coordsLongitude, App.weatherDestination1, spinner);
                 const spinner2 = $('<div class="spinner"></div>');
-                addTimezone(coordsLat, coordsLon, App.timeDestination1, spinner2);
+                addTimezone(coordsLatitude, coordsLongitude, App.timeDestination1, spinner2);
                 numberOfMarkers++;
 
                 App.button.append(markersDeleteButton);
                 markersDeleteButton.show();
+
+                history.pushState(objectInfo, "Title", "with-one-destination");
 
             } else if (numberOfMarkers == 1) {
                 var marker2 = new SMap.Marker(coords, 'marker2');
                 layerMarker.addMarker(marker2);
 
                 const spinner = $('<div class="spinner"></div>');
-                addWeather(coordsLat, coordsLon, App.weatherDestination2, spinner);
+                addWeather(coordsLatitude, coordsLongitude, App.weatherDestination2, spinner);
                 const spinner2 = $('<div class="spinner"></div>');
-                addTimezone(coordsLat, coordsLon, App.timeDestination2, spinner2);
+                addTimezone(coordsLatitude, coordsLongitude, App.timeDestination2, spinner2);
                 numberOfMarkers++;
+
+                history.pushState(objectInfo, "Title", "with-two-destinations");
 
             } else {
                 alert('Lze přidat pouze dvě lokace. Pro zadání další, smaž stávající.');
             }
-        };
+        }
 
-        function addWeather(coords1, coords2, destination, spinner) {
+        function addWeather(coordsLatitude, coordsLongitude, destination, spinner) {
             destination.append(spinner);
             $.get({
-                url: `http://api.weatherbit.io/v2.0/current?lat=${coords1}&lon=${coords2}&lang=cz&key=3a18e2d9578843c48342b988afbfae17`
+                url: `http://api.weatherbit.io/v2.0/current?lat=${coordsLatitude}&lon=${coordsLongitude}&lang=cz&key=3a18e2d9578843c48342b988afbfae17`
             }).done((data) => {
                 var weatherObject = data['data'][0]['weather'];
                 var otherInfo = data['data'][0];
@@ -165,10 +149,10 @@ $(document).ready(() => {
             });
         };
 
-        function addTimezone(coords1, coords2, destination, spinner) {
+        function addTimezone(coordsLatitude, coordsLongitude, destination, spinner) {
             destination.append(spinner);
             $.get({
-                url: `http://api.timezonedb.com/v2.1/get-time-zone?key=BWIGLRXY65J4&format=json&by=position&lat=${coords1}&lng=${coords2}`
+                url: `http://api.timezonedb.com/v2.1/get-time-zone?key=BWIGLRXY65J4&format=json&by=position&lat=${coordsLatitude}&lng=${coordsLongitude}`
             }).done((data) => {
                 if (data.status === 'OK') {
                     var UTCtime = Math.floor(data.gmtOffset / 3600);
