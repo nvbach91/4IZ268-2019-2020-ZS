@@ -19,11 +19,7 @@ App.bookReviewSearchqueryArray = [ ['isbn', 'i'], ['title', 't'], ['author','a']
 
 $(document).ready(() => {
 
-  $('#logo').click( App.prepareURLFromAtribut );
-  $('nav #b-o').click( App.prepareURLFromAtribut );
-  $('nav #b-r').click( App.prepareURLFromAtribut );
-  $('nav #m-c').click( App.prepareURLFromAtribut );
-  $('nav #m-r').click( App.prepareURLFromAtribut );
+  $('#logo, nav #b-o, nav #b-r, nav #m-c, nav #m-r').click( App.prepareURLFromAtribut );
 
   App.urlHandler( App.getURLParams() );
 
@@ -70,13 +66,13 @@ App.urlHandler = function(url){
     
     // book section
     switch(url.section){
-      // přehled knižních kategorií
+      // přehled kniznich kategorii­
       case 'o':
         document.title = 'Books Best Sellers | NYT Books & Movies';
         App.navHandler('b-o');
         App.buildPage_BookOverview(url.date);
         break;
-      // konkrétní knížní kategorie
+      // konrétní knižní kategorie
       case 'c':
         document.title = 'Book Category | NYT Books & Movies';
         App.cleanNav();
@@ -89,7 +85,7 @@ App.urlHandler = function(url){
         const queryData = App.getQueryType(url.isbn, url.title, url.author);
         App.buildPage_BookReview(queryData[0], queryData[1]);
         break;
-      // přehled knižních kategorií
+      // přehled knižních kategorii
       default:
         document.title = 'Books Best Sellers | NYT Books & Movies';
         App.navHandler('b-o');
@@ -127,10 +123,10 @@ window.onpopstate = function() {
  * Složí URL objekt z parametrů url adresy
  */
 App.getURLParams = function(){
-  const getParams = new URLSearchParams(window.location.search);
+  const urlParams = new URLSearchParams(window.location.search);
   var url = {};
   for(var i = 0; i < App.urlObjectProperties.length; i++){
-    url[ App.urlObjectProperties[i][0] ] = getParams.get( App.urlObjectProperties[i][1] );
+    url[ App.urlObjectProperties[i][0] ] = urlParams.get( App.urlObjectProperties[i][1] );
   }
 
   return url;
@@ -145,7 +141,6 @@ App.prepareURLFromAtribut = function(e) {
   for(var i = 0; i < App.urlObjectProperties.length; i++){
     url[ App.urlObjectProperties[i][0] ] = $(this).attr('data-'+ App.urlObjectProperties[i][1]) === undefined ? null : $(this).attr('data-'+ App.urlObjectProperties[i][1]);
   }
-  e.preventDefault();
 
   App.handleBrowser(url);
 
@@ -156,12 +151,12 @@ App.prepareURLFromAtribut = function(e) {
  */
 App.urlToString = function(url){
 
-  var urlString = '';
+  let urlString = '';
   for(var i = 0; i < App.urlObjectProperties.length; i ++){
 
     if(url[ App.urlObjectProperties[i][0] ] != null){
 
-      if(i != 0){
+      if(i){
         urlString += '&';
       }
       urlString += `${App.urlObjectProperties[i][1]}=${url[ App.urlObjectProperties[i][0] ]}`;
@@ -192,7 +187,7 @@ App.navHandler = function(elementId){
   App.cleanNav();
 
   const navElement = $(`nav #${elementId}`);
-  if(navElement.length > 0){
+  if(navElement.length){
     navElement.addClass('on');
   }
 
@@ -295,18 +290,14 @@ App.displayBookCategories = function(listNames, start, stopPoint){
     const list = $('<ul id="list"></ul>');
     content.append(list);
 
-    var listElements = '';
+    var listContainer = [];
     for(var i = start; i < (start + 5); i++){
-      listElements += `<li id="category-${i}" data-p="b" data-s="c" data-c="${listNames.results[i].list_name_encoded}">${listNames.results[i].display_name}</li>`;
-
-      if(i === (stopPoint - 1)){ break; stop = true; }
+      const li = $(`<li id="category-${i}" data-p="b" data-s="c" data-c="${listNames.results[i].list_name_encoded}">${listNames.results[i].display_name}</li>`);
+      li.click( App.prepareURLFromAtribut );
+      listContainer.push(li);
     }
-
-    list.append(listElements);
-
-    for(var k = start; k < (start + 5); k++){
-      $(`#category-${k}`).click ( App.prepareURLFromAtribut );
-    }
+    
+    list.append( listContainer );
 
     if(stop === false){
       
@@ -367,7 +358,7 @@ App.buildPage_BookCategory = function(category, date){
 };
 
 /**
- * Vykreslí knihy v dané kategorii
+ * Vykresli­ knihy v dane kategorii
  */
 App.displayBooksInCategory = function(category, date){
 
@@ -484,7 +475,7 @@ App.displayBooksInCategory = function(category, date){
 /**  Books Reviews PAGE **/
 
 /**
- * Základní metoda pro Books Reviews PAGE
+ * Zakladni metoda pro Books Reviews PAGE
  */
 App.buildPage_BookReview = function(queryValue, queryBy){
 
@@ -509,6 +500,43 @@ App.buildPage_BookReview = function(queryValue, queryBy){
         </div>
       </div>`; 
   content.append(topSection);
+
+  /* AUTOŘI */
+  content.append( $('<h2>Favourite authors:</h2>') );
+  const reviewsAuthors = $('<ul></ul>');
+  content.append(reviewsAuthors);
+
+  var liElementsA = []
+  var arrayAuthors = JSON.parse(localStorage.getItem('authors'));
+  for (var i = 0; i < arrayAuthors.length; i++){
+    const li = $(`<li>${arrayAuthors[i]}</li>`);
+    const liButton = $('<button>Remove</button>');
+    const removeAuthor = arrayAuthors[i];
+    liButton.click(function(){
+      arrayAuthors.splice( arrayAuthors.indexOf(removeAuthor), 1 ) ;
+      localStorage.setItem('authors', JSON.stringify(arrayAuthors) );
+      li.remove();
+    });
+    li.append(liButton);
+    const url = {
+      page: 'b',
+      section: 'r', 
+      category: null, 
+      date: null,  
+      isbn: null,
+      title: null,
+      author: arrayAuthors[i],
+      searchQuery: null,
+      critic: null
+    }
+    li.click(function(){
+      App.handleBrowser(url);
+    });
+    liElementsA.push(li);
+
+  }  
+
+  reviewsAuthors.append(liElementsA);
 
   if(queryBy !== false){
 
@@ -542,7 +570,7 @@ App.buildPage_BookReview = function(queryValue, queryBy){
 };
 
 /**
- * Fetchne data pro vyhledávání knižních recenzí
+ * Fetchne data pro vyhledávání knižních recenzí­
  */
 App.getBookReview = function(queryValue, queryBy){
 
@@ -585,7 +613,7 @@ App.getBookReview = function(queryValue, queryBy){
 }
 
 /**
- * Vypíše recenze pro danou knihu
+ * Vykreslí recenze pro danou knihu
  */
 App.printBookReviews = function(review){
 
@@ -593,19 +621,41 @@ App.printBookReviews = function(review){
 
   if(review.num_results > 0){
 
-    var reviewsContainer = '';
-    for(var i = 0; i < review.num_results; i++){
+   var reviewsContainer = '';
+   for(var i = 0; i < review.num_results; i++){
 
-      reviewsContainer += 
-        `<div class="review">
-          <h3>${review.results[i].book_title}</h3>
-          <p class="author">by ${review.results[i].book_author}</p>
-          <p class="description">${review.results[i].summary}</p>
-          <a href="${review.results[i].url}" target="_blank">See review from ${review.results[i].byline}</a> 
-        </div>`;        
+     reviewsContainer += 
+       `<div class="review">
+         <h3>${review.results[i].book_title}</h3>
+         <p class="author" data-author="${review.results[i].book_author}">by ${review.results[i].book_author}</p>
+         <p class="description">${review.results[i].summary}</p>
+         <a href="${review.results[i].url}" target="_blank">See review from ${review.results[i].byline}</a> 
+       </div>`;        
 
-    }
-    reviews.append(reviewsContainer);
+   }
+
+   reviews.append(reviewsContainer);
+
+   for(var i = 0; i < review.num_results; i++){
+     const author = $('.reviews .review p.author');
+
+     author.click(function(){
+
+       if(!localStorage.getItem('authors')){
+         var authors = [];
+       } else {
+         var authors = JSON.parse(localStorage.getItem('authors') );
+       }
+
+       if(!authors.includes(author.attr('data-author'))){
+         authors.push(author.attr('data-author')); 
+         localStorage.setItem('authors', JSON.stringify(authors) );
+       }
+       
+       App.handleBrowser( App.getURLParams() ); 
+
+     });
+   }  
 
   } else {
 
@@ -615,7 +665,7 @@ App.printBookReviews = function(review){
 };
 
 /**
- * Event funkce pro akci vyhledávání recenzí knih 
+ * Event funkce pro akci vyhledávání recenzí knih
  */
 App.handleBookSearch = function(e){
 
@@ -702,7 +752,7 @@ App.buildPage_MovieCritics = function(){
 };
 
 /**
- * Vypíše jednotlivé kritiky
+ * Výpis jednotlivých kritik
  */
 App.displayMovieCritics = function(listCritics, start, stopPoint){
 
@@ -715,30 +765,27 @@ App.displayMovieCritics = function(listCritics, start, stopPoint){
     const list = $('<ul id="list"></ul>');
     content.append(list);
 
-    var listElements = '';
-    for(var i = start; i < (start + 5); i++){
-      listElements += `<li id="critic-${i}" data-p="m" data-s="l" data-cr="${listCritics.results[i].display_name}">${listCritics.results[i].display_name}</li>`;
+   var listContainer = [];
+   for(var i = start; i < (start + 5); i++){
+     const li = $(`<li id="critic-${i}" data-p="m" data-s="l" data-cr="${listCritics.results[i].display_name}">${listCritics.results[i].display_name}</li>`);
 
-      if(i === (stopPoint - 1)){ break; stop = true; }
-    }
+     li.click( App.prepareURLFromAtribut );
+     listContainer.push(li);
+   }
 
-    list.append(listElements);
+   list.append(listContainer);
 
-    for(var k = start; k < (start + 5); k++){
-      $(`#critic-${k}`).click ( App.prepareURLFromAtribut );
-    }
-
-    if(stop === false){
+   if(stop === false){
       
-      list.append('<li class="load-button"><button>Load more</button></li>');
-      const loadButton = $('ul#list li.load-button button');
-      loadButton.click(function(){
+     list.append('<li class="load-button"><button>Load more</button></li>');
+     const loadButton = $('ul#list li.load-button button');
+     loadButton.click(function(){
 
-        if($('ul#list li.load-button').length){ $('ul#list li.load-button').remove(); }
-        App.displayMovieCritics(listCritics, start + 5, stopPoint);  
-        window.scrollTo(0, document.body.scrollHeight); 
+       if($('ul#list li.load-button').length){ $('ul#list li.load-button').remove(); }
+       App.displayMovieCritics(listCritics, start + 5, stopPoint);  
+       window.scrollTo(0, document.body.scrollHeight); 
 
-      });
+     });
 
     }
   
@@ -796,7 +843,7 @@ App.buildPage_CriticArticles = function(critic){
 };
 
 /**
- * Vykreslí recenze daného kritika
+ * Vykreslí­ recenze daného kritika
  */
 App.displayMovieCriticsArticles = function(criticArticles, critic){
 
@@ -965,7 +1012,7 @@ App.printMovieReviews = function(review){
 };
 
 /**
- * Event funkce pro akci vyhledávání recenzí filmů
+ * Event funkce pro akci vyhledávání recenzí filmu
  */
 App.handleMovieSearch = function(e){
 
