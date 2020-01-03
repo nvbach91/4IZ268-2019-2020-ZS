@@ -508,6 +508,10 @@ App.buildPage_BookReview = function(queryValue, queryBy){
 
   var liElementsA = []
   var arrayAuthors = JSON.parse(localStorage.getItem('authors'));
+  if(!arrayAuthors){
+    arrayAuthors = [];
+  }
+
   for (var i = 0; i < arrayAuthors.length; i++){
     const li = $(`<li>${arrayAuthors[i]}</li>`);
     const liButton = $('<button>Remove</button>');
