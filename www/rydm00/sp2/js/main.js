@@ -20,7 +20,7 @@ $(document).ready(() => {
 
     function getLocation(callback) {
         if (navigator.geolocation) {
-            var lat_lng = navigator.geolocation.getCurrentPosition(function (position) {
+            navigator.geolocation.getCurrentPosition(function (position) {
                 var userPosition = {};
                 userPosition.lat = position.coords.latitude;
                 userPosition.lng = position.coords.longitude;
@@ -55,25 +55,18 @@ $(document).ready(() => {
 
         var numberOfMarkers = 0; //for counting markers on the map
         var objectInfo = {};
+        var marker1;
+        var marker2;
+        var destination1empty = true;
+        var destination2empty = true;
 
         //create delete Button and add click function
         const markersDeleteButton = $('<button>');
         markersDeleteButton.attr('class', 'delete-button');
-        markersDeleteButton.text('SMAZAT ZNAČKY');
+        markersDeleteButton.text('SMAZAT ZNAČKU');
 
         markersDeleteButton.click(() => {
-            layerMarker.removeAll();
-            markersDeleteButton.hide();
-            numberOfMarkers = 0;
-            $('.weather-destination1').text('');
-            $('.weather-destination2').text('');
-            $('.time-destination1').text('');
-            $('.time-destination2').text('');
-            App.timezoneA = null;
-            App.timezoneB = null;
-            $('.results').text('');
-            App.result.hide();
-            history.replaceState({}, null, "without-destinations");
+            deleteDestination();
         });
 
         //create locate button and add click function
@@ -84,6 +77,11 @@ $(document).ready(() => {
         locateButton.click(() => {
             var myCoords = SMap.Coords.fromWGS84(App.longitude, App.latitude);
             addContent(myCoords, App.latitude, App.longitude);
+            if (numberOfMarkers === 1) {
+                history.pushState(objectInfo, 'Title', 'with-one-destination');
+            } else if (numberOfMarkers === 2) {
+                history.pushState(objectInfo, 'Title', 'with-two-destinations');
+            }
         });
 
         App.locationButton.append(locateButton);
@@ -94,13 +92,44 @@ $(document).ready(() => {
             var coordsLon = coordinates[0].slice(1, coordinates[0].length);
             var coordsLat = coordinates[1].slice(0, coordinates[1].length - 1);
             addContent(coords, coordsLat, coordsLon);
+            if (numberOfMarkers === 1) {
+                history.pushState(objectInfo, 'Title', 'with-one-destination');
+            } else if (numberOfMarkers === 2) {
+                history.pushState(objectInfo, 'Title', 'with-two-destinations');
+            }
         };
+
+        function deleteDestination() {
+            if (numberOfMarkers === 2) {
+                destination2empty = true;
+                layerMarker.removeMarker(marker2, true);
+                numberOfMarkers = 1;
+                $('.weather-destination2').text('');
+                $('.time-destination2').text('');
+                App.timezoneB = null;
+                $('.results').text('');
+                App.result.hide();
+                history.replaceState(history.state, null, 'with-one-destination');
+            } else if (numberOfMarkers === 1) {
+                destination1empty = true;
+                layerMarker.removeMarker(marker1, true);
+                markersDeleteButton.hide();
+                numberOfMarkers = 0;
+                $('.weather-destination1').text('');
+                $('.time-destination1').text('');
+                App.timezoneA = null;
+                $('.results').text('');
+                App.result.hide();
+                history.replaceState({}, null, 'index.html');
+            }
+        }
 
         function addContent(coords, coordsLatitude, coordsLongitude) {
             objectInfo = { coords, coordsLatitude, coordsLongitude };
-            if (numberOfMarkers == 0) {
-                var marker1 = new SMap.Marker(coords, 'marker1');
-                layerMarker.addMarker(marker1);
+            if (numberOfMarkers === 0) {
+                marker1 = new SMap.Marker(coords, 'marker1');
+                layerMarker.addMarker(marker1, true);
+                destination1empty = false;
 
                 const spinner = $('<div class="spinner"></div>');
                 addWeather(coordsLatitude, coordsLongitude, App.weatherDestination1, spinner);
@@ -111,11 +140,10 @@ $(document).ready(() => {
                 App.button.append(markersDeleteButton);
                 markersDeleteButton.show();
 
-                history.pushState(objectInfo, "Title", "with-one-destination");
-
-            } else if (numberOfMarkers == 1) {
-                var marker2 = new SMap.Marker(coords, 'marker2');
-                layerMarker.addMarker(marker2);
+            } else if (numberOfMarkers === 1) {
+                destination2empty = false;
+                marker2 = new SMap.Marker(coords, 'marker2');
+                layerMarker.addMarker(marker2, true);
 
                 const spinner = $('<div class="spinner"></div>');
                 addWeather(coordsLatitude, coordsLongitude, App.weatherDestination2, spinner);
@@ -123,12 +151,10 @@ $(document).ready(() => {
                 addTimezone(coordsLatitude, coordsLongitude, App.timeDestination2, spinner2);
                 numberOfMarkers++;
 
-                history.pushState(objectInfo, "Title", "with-two-destinations");
-
             } else {
                 alert('Lze přidat pouze dvě lokace. Pro zadání další, smaž stávající.');
             }
-        }
+        };
 
         function addWeather(coordsLatitude, coordsLongitude, destination, spinner) {
             destination.append(spinner);
@@ -211,6 +237,24 @@ $(document).ready(() => {
             }).always(() => {
                 spinner.remove();
             });
+        };
+
+        window.onpopstate = function () {
+            if (window.location.href == 'https://eso.vse.cz/~rydm00/sp2/index.html' || window.location.href == 'https://eso.vse.cz/~rydm00/sp2/') {
+                deleteDestination();
+                console.log(destination1empty, destination2empty);
+            } else if (destination1empty === true) {
+                addContent(history.state.coords, history.state.coordsLatitude, history.state.coordsLongitude);
+                history.replaceState(history.state, null, 'with-one-destination');
+                console.log(destination1empty, destination2empty);
+            } else if (destination2empty === true) {
+                addContent(history.state.coords, history.state.coordsLatitude, history.state.coordsLongitude);
+                history.replaceState(history.state, null, 'with-two-destinations');
+                console.log(destination1empty, destination2empty);
+            } else if (destination2empty === false) {
+                deleteDestination();
+                console.log(destination1empty, destination2empty);
+            }
         };
 
         map.getSignals().addListener(window, 'map-click', clickMap); //when clicked --> do clickMap
