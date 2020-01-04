@@ -15,33 +15,43 @@
         <div class="info">MyLogo</div>
         <div class="info">Weather Aplication</div>
         <div class="searchBoxMain">
-            <form class="searchBox"> <!-- method="get" action="https://api.teleport.org/api/cities/?search=" -->
-                <input class="searchInput" type="text" name="SearchField" placeholder="Search">
+            <form class="searchBox" onsubmit="return false;" autocomplete="off"> <!-- method="get" action="https://api.teleport.org/api/cities/?search=" -->
+                <input class="searchInput" type="text" name="SearchField" placeholder="Search" >
                 <button class="searchButton" type="submit">
                     <img src="./img/icons8-search-24.png" alt="search">
                 </button>
             </form>
         </div>
     </div>
-
+    <div class="loader"></div>
     <div class="mainField">
         <div class="currentDayInfo">
+            <div>
             <div class="timeZone"></div>
+            <button class="favorite"><img src="./img/icons8-star-16-add.png"/></button>
+        </div>
             <div class="temperature">
                 <div class="temperature-section">
                     <h2 class="temperature-degree"></h2>
-                    <span>°F</span>
+                    <span></span>
                 </div>
             </div>
-            <div class="icon_main"></div>
-            <div class="icon_text"></div>
+            <div>
+                <div class="icon_main"></div>
+                <div class="icon_text"></div>
+            </div>
+            <div class="fiveDayInfo">
+            </div>
+            <div class="favoriteCity">
+            </div>
         </div>
-        <div class="fiveDayInfo"></div>
     </div>
+    
+    
     <div class="footer">
 
     </div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="./js/app.js"></script>
 </body>
 
