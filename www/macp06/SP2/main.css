@@ -1,0 +1,136 @@
+body {
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+}
+
+h3 {
+    margin: 0;
+}
+
+.body {
+    width: 100%;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 10% 40% 10% 30% 10%;
+    grid-template-rows: 10% 35% 40% auto 4%;
+    /*grid-column-gap: 2.5%;*/
+    grid-template-areas: "header header header header header" ". . . . ." ". convertor . favorites ." ". . . . ." "footer footer footer footer footer";
+}
+
+.footer {
+    grid-area: footer;
+    display:flex;
+    justify-content: flex-end;
+    background-color: aliceblue;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.image-background {
+    position: absolute;
+    z-index: -1;
+    top: 12%;
+    width: 100%;
+}
+
+.image-background img {
+    width: 100%;
+}
+
+.header {
+    grid-area: header;
+    width: 100%;
+    height: 100%;
+    background-color: aliceblue;
+    text-align: center;
+    display: flex;
+}
+
+.convertor {
+    grid-area: convertor;
+    width: 100%;
+    height: 100%;
+    background-color: aliceblue;
+    border-radius: 5px;
+    box-shadow: #af9999b8 0px 0px 15px 1px;
+    display: grid;
+    grid-template-columns: 10% 30% 30% 10%;
+    grid-template-rows: 10% 20% 20% auto;
+    grid-column-gap: 5%;
+    grid-row-gap: 5%;
+    grid-template-areas: "headerc headerc headerc headerc" ". rowa rowa ." ". rowb rowb ." ". . . ." "footerc footerc footerc footerc";
+}
+
+.favorites {
+    grid-area: favorites;
+    width: 100%;
+    height: 100%;
+    background-color: aliceblue;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: #af9999b8 0px 0px 15px 1px;
+    display: grid;
+    grid-template-columns: 10% 30% 30% 10%;
+    grid-template-rows: 20% 60% 20% auto;
+    grid-column-gap: 5%;
+    grid-row-gap: 5%;
+    grid-template-areas: "headerc headerc headerc headerc" ". table table ." ". addselect addselect update" "footerc footerc footerc footerc";
+}
+
+.favorite-update {
+    grid-area: update;
+}
+
+.favorite-currency-add {
+    grid-area: addselect;
+}
+
+.convertor-footer {
+    grid-area: footerc;
+}
+
+.convertor-input {
+    border-radius: 3px;
+    border: solid 1px black;
+    font-size: 25px;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    width: 100%;
+}
+
+.convertor-select {
+    margin-left: 15px;
+    border-radius: 5px;
+    margin-top: 14px;
+    height: 33px;
+}
+
+.convertor-label {
+    font-size: 14px;
+    color: #7a6f77;
+    width: 30%;
+}
+
+.convertor-row {
+    display: flex;
+    align-content: center;
+    padding: 7px;
+    justify-content: center;
+}
+
+.favorite-table {
+    grid-area: table;
+}
+
+.item1 {
+    grid-area: rowa;
+}
+
+.item2 {
+    grid-area: rowb;
+}
+
+.convertor-header {
+    padding: 15px;
+}
