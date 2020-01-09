@@ -13,25 +13,17 @@
 </head>
 
 <body>
-  <button onclick="hello('google').login()">Log in</button>
-  <button onclick="hello('google').logout()">Log out</button>
   <div class="header">
       <div id="button-cell">
   		    <div class="button-cell">2048</div>
       </div>
 
-      <a href="javascript:newgame();" id="newgame"  onclick="newgame()">Restart</a>
+       <button type="button" id="newgame" onclick="newgame()">Restart</button> 
 
       <div id="score-cell">
   		    <div class="score-cell">Score</div>
   		    <div class="button-cell"><span id="score">0</span></div>
       </div>
-  </div>
-
-  <div id="timer">
-      <div class="timer">Time</div>
-      <div class="button-cell"><span id="time">00:00</span></div>
-  </div>
   </div>
 
   <div id="grid-container">
@@ -56,11 +48,10 @@
       <div class="grid-cell" id="grid-cell-3-3"></div>
   </div>
 
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-  <script type="text/javascript" src="https://raw.githubusercontent.com/MrSwitch/hello.js/master/dist/hello.all.min.js"></script>
-  <script type="text/javascript" src="assets/js/oauth.js"></script>
-  <script type="text/javascript" src="assets/js/main.js"></script>
-  <script type="text/javascript" src="assets/js/additional.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/additional.js"></script>
 </body>
 </html>
