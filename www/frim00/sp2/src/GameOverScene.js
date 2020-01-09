@@ -1,23 +1,6 @@
 import { Scene } from 'phaser';
 
-window.fbAsyncInit = () => {
-  FB.init({
-    appId: '562251094563712',
-    cookie: true,
-    xfbml: true,
-    version: 'v5.0',
-  });
-};
-
-((d, s, id) => {
-  let js = d.getElementsByTagName(s)[0];
-  const fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s);
-  js.id = id;
-  js.src = 'https://connect.facebook.net/en_US/sdk.js';
-  fjs.parentNode.insertBefore(js, fjs);
-})(document, 'script', 'facebook-jssdk');
+const $ = require('jquery');
 
 class GameOverScene extends Scene {
   constructor() {
@@ -25,6 +8,7 @@ class GameOverScene extends Scene {
 
     this.score = 0;
     this.highScore = 0;
+    this.record = 0;
   }
 
   init(data) {
@@ -34,7 +18,6 @@ class GameOverScene extends Scene {
       this.highScore = this.score;
       localStorage.setItem('highScore', this.highScore);
     }
-    
   }
 
   create() {
@@ -49,6 +32,15 @@ class GameOverScene extends Scene {
 
     this.highScoreText = this.add.text(400, 400, `Your high score: ${this.highScore}`);
 
+    $.ajax({
+      url: 'https://sheetsu.com/apis/v1.0su/4c92b442786b',
+      success: (resp) => {
+        this.recordText = this.add.text(50, 450, `World record is ${resp[0].score}. If you beat record, please send us screenshot.`, { color: '#c33764' });
+        this.recordText.setInteractive({ useHandCursor: true });
+        this.recordText.on('pointerdown', () => { window.location.href = 'mailto://frim00@vse.cz'; });
+      },
+    });
+
     this.restartButton = this.add.text(200, 500, 'Restart');
     this.restartButton.setInteractive({ useHandCursor: true });
     this.restartButton.on('pointerdown', () => this.scene.start('game'));
@@ -56,17 +48,22 @@ class GameOverScene extends Scene {
     this.shareButton = this.add.text(400, 500, 'Share on Facebook');
     this.shareButton.setInteractive({ useHandCursor: true });
     this.shareButton.on('pointerdown', () => {
-      FB.ui({
-        method: 'share',
-        href: window.location.href,
-        hashtag: '#StargazerGame',
-      }, (response) => {
-        if (!response) {
-          console.log('User did not share the page.');
+      
+      FB.login(function(response) {
+        if (response.authResponse) {
+          FB.api('/me', function(response) {
+            console.log(response);
+            alert('Logged in user is ' + response.name);
+          });
+          FB.api('/472749696765698/feed', 'POST', {'message': 'My highscore is ' + localStorage.getItem('highScore') }, function (resp) {
+            if (resp && !resp.error) {
+              console.log(resp);
+            }
+          });
         } else {
-          console.log('User shared the page!');
+         console.log('User cancelled login or did not fully authorize.');
         }
-      });
+    }, {scope: 'publish_to_groups,groups_access_member_info'});
     });
   }
 }

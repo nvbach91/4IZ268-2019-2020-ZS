@@ -44,7 +44,7 @@ class GameScene extends Scene {
 
     this.scoreText = this.add.text(16, 16, 'score: 0', {
       fontSize: '32px',
-      fill: '#000',
+      fill: '#ffffff',
     });
 
     this.gameOverText = this.add.text(400, 300, 'Game Over', {

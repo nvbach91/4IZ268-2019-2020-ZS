@@ -28,6 +28,11 @@
     "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
-    "phaser": "^3.18.1"
+    "google-spreadsheet": "^2.0.8",
+    "jquery": "^3.4.1",
+    "net": "^1.0.2",
+    "phaser": "^3.18.1",
+    "sheetsu": "^1.2.0",
+    "tls": "0.0.1"
   }
 }
