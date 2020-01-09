@@ -1,7 +1,10 @@
+/* import google fontu */
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
 body{
-    font-family: 'Tangerine', serif;
+    font-family: 'Poppins', sans-serif;
     background-color: white;
-    font-size: 20px;
+    font-size: 18px;
     margin: 0;
     padding: 0;
 }
@@ -14,13 +17,13 @@ body{
 }
 
 .weather{
-    color:blue !important;
+    color:#3263AC !important;
     font-size: 25px;
     font-weight: 600px;
 }
 
 #nav_list > li > a{
-    color: blue !important;
+    color: #3263AC !important;
     font-weight: 500;
 }
 
@@ -41,14 +44,15 @@ body{
 
 #colHeadText1{
     color: white;
-    padding-top: 30px;
-    font-size: 50px;
+    padding-top: 65px;
+    font-size: 45x;
 }
 
 #colHeadText2{
     color: white;
     padding-top: 20px;
     padding-bottom: 30px;
+    font-size: 75px;
 }
 
 ul#list_item{
@@ -61,7 +65,7 @@ ul#list_item{
     font-size: 40px;
     font-weight: 600px;
     margin-bottom: 0px;
-    background-color: blue;
+    background-color: #3263AC;
     color: white;
 }
 
@@ -72,14 +76,17 @@ ul#list_item{
     margin-top:10px;
 }
 
-input[type='text']{
+input[type='text'], input[type='number']{
     height: 40px;
     font-size: 20px;
+    margin-top: 10px;
 }
 
-#submitCity{
+#submitCity, #submitForecastRequest{
     height: 40px;
     font-weight: bold;
+    margin-top:10px;
+    background-color: #243766;
 }
 
 #errorCity{
@@ -88,7 +95,6 @@ input[type='text']{
     text-align: center;
 }
 
-
 #footer_text {
     padding-top: 30px;
     color: white;
@@ -96,10 +102,81 @@ input[type='text']{
 }
 
 .footer {
-    background-color: blue;
+    background-color: #3263AC;
     width: 100%;
     height: 80px;
-    /* jak tohle obejit? */
-    margin-top: 250px;
+    position: fixed;
     bottom: 0;
+}
+
+#showWeather {
+    width: 60%;
+    margin: auto;
+    background-color: #3263AC;
+    color: white;
+    border-radius: 25px;
+
+}
+
+#container_current_info {
+    height: 700px;
+    margin-bottom: 100px;
+    overflow: auto;
+}
+
+table {
+    color: black;
+}
+
+th {
+    background: #3263AC;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+}
+
+td {
+    background: #A9D5F3;
+    text-align: center;
+    font-size: 18px;
+}
+
+#welcome {
+    margin-top: 40px;
+    color: #3263AC;
+}
+
+#welcome-paragraph {
+    font-size: 20px;
+    font-weight: normal;
+    padding: 12px 25px 40px 25px;
+    letter-spacing: 0.5px;
+}
+
+#rowDiv {
+    margin: auto;
+    width: 100%;
+}
+
+#colDesc h3{
+    font-size: 21px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+#colDesc {
+    margin: auto;
+    height: 250px;
+}
+
+.info-icon{
+    text-align: center;
+}
+
+.info-icon i{
+    font-size: 60px;
+    margin-top: 10px;
+    height: 35px;
+    color: #3263AC;
 }
