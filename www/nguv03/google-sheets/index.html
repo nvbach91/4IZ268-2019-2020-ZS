@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Google Sheets API Quickstart</title>
+  <meta charset="utf-8" />
+  <style>
+    .form-row {
+      display: flex;
+      padding: 5px 0;
+    }
+    label {
+      width: 100px;
+    }
+    input {
+      width: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <p>Google Sheets API Quickstart</p>
+
+  <!--Add buttons to initiate auth sequence and sign out-->
+  <button id="authorize_button" style="display: none;">Authorize</button>
+  <button id="signout_button" style="display: none;">Sign Out</button>
+
+  <pre id="content" style="white-space: pre-wrap;"></pre>
+  <hr>
+  <form id="add-form">
+    <div class="form-row">
+      <label>ID</label>
+      <input name="id" required>
+    </div>
+    <div class="form-row">
+      <label>Name</label>
+      <input name="name" required>
+    </div>
+    <div class="form-row">
+      <label>Birth</label>
+      <input name="birth" required>
+    </div>
+    <div class="form-row">
+      <label>Height</label>
+      <input type="number" name="height" required>
+    </div>
+    <button>Add new record</button>
+  </form>
+  <hr>
+  <table id="table">
+    <thead id="table-head"></thead>
+    <tbody id="table-body"></tbody>
+  </table>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
