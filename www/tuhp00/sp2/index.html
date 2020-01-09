@@ -1,54 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Movie Database</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="movie, database, api">
+    <meta name="author" content="Patrik Tuháček">
+    <meta name="description" content="Movie search application">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.0/css/all.css">
 </head>
+
 <body>
     <header>
         <div>
             <div class="header-left">
-                <a href="index.html">Movie Database</a>
+                <a href="index.html" onclick="movieUnselected('${movie.id}')"><img class="logo"
+                        src="./assets/images/movie-icon.png" alt="Logo"></a>
             </div>
             <div class="header-right">
-                <a href="favorite.html">Favorite Movies</a>
+                <a onclick="getFavorite()" href="#"><img class="logo" src="./assets/images/favorite-icon.png"
+                        alt="Favorite Movies"></a>
             </div>
         </div>
         <br>
-        <div class="container">
-            <h3>Search for any movie</h3>
-            <form id="search">
-                <input type="text" id="movie-input" placeholder="Search movie...">
-                <button type="submit"><i class="fas fa-search"></i></button>
-            </form>
+        <div id="hide" class="searcher">
+            <div class="container">
+                <h3>Search for any movie</h3>
+                <form id="search">
+                    <input type="text" id="movie-input" placeholder="Search movie...">
+                    <button type="submit" class="search-button"><i class="fas fa-search"
+                            onclick="movieIdUnselected('${movie.id}')"></i></button>
+                </form>
+            </div>
         </div>
     </header>
 
     <main>
         <div>
+            <div id="favorite-title" class="title"></div>
             <div id="movies" class="movie-list"></div>
+        </div>
+        <div>
+            <div id="movie" class="movie-detail"></div>
+        </div>
+        <div>
+
+            <div id="favorite" class="favorite-list"></div>
+            <div id="favorite-end"></div>
         </div>
     </main>
 
     <footer>
         <div class="container">
             <div class="footer-menu">
-                <a href="index.html">Movie Database</a>
-                <a href="favorite.html">Favorite Movies</a>
+                <a href="index.html" onclick="movieUnselected('${movie.id}')">Movie Database</a>
+                <a onclick="getFavorite()" href="#">Favorite Movies</a>
             </div>
             <div>
                 <p>&copy; 2019 Tuháček Patrik</p>
             </div>
         </div>
     </footer>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
     <script src="./assets/js/main.js"></script>
+    <script>
+        getMovie();
+    </script>
+
 </body>
+
 </html>
