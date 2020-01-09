@@ -1,6 +1,6 @@
 const apiKey = '21f6de551a459859c11aa47bc21a1d33';
-
 window.addEventListener('load', () => {
+
   let long;
   let lat;
   let timeZone = document.querySelector('.timeZone')
@@ -11,7 +11,6 @@ window.addEventListener('load', () => {
   const searchedValue = document.querySelector('.searchInput');
   let temperatureSection = document.querySelector('.temperature-degree');
   let temperatureSpan = document.querySelector('.temperature-section span');
-
   let addToFavoriteBtn = document.querySelector('.favorite');
   let favoriteCittyFiedld = document.querySelector('.favoriteCity');
 
@@ -47,6 +46,18 @@ window.addEventListener('load', () => {
             return far;
           }
 
+          //Tento kus kodu sice funguje, ale dela to hodné problému. Cíl kodu spravné fungování historii
+
+          // history.pushState(data.city.name, '', data.city.name);
+          // window.onpopstate = function (event) {
+          //   console.log("location: " + location.href + ", state: " + JSON.stringify(event.state));
+          //   var urlState = location.href.split('/');
+          //   api = `http://api.openweathermap.org/data/2.5/forecast?q=${urlState[urlState.length-1]}&APPID=${apiKey}&cnt=40`;
+          //   $('.icon_main').textContent = '';
+          //   $('.fiveDayInfo').innerText = '';
+          //   getWeather();
+          // };
+
           function fahrenheitToCelsius(a) {
             cel = Math.floor(kelvinTofahrenheit(a) - 32) * 5 / 9;
             cel = Math.floor(cel);
@@ -62,10 +73,12 @@ window.addEventListener('load', () => {
           temperatureSpan.innerText = '°F';
 
           temperatureSection.addEventListener('click', () => {
+            // &#176; -> ° ale nefunguje to, resp. neumim to použit
             if (temperatureSpan.innerText === '°F') {
               temperatureSpan.innerText = '°C';
               temperatureSection.innerText = fahrenheitToCelsius(data.list[0].main.temp);
-            } else {
+            }
+            else {
               temperatureSpan.innerText = '°F';
               temperatureSection.innerText = kelvinTofahrenheit(data.list[0].main.temp);
             }
@@ -115,7 +128,8 @@ window.addEventListener('load', () => {
                 oneDayClouds.innerText = item.weather[0].description;
                 oneDay.appendChild(oneDayClouds);
               };
-            } else {
+            }
+            else {
               return false;
             };
           };
@@ -125,18 +139,22 @@ window.addEventListener('load', () => {
           let citiesArray = localStorage.getItem('city') ? JSON.parse(localStorage.getItem('city')) : [];
           if (localStorage.getItem('city') != null) {
             localStorageFunction();
-          } else {
+          }
+          else {
             favoriteCittyFiedld.innerText = 'The list of your favorite cities is empty.';
           };
           addToFavoriteBtn.addEventListener('click', () => {
             if (citiesArray.includes(name, 0) === true) {
               return false;
-            } else {
+            }
+            else {
               if (citiesArray.length < 5) {
                 citiesArray.push(name);
                 localStorage.setItem('city', JSON.stringify(citiesArray));
                 localStorageFunction();
-              } else {
+
+              }
+              else {
                 alert('You can add only 5 cities to your favorite city list.');
               }
             }
@@ -160,15 +178,16 @@ window.addEventListener('load', () => {
                   var html = `<div class="thisCityStorage"><p>${name}</p>
                               <div class="tempForFavoriteCitty">${kelvinTofahrenheit(data.list[0].main.temp)} <span>°F</span></div>
                               <img alt="WeatherIcon_For_${name}" src="http://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png">
-                              <div class="descriptionOfIconWeather">${data.list[0].weather[0].description}</div>
+                              <div class="descriptionOfIconWeather">${data.list[0].weather[0].description}</div> 
                               </div>`
                   $('.favoriteCity').append(html);
+
                 });
             });
           };
-
         });
     };
+
 
     function citySearch() {
       searchSuggestion();
@@ -197,7 +216,7 @@ window.addEventListener('load', () => {
     function searchSuggestion() {
       searchedValue.addEventListener('keyup', () => {
         const apiSearcUrl = `https://api.teleport.org/api/cities/?search=${searchedValue.value}&limit=4`;
-        $('.test').remove();
+        $('.citySearchSuggestion').remove();
         fetch(apiSearcUrl)
           .then(response => {
             return response.json();
@@ -205,22 +224,26 @@ window.addEventListener('load', () => {
           .then(data => {
             console.log(data);
             var html = /* html */
-              `<div class="test">
-            <div class="test_2"><p>${data._embedded['city:search-results'][0].matching_full_name.split(',', 2)}</p></div>
-            <div class="test_2"><p>${data._embedded['city:search-results'][1].matching_full_name.split(',', 2)}</p></div>
-            <div class="test_2"><p>${data._embedded['city:search-results'][2].matching_full_name.split(',', 2)}</p></div>
-            <div class="test_2"><p>${data._embedded['city:search-results'][3].matching_full_name.split(',', 2)}</p></div>
+              `<div class="citySearchSuggestion">
+            <p>${data._embedded['city:search-results'][0].matching_full_name.split(',', 2)}</p>
+            <p>${data._embedded['city:search-results'][1].matching_full_name.split(',', 2)}</p>
+            <p>${data._embedded['city:search-results'][2].matching_full_name.split(',', 2)}</p>
+            <p>${data._embedded['city:search-results'][3].matching_full_name.split(',', 2)}</p>
                </div>`
             setTimeout(function () {
+              $('.citySearchSuggestion').remove();
               $('.searchBox').append(html);
             }, 125);
             setTimeout(function () {
-              $('.test').remove();
+              $('.citySearchSuggestion').remove();
             }, 5000);
           });
       });
     }
-  } else {
+
+
+  }
+  else {
     alert('Geolocation is not supported for this Browser/OS version yet.');
   };
 });
