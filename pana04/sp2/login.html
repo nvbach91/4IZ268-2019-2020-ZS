@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/login.css">
+  <title>STUDOBLOG - Přihlášení</title>
+  <link href="https://fonts.googleapis.com/css?family=Product+Sans" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+</head>
+
+<body>
+  <form class="content-form" method="post">
+    <div class="studoblog-capture">
+      STUDOBLOG
+    </div>
+    <div class="left-side">
+      <div class="logo-container">
+        <img class="logo" src="img/vse.png" alt="default_image">
+      </div>
+      <div class="inputs-container">
+        <div class="login-label">
+          PŘIHLÁŠENÍ
+        </div>
+        <div class="field-container">
+          <div class="field-label">
+            Email
+          </div>
+          <input type="text" name="username" id="username" placeholder="">
+        </div>
+        <div class="field-container" id="field-heslo">
+          <div class="field-label">
+            Heslo
+          </div>
+          <div class="show-password-container">
+            <img src="img/view-1.svg" alt="default_image" class="show-password-icon">
+            <div class="show-password-label">
+              Show
+            </div>
+          </div>
+          <input type="password" name="password" placeholder="" id="password">
+        </div>
+        <div class="submit-container">
+          <div value="Log in" class="submt">LOG IN</div>
+        </div>
+        <div id="warning-label"><label class="oznameni-lbl">Wrong username or password</label></div>
+      </div>
+    </div>
+  </form>
+</body>
+<script type="text/javascript" src="js/login.js">
+
+</script>
+
+</html>
