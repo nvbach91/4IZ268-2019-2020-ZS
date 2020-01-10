@@ -8,6 +8,8 @@ $(document).ready(() => {
 
 // Načtení seznamu s filmy podle hledaného názvu
 function getMovies(searchText) {
+    $('#favorite').empty();
+    $('#favorite-title').empty();
     axios.get('https://api.themoviedb.org/3/search/movie?api_key=de2a8e617cf9090db24a3afcf55dac94&language=en-US&query=' + searchText)
         .then((resp) => {
             console.log(resp);
@@ -314,15 +316,15 @@ function addToFavorite(id) {
 
     movieArray.push(id)
     localStorage.setItem('movie', JSON.stringify(movieArray))
+    alert("Movie was add to favorite!");
 }
 
 //Funkce, která načte seznam oblíbených filmů
-// - funkce mi nefunguje
-// - filmy, které načtu do seznamu oblíbených se vypíšou do konzole, pro každý film z api načtu příslušné data,
-//   ale do html se vypíše pouze poslední film
 function getFavorite() {
     let favoriteMovie = localStorage.getItem('movie') ? JSON.parse(localStorage.getItem('movie')) : [];
     console.log(favoriteMovie);
+    $('#movies').empty();
+    $('#favorite').empty();
 
     $.each(favoriteMovie, (index, movie) => {
         console.log(movie);
@@ -334,32 +336,38 @@ function getFavorite() {
                 let output = '';
                 let output2 = `<h1>Favorite Movies</h1>`;
 
-                // $.each(favMov, (index) => {
                 output += `
-                <div class="favorite-box">
-                    <div class="favorite-box-info">
+                <div class="favorite-box" id="movie-${favMov.data.id}">
+                    <div class="favorite-box-info" >
                         <img src="https://image.tmdb.org/t/p/w500${favMov.data.poster_path}" class="favorite-photo">
                         <h2>${favMov.data.title}</h2>
                         <br>
                         <span>${favMov.data.overview}</span>
                         <br>
                         <br>
-                        <button onclick="remove()" class="button-remove">Remove from Favorite</button>
+                        <button onclick="remove(${favMov.data.id})" class="button-remove">Remove from Favorite</button>
                     </div>
                 </div>
                 `;
-                //});
 
-                $('#movies').html(output);
+                $('#favorite').append(output);
                 $('#favorite-title').html(output2);
             })
     });
 
 }
 
-function remove() {
-    let movieArray = localStorage.getItem('movie') ? JSON.parse(localStorage.getItem('movie')) : []
-    localStorage.removeItem('movie', JSON.stringify(movieArray))
+function remove(id) {
+    sessionStorage.setItem('favoriteMovie', id);
 
-    window.location = 'index.html';
+    let movieArray = localStorage.getItem('movie') ? JSON.parse(localStorage.getItem('movie')) : []
+    let movieID = sessionStorage.getItem('favoriteMovie');
+
+            let movieIDIndex = movieArray.indexOf(movieID);
+
+            movieArray.splice(movieIDIndex, 1)
+            localStorage.setItem('movie', JSON.stringify(movieArray));
+            //getFavorite();
+            
+            $('#movie-'+ movieID).remove()        
 }
