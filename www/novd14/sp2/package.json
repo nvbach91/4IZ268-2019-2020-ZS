@@ -2,6 +2,7 @@
   "name": "novd14-sp2",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://eso.vse.cz/~novd14/",
   "dependencies": {
     "@material-ui/core": "^4.8.3",
     "@material-ui/icons": "^4.5.1",

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import VideoListComponent from './VideoListComponent';
-import { videoDetailSelectAction } from '../../duck/operations';
+import { videoDetailSelectAction, sortByDateAction } from '../../duck/operations';
 
 const mapStateToProps = (state) => ({
   searchResult: state.videoSearch.searchResult,
@@ -11,8 +11,13 @@ const mapDispatchToProps = (dispatch) => {
     dispatch(videoDetailSelectAction(video));
   };
 
+  const sortByDate = () => {
+    dispatch(sortByDateAction());
+  };
+
   return {
     onVideoSelect,
+    sortByDate,
   }
 };
 

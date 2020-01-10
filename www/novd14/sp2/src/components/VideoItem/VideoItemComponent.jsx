@@ -34,7 +34,7 @@ class VideoItemComponent extends Component {
         <Grid item xs={12} md={5}>
           <img
             className={classes.videoImage}
-            src={video.snippet.thumbnails.medium.url}
+            src={video.snippet.thumbnails.high.url}
             alt={video.snippet.title}
           />
         </Grid>
@@ -46,6 +46,9 @@ class VideoItemComponent extends Component {
             >
               {video.snippet.title}
             </h2>
+            <p>{video.snippet.channelTitle}</p>
+            <p>{video.snippet.publishedAt}</p>
+            <p>{video.snippet.description}</p>
           </div>
         </Grid>
       </Grid>

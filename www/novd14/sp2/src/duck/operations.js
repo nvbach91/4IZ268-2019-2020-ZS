@@ -4,6 +4,7 @@ import {
   videoDetailSelect,
   getFavouritesVideos,
   setVideoAsFavourite,
+  sortByDate,
 } from './actions';
 
 const updateSearchPhraseAction = updateSearchPhrase;
@@ -11,6 +12,7 @@ const searchVideosAction = searchVideos;
 const videoDetailSelectAction = videoDetailSelect;
 const getFavouritesVideosAction = getFavouritesVideos;
 const setVideoAsFavouriteAction = setVideoAsFavourite;
+const sortByDateAction = sortByDate;
 
 export {
   updateSearchPhraseAction,
@@ -18,4 +20,5 @@ export {
   videoDetailSelectAction,
   getFavouritesVideosAction,
   setVideoAsFavouriteAction,
+  sortByDateAction,
 }

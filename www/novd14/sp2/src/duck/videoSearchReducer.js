@@ -6,6 +6,8 @@ import {
   VIDEO_DETAIL_SELECT,
   GET_FAVOURITES_VIDEOS,
   SET_VIDEO_AS_FAVOURITE,
+  SORTING_STARTED,
+  SORT_BY_DATE,
 } from './types';
 
 const initialState = {
@@ -68,6 +70,20 @@ const VideoSearchReducer = (state = initialState, action) => {
       return {
         ...state,
         favouriteVideos: action.payload,
+      };
+    }
+
+    case SORTING_STARTED: {
+      return {
+        ...state,
+        searchResult: null,
+      }
+    }
+
+    case SORT_BY_DATE: {
+      return {
+        ...state,
+        searchResult: action.payload,
       };
     }
 
