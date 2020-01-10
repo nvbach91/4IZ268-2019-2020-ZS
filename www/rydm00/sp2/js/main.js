@@ -20,22 +20,22 @@ $(document).ready(() => {
 
     function getLocation(callback) {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                var userPosition = {};
-                userPosition.lat = position.coords.latitude;
-                userPosition.lng = position.coords.longitude;
+            navigator.geolocation.getCurrentPosition((position) => {
+                var userPosition = { lat: position.coords.latitude, lng: position.coords.longitude };
                 callback(userPosition);
-            }, function () {
-                var userPosition = {};
-                userPosition.lat = 49.7437572;
-                userPosition.lng = 15.3386383;
+            }, () => {
+                var userPosition = { lat: 49.7437572, lng: 15.3386383 };
                 callback(userPosition);
-                alert('Nezjistil jsem tvou polohu, poloha byla nastavena do geografického středu ČR');
+                notie.alert({
+                    type: 'info', // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
+                    text: 'Nezjistila jsem tvou polohu, poloha nastavena do geografického středu ČR',
+                    time: 5
+                });
             });
         }
     }
 
-    getLocation(function (lat_lng) {
+    getLocation((lat_lng) => {
         App.latitude = Object.values(lat_lng)[0];
         App.longitude = Object.values(lat_lng)[1];
 
@@ -57,12 +57,12 @@ $(document).ready(() => {
         var objectInfo = {};
         var marker1;
         var marker2;
-        var destination1empty = true;
-        var destination2empty = true;
+        // var isEmptyDestination1;
+        // var isEmptyDestination2;
 
         //create delete Button and add click function
         const markersDeleteButton = $('<button>');
-        markersDeleteButton.attr('class', 'delete-button');
+        markersDeleteButton.addClass('delete-button');
         markersDeleteButton.text('SMAZAT ZNAČKU');
 
         markersDeleteButton.click(() => {
@@ -71,7 +71,7 @@ $(document).ready(() => {
 
         //create locate button and add click function
         const locateButton = $('<button>');
-        locateButton.attr('class', 'location-button');
+        locateButton.addClass('location-button');
         locateButton.text('PŘIDEJ MOU POLOHU');
 
         locateButton.click(() => {
@@ -101,7 +101,7 @@ $(document).ready(() => {
 
         function deleteDestination() {
             if (numberOfMarkers === 2) {
-                destination2empty = true;
+                // isEmptyDestination2 = true;
                 layerMarker.removeMarker(marker2, true);
                 numberOfMarkers = 1;
                 $('.weather-destination2').text('');
@@ -111,7 +111,7 @@ $(document).ready(() => {
                 App.result.hide();
                 history.replaceState(history.state, null, 'with-one-destination');
             } else if (numberOfMarkers === 1) {
-                destination1empty = true;
+                // isEmptyDestination1 = true;
                 layerMarker.removeMarker(marker1, true);
                 markersDeleteButton.hide();
                 numberOfMarkers = 0;
@@ -129,7 +129,7 @@ $(document).ready(() => {
             if (numberOfMarkers === 0) {
                 marker1 = new SMap.Marker(coords, 'marker1');
                 layerMarker.addMarker(marker1, true);
-                destination1empty = false;
+                isEmptyDestination1 = false;
 
                 const spinner = $('<div class="spinner"></div>');
                 addWeather(coordsLatitude, coordsLongitude, App.weatherDestination1, spinner);
@@ -141,7 +141,7 @@ $(document).ready(() => {
                 markersDeleteButton.show();
 
             } else if (numberOfMarkers === 1) {
-                destination2empty = false;
+                isEmptyDestination2 = false;
                 marker2 = new SMap.Marker(coords, 'marker2');
                 layerMarker.addMarker(marker2, true);
 
@@ -163,10 +163,11 @@ $(document).ready(() => {
             }).done((data) => {
                 var weatherObject = data['data'][0]['weather'];
                 var otherInfo = data['data'][0];
+                var celsiusToFahrenheit = (otherInfo.temp * 9 / 5) + 32;
                 let addedHTML = `
                         <div class="weather-place">${otherInfo.city_name} (${otherInfo.country_code})</div>
                         <div class="weather-description">${weatherObject.description}</div>
-                        <div class="weather-temperature">${otherInfo.temp} °C</div>
+                        <div class="weather-temperature">${otherInfo.temp} °C | ${celsiusToFahrenheit} °F</div>
                         <img class="weather-icon" src="https://www.weatherbit.io/static/img/icons/${weatherObject.icon}.png" alt="Ikonka počasí">
                         `;
                 destination.append(addedHTML);
@@ -234,26 +235,24 @@ $(document).ready(() => {
                     }
                 }
 
-            }).always(() => {
-                spinner.remove();
-            });
+            }).always(() => { spinner.remove() });
         };
 
         window.onpopstate = function () {
-            if (window.location.href == 'https://eso.vse.cz/~rydm00/sp2/index.html' || window.location.href == 'https://eso.vse.cz/~rydm00/sp2/') {
+            if (window.location.href.endsWith('/sp2/index.html') || window.location.href.endsWith('/sp2/')) {
                 deleteDestination();
-                console.log(destination1empty, destination2empty);
-            } else if (destination1empty === true) {
+                // console.log(isEmptyDestination1, isEmptyDestination2);
+            } else if (numberOfMarkers === 0) {
                 addContent(history.state.coords, history.state.coordsLatitude, history.state.coordsLongitude);
                 history.replaceState(history.state, null, 'with-one-destination');
-                console.log(destination1empty, destination2empty);
-            } else if (destination2empty === true) {
+                // console.log(isEmptyDestination1, isEmptyDestination2);
+            } else if (numberOfMarkers === 1) {
                 addContent(history.state.coords, history.state.coordsLatitude, history.state.coordsLongitude);
                 history.replaceState(history.state, null, 'with-two-destinations');
-                console.log(destination1empty, destination2empty);
-            } else if (destination2empty === false) {
+                // console.log(isEmptyDestination1, isEmptyDestination2);
+            } else if (numberOfMarkers === 2) {
                 deleteDestination();
-                console.log(destination1empty, destination2empty);
+                // console.log(isEmptyDestination1, isEmptyDestination2);
             }
         };
 
