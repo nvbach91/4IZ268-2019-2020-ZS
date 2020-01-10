@@ -9,11 +9,76 @@ var whitePieces = 12;
 var blackPieces = 12;
 var pieceCanTake = false;
 var numberOfMoves = 0;
+var blackPiecesList = [];
+var whitePiecesList = [];
+
+const App = {};
+App.CLIENT_ID = '888004420820-cthdnvhrad25035o935t9i0fkehf5o4o.apps.googleusercontent.com';
+App.API_KEY = 'AIzaSyDdoS8pim5pOfbVBhcDa8iT_gbkQXVEx1Y';
+App.spreadsheetId = '1YO2N96vX3H0mTJqrtsZQGUp-VHsObaC2TQoyj5_5ka8';
+App.SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
+App.DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v4'];
+
+App.handleClientLoad = () => {
+    gapi.load('client:auth2', () => {
+        gapi.client.init({
+            apiKey: App.API_KEY,
+            clientId: App.CLIENT_ID,
+            discoveryDocs: App.DISCOVERY_DOCS,
+            scope: App.SCOPES
+        }).then(() => {
+            // manipulate the DOM to notify users that they have logged in successfully
+
+            // Listen for sign-in state changes.
+            gapi.auth2.getAuthInstance().signIn();
+            gapi.auth2.getAuthInstance().isSignedIn.listen(App.updateSigninStatus);
+
+            // Handle the initial sign-in state.
+            App.updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+
+            // you can now start making Google Sheets API calls to retrieve data from a spreadsheet
+        }, (error) => {
+            // if there is any error, notify the users
+            console.log(JSON.stringify(error, null, 2));
+        });
+
+    });
+};
+
+
+/**
+       *  Called when the signed in status changes, to update the UI
+       *  appropriately. After a sign-in, the API is called.
+       */
+App.updateSigninStatus = (isSignedIn) => {
+    if (isSignedIn) {
+        console.log('signed in');
+    } else {
+    }
+}
+
+App.writeData = () => {
+    gapi.client.sheets.spreadsheets.values.append({
+        spreadsheetId: App.spreadsheetId,
+        range: 'Sheet1!A1',
+        valueInputOption: 'RAW',
+        insertDataOption: 'INSERT_ROWS',
+        resource: {
+            values: [
+                [blackPieces, whitePieces, numberOfMoves] // this is a row
+            ]
+        }
+    }).then((response) => {
+        var result = response.result;
+        console.log(`${result.updates.updatedCells} cells appended.`);
+        // refresh the table to verify the newly appended data
+    });
+}
 
 /**
  * function to clear board for testing purposes
  */
-function clearBoard() {
+function clearBoardPieces() {
     for (let i = 1; i <= 8; i++) {
         for (let j = 1; j <= 8; j++) {
             let checkSquare = document.getElementById(i + '-' + j);
@@ -26,12 +91,27 @@ function clearBoard() {
     }
 }
 
+function clearBoard() {
+    for (let i = 1; i <= 8; i++) {
+        for (let j = 1; j <= 8; j++) {
+            let checkSquare = document.getElementById(i + '-' + j);
+
+            checkSquare.remove();
+
+
+        }
+
+    }
+}
+
 /**
  * Function for clearing selected class.
  */
 function clearSelected() {
     selected.forEach(element => {
-        if (element.classList.contains('selected')) { element.classList.remove('selected'); }
+        if (element.classList.contains('selected')) {
+            element.classList.remove('selected');
+        }
     });
     selected = [];
 }
@@ -61,8 +141,10 @@ function createChecker(type, square) {
 
     if (type === 'white') {
         checker.classList.add('white-player')
+        whitePiecesList.push(square);
     } else if (type === 'black') {
         checker.classList.add('black-player')
+        blackPiecesList.push(square);
     } else {
         console.log('ERROR - Incorrect player type.')
     }
@@ -76,18 +158,21 @@ function createChecker(type, square) {
  */
 function createQueen(type, square) {
     let queen = document.createElement('div');
-    queen.classList.add('queen')
+    queen.classList.add('queen');
 
 
     if (type === 'white') {
-        queen.classList.add('white-player')
+        queen.classList.add('white-player');
+        whitePiecesList.push(square);
     } else if (type === 'black') {
-        queen.classList.add('black-player')
+        queen.classList.add('black-player');
+        blackPiecesList.push(square);
     } else {
-        console.log('ERROR - Incorrect player type.')
+        console.log('ERROR - Incorrect player type.');
     }
     square.appendChild(queen);
 }
+
 /**
  * Function creating cells on gameboard
  * @param {int} rowNumber y position on gameboard.
@@ -95,7 +180,7 @@ function createQueen(type, square) {
  */
 function createSquare(rowNumber, squareNumber) {
     let square = document.createElement('div');
-    let id = (squareNumber).toString() + '-' + (rowNumber).toString();
+    let id = squareNumber.toString() + '-' + rowNumber.toString();
     square.id = id;
     square.classList.add('square')
     if ((rowNumber + squareNumber) % 2 === 1) {
@@ -191,13 +276,15 @@ function getSurroundingSquareBySquare(square, checkLeft, checkUp) {
  * @param {boolean} isBehind - Boolean deciding if check is on square next checking piece or behind a piece.
  * @returns {boolean} - returns true if the color of piece is opposite, false in any other situation.
  */
-function SelectCorrectMoves(sideSquare, pieceIsBlack, afterTaking, isBehind) {
+function selectCorrectMoves(sideSquare, pieceIsBlack, afterTaking, isBehind) {
 
-    if (sideSquare.firstChild === null) {
+    if (!sideSquare.firstChild) {
         if (!afterTaking || afterTaking && isBehind) {
             sideSquare.classList.add('selected');
             selected.push(sideSquare);
-            if (afterTaking) { pieceCanTake = true; }
+            if (afterTaking) {
+                pieceCanTake = true;
+            }
         }
     } else if (sideSquare.firstChild.classList.contains('white-player') && pieceIsBlack) {
         return true;
@@ -219,7 +306,7 @@ function checkBehind(square, checkLeft, checkUp) {
     let sideColumn = parseInt(square.id.substr(0, 1), 10);
     let sideRow = parseInt(square.id.substr(2, 1), 10);
     let behindSquare = getSurroundingSquare(sideRow, sideColumn, checkLeft, checkUp)
-    if (behindSquare.firstChild == null) {
+    if (!behindSquare.firstChild) {
         behindSquare.classList.add('selected');
         selected.push(behindSquare);
         pieceCanTake = true;
@@ -250,7 +337,7 @@ function showBasicMove(square, pieceIsBlack, afterTaking) {
                 /**Gets square to check. */
                 let sideSquare = getSurroundingSquare(row, column, true, true);
                 /** Checks if it is a piece it can take. */
-                let pieceCheck = SelectCorrectMoves(sideSquare, true, afterTaking, false)
+                let pieceCheck = selectCorrectMoves(sideSquare, true, afterTaking, false)
                 /** Checks if space behind piece exists and is empty. */
                 if (pieceCheck && row > 2 && column > 2) {
                     if (checkBehind(sideSquare, true, true, pieceIsBlack, afterTaking)) {
@@ -263,7 +350,7 @@ function showBasicMove(square, pieceIsBlack, afterTaking) {
              */
             if (column < 8) {
                 let sideSquare = getSurroundingSquare(row, column, false, true);
-                let pieceCheck = SelectCorrectMoves(sideSquare, true, afterTaking, false)
+                let pieceCheck = selectCorrectMoves(sideSquare, true, afterTaking, false)
                 if (pieceCheck && row > 2 && column < 7) {
                     if (checkBehind(sideSquare, false, true, pieceIsBlack, afterTaking)) {
                         takeCheck = true;
@@ -278,7 +365,7 @@ function showBasicMove(square, pieceIsBlack, afterTaking) {
              */
             if (column > 1) {
                 let sideSquare = getSurroundingSquare(row, column, true, false);
-                let pieceCheck = SelectCorrectMoves(sideSquare, false, afterTaking, false)
+                let pieceCheck = selectCorrectMoves(sideSquare, false, afterTaking, false)
                 if (pieceCheck && row < 7 && column > 2) {
                     if (checkBehind(sideSquare, true, false, pieceIsBlack, afterTaking)) {
                         takeCheck = true;
@@ -290,7 +377,7 @@ function showBasicMove(square, pieceIsBlack, afterTaking) {
              */
             if (column < 8) {
                 let sideSquare = getSurroundingSquare(row, column, false, false);
-                let pieceCheck = SelectCorrectMoves(sideSquare, false, afterTaking, false)
+                let pieceCheck = selectCorrectMoves(sideSquare, false, afterTaking, false)
                 if (pieceCheck && row < 7 && column < 7) {
                     if (checkBehind(sideSquare, false, false, pieceIsBlack, afterTaking)) {
                         takeCheck = true;
@@ -299,7 +386,7 @@ function showBasicMove(square, pieceIsBlack, afterTaking) {
             }
         }
     }
-    if (takeCheck != true) {
+    if (!takeCheck) {
         takingPiece = null;
         pieceCanTake = false;
     }
@@ -378,7 +465,7 @@ function showQueenMove(square, pieceIsBlack, afterTaking) {
         clearLine(square, true, true)
 
     } else if (checkPiece != null) {
-        if (SelectCorrectMoves(checkPiece, pieceIsBlack, false, false)) {
+        if (selectCorrectMoves(checkPiece, pieceIsBlack, false, false)) {
             checkBehind = getSurroundingSquareBySquare(checkPiece, true, true);
             if (checkBehind != null) {
                 if (checkBehind.firstChild == null) {
@@ -399,7 +486,7 @@ function showQueenMove(square, pieceIsBlack, afterTaking) {
         clearLine(square, true, false)
 
     } else if (checkPiece != null) {
-        if (SelectCorrectMoves(checkPiece, pieceIsBlack, false, false)) {
+        if (selectCorrectMoves(checkPiece, pieceIsBlack, false, false)) {
             checkBehind = getSurroundingSquareBySquare(checkPiece, true, false);
             if (checkBehind != null) {
                 if (checkBehind.firstChild == null) {
@@ -420,7 +507,7 @@ function showQueenMove(square, pieceIsBlack, afterTaking) {
         clearLine(square, false, true)
 
     } else if (checkPiece != null) {
-        if (SelectCorrectMoves(checkPiece, pieceIsBlack, false, false)) {
+        if (selectCorrectMoves(checkPiece, pieceIsBlack, false, false)) {
             checkBehind = getSurroundingSquareBySquare(checkPiece, false, true);
             if (checkBehind != null) {
                 if (checkBehind.firstChild == null) {
@@ -441,7 +528,7 @@ function showQueenMove(square, pieceIsBlack, afterTaking) {
         clearLine(square, false, false)
 
     } else if (checkPiece != null) {
-        if (SelectCorrectMoves(checkPiece, pieceIsBlack, false, false)) {
+        if (selectCorrectMoves(checkPiece, pieceIsBlack, false, false)) {
             checkBehind = getSurroundingSquareBySquare(checkPiece, false, false);
             if (checkBehind != null) {
                 if (checkBehind.firstChild == null) {
@@ -476,8 +563,11 @@ function clearDiagonal(fromX, fromY, toX, toY) {
         let checkId = checkX.toString() + '-' + checkY.toString();
         let checkSquare = document.getElementById(checkId);
         let checkPiece = checkSquare.firstChild;
+        
         if (checkPiece !== null) {
-            checkPiece.classList.contains('black-player') ? blackPieces-- : whitePieces--;
+            let pieceIsBlack = checkPiece.classList.contains('black-player')
+            pieceIsBlack ? blackPieces-- : whitePieces--;
+            let pieceType = pieceIsBlack ? blackPiecesList : whitePiecesList;
             checkPiece.remove()
             return true;
         }
@@ -485,6 +575,19 @@ function clearDiagonal(fromX, fromY, toX, toY) {
         (fromY > toY) ? checkY-- : checkY++;
     }
     return false;
+}
+
+/**
+ * 
+ * @param {*} array - array from which to remove the item
+ * @param {*} item - item to remove
+ */
+function removeItem(array, item) {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] === item) {
+            array.splice(i, 1);
+        }
+    }
 }
 
 /**
@@ -496,7 +599,13 @@ function doBasicMove(square) {
     clearSelected();
     let gamePiece = moving[0];
     let fromSquare = gamePiece.parentNode;
+
+    let pieceIsBlack = gamePiece.classList.contains('black-player');
+    let pieceList =  pieceIsBlack? blackPiecesList : whitePiecesList;
     square.appendChild(gamePiece);
+
+    pieceList.push(square);
+    pieceIsBlack? blackPiecesList : whitePiecesList = pieceList 
 
 
     let fromColumn = parseInt(fromSquare.id.substr(0, 1), 10);
@@ -531,13 +640,37 @@ function doBasicMove(square) {
         takingPiece = null;
     }
 
-    if (takingPiece == null) {
+    if (!takingPiece) {
         moving = [];
         clearSelected();
         whiteTurn ? whiteTurn = false : whiteTurn = true;
     }
     updateNumber();
 
+}
+
+function highlightTurn() {
+    let currentPlayer = whiteTurn ? whitePiecesList : blackPiecesList;
+    let otherPlayer = whiteTurn ? blackPiecesList : whitePiecesList;
+
+    for(let i=0;i<currentPlayer.length;i++){
+        
+        if(!currentPlayer[i].firstChild){
+            removeItem(currentPlayer, currentPlayer[i]);
+            i--;
+        }else{
+            currentPlayer[i].classList.add('highlight');
+        }
+
+    };
+
+    for(let i=0;i<otherPlayer.length;i++){
+        otherPlayer[i].classList.remove('highlight');
+        if(!otherPlayer[i].firstChild){
+            removeItem(otherPlayer, otherPlayer[i]);
+            i--;
+        }
+    }
 }
 
 /**
@@ -548,6 +681,7 @@ function updateNumber() {
     document.getElementById('whitePieces').innerText = localStorage.getItem('White player') + ' pieces: ' + whitePieces;
     document.getElementById('movesNumber').innerText = 'Moves done: ' + numberOfMoves;
     let turn = whiteTurn ? 'White player' : 'Black player';
+    highlightTurn();
     document.getElementById('playerTurn').innerText = 'Current turn: ' + localStorage.getItem(turn);
     if (blackPieces === 0) alert('Congratulations ' + localStorage.getItem('White player') + ', you won!');
     if (whitePieces === 0) alert('Congratulations ' + localStorage.getItem('Black player') + ', you won!');
@@ -555,30 +689,8 @@ function updateNumber() {
 }
 
 document.getElementById("save").addEventListener('click', function () {
-    var data = {
-        Black: blackPieces,
-        White: whitePieces,
-        Turns: numberOfMoves
-    };
-
-    $.ajax({
-        url: "https://script.google.com/macros/s/AKfycbxexqvPy0KlW2lZ6pSiyxnXjVauEnkQiHfzxWAkHJZBT3ru24U/exec",
-        type: "GET",
-        data: data,
-        contentType: "application/javascript",
-        dataType: 'jsonp'
-    })
-        .done(function (res) {
-            console.log('success')
-        })
-        .fail(function (e) {
-            console.log("error")
-        });
-
-    window.receipt = function (res) {
-        // this function will execute upon finish
-    }
-
+    // the .append method will append a new row to a table whose cell is the specified range
+    App.writeData();
 });
 
 
@@ -602,7 +714,17 @@ window.onclick = function (event) {
 }
 
 document.getElementById("reset").addEventListener('click', function () {
-    location.reload();
+    selected = [];
+    moving = [];
+    takingPiece;
+    whiteTurn = true;
+    whitePieces = 12;
+    blackPieces = 12;
+    pieceCanTake = false;
+    numberOfMoves = 0;
+    clearBoard();
+    createBoard();
+    updateNumber();
 
 });
 
@@ -610,28 +732,35 @@ document.getElementById("reset").addEventListener('click', function () {
  * Function for receiving names of players for scoreboard.
  * @param {String} playerType - Insert "White player" for prompt for White Player Name and "Black player" for black player name.
  */
-function InsertPlayerName(playerType) {
+function insertPlayerName(playerType) {
     let person = prompt('Please enter ' + playerType + ' name:', playerType);
     let player = person || playerType;
     localStorage.setItem(playerType, player);
 }
 
-for (let i = 1; i <= 8; i++) {
-    createRow(i);
+function createBoard() {
+    for (let i = 1; i <= 8; i++) {
+        createRow(i);
+    }
 }
 
+createBoard();
 
 if (localStorage.getItem("Black player") != null) {
     if (window.confirm("On this computer player names have been already set. Do you want to set new ones?")) {
         localStorage.clear();
-        InsertPlayerName("Black player");
-        InsertPlayerName("White player");
+        insertPlayerName("Black player");
+        insertPlayerName("White player");
         updateNumber();
     } else {
         updateNumber();
     }
 } else {
-    InsertPlayerName("Black player");
-    InsertPlayerName("White player");
+    insertPlayerName("Black player");
+    insertPlayerName("White player");
     updateNumber();
 }
+
+App.handleClientLoad();
+
+

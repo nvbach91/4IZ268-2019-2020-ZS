@@ -182,6 +182,10 @@ body {
     background: rgba(135, 206, 250, 0.5);
 }
 
+.highlight{
+    background:turquoise;
+}
+
 @media(max-width:860px) {
     .gameboard {
         height: 400px;
