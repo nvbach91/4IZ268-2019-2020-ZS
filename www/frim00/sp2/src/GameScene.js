@@ -23,6 +23,7 @@ class GameScene extends Scene {
     this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
     this.load.image('bomb', 'assets/bomb.png');
+    this.load.image('fullscreen', 'assets/fullscreen.png');
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
   }
 
@@ -39,7 +40,6 @@ class GameScene extends Scene {
     this.createCursor();
     this.createStars();
     this.createBombs();
-
     this.createParticles();
 
     this.scoreText = this.add.text(16, 16, 'score: 0', {
@@ -53,8 +53,15 @@ class GameScene extends Scene {
     });
     this.gameOverText.setOrigin(0.5);
     this.gameOverText.visible = false;
-  }
 
+    const fullscreenButton = this.add.image(768, 32, 'fullscreen');
+    fullscreenButton.setDepth(99);
+    fullscreenButton.setInteractive({ useHandCursor: true });
+    fullscreenButton.on('pointerdown', () => {
+      this.scale.toggleFullscreen();
+    });
+  }
+  
   createParticles() {
     this.particles = this.add.particles('star');
     this.emitter = this.particles.createEmitter(particleConfig);

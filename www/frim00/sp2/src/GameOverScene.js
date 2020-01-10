@@ -20,6 +20,10 @@ class GameOverScene extends Scene {
     }
   }
 
+  preload() {
+    this.load.image('fullscreen', 'assets/fullscreen.png');
+  }
+
   create() {
     const background = this.add.graphics();
     background.fillGradientStyle(0x1d2671, 0xc33764);
@@ -31,6 +35,13 @@ class GameOverScene extends Scene {
     this.scoreText = this.add.text(200, 400, `Your score: ${this.score}`);
 
     this.highScoreText = this.add.text(400, 400, `Your high score: ${this.highScore}`);
+
+    const fullscreenButton = this.add.image(768, 32, 'fullscreen');
+    fullscreenButton.setDepth(99);
+    fullscreenButton.setInteractive({ useHandCursor: true });
+    fullscreenButton.on('pointerdown', () => {
+      this.scale.toggleFullscreen();
+    });
 
     $.ajax({
       url: 'https://sheetsu.com/apis/v1.0su/4c92b442786b',
@@ -48,7 +59,17 @@ class GameOverScene extends Scene {
     this.shareButton = this.add.text(400, 500, 'Share on Facebook');
     this.shareButton.setInteractive({ useHandCursor: true });
     this.shareButton.on('pointerdown', () => {
-      
+      FB.api('/me', function(response) {
+        console.log(response);
+        alert('Logged in user is ' + response.name);
+      });
+      FB.api('/472749696765698/feed', 'POST', {'message': 'My highscore is ' + localStorage.getItem('highScore') }, function (resp) {
+        if (resp && !resp.error) {
+          console.log(resp);
+        }
+      });
+
+/*
       FB.login(function(response) {
         if (response.authResponse) {
           FB.api('/me', function(response) {
@@ -64,6 +85,7 @@ class GameOverScene extends Scene {
          console.log('User cancelled login or did not fully authorize.');
         }
     }, {scope: 'publish_to_groups,groups_access_member_info'});
+    */
     });
   }
 }

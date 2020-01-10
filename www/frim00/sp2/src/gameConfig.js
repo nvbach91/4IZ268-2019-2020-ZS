@@ -8,6 +8,10 @@ const config = {
   parent: 'phaser-example',
   width: 800,
   height: 600,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH
+  },
   scene: [PreloadScene, GameScene, GameOverScene],
   physics: {
     default: 'arcade',
