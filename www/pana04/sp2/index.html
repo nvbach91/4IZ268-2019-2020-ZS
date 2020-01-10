@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>STUDOBLOG - Hlavní stránka</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Product+Sans" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+</head>
+
+<body>
+  <div class="menubar">
+    <div class="menubar-header">
+      <img src="img/vse.png" alt="default_image" class="menubar-icon" id="menubar-icon">
+      <div class="menubar-capture">
+        STUDOBLOG
+      </div>
+      <div class="spinner" id="spinner">
+
+      </div>
+    </div>
+    <div class="menubar-but" id="menubar-but">
+
+    </div>
+  </div>
+  <div class="content" id="content">
+    <div class="new-blog-container">
+    </div>
+  </div>
+  <div class="add-blog-modal" id="add-blog-modal" data-onedit="false" data-blogid="">
+    <div class="add-blog-modal-content-container">
+      <div class="add-blog-modal-content">
+        <div class="add-blog-close">
+          &times;
+        </div>
+        <div class="add-blog-header">
+          Nový blog
+        </div>
+        <div class="add-blog-title-label">
+          NÁDPIS
+        </div>
+        <textarea id="nadpis" class="add-blog-title" rows="1" data-min-rows="1" contenteditable="true" onkeyup="resizeTextarea(this);" oninput="textAreaOnInput(this, event);" onfocus="textAreaOnInput(this, event)" onblur="textAreaOnBlur(this)"
+          onmousedown="textAreaOnInput(this, event)"></textarea>
+        <div class="add-blog-title-label">
+          OBSAH
+        </div>
+        <textarea id="obsah" class="add-blog-obsah" rows="1" data-min-rows="1" contenteditable="true" onkeyup="resizeTextarea(this);" oninput="textAreaOnInput(this, event);" onfocus="textAreaOnInput(this, event)" onblur="textAreaOnBlur(this)"
+          onmousedown="textAreaOnInput(this, event)"></textarea>
+        <div class="publish-button-container">
+          <div class="publish-button">
+            Zveřejnit
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="login-modal" id="login-modal">
+    <form class="content-form" method="post">
+      <div class="studoblog-capture">
+        STUDOBLOG
+      </div>
+      <div class="left-side">
+        <div class="logo-container">
+          <img class="logo" src="img/vse.png" alt="default_image">
+        </div>
+        <div class="inputs-container">
+          <div class="login-label">
+            PŘIHLÁŠENÍ
+          </div>
+          <div class="field-container">
+            <div class="field-label">
+              Email
+            </div>
+            <input type="text" name="username" id="username" placeholder="">
+          </div>
+          <div class="field-container" id="field-heslo">
+            <div class="field-label">
+              Heslo
+            </div>
+            <div class="show-password-container">
+              <img src="img/view-1.svg" alt="default_image" class="show-password-icon">
+              <div class="show-password-label">
+                Show
+              </div>
+            </div>
+            <input type="password" name="password" placeholder="" id="password">
+          </div>
+          <div class="submit-container">
+            <div value="Log in" class="submt">LOG IN</div>
+          </div>
+          <div id="warning-label"><label class="oznameni-lbl">Wrong username or password</label></div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="signup-modal" id="signup-modal">
+    <div class="studoblog-capture">
+      STUDOBLOG
+    </div>
+    <div class="signup-container">
+      <!-- <br> -->
+      <div class="logo-container">
+        <img class="logo" src="img/vse.png" alt="">
+      </div>
+      <div class="signup-capture">
+        Registrace
+      </div>
+      <br>
+      <form class="" method="post">
+        <div class="fields-container">
+          <label class="usr_lbl" for="user_name">Uživatelské jméno nebo Email</label>
+          <input class="username" id="username" type="text" name="user_name" class="user_name" placeholder="petrdvorak@email.cz" value="">
+
+          <label class="pswrd_lbl" for="pass_word">Heslo</label>
+          <input class="password" id="password" type="password" name="pass_word" class="pass_word" placeholder="Heslo" value="">
+
+          <label class="pswrd_lbl" for="confirm_password">Potvrdit heslo</label>
+          <input class="confirm_password" id="confirm_password" type="password" name="confirm_password" class="confirm_password" placeholder="Potvrdit heslo" value="">
+
+          <label class="name_lbl" for="name">Jméno</label>
+          <input class="first_name" id="first_name" type="text" name="name" class="name" placeholder="Petr" value="">
+
+          <label class="surname_lbl" for="surname">Příjmení</label>
+          <input class="last_name" id="last_name" type="text" name="surname" class="surname" placeholder="Dvořák" value="">
+
+        </div>
+
+        <div class="submit">Registrovat se</div>
+        <br>
+        <a href="login.html" class="alreadyex">Už mám účet</a>
+        <br>
+      </form>
+    </div>
+  </div>
+  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/login.js"></script>
+  <script type="text/javascript" src="js/signup.js"></script>
+</body>
+
+</html>
