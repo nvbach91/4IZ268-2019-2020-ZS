@@ -35,7 +35,7 @@ body {
 }
 
 .favoriteCity {
-	height: 20%;
+	margin-top: 70px;
 	width: 100%;
 	display: flex;
 	justify-content: space-around;
@@ -107,11 +107,36 @@ body {
 	width: 100%;
 }
 
+.choseTemp {
+    position: absolute;
+    top: 20%;
+	right: 300px;
+	outline: none;
+    border: 0;
+    background: transparent;
+	cursor: pointer;
+	display: none;
+}
+
+.choseTemp button{
+	outline: none;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.choseTemp img {
+	width: 16px;
+	height: 16px;
+	margin: 0 1.25px;
+	cursor: pointer;
+}
+
 .citySearchSuggestion {
 	position: absolute;
 	text-align: left;
 	padding-left: 10px;
-	top: 70px;
+	top: 55px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
