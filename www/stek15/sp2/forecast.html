@@ -13,34 +13,36 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-default" id="nav_bar">
-        <div class="container">
-            <div class="navbar-header">
-                <a href="index.html" class="navbar-brand navbar-link weather">
-                    <img src="images/logo.png" class="img-responsive" id="logo" alt=""><strong>PovětrPost</strong>
-                </a>
-                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="navcol">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="navcol">
-                <ul class="nav navbar-nav navbar-right" id="nav_list">
-                    <li><a href="current.html">Aktuální</a></li>
-                    <li><a href="forecast.html">Předpověď</a></li>
-                    <li><a href="http://www.openweathermap.org" target="_blank">Weather Map</a></li>
-                </ul>
-            </div>
+ <!-- navigace -->
+ <nav class="navbar navbar-default" id="nav_bar">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="index.html" class="navbar-brand navbar-link weather">
+                <img src="images/logo.png" class="img-responsive" id="logo" alt=""><strong>PovětrPost</strong>
+            </a>
+            <button class="navbar-toggle" data-toggle="collapse" data-target="#navcol">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
         </div>
-    </nav>
+        <!-- slozitelne polozky menu -->
+        <div class="collapse navbar-collapse" id="navcol">
+            <ul class="nav navbar-nav navbar-right" id="nav_list">
+                <li><a href="current.html">Aktuální</a></li>
+                <li><a href="forecast.html">Předpověď</a></li>
+                <li><a href="http://www.openweathermap.org/" target="_blank">Weather Map</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
     <div class="jumbotron">
         <h2 class="text-center">Ta nejspolehlivější předpověď</h2>
     </div>
 
-    <div class="container" id="container_current_info">
+    <div class="container" id="containerCurrentInfo">
         <div class="row">
             <div class="col-md-12">
                 <h3 class="text-center">Zadejte město a požadovaný počet dní předpovědi:</h3>
@@ -49,15 +51,15 @@
 
             <div class="row form-group form-inline" id="cityDiv">
                 <input type="text" name="city" id="city" class="form-control" placeholder="Město">
-                <input type="text" name="days" id="days" class="form-control" placeholder="Délka (1-30)">
+                <input type="number" name="days" id="days" class="form-control" placeholder="Délka (1-30)">
                 <button id="submitForecastRequest" class="btn btn-primary">Zjistit počasí</button>
             </div>
 
         </div>
 
         <div class="row" style="margin-top:25px">
-            <table class="table table-bordered">
-                <div id="header" class="text-center"></div>
+            <div id="header" class="text-center"></div>
+            <table class="table table-bordered">          
                 <thead>
                     <tr>
                         <th>Den č.</th>
@@ -73,7 +75,6 @@
                 </thead>
 
                 <tbody id="forecastWeather">
-
                 </tbody>
             </table>
         </div>
@@ -82,7 +83,7 @@
 
     <div class="footer">
         <div class="container">
-            <div class="row text-center" id="footer_text">
+            <div class="row text-center" id="footerText">
                 <p>4IZ268, druhá semestrální práce, ZS 19/20 &copy;stek15</p>
             </div>
         </div>

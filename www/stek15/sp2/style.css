@@ -27,6 +27,12 @@ body{
     font-weight: 500;
 }
 
+#dynamicSelectBox {
+    margin-top: 10px;
+    color: #3263AC;
+    font-weight: 500;
+}
+
 #logo{
     max-height: 42px;
     margin-right: 8px;
@@ -95,7 +101,7 @@ input[type='text'], input[type='number']{
     text-align: center;
 }
 
-#footer_text {
+#footerText {
     padding-top: 30px;
     color: white;
     font-size: 16px;
@@ -112,13 +118,14 @@ input[type='text'], input[type='number']{
 #showWeather {
     width: 60%;
     margin: auto;
+    margin-bottom: 150px;
     background-color: #3263AC;
     color: white;
     border-radius: 25px;
 
 }
 
-#container_current_info {
+#containerCurrentInfo {
     height: 700px;
     margin-bottom: 100px;
     overflow: auto;
@@ -158,14 +165,14 @@ td {
     width: 100%;
 }
 
-#colDesc h3{
+.colDesc h3{
     font-size: 21px;
     font-weight: bold;
     margin-bottom: 20px;
     text-transform: uppercase;
 }
 
-#colDesc {
+.colDesc {
     margin: auto;
     height: 250px;
 }
@@ -178,5 +185,5 @@ td {
     font-size: 60px;
     margin-top: 10px;
     height: 35px;
-    color: #3263AC;
+    color: #243766;
 }

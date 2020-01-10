@@ -4,14 +4,15 @@ $(document).ready(function () {
         return getForecast();
     });
 
+    //umoznuje vkladat enterem
+    $("#days").keyup(function (event) {
+        if (event.keyCode === 13) {
+            $("#submitForecastRequest").click();
+        }
+    });
+
 });
 
-//umoznuje vkladat enterem
-$("#days").keyup(function (event) {
-    if (event.keyCode === 13) {
-        $("#submitForecastRequest").click();
-    }
-});
 
 function getForecast() {
 
@@ -21,13 +22,25 @@ function getForecast() {
     var days = $("#days").val();
     days.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
 
-    if (city != '' && days != '') {
+    if (isNaN(days) || days > 30 || days < 1) {
+        $("#error").html("<div class='alert alert-danger' id='errorCity'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Zadejte počet dní mezi 1 a 30</div>");
+    }
+
+    else if ((city && days) != '') {
+
+        function ajax(options) {
+            return new Promise(function (resolve, reject) {
+                $.ajax(options).done(resolve).fail(reject);
+            });
+        }
 
         $.ajax({
             url: 'http://api.openweathermap.org/data/2.5/forecast/?q=' + city + "&units=metric&lang=cz&cnt=" + days + "&APPID=ba11d8c2645a2ac14a994dd3c477fe67",
             type: "GET",
-            dataType: "jsonp",
-            success: function (data) {
+            dataType: "json",
+
+        }).then(
+            function fulfillHandler(data) {
 
                 var table = '';
 
@@ -57,21 +70,30 @@ function getForecast() {
                 $("#city").val('');
                 $("#days").val('');
 
+            },
+            function rejectHandler(jqXHR, textStatus, errorThrown) {
+                $("#error").html("<div class='alert alert-danger' id='errorCity'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Město nenalezeno, překlep?</div>");
             }
+        ).catch(function errorHandler(error) {
+            $("#error").html("<div class='alert alert-danger' id='errorCity'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Error</div>");
 
         });
 
         //ulozeni do cookies
         document.cookie = document.getElementById("city").value;
 
-    } else {
+    }
+
+    else {
         $("#error").html("<div class='alert alert-danger' id='errorCity'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Žádné pole nesmí být prázdné</div>");
     }
 
 }
 
-// predvyplneni vracejicim se uzivatelum
+//predvyplneni vracejicim se uzivatelum
 var cookieCutter = document.cookie.split(';')[1];
 if (cookieCutter != "") {
-   $("#city").val(cookieCutter);
+    //zbaveni se uvodni mezery, ktera se z nejakyho duvodu objevuje na zacatku stringu
+    cookieCutter = cookieCutter.replace(/\s/g, '');
+    $("#city").val(cookieCutter.valueOf());
 }
