@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta name="description" content="School project - web app showing weather info">
+    <meta name="keywords" content="School, Weather, Forecast, Javascript, DOM, AJAX, API, HTML, CSS">
+    <meta name="author" content="Jan Laskaj, lasj03">
+    <title>Weather</title>
+    <link rel="shortcut icon" type="image/x-icon" href="resources/icons/favicon.ico">
+    <link rel="stylesheet" href="resources/main.css">
+    <!--Seznam API vyžaduje scripty v hlavičce, když je přesunu tak nefungují-->
+    <script type="text/javascript" src="https://api.mapy.cz/loader.js"></script>
+    <script type="text/javascript">
+        Loader.load(null, {
+            suggest: true
+        });
+    </script>
+    <script type="text/javascript">
+        Loader.load();
+    </script>
+</head>
+
+<body id="advanced-geocoding">
+    <header>
+        <a href='index.html'> <img alt="icon" src='resources/icons/logo.png'>
+        </a>
+        <form id="form">
+            <p>
+                <label><input type="text" id="query" placeholder="Zde zadejte lokaci:" /></label>
+                <input type="submit" value="Hledat" id="hledat-button" />
+
+            </p>
+        </form>
+        <div class="dropdown">
+            <button class="dropbtn">Oblíbené</button>
+            <div id="myDropdown" class="dropdown-content">
+
+            </div>
+        </div>
+    </header>
+    <div class="city-wrapper">
+    </div>
+    <footer>
+        <a href="https://www.linkedin.com/in/jan-la%C5%A1kaj-216811130/" class="zdroj">Created by: Jan Laškaj</a><br>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="resources/pokus.js"></script>
+</body>
+
+</html>
