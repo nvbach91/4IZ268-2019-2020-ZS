@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/login.css">
+  <link rel="icon" href="./img/olive-tree-vector-19.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+  <script src="https://kit.fontawesome.com/d4998154c5.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="text-center">
+
+  <!-------------------------------------------------LOGIN PAGE-------------------------------------------------------------------------------------->
+
+  <div id="sign-in-page">
+    <form class="form-signin">
+      <img class="mb-4" src="./img/olive-tree-vector-19.png" alt="olive tree logo" width="150" height="150">
+      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+      <label for="inputEmail" class="sr-only">Email address</label>
+      <input type="email" id="email" class="form-control" name="email" placeholder="Email address" required autofocus>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" id="password" class="form-control" name="password" placeholder="Password" required>
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit" id="quickstart-sign-in" name="signin">Sign
+        in</button>
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit" id="quickstart-sign-up" name="signup">Wanna sign
+        up?</button>
+
+      <button class="btn btn-sm btn-primary btn-block" disabled id="quickstart-verify-email" name="verify-email">Send
+        Email Verification</button>
+
+      <button class="btn btn-sm btn-primary btn-block" id="quickstart-password-reset" name="verify-email">Send Password
+        Reset Email</button>
+
+      <p class="mt-5 mb-3 text-muted">&copy; 2019-2021</p>
+    </form>
+  </div>
+
+  <!--------------------------------------------------------MAIN PAGE---------------------------------------------------------------------------->
+  <div class="main-page" id="main-page">
+    <link rel="stylesheet" href="./assets/main.css">
+
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">OLIVE TREE</a>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <button id="sign-out-btn" class="btn btn-dark">Sign out</button>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">
+                  <span data-feather="home"></span>
+                  Home <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="pie-chart"></span>
+                  Summary
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="list"></span>
+                  Study plan
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="calendar"></span>
+                  Time schedule
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#courses-page">
+                  <span data-feather="book-open"></span>
+                  Courses
+                </a>
+              </li>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Saved reports</span>
+              <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
+                <span data-feather="plus-circle"></span>
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text"></span>
+                  Current month
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text"></span>
+                  Last quarter
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text"></span>
+                  Social engagement
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text"></span>
+                  Year-end sale
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <div
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Dashboard</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+              </div>
+              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+              </button>
+            </div>
+          </div>
+
+          <canvas class="my-4 w-100" id="mychart" width="900" height="380"></canvas>
+
+          <span id="courses-page"></span>
+          <h1>Courses</h1>
+
+          <form class="form-signin">
+            <img class="mb-4" src="./img/olive-tree-vector-19.png" alt="olive tree logo" width="150" height="150">
+
+
+
+            <label for="inputId" class="sr-only">Mandatority</label>
+            <input list="mandatority-opts" id="mandatority" class="form-control" name="Mandatority"
+              placeholder="Mandatority" required>
+
+            <datalist id="mandatority-opts">
+              <option value="mandatory"></option>
+              <option value="semi-optional"></option>
+              <option value="optional"></option>
+            </datalist>
+
+            <label for="inputId" class="sr-only">Id</label>
+            <input type="text" id="course-id" class="form-control" name="course-id" placeholder="Course-ID" required>
+
+            <label for="inputName" class="sr-only">Name</label>
+            <input type="text" id="name" class="form-control" name="Name" placeholder="Name" required>
+
+            <label for="inputECTS" class="sr-only">ECTS</label>
+            <input type="number" id="ects" class="form-control" name="ECTS" placeholder="ECTS" required>
+
+            <label for="inputSemester" class="sr-only">Semester</label>
+            <input type="number" min="1" max="20" id="semester" class="form-control" name="Semester"
+              placeholder="Recommended semester" required>
+            <p></p>
+
+            <button class="btn btn-primary btn-block" type="submit" id="update-btn" name="update-btn">Add</button>
+          </form>
+
+
+          <h2>Mandatory courses</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm" id="table-mandatory">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>ECTS</th>
+                  <th>recommended <br> semester</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td>De la peklo</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>amet</td>
+                  <td>consectetur</td>
+                  <td>adipiscing</td>
+                  <td>elit</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Integer</td>
+                  <td>nec</td>
+                  <td>odio</td>
+                  <td>Praesent</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>libero</td>
+                  <td>Sed</td>
+                  <td>cursus</td>
+                  <td>ante</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>Semi-optional courses</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm" id="table-semi-optional">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>ECTS</th>
+                  <th>recommended <br> semester</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>amet</td>
+                  <td>consectetur</td>
+                  <td>adipiscing</td>
+                  <td>elit</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Integer</td>
+                  <td>nec</td>
+                  <td>odio</td>
+                  <td>Praesent</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>libero</td>
+                  <td>Sed</td>
+                  <td>cursus</td>
+                  <td>ante</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h2>Optional courses</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm" id="table-optional">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>ECTS</th>
+                  <th>recommended <br> semester</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>amet</td>
+                  <td>consectetur</td>
+                  <td>adipiscing</td>
+                  <td>elit</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Integer</td>
+                  <td>nec</td>
+                  <td>odio</td>
+                  <td>Praesent</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>libero</td>
+                  <td>Sed</td>
+                  <td>cursus</td>
+                  <td>ante</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <div class="quickstart-user-details-container">
+    <span id="quickstart-sign-in-status"></span>
+    <div><code>currentUser</code></div>
+    <pre><code id="quickstart-account-details"></code></pre>
+  </div>
+  <!--------------------------------------------------------------Bootstrap------------------------------------------------------------------------------------->
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+  <!--------------------------------------------------------------FIREBASE------------------------------------------------------------------------------------->
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/7.6.2/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/7.6.2/firebase-auth.js"></script>
+  <script defer src="/__/firebase/7.6.2/firebase-database.js"></script>
+  <script defer src="/__/firebase/7.6.2/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/7.6.2/firebase-storage.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <!--------------------------------------------------------------JS------------------------------------------------------------------------------------->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script src="./assets/dashboard.js"></script>
+  <script src="./assets/main.js"></script>
+</body>
+
+</html>
