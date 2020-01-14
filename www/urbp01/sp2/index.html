@@ -5,21 +5,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Deník trenéra - Úvod</title>
+    <title>Deník trenéra</title>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/main.css" />
 </head>
 
 <body>
-    <div class="intro">
+    <nav id="nav">
+        <button class="nav-item" id="nav-menu">Menu</button>
+        <button class="nav-item" id="nav-view">Režim zobrazení</button>
+        <button class="nav-item" id="nav-edit">Režim úpravy</button>
+        <button class="nav-item" id="signin-button">Přihlásit se</button>
+        <button class="nav-item" id="signout-button">Odhlášení</button>
+    </nav>
+    <div id="d-intro" class="intro">
         <h1>Deník trenéra</h1>
         <p>Vítejte, zvolte si režim, který chcete využívat.</p>
-        <a href="view.html">Režim zobrazení</a>
-        <a href="edit.html">Režim úpravy</a>
+        <a id="a-view">Režim zobrazení</a>
+        <a id="a-edit">Režim úpravy</a>
+    </div>
+    <div id="d-edit" class="edit">
+        <div class="in">
+            <form>
+                <h1>Režim úpravy</h1>
+                <input name="name" type="text" required placeholder="Vložte jméno">
+                <input name="date" type="date">
+                <input name="theme" type="text" required placeholder="Vložte téma">
+                <textarea class="description" name="description" required placeholder="Popis tréninku"></textarea>
+                <button type="button" id="b-edit">Vložit</button>
+            </form>
+        </div>
+    </div>
+    <div id="d-view" class="view">
+        <div class="in" id="in-view">
+            <form>
+                <h1>Režim zobrazení</h1>
+                <input id="s-name" name="s-name" type="text" required placeholder="Vložte jméno">
+                <button type="button" id="b-view">Zobrazit</button>
+            </form>
+        </div>
+        <div class="out" id="out-view">
+            <div>
+                <button type="button" id="b-reset">Reset</button>
+            </div>
+            <div id="out-content">
+            </div>
+        </div>
     </div>
     <footer>
         <p>&copy; Petr Urban, Vysoká škola ekonomická v Praze, Fakulta informatiky a statistiky</p>
         <p>Vytvořeno za účelem semestrální práce z předmětu 4IZ268</p>
     </footer>
+    <script src="./assets/js/main.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 </body>
 
 </html>
