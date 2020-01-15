@@ -11,6 +11,7 @@
   <link rel="icon" href="./img/olive-tree-vector-19.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
   <script src="https://kit.fontawesome.com/d4998154c5.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./assets/main.css">
 </head>
 
 <body class="text-center">
@@ -44,7 +45,6 @@
 
   <!--------------------------------------------------------MAIN PAGE---------------------------------------------------------------------------->
   <div class="main-page" id="main-page">
-    <link rel="stylesheet" href="./assets/main.css">
 
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">OLIVE TREE</a>
@@ -88,39 +88,6 @@
                 <a class="nav-link" href="#courses-page">
                   <span data-feather="book-open"></span>
                   Courses
-                </a>
-              </li>
-            </ul>
-
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Saved reports</span>
-              <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
-                <span data-feather="plus-circle"></span>
-              </a>
-            </h6>
-            <ul class="nav flex-column mb-2">
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  Current month
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  Last quarter
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  Social engagement
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  Year-end sale
                 </a>
               </li>
             </ul>
@@ -195,38 +162,6 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td>De la peklo</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                  <td></td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -245,38 +180,6 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                  <td></td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -294,38 +197,6 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                  <td></td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -335,8 +206,8 @@
   </div>
 
   <div class="quickstart-user-details-container">
-    <span id="quickstart-sign-in-status"></span>
-    <div><code>currentUser</code></div>
+    <span class="hide" id="quickstart-sign-in-status"></span>
+    <div class="hide"><code>currentUser</code></div>
     <pre><code id="quickstart-account-details"></code></pre>
   </div>
   <!--------------------------------------------------------------Bootstrap------------------------------------------------------------------------------------->
@@ -370,6 +241,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <script src="./assets/dashboard.js"></script>
+  <script src="./assets/database.js"></script>
   <script src="./assets/main.js"></script>
 </body>
 

@@ -131,7 +131,7 @@ function initApp() {
       var emailVerified = user.emailVerified;
       var photoURL = user.photoURL;
       var isAnonymous = user.isAnonymous;
-      var uid = user.uid;
+      window.uid = user.uid;
 
       // [START_EXCLUDE]
       document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
@@ -295,6 +295,16 @@ function courseBuildTableRow(id) {
     "</td>" +
 
     "</tr>"
+
+  //Insert course to the firebase database
+
+  var courseId = $("#course-id").val();
+  var mandatority = $("#mandatority").val();
+  var name = $("#name").val();
+  var ects = $("#ects").val();
+  var semester = $("#semester").val();
+
+  addCourseToDatabase(courseId, mandatority, name, ects, semester);
 
   return ret;
 }
