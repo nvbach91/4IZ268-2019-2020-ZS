@@ -5,19 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>[4IZ268] SP2</title>
+    <title>My Tasks</title>
+    <link rel="icon" href="./img/task.png" type="image/png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-default.min.css">
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Úkoly</h1>
-        <h2>Prázdniny - cestování</h2>
+        <h1>Úkoly - únor</h1>
+        <hr>
         <div class="btn-group dropdown">
-            <button type="button" class="btn btn-success">Exportovat</button>
-            <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+            <button type="button" class="btn btn-primary export-all">Exportovat</button>
+            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
@@ -25,33 +29,16 @@
                 <li><a href="#">Vše</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Pouze sekci</li>
-                <li><a href="#">Otevřeno</a></li>
-                <li><a href="#">V řešení</a></li>
-                <li><a href="#">Hotovo</a></li>
             </ul>
         </div>
-        <div class="row">
-            <div class="col-sm-3 section" id="open-section">
-                <h2>Otevřeno</h2>
-                <button id="new-task">Nový úkol</button>
-            </div>
-            <div class="col-sm-3 section" id="in-progress-section">
-                <h2>V řešení</h2>
-                <button id="new-task">Nový úkol</button>
-            </div>
-            <div class="col-sm-3 section" id="done-section">
-                <h2>Hotovo</h2>
-                <button id="new-task">Nový úkol</button>
-            </div>
-            <div class="col-sm-3 new-section" id="new-section">
-                <h2>Přidat další</h2>
-            </div>
-        </div>
-        <!-- <div id="result"></div> -->
+        <div class="row sections"></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.min.js"></script>
+    <script>vex.defaultOptions.className = 'vex-theme-os'</script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <script src="./js/main.js"></script>
 </body>
 
