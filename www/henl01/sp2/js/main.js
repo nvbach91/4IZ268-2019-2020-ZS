@@ -14,6 +14,10 @@ var settings = {
 App.init = () => {
     App.sections = $('.sections');
     App.exportSections = $('.dropdown-menu');
+    App.dataSection1 = new Array();
+    App.dataSection2 = new Array();
+    App.dataSection3 = new Array();
+    App.dataSection4 = new Array();
 };
 
 $(document).ready(() => {
@@ -26,10 +30,6 @@ $(document).ready(() => {
         animation: 150,
         /** Event spuštěný po přesunutí úkolu do jiného listu. Updatuje sekci u přesunutého úkolu. */
         onAdd: function(event) {
-            // console.log(event.item.innerText);
-            // console.log(event.from.parentNode.id);
-            // console.log(event.to.parentNode.id);
-
             var itemName = event.item.innerText;
             var parentFromID = event.from.parentNode.id;
             var sectionFromID = parentFromID.substr(parentFromID.length - 1);
@@ -200,30 +200,159 @@ $(document).ready(() => {
                 Sortable.create(App.section4[0], options);
             }
 
-            console.log(App.section1[0]);
-            console.log(App.section2.parent()[0].innerText);
-            console.log(App.section3.parent()[0].innerText);
-            // console.log(App.section4.parent()[0].innerText);
-            // App.arraySection1 = new Array();
-            $.ajax(settings,
-                settings.method = 'GET',
-                settings.url = 'https://henl01-2446.restdb.io/rest/ukoly?sort=Text')
-            .done((resp) => {
-                console.log(resp);
-                var dataSection1 = new Array();
-                var arraySection1 = resp.filter(task => {task.Section === 1});
-                console.log(arraySection1);
-                var arraySection2 = resp.filter(task => {task.Section === 2});
-                var arraySection3 = resp.filter(task => {task.Section === 3});
-                var arraySection4 = resp.filter(task => {task.Section === 4});
-                arraySection1.forEach(task => {
-                    dataSection1.push(task.Text);
+            /** Export jednotlivých sekcí. */
+            /** První sekce */
+            $('.dropdown-menu li:nth-child(2) a').click(function(e) {
+                const a = document.createElement('a');
+                a.download = 'test' + '.xlsx';
+                a.href = '#';
+
+                var sectionName = $(this)[0].innerText;
+                let headers = [];
+                let content = [];
+                headers.push(sectionName);
+
+                $('#section-1 .list-group-item').each(function (index) {
+                    let row = content[index];
+                    if (!row) {
+                        content[index] = [];
+                    }
+                    content[index].push($(this).text().trim());
                 });
-                console.log(dataSection1);
+                console.log(content);
+                a.onclick = function (e) {
+                    return ExcellentExport.convert({
+                        anchor: this,
+                        filename: 'Section1',
+                        format: 'xlsx'
+                    }, [{
+                        name: 'List 1',
+                        from: {
+                            array: [headers,
+                                ...content
+                            ]
+                        }
+                    }]);
+                };
+
+                $('body').append(a);
+                a.click();
+            });
+
+            /** Druhá sekce */
+            $('.dropdown-menu li:nth-child(3) a').click(function(e) {
+                const a = document.createElement('a');
+                a.download = 'test' + '.xlsx';
+                a.href = '#';
+
+                var sectionName = $(this)[0].innerText;
+                let headers = [];
+                let content = [];
+                headers.push(sectionName);
+
+                $('#section-2 .list-group-item').each(function (index) {
+                    let row = content[index];
+                    if (!row) {
+                        content[index] = [];
+                    }
+                    content[index].push($(this).text().trim());
+                });
+                console.log(content);
+                a.onclick = function (e) {
+                    return ExcellentExport.convert({
+                        anchor: this,
+                        filename: 'Section2',
+                        format: 'xlsx'
+                    }, [{
+                        name: 'List 1',
+                        from: {
+                            array: [headers,
+                                ...content
+                            ]
+                        }
+                    }]);
+                };
+
+                $('body').append(a);
+                a.click();
+            });
+
+            /** Třetí sekce */
+            $('.dropdown-menu li:nth-child(4) a').click(function(e) {
+                const a = document.createElement('a');
+                a.download = 'test' + '.xlsx';
+                a.href = '#';
+
+                var sectionName = $(this)[0].innerText;
+                let headers = [];
+                let content = [];
+                headers.push(sectionName);
+
+                $('#section-3 .list-group-item').each(function (index) {
+                    let row = content[index];
+                    if (!row) {
+                        content[index] = [];
+                    }
+                    content[index].push($(this).text().trim());
+                });
+                console.log(content);
+                a.onclick = function (e) {
+                    return ExcellentExport.convert({
+                        anchor: this,
+                        filename: 'Section3',
+                        format: 'xlsx'
+                    }, [{
+                        name: 'List 1',
+                        from: {
+                            array: [headers,
+                                ...content
+                            ]
+                        }
+                    }]);
+                };
+
+                $('body').append(a);
+                a.click();
+            });
+
+            /** Čtvrtá sekce */
+            $('.dropdown-menu li:nth-child(5) a').click(function(e) {
+                const a = document.createElement('a');
+                a.download = 'test' + '.xlsx';
+                a.href = '#';
+
+                var sectionName = $(this)[0].innerText;
+                let headers = [];
+                let content = [];
+                headers.push(sectionName);
+
+                $('#section-4 .list-group-item').each(function (index) {
+                    let row = content[index];
+                    if (!row) {
+                        content[index] = [];
+                    }
+                    content[index].push($(this).text().trim());
+                });
+                console.log(content);
+                a.onclick = function (e) {
+                    return ExcellentExport.convert({
+                        anchor: this,
+                        filename: 'Section4',
+                        format: 'xlsx'
+                    }, [{
+                        name: 'List 1',
+                        from: {
+                            array: [headers,
+                                ...content
+                            ]
+                        }
+                    }]);
+                };
+
+                $('body').append(a);
+                a.click();
             });
             
-            // console.log(arraySection1);
-
         });
     
         /** Vytvoření a přidání nového úkolu. */
@@ -243,7 +372,7 @@ $(document).ready(() => {
                     if (value !== false) {
                         /** Vytvoření a přidání úkolu do stránky. */
                         let taskHTML = 
-                        `<div class="task">
+                        `<div class="task list-group-item">
                             ${value}
                             <i class="fa fa-trash"></i>
                         </div>`;
@@ -425,10 +554,10 @@ $(document).ready(() => {
                                         settings.method = 'DELETE',
                                         settings.url = `https://henl01-2446.restdb.io/rest/ukoly/${task}`
                                     ).done(function (response) {
-                                        spinner.remove();
                                         console.log(response);
                                     });
                                 });
+                                spinner.remove();
                             });
                         });
                     }
@@ -438,47 +567,44 @@ $(document).ready(() => {
     });
 
 
-    $(".export-all").click(function() {
-        var data = [
-            ['Sekce1', 'Sekce2', 'Sekce3'],
-            ['name2', 'city2', 'more info'],
-            ['name2', 'city2', 'more info'],
-            ['name2', 'city2', 'more info'],
-            ['name2', 'city2', 'more info']
-        ];
-        
-        // Building the CSV from the Data two-dimensional array
-        // Each column is separated by ";" and new line "\n" for next row
-        var csvContent = '';
-        data.forEach(function(infoArray, index) {
-        dataString = infoArray.join(';');
-        csvContent += index < data.length ? dataString + '\n' : dataString;
-        });
-        
-        // The download function takes a CSV string, the filename and mimeType as parameters
-        // Scroll/look down at the bottom of this snippet to see how download is called
-        var download = function(content, fileName, mimeType) {
-        var a = document.createElement('a');
-        mimeType = mimeType || 'application/octet-stream';
-        
-        if (navigator.msSaveBlob) {
-            navigator.msSaveBlob(new Blob([content], {
-            type: mimeType
-            }), fileName);
-        } else if (URL && 'download' in a) { 
-            a.href = URL.createObjectURL(new Blob([content], {
-            type: mimeType
-            }));
-            a.setAttribute('download', fileName);
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        } else {
-            location.href = 'data:application/octet-stream,' + encodeURIComponent(content);
+    $(".export-all").click(function(e) {
+        const a = document.createElement('a');
+        a.download = 'test' + '.xlsx';
+        a.href = '#';
+
+        let headers = [];
+        let content =[[]];
+        for (let i = 1; i < 5; i++) {
+            headers.push($('#section-' + i.toString() + ' .section-name h2').text().trim());
+            $('#section-' + i.toString() + ' .list-group-item').each(function (index) {
+                let row = content[index];
+                if (!row) {
+                    content[index] = [];
+                }
+                if (content[index].length !== i - 1) {
+                    content[index].push('');
+                }
+                content[index].push($(this).text().trim());
+            });
         }
-        }
-        
-        download(csvContent, 'export.csv', 'text/csv;encoding:utf-8');
+        a.onclick = function (e) {
+            return ExcellentExport.convert({
+                anchor: this,
+                filename: 'AllSections',
+                format: 'xlsx'
+            }, [{
+                name: 'List 1',
+                from: {
+                    arrayHasHeader: true,
+                    array: [headers,
+                        ...content
+                    ]
+                }
+            }]);
+        };
+
+        $('body').append(a);
+        a.click();
     });
 });
 
