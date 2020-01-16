@@ -126,11 +126,8 @@ function initApp() {
     // [END_EXCLUDE]
     if (user) {
       /*----------------------------------------------- User is signed in.----------------------------------------------------*/
-      var displayName = user.displayName;
-      var email = user.email;
-      var emailVerified = user.emailVerified;
-      var photoURL = user.photoURL;
-      var isAnonymous = user.isAnonymous;
+      window.email = user.email;
+      window.emailVerified = user.emailVerified;
       window.uid = user.uid;
 
       // [START_EXCLUDE]
@@ -141,6 +138,7 @@ function initApp() {
       if (!emailVerified) {
         document.getElementById('quickstart-verify-email').disabled = false;
       }
+
       // [END_EXCLUDE]
     } else {
 
@@ -162,8 +160,11 @@ function initApp() {
     if (user) {
       document.getElementById('sign-in-page').style.display = "none";
       document.getElementById('main-page').style.display = "initial";
-      document.getElementById('quickstart-user-details-container').style.display = "none";
 
+      return firebase.database().ref('users/' + uid + '/courses').
+        once('value', gotData, errData);
+
+      document.getElementById('quickstart-user-details-container').style.display = "none";
     } else {
       document.getElementById('sign-in-page').style.display = 'initial';
       document.getElementById('main-page').style.display = "none";
@@ -183,8 +184,8 @@ window.onload = function () {
   initApp();
 };
 
-/*----------------------------------FILLING TABLES--------------------------------------------------------- */
-/*-----------------------------------WITH FORM--------------------------------------------------------- */
+/*----------------------------------FILLING TABLES OF COURSES------------------------------------------------- */
+/*-----------------------------------------WITH FORM--------------------------------------------------------- */
 document.getElementById("update-btn").onclick = courseUpdate;
 
 var curr_table = null;
@@ -228,6 +229,7 @@ function courseDisplay(ctl) {
   curr_table = $(ctl).closest('table').attr('id');
   curr_table = curr_table.slice(6);
   var cols = _row.children("td");
+  window.OldIdVar = $(cols[1]).text();
 
   _activeId = $($(cols[0]).children("button")[0]).data("id");
 
@@ -240,9 +242,22 @@ function courseDisplay(ctl) {
   $("#update-btn").text("Update");
 }
 
-"#table-" + $("#mandatority").val()
-
 function courseUpdateInTable(id) {
+  var courseId = OldIdVar;
+
+  var course = {
+    courseName: $("#name").val(),
+    ects: $("#ects").val(),
+    mandatority: $("#mandatority").val(),
+    recSemester: $("#semester").val(),
+  };
+
+  var updates = {};
+  updates['users/' + uid + '/courses/' + courseId] = course;
+  firebase.database().ref().update(updates);
+  firebase.database().ref('users/' + uid + '/courses/' + courseId).remove();
+
+
   var row =
     $("#table-" + $("#mandatority").val() + " button[data-id='" + id + "']").parents("tr")[0];
   // Add changed course to table
@@ -256,7 +271,14 @@ function courseUpdateInTable(id) {
 }
 
 function courseDelete(ctl) {
-  $(ctl).parents("tr").remove();
+  var result = confirm("Wanna delete??");
+  if (result) {
+    var row = $(ctl).parents("tr");
+    var cols = row.children("td");
+    var courseId = $(cols[1]).text();
+    firebase.database().ref('users/' + uid + '/courses/' + courseId).remove();
+    $(ctl).parents("tr").remove();
+  }
 }
 
 function formClear() {
@@ -268,33 +290,6 @@ function formClear() {
 }
 
 function courseBuildTableRow(id) {
-  var ret =
-    "<tr>" +
-
-    "<td>" +
-    "<button type='button' " +
-    "onclick='courseDisplay(this);' " +
-    "class='btn btn-link'" +
-    "data-id='" + id + "'>" +
-    "<i class='far fa-edit'></i>" +
-    "</button>" +
-    "</td>" +
-
-    "<td>" + $("#course-id").val() + "</td>" +
-    "<td>" + $("#name").val() + "</td>" +
-    "<td>" + $("#ects").val() + "</td>" +
-    "<td>" + $("#semester").val() + "</td>" +
-
-    "<td>" +
-    "<button type='button' " +
-    "onclick='courseDelete(this);' " +
-    "class='btn btn-link'" +
-    "data-id='" + id + "'>" +
-    "<i class='fas fa-trash'></i>" +
-    "</button>" +
-    "</td>" +
-
-    "</tr>"
 
   //Insert course to the firebase database
 
@@ -305,6 +300,31 @@ function courseBuildTableRow(id) {
   var semester = $("#semester").val();
 
   addCourseToDatabase(courseId, mandatority, name, ects, semester);
-
-  return ret;
+  return firebase.database().ref('users/' + uid + '/courses').
+    on('value', gotData, errData);
 }
+
+/*----------------------------ADDING DATA IN STUDY PLAN---------------------------------------------------*/
+document.getElementById("add-plan-btn").onclick = addToPlan;
+
+function addToPlan() {
+  var courseId = $("#course-id-plan").val();
+  courseId = courseId.match(/.+(?=\-)/);
+  var actualSemester = $("#actual-sem").val();
+  firebase.database().ref('users/' + uid + '/courses/' + courseId).update({
+    actualSemester: actualSemester
+  });
+  return firebase.database().ref('users/' + uid + '/courses').
+    on('value', gotData, errData);
+}
+
+function delFromPlan(ctl) {
+  var row = $(ctl).parents("tr");
+  var cols = row.children("td");
+  var courseId = $(cols[0]).text();
+  firebase.database()
+    .ref('users/' + uid + '/courses/' + courseId + '/actualSemester').remove();
+  $(ctl).parents("tr").remove();
+}
+
+/*-------------------------------CHART DATA--------------------------------------------*/

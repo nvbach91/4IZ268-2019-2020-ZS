@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 body {
   font-size: .875rem;
 }
@@ -109,10 +113,15 @@ body {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
 
-.main-page {
+.hide {
+  visibility: hidden;
+}
+
+.display-none{
   display: none;
 }
 
-.hide{
-  visibility: hidden;
+.move-higher{
+  position: relative;
+  top: -50px;
 }
