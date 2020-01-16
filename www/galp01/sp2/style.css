@@ -1,12 +1,20 @@
 *{
     margin: 0;
-    padding: 0;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body{
-    height: 100vh;
+    height: 80vh;
     display: flex;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    background: radial-gradient(ellipse at center, rgba(167,204,219,1) 0%, rgba(106,201,230,1) 52%, rgba(124,185,207,1) 77%, rgba(124,185,207,1) 100%);
 }
+#icon1{
+    width: 64;
+    height: 64
+
+}
+
