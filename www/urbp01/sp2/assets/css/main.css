@@ -166,3 +166,98 @@ footer {
     margin-bottom: 35px;
     max-width: 70%;
 }
+
+.pName {
+    font-weight: bold;
+}
+
+.pDate {
+    font-size: 12px;
+}
+
+.pTheme {
+    text-decoration: underline;
+}
+
+.pDescription {
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 70%;
+}
+
+.hr {
+    max-width: 70%;
+}
+
+@media screen and (max-width: 850px) {
+    body {
+        margin-top: 0;
+    }
+    
+    nav {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav-item {
+        width: 100%;
+        font-size: 12px;
+    }
+    
+    h1 {
+        margin: 15px 0 5px 0;
+    }
+    
+    a {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        width: 100%;
+    }
+    
+    .intro {
+        width: 100%;
+        min-height: 400px;
+    }
+    
+    input {
+        width: 80%;
+    }
+    
+    .in, .out {
+        width: 100%;
+        min-height: 200px;
+    }
+    
+    .description {
+        width: 80%;
+        height: 250px;
+        text-align: left;
+    }
+    
+    .out {
+        text-align: center;
+        align-content: center;
+        display: none;
+    }
+    
+    footer {
+        width: 100%;
+    }
+    
+    .edit {
+        width: 100%;
+    }
+    
+    .view {
+        width: 100%;
+        min-height: 200px;
+    }
+    
+    .update {
+        width: 100%;
+    }
+
+}

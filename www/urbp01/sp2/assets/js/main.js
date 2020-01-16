@@ -95,21 +95,18 @@ function makeApiCallRead() {
 
                     var pName = document.createElement('p');
                     pName.innerText = result.values[i][0];
-                    pName.style.fontWeight = "bold";
+                    pName.setAttribute('class','pName')
                     var pDate = document.createElement('p');
                     pDate.innerText = result.values[i][1] + ' - A' + (i + 1) + ':D' + (i + 1);
-                    pDate.style.fontSize = "11px";
+                    pDate.setAttribute('class','pDate')
                     var pTheme = document.createElement('p');
                     pTheme.innerText = result.values[i][2];
-                    pTheme.style.textDecoration = "underline";
+                    pTheme.setAttribute('class','pTheme')
                     var pDescription = document.createElement('p');
                     pDescription.innerText = result.values[i][3];
-                    pDescription.style.marginBottom = "40px";
-                    pDescription.style.maxWidth = "70%";
-                    pDescription.style.marginLeft = "auto";
-                    pDescription.style.marginRight = "auto";
+                    pDescription.setAttribute('class','pDescription')
                     var hr = document.createElement('hr');
-                    hr.style.maxWidth = "70%";
+                    hr.setAttribute('class','hr')
 
                     view.appendChild(pName);
                     view.appendChild(pDate);
@@ -171,7 +168,9 @@ function makeApiCallWrite() {
         .then(function (response) {
             alert('Jméno: ' + nameInput + '\nDatum: ' + dateInput + '\nTéma: ' + themeInput + '\nPopis: ' + descriptionInput + '\nHodnoty byly uloženy.');
         },
-            function (err) { console.error("Execute error", err); });
+            function (err) { 
+                console.error(alert('Hodnoty nebyly zapsány. \nMusíte se přihlásit.\nV případě že jste přihlášeni a hodnoty nebyly zapsány, váš účet nemá oprávnění k zápisu.'), err); 
+            });
 };
 
 var editButton = document.querySelector("button[id=b-edit]");
@@ -219,7 +218,10 @@ function makeApiCallUpdate() {
         .then(function (response) {
             alert('Jméno: ' + updateNameInput + '\nDatum: ' + updateDateInput + '\nTéma: ' + updateThemeInput + '\nPopis: ' + updateDescriptionInput + '\nHodnoty byly aktualizovány u záznamu s ID: ' + updateIDinput + ".");
         },
-            function (err) { console.error("Execute error", err); });
+            function (err) { 
+                console.error("Execute error", err);
+                alert('Hodnoty nebyly aktualizovány. \nMusíte se přihlásit.\nV případě že jste přihlášeni a hodnoty nebyly aktualizovány, váš účet nemá oprávnění k aktualizování.');
+            });
 
 };
 
