@@ -621,23 +621,40 @@ h3 {
 }
 
 .ui {
-    width: 25%;
+    width: 100%;
     height: auto;
     color: white;
     text-align: center;
     padding: 8px 5px;
     margin: 0 auto;
+    display: block;
+}
+
+#submit-button {
+    border: none;
+    border-radius: 20px;
+    height: 25px;
+    width: 75px;
+    background-color: #447c9c;
+    color: white;
+    font-weight: bold;
+}
+
+#submit-button:hover {
+    cursor: pointer;
+    background-color: #021927;
 }
 
 .spinner {
     width: 100px;
     height: 100px;
-    border-left: 40px solid blue;
-    border-bottom: 40px solid rgb(165, 10, 10);
-    border-right: 40px solid rgb(8, 252, 8);
-    border-top: 40px solid rgb(250, 250, 2);
+    border-left: 15px solid blue;
+    border-bottom: 15px solid rgb(165, 10, 10);
+    border-right: 15px solid rgb(8, 252, 8);
+    border-top: 15px solid rgb(250, 250, 2);
     border-radius: 50%;
     animation: spinning 0.50s linear infinite;
+    margin: 25px auto;
 }
 
 @keyframes spinning {
@@ -647,4 +664,70 @@ h3 {
     to {
         transform: rotate(360deg);
     }
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.header > div {
+    padding: 8px;
+    border: 2px solid gold;
+    width: 20%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.row > div {
+    padding: 8px;
+    width: 20%;
+    text-align: center;
+}
+
+.favorites {
+    margin-top: 150px;
+    padding: 10px;
+    font-weight: bold;
+    position: fixed;
+    font-size: 22px;
+}
+
+#liked:hover {
+    cursor: pointer;
+}
+
+#players {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+#liked {
+    font-size: initial;
+}
+
+.top-line {
+    display: flex;
+}
+
+#dislike-button, #like-button {
+    border: none;
+    border-radius: 20px;
+    height: 25px;
+    width: 75px;
+    background-color: #447c9c;
+    color: white;
+    font-weight: bold;
+    margin: 0 8px;
+    margin-top: 23px;
+}
+
+#dislike-button:hover, #like-button:hover {
+    cursor: pointer;
+    background-color: #021927;
+}
+
+.top-line > h2 {
+    margin-right: auto;
 }

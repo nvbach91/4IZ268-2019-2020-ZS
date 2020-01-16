@@ -1,52 +1,60 @@
 const App = {};
-const MY_KEY = 'RGAPI-2650f44c-afca-472c-afea-49cb47ffd017';
 
+const favorite = $('#players');
+var likedPlayers = JSON.parse(localStorage.getItem('favorites'));
 
 $(document).ready(() => {
 
     App.init();
 
+    printFavorites(likedPlayers);
+
+    const liked = $('#players');
+
+    liked.children().click(function() {
+       var name = $(this).html();
+        if (!name) {
+            return alert('Please enter a player name');
+        }
+        App.currentPlayer = name;
+        App.playerList.empty();
+        print(name);
+    });
+
     App.button.click(() => {
         const playerNameValue = App.nameInput.val();
         if (!playerNameValue) {
-            return alert('Please enter a pokemon name');
+            return alert('Please enter a player name');
         }
-
-        App.playerList.detach();
-
-        $.ajax({
-            method: 'GET',
-            url: `https://cors-anywhere.herokuapp.com/https://eun1.api.riotgames.com/tft/summoner/v1/summoners/by-name/${playerNameValue}?api_key=${MY_KEY}`,
-        }).done((resp) => {
-            var playerID = resp.puuid;
-            const player = $(`<div><h2>${playerNameValue} (${resp.summonerLevel})</h2><ul id="${playerNameValue}"></ul></div>`);
-            App.playerList.append(player);
-            console.log(playerID);
-            $.ajax({
-                method: 'GET',
-                url: `https://cors-anywhere.herokuapp.com/https://europe.api.riotgames.com/tft/match/v1/matches/by-puuid/${playerID}/ids?count=10&api_key=${MY_KEY}`,
-            }).done((resp) => {
-                var games = resp;
-                console.log(games);
-                const gameList = $(`#${playerNameValue}`);
-                games.forEach(game => {
-                    const match = $(`<li>Game id - ${game}</li>`);
-                    gameList.append(match);
-                    $.ajax({
-                        method: 'GET',
-                        url: `https://cors-anywhere.herokuapp.com/https://europe.api.riotgames.com/tft/match/v1/matches/${game}?api_key=${MY_KEY}`,
-                    }).done((resp) => {
-                        console.log(resp);
-                    })
-                });
-            });
-        });
-
-            App.playerList.appendTo('main');
-
+        App.currentPlayer = playerNameValue;
+        App.playerList.empty();
+        print(playerNameValue);
     });
 
+    App.like.click(() => {
+        if(likedPlayers.includes(App.currentPlayer)) {
+            alert('Player is already liked');
+        }
+        else {
+            favorite.empty();
+            likedPlayers[likedPlayers.length] = App.currentPlayer;
+            localStorage.setItem('favorites', JSON.stringify(likedPlayers));
+            printFavorites(likedPlayers);
+        }
+    });
 
+    App.dislike.click(() => {
+        if(!likedPlayers.includes(App.currentPlayer)) {
+            alert('Player is not liked');
+        }
+        else {
+            favorite.empty();
+            likedPlayers.splice(likedPlayers.indexOf(App.currentPlayer), 1 );
+            localStorage.setItem('favorites', JSON.stringify(likedPlayers));
+            printFavorites(likedPlayers);
+        }
+
+    });
 
 });
 
@@ -56,5 +64,87 @@ App.init = () => {
     App.nameInput = $('#player-name-input');
     App.button = $('#submit-button');
     App.playerList = $('#users');
+    App.MY_KEY = 'RGAPI-ed105680-96a5-4633-a959-6e8030633f8d';
+    App.urlID = 'https://cors-anywhere.herokuapp.com/https://eun1.api.riotgames.com/tft/';
+    App.urlMatch = 'https://cors-anywhere.herokuapp.com/https://europe.api.riotgames.com/tft/match/v1/matches/';
+    App.spinner = $('<div class="spinner"></div>');
+    App.like = $('#like-button');
+    App.dislike = $('#dislike-button')
+    App.currentPlayer = '';
+};
 
+var print = function (playerNameValue) {
+    $.ajax({
+        method: 'GET',
+        url: `${App.urlID}summoner/v1/summoners/by-name/${playerNameValue}?api_key=${App.MY_KEY}`,
+    }).done((resp) => {
+        var playerID = resp.puuid;
+        const player = $(
+        `<div>
+            <div class="top-line">
+                <h2>${playerNameValue} (${resp.summonerLevel})</h2>
+                        <button id="like-button">like</button>
+                        <button id="dislike-button">dislike</button>
+            </div> 
+            <div id="${playerNameValue}">
+                <div class="header">
+                    <div>Placement</div>
+                    <div>Level</div>
+                    <div>Poslední kolo</div>
+                    <div>Poškození</div>
+                    <div>Datum</div>
+                </div>
+            </div>
+        </div>`);
+        const gameList = $(`#${playerNameValue}`);
+        App.playerList.append(player);
+        App.playerList.append(App.spinner);
+        $.ajax({
+            method: 'GET',
+            url: `${App.urlMatch}by-puuid/${playerID}/ids?count=10&api_key=${App.MY_KEY}`,
+        }).done((resp) => {
+            var games = resp;
+            const gameList = $(`#${playerNameValue}`);
+            games.forEach(game => {
+                $.ajax({
+                    method: 'GET',
+                    url: `${App.urlMatch}${game}?api_key=${App.MY_KEY}`,
+                }).done((resp) => {
+                    var gameTime = new Date(resp.info.game_datetime);
+                    var players = resp.info.participants;
+                    players.forEach(player => {
+                        if (player.puuid == playerID) {
+                            const match = $(`<div class="row">
+                                <div>${player.placement}</div>
+                                <div>${player.level}</div>
+                                <div>${player.last_round}</div>
+                                <div>${player.total_damage_to_players}</div>
+                                <div>${gameTime.getDate()}.${gameTime.getMonth() + 1}.${gameTime.getFullYear()}</div>
+                            </div>`);
+                            gameList.append(match);
+                        }
+                    });
+                }).always(() => {
+                    App.spinner.remove();
+                    App.like = $('#like-button');
+                    App.dislike = $('#dislike-button');
+                })
+            });
+        });
+    });
+};
+
+
+var printFavorites = function (likedPlayers) {
+
+    if(likedPlayers.length == 1) {
+        const item = $(`<li id="liked">${likedPlayers[0]}</li>`);
+        favorite.append(item);
+    }
+    else if (likedPlayers != null) {
+        likedPlayers.forEach(player => {
+            const item = $(`<li id="liked">${player}</li>`);
+            favorite.append(item);
+        });
+    }
 };
