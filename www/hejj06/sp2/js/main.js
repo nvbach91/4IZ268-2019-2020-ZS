@@ -153,8 +153,6 @@ function loadCoreFunction() {
             </div>
 
             <button type="button" class="btn btn-dark" id="btn-insert">Přidej zaměstnance</button>
-            <button type="button" class="btn btn-dark"><a href="./todolist/index.html">Další strana</a></button>
-
         </form>`
     $('.container').append(employeeHTML);
 
