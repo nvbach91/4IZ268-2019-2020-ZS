@@ -5,7 +5,8 @@ var showView = document.querySelector("a[id=a-view]");
 showView.onclick = function () {
     document.getElementById("d-view").style.display = "inline";
     document.getElementById("d-intro").style.display = "none";
-    document.getElementById("nav").style.display = "inline";
+    document.getElementById("d-update").style.display = "none";
+    document.getElementById("d-edit").style.display = "none";
 };
 
 var showEdit = document.querySelector("a[id=a-edit]");
@@ -13,7 +14,17 @@ var showEdit = document.querySelector("a[id=a-edit]");
 showEdit.onclick = function () {
     document.getElementById("d-edit").style.display = "inline";
     document.getElementById("d-intro").style.display = "none";
-    document.getElementById("nav").style.display = "inline";
+    document.getElementById("d-update").style.display = "none";
+    document.getElementById("d-view").style.display = "none";
+};
+
+var showUpdate = document.querySelector("a[id=a-update]");
+
+showUpdate.onclick = function () {
+    document.getElementById("d-edit").style.display = "none";
+    document.getElementById("d-intro").style.display = "none";
+    document.getElementById("d-update").style.display = "inline";
+    document.getElementById("d-view").style.display = "none";
 };
 
 var showNavMenu = document.querySelector("button[id=nav-menu]");
@@ -22,7 +33,7 @@ showNavMenu.onclick = function () {
     document.getElementById("d-intro").style.display = "inline";
     document.getElementById("d-view").style.display = "none";
     document.getElementById("d-edit").style.display = "none";
-    document.getElementById("nav").style.display = "none";
+    document.getElementById("d-update").style.display = "none";
 };
 
 var showNavView = document.querySelector("button[id=nav-view]");
@@ -31,7 +42,16 @@ showNavView.onclick = function () {
     document.getElementById("d-view").style.display = "inline";
     document.getElementById("d-intro").style.display = "none";
     document.getElementById("d-edit").style.display = "none";
-    document.getElementById("nav").style.display = "inline";
+    document.getElementById("d-update").style.display = "none";
+};
+
+var showNavUpdate = document.querySelector("button[id=nav-update]");
+
+showNavUpdate.onclick = function () {
+    document.getElementById("d-update").style.display = "inline";
+    document.getElementById("d-view").style.display = "none";
+    document.getElementById("d-intro").style.display = "none";
+    document.getElementById("d-edit").style.display = "none";
 };
 
 var showNavEdit = document.querySelector("button[id=nav-edit]");
@@ -40,7 +60,7 @@ showNavEdit.onclick = function () {
     document.getElementById("d-edit").style.display = "inline";
     document.getElementById("d-view").style.display = "none";
     document.getElementById("d-intro").style.display = "none";
-    document.getElementById("nav").style.display = "inline";
+    document.getElementById("d-update").style.display = "none";
 };
 
 var signInButton = document.querySelector("button[id=signin-button]");
@@ -77,23 +97,31 @@ function makeApiCallRead() {
                     pName.innerText = result.values[i][0];
                     pName.style.fontWeight = "bold";
                     var pDate = document.createElement('p');
-                    pDate.innerText = result.values[i][1];
+                    pDate.innerText = result.values[i][1] + ' - A' + (i + 1) + ':D' + (i + 1);
                     pDate.style.fontSize = "11px";
                     var pTheme = document.createElement('p');
                     pTheme.innerText = result.values[i][2];
                     pTheme.style.textDecoration = "underline";
                     var pDescription = document.createElement('p');
                     pDescription.innerText = result.values[i][3];
+                    pDescription.style.marginBottom = "40px";
+                    pDescription.style.maxWidth = "70%";
+                    pDescription.style.marginLeft = "auto";
+                    pDescription.style.marginRight = "auto";
+                    var hr = document.createElement('hr');
+                    hr.style.maxWidth = "70%";
 
                     view.appendChild(pName);
                     view.appendChild(pDate);
                     view.appendChild(pTheme);
                     view.appendChild(pDescription);
+                    view.appendChild(hr);
                 }
             }
         },
             function (err) { console.error("Execute error", err); });
 };
+
 
 var viewButton = document.querySelector("button[id=b-view]");
 
@@ -105,14 +133,14 @@ viewButton.onclick = function updateSignInStatus(isSignedIn) {
     }
 };
 
-showResetButton = document.querySelector("button[id=b-reset]");
+resetButton = document.querySelector("button[id=b-reset]");
 
-showResetButton.onclick = function () {
+resetButton.onclick = function () {
     document.getElementById("d-view").style.display = "inline";
     document.getElementById("out-view").style.display = "none";
     document.getElementById("in-view").style.display = "inline";
     document.getElementById('out-content').innerHTML = "";
-}
+};
 
 //ZAPSÁNÍ DAT
 
@@ -141,16 +169,65 @@ function makeApiCallWrite() {
         }
     })
         .then(function (response) {
-            alert('Hodnoty ' + nameInput + ' ' + dateInput + ' ' + themeInput + ' ' + descriptionInput + ' byly vloženy do tabulky.');
+            alert('Jméno: ' + nameInput + '\nDatum: ' + dateInput + '\nTéma: ' + themeInput + '\nPopis: ' + descriptionInput + '\nHodnoty byly uloženy.');
         },
             function (err) { console.error("Execute error", err); });
 };
 
-var showEditButton = document.querySelector("button[id=b-edit]");
+var editButton = document.querySelector("button[id=b-edit]");
 
-showEditButton.onclick = function updateSignInStatus(isSignedIn) {
+editButton.onclick = function updateSignInStatus(isSignedIn) {
     if (isSignedIn) {
         makeApiCallWrite();
+        document.getElementById('edit-name').value = "";
+        document.getElementById('edit-date').value = "";
+        document.getElementById('edit-theme').value = "";
+        document.getElementById('edit-description').value = "";
+    }
+};
+
+//ÚPRAVA DAT
+
+function makeApiCallUpdate() {
+
+    var updateIDinput = document.getElementById('update-id').value;
+    var updateNameInput = document.getElementById('update-name').value;
+    var updateDateInput = document.getElementById('update-date').value;
+    var updateThemeInput = document.getElementById('update-theme').value;
+    var updateDescriptionInput = document.getElementById('update-description').value;
+
+    return gapi.client.sheets.spreadsheets.values.batchUpdate({
+        "spreadsheetId": "13rt5Sgq0puS-a5t_zWdL-QrJZnplbV9aMSATLh_0CPI",
+        "resource": {
+            "valueInputOption": "RAW",
+            "data": [
+                {
+                    "majorDimension": "ROWS",
+                    "range": "Evidence!" + updateIDinput,
+                    "values": [
+                        [
+                            updateNameInput,
+                            updateDateInput,
+                            updateThemeInput,
+                            updateDescriptionInput
+                        ]
+                    ]
+                }
+            ]
+        }
+    })
+        .then(function (response) {
+            alert('Jméno: ' + updateNameInput + '\nDatum: ' + updateDateInput + '\nTéma: ' + updateThemeInput + '\nPopis: ' + updateDescriptionInput + '\nHodnoty byly aktualizovány u záznamu s ID: ' + updateIDinput + ".");
+        },
+            function (err) { console.error("Execute error", err); });
+
+};
+
+var updateButton = document.querySelector("button[id=b-update]");
+
+updateButton.onclick = function updateSignInStatus(isSignedIn) {
+    if (isSignedIn) {
+        makeApiCallUpdate();
     }
 };
 
@@ -193,5 +270,4 @@ function handleSignInClick(event) {
 
 function handleSignOutClick(event) {
     gapi.auth2.getAuthInstance().signOut();
-    document.getElementById("signin-button").style.backgroundColor = "red";
 };

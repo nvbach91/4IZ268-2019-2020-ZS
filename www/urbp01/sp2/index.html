@@ -13,24 +13,27 @@
     <nav id="nav">
         <button class="nav-item" id="nav-menu">Menu</button>
         <button class="nav-item" id="nav-view">Režim zobrazení</button>
-        <button class="nav-item" id="nav-edit">Režim úpravy</button>
-        <button class="nav-item" id="signin-button">Přihlásit se</button>
+        <button class="nav-item" id="nav-edit">Režim zápisu</button>
+        <button class="nav-item" id="nav-update">Režim úpravy</button>
+        <button class="nav-item" id="signin-button">Přihlášení</button>
         <button class="nav-item" id="signout-button">Odhlášení</button>
     </nav>
     <div id="d-intro" class="intro">
         <h1>Deník trenéra</h1>
-        <p>Vítejte, zvolte si režim, který chcete využívat.</p>
+        <p>Vítejte, právě jste se dostali k webové aplikaci Deník trenéra, která Vám umožní zapisovat data o vašich
+            trénincích. Zvolte si režim, který chcete využívat jako první.</p>
         <a id="a-view">Režim zobrazení</a>
-        <a id="a-edit">Režim úpravy</a>
+        <a id="a-edit">Režim zápisu</a>
+        <a id="a-update">Režim úpravy</a>
     </div>
     <div id="d-edit" class="edit">
         <div class="in">
             <form>
-                <h1>Režim úpravy</h1>
-                <input name="name" type="text" required placeholder="Vložte jméno">
-                <input name="date" type="date">
-                <input name="theme" type="text" required placeholder="Vložte téma">
-                <textarea class="description" name="description" required placeholder="Popis tréninku"></textarea>
+                <h1>Režim zápisu</h1>
+                <input id="edit-name" name="name" type="text" placeholder="Vložte jméno">
+                <input id="edit-date" name="date" type="date">
+                <input id="edit-theme" name="theme" type="text" placeholder="Vložte téma">
+                <textarea id="edit-description" class="description" name="description" placeholder="Popis tréninku"></textarea>
                 <button type="button" id="b-edit">Vložit</button>
             </form>
         </div>
@@ -39,7 +42,7 @@
         <div class="in" id="in-view">
             <form>
                 <h1>Režim zobrazení</h1>
-                <input id="s-name" name="s-name" type="text" required placeholder="Vložte jméno">
+                <input id="s-name" name="s-name" type="text" placeholder="Vložte jméno">
                 <button type="button" id="b-view">Zobrazit</button>
             </form>
         </div>
@@ -49,6 +52,20 @@
             </div>
             <div id="out-content">
             </div>
+        </div>
+    </div>
+    <div id="d-update" class="update">
+        <div class="in" id="in-update">
+            <form>
+                <h1>Režim úpravy</h1>
+                <input id="update-id" name="update-id" type="text" placeholder="Vložte ID záznamu">
+                <input id="update-name" name="update-name" type="text" placeholder="Vložte jméno">
+                <input id="update-date" name="update-date" type="date">
+                <input id="update-theme" name="update-theme" type="text" placeholder="Vložte téma">
+                <textarea id="update-description" class="description" name="description"
+                    placeholder="Popis tréninku"></textarea>
+                <button type="button" id="b-update">Aktualizovat</button>
+            </form>
         </div>
     </div>
     <footer>

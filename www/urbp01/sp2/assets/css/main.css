@@ -14,13 +14,12 @@ nav {
     width: 750px;
     background: dimgray;
     text-align: center;
-    display: none;
 }
 
 .nav-item {
     text-align: center;
     height: 25px;
-    width: 19%;
+    width: 15%;
     margin: 0;
     font-size: 11px;
     padding: 5px;
@@ -130,7 +129,7 @@ button:hover {
 }
 
 footer {
-    font-size: 14px;
+    font-size: 12px;
     width: 750px;
     background: rgb(187, 187, 187);
     text-align: center;
@@ -152,4 +151,18 @@ footer {
     padding: 20px;
     min-height: 500px;
     padding: 0;
+}
+
+.update {
+    display: none;
+    margin: 0;
+    background: rgb(187, 187, 187);
+    text-align: center;
+}
+
+.intro p {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 35px;
+    max-width: 70%;
 }
