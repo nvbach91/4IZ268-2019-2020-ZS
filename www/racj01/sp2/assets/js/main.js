@@ -24,6 +24,42 @@ $(document).ready(() => {
         print(playerNameValue);
     });
 
+    App.like.click(() => {
+        if(!likedPlayers) {
+            favorite.empty();
+            likedPlayers[0] = App.currentPlayer;
+            localStorage.setItem('favorites', JSON.stringify(likedPlayers));
+            printFavorites(likedPlayers);
+            setFavorites(liked);
+        }
+        else if(likedPlayers.includes(App.currentPlayer)) {
+            alert('Player is already liked');
+        }
+        else {
+            favorite.empty();
+            likedPlayers[likedPlayers.length] = App.currentPlayer;
+            localStorage.setItem('favorites', JSON.stringify(likedPlayers));
+            printFavorites(likedPlayers);
+            setFavorites(liked);
+        }
+    });
+
+    App.dislike.click(() => {
+        if(!likedPlayers) {
+            return false;
+        }
+        else if(!likedPlayers.includes(App.currentPlayer)) {
+            alert('Player is not liked');
+        }
+        else {
+            favorite.empty();
+            likedPlayers.splice(likedPlayers.indexOf(App.currentPlayer), 1 );
+            localStorage.setItem('favorites', JSON.stringify(likedPlayers));
+            printFavorites(likedPlayers);
+            setFavorites(liked);
+        }
+
+    });
 
 });
 
@@ -52,8 +88,6 @@ var print = function (playerNameValue) {
         `<div>
             <div class="top-line">
                 <h2>${playerNameValue} (${resp.summonerLevel})</h2>
-                        <button id="like-button">like</button>
-                        <button id="dislike-button">dislike</button>
             </div> 
             <div id="${playerNameValue}">
                 <div class="header">
@@ -95,49 +129,11 @@ var print = function (playerNameValue) {
                     });
                 }).always(() => {
                     App.spinner.remove();
-                    App.like = $('#like-button');
-                    App.dislike = $('#dislike-button');
                 })
             });
         });
     });
 
-    App.like.click(() => {
-        if(!likedPlayers) {
-            favorite.empty();
-            likedPlayers[0] = App.currentPlayer;
-            localStorage.setItem('favorites', JSON.stringify(likedPlayers));
-            printFavorites(likedPlayers);
-            setFavorites(liked);
-        }
-        else if(likedPlayers.includes(App.currentPlayer)) {
-            alert('Player is already liked');
-        }
-        else {
-            favorite.empty();
-            likedPlayers[likedPlayers.length] = App.currentPlayer;
-            localStorage.setItem('favorites', JSON.stringify(likedPlayers));
-            printFavorites(likedPlayers);
-            setFavorites(liked);
-        }
-    });
-
-    App.dislike.click(() => {
-        if(!likedPlayers) {
-            return false;
-        }
-        else if(!likedPlayers.includes(App.currentPlayer)) {
-            alert('Player is not liked');
-        }
-        else {
-            favorite.empty();
-            likedPlayers.splice(likedPlayers.indexOf(App.currentPlayer), 1 );
-            localStorage.setItem('favorites', JSON.stringify(likedPlayers));
-            printFavorites(likedPlayers);
-            setFavorites(liked);
-        }
-
-    });
 };
 
 
