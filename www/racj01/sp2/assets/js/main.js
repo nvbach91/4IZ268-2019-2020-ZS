@@ -10,16 +10,9 @@ $(document).ready(() => {
     printFavorites(likedPlayers);
 
     const liked = $('#players');
+    setFavorites(liked);
 
-    liked.children().click(function() {
-       var name = $(this).html();
-        if (!name) {
-            return alert('Please enter a player name');
-        }
-        App.currentPlayer = name;
-        App.playerList.empty();
-        print(name);
-    });
+
 
     App.button.click(() => {
         const playerNameValue = App.nameInput.val();
@@ -31,30 +24,6 @@ $(document).ready(() => {
         print(playerNameValue);
     });
 
-    App.like.click(() => {
-        if(likedPlayers.includes(App.currentPlayer)) {
-            alert('Player is already liked');
-        }
-        else {
-            favorite.empty();
-            likedPlayers[likedPlayers.length] = App.currentPlayer;
-            localStorage.setItem('favorites', JSON.stringify(likedPlayers));
-            printFavorites(likedPlayers);
-        }
-    });
-
-    App.dislike.click(() => {
-        if(!likedPlayers.includes(App.currentPlayer)) {
-            alert('Player is not liked');
-        }
-        else {
-            favorite.empty();
-            likedPlayers.splice(likedPlayers.indexOf(App.currentPlayer), 1 );
-            localStorage.setItem('favorites', JSON.stringify(likedPlayers));
-            printFavorites(likedPlayers);
-        }
-
-    });
 
 });
 
@@ -132,10 +101,51 @@ var print = function (playerNameValue) {
             });
         });
     });
+
+    App.like.click(() => {
+        if(!likedPlayers) {
+            favorite.empty();
+            likedPlayers[0] = App.currentPlayer;
+            localStorage.setItem('favorites', JSON.stringify(likedPlayers));
+            printFavorites(likedPlayers);
+            setFavorites(liked);
+        }
+        else if(likedPlayers.includes(App.currentPlayer)) {
+            alert('Player is already liked');
+        }
+        else {
+            favorite.empty();
+            likedPlayers[likedPlayers.length] = App.currentPlayer;
+            localStorage.setItem('favorites', JSON.stringify(likedPlayers));
+            printFavorites(likedPlayers);
+            setFavorites(liked);
+        }
+    });
+
+    App.dislike.click(() => {
+        if(!likedPlayers) {
+            return false;
+        }
+        else if(!likedPlayers.includes(App.currentPlayer)) {
+            alert('Player is not liked');
+        }
+        else {
+            favorite.empty();
+            likedPlayers.splice(likedPlayers.indexOf(App.currentPlayer), 1 );
+            localStorage.setItem('favorites', JSON.stringify(likedPlayers));
+            printFavorites(likedPlayers);
+            setFavorites(liked);
+        }
+
+    });
 };
 
 
 var printFavorites = function (likedPlayers) {
+
+    if(!likedPlayers) {
+       return false;
+    }
 
     if(likedPlayers.length == 1) {
         const item = $(`<li id="liked">${likedPlayers[0]}</li>`);
@@ -148,3 +158,15 @@ var printFavorites = function (likedPlayers) {
         });
     }
 };
+
+var setFavorites = function (liked) {
+    liked.children().click(function() {
+        var name = $(this).html();
+         if (!name) {
+             return alert('Please enter a player name');
+         }
+         App.currentPlayer = name;
+         App.playerList.empty();
+         print(name);
+     });
+}
