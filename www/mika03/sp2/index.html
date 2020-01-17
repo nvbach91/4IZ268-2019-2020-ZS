@@ -9,32 +9,34 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link href="image/favicon.jpg" rel="icon" type="image/x-icon">
-    <meta name="google-signin-client_id" content="" id="cid">
+    <meta name="google-signin-client_id" content="" id="cid" />
 </head>
 
 <body>
-    <img class="background-image" src= "image/pozadi.jpg">
-        <div id="email">
-            <div class="sprava_uzivatele"style="display: block">
-                <figure class="vert-center"><h2 id="Message4NotLoggedIn">Pro užívání této aplikace se prosím přihlaste pomocí svého účtu google</h2>
-                <div id="authorize_button" style="float: unset; max-width: 150px; text-align: center; cursor: pointer; background-color: #fff; color: #272727; display: none; padding: 10px 20px;margin: 0 auto;">Přihlásit se</div></figure>
-                <div id="signout_button" style="float: right; max-width: 150px; text-align: center; cursor: pointer;  background-color: #fff; color: #272727; display: none; padding: 10px 20px;">Odhlásit se</div>
-                </div>
-            </div>
-            <div class="zprava_uzivatele">
-                <form method="post">
-                    <input type="email" placeholder="Váš email" id="Vas_email">
-                    <input type="email" placeholder="Email příjemce" id="Email_prijemce">
-                    <input type="text" placeholder="Předmět" id="predmet">
-                    <textarea placeholder="Váš text" rows="20" id="content"></textarea>
-                    <input type="submit" value="Odeslat" id="odeslat" alt="odeslat">
-                </form>
-            </div>
+    <img class="background-image" src="image/pozadi.jpg" alt="Obrázek na pozadí" />
+    <div id="email">
+        <div class="sprava_uzivatele">
+            <figure class="vert-center">
+                <h2 id="Message4NotLoggedIn">Pro užívání této aplikace se prosím přihlaste pomocí svého účtu google</h2>
+                <div id="authorize_button" class="log-in">Přihlásit se</div>
+            </figure>
+            <div id="signout_button" class="sign-out">Odhlásit se</div>
         </div>
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="./js/main.js" charset="utf-8"></script>
-        <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+    </div>
+    <div class="zprava_uzivatele">
+        <form method="post">
+            <input type="email" placeholder="Váš email" id="Vas_email">
+            <input type="email" placeholder="Email příjemce" id="Email_prijemce">
+            <input type="text" placeholder="Předmět" id="predmet">
+            <textarea placeholder="Váš text" rows="20" id="content"></textarea>
+            <input type="submit" value="Odeslat" id="odeslat">
+        </form>
+    </div>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./js/main.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 
 </body>
 
