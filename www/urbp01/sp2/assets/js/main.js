@@ -7,6 +7,7 @@ showView.onclick = function () {
     document.getElementById("d-intro").style.display = "none";
     document.getElementById("d-update").style.display = "none";
     document.getElementById("d-edit").style.display = "none";
+    document.getElementById("signin-button").style.display = "none";
 };
 
 var showEdit = document.querySelector("a[id=a-edit]");
@@ -16,6 +17,7 @@ showEdit.onclick = function () {
     document.getElementById("d-intro").style.display = "none";
     document.getElementById("d-update").style.display = "none";
     document.getElementById("d-view").style.display = "none";
+    document.getElementById("signin-button").style.display = "inline";
 };
 
 var showUpdate = document.querySelector("a[id=a-update]");
@@ -25,6 +27,8 @@ showUpdate.onclick = function () {
     document.getElementById("d-intro").style.display = "none";
     document.getElementById("d-update").style.display = "inline";
     document.getElementById("d-view").style.display = "none";
+    document.getElementById("signin-button").style.display = "inline";
+    searchOptions();
 };
 
 var showNavMenu = document.querySelector("button[id=nav-menu]");
@@ -34,6 +38,7 @@ showNavMenu.onclick = function () {
     document.getElementById("d-view").style.display = "none";
     document.getElementById("d-edit").style.display = "none";
     document.getElementById("d-update").style.display = "none";
+    document.getElementById("signin-button").style.display = "none";
 };
 
 var showNavView = document.querySelector("button[id=nav-view]");
@@ -43,6 +48,7 @@ showNavView.onclick = function () {
     document.getElementById("d-intro").style.display = "none";
     document.getElementById("d-edit").style.display = "none";
     document.getElementById("d-update").style.display = "none";
+    document.getElementById("signin-button").style.display = "none";
 };
 
 var showNavUpdate = document.querySelector("button[id=nav-update]");
@@ -52,6 +58,8 @@ showNavUpdate.onclick = function () {
     document.getElementById("d-view").style.display = "none";
     document.getElementById("d-intro").style.display = "none";
     document.getElementById("d-edit").style.display = "none";
+    document.getElementById("signin-button").style.display = "inline";
+    searchOptions();
 };
 
 var showNavEdit = document.querySelector("button[id=nav-edit]");
@@ -61,6 +69,7 @@ showNavEdit.onclick = function () {
     document.getElementById("d-view").style.display = "none";
     document.getElementById("d-intro").style.display = "none";
     document.getElementById("d-update").style.display = "none";
+    document.getElementById("signin-button").style.display = "inline";
 };
 
 var signInButton = document.querySelector("button[id=signin-button]");
@@ -95,18 +104,18 @@ function makeApiCallRead() {
 
                     var pName = document.createElement('p');
                     pName.innerText = result.values[i][0];
-                    pName.setAttribute('class','pName')
+                    pName.setAttribute('class', 'pName')
                     var pDate = document.createElement('p');
-                    pDate.innerText = result.values[i][1] + ' - A' + (i + 1) + ':D' + (i + 1);
-                    pDate.setAttribute('class','pDate')
+                    pDate.innerText = result.values[i][1] + ' - ID: ' + i;
+                    pDate.setAttribute('class', 'pDate')
                     var pTheme = document.createElement('p');
                     pTheme.innerText = result.values[i][2];
-                    pTheme.setAttribute('class','pTheme')
+                    pTheme.setAttribute('class', 'pTheme')
                     var pDescription = document.createElement('p');
                     pDescription.innerText = result.values[i][3];
-                    pDescription.setAttribute('class','pDescription')
+                    pDescription.setAttribute('class', 'pDescription')
                     var hr = document.createElement('hr');
-                    hr.setAttribute('class','hr')
+                    hr.setAttribute('class', 'hr')
 
                     view.appendChild(pName);
                     view.appendChild(pDate);
@@ -168,8 +177,8 @@ function makeApiCallWrite() {
         .then(function (response) {
             alert('Jméno: ' + nameInput + '\nDatum: ' + dateInput + '\nTéma: ' + themeInput + '\nPopis: ' + descriptionInput + '\nHodnoty byly uloženy.');
         },
-            function (err) { 
-                console.error(alert('Hodnoty nebyly zapsány. \nMusíte se přihlásit.\nV případě že jste přihlášeni a hodnoty nebyly zapsány, váš účet nemá oprávnění k zápisu.'), err); 
+            function (err) {
+                console.error(alert('Hodnoty nebyly zapsány.'), err);
             });
 };
 
@@ -202,7 +211,7 @@ function makeApiCallUpdate() {
             "data": [
                 {
                     "majorDimension": "ROWS",
-                    "range": "Evidence!" + updateIDinput,
+                    "range": "Evidence!" + 'A' + (updateIDinput++) + ':D' + (updateIDinput++),
                     "values": [
                         [
                             updateNameInput,
@@ -218,11 +227,61 @@ function makeApiCallUpdate() {
         .then(function (response) {
             alert('Jméno: ' + updateNameInput + '\nDatum: ' + updateDateInput + '\nTéma: ' + updateThemeInput + '\nPopis: ' + updateDescriptionInput + '\nHodnoty byly aktualizovány u záznamu s ID: ' + updateIDinput + ".");
         },
-            function (err) { 
+            function (err) {
                 console.error("Execute error", err);
-                alert('Hodnoty nebyly aktualizovány. \nMusíte se přihlásit.\nV případě že jste přihlášeni a hodnoty nebyly aktualizovány, váš účet nemá oprávnění k aktualizování.');
+                alert('Hodnoty nebyly aktualizovány.');
             });
 
+};
+
+function searchID() {
+
+    return gapi.client.sheets.spreadsheets.values.get({
+        "spreadsheetId": "13rt5Sgq0puS-a5t_zWdL-QrJZnplbV9aMSATLh_0CPI",
+        "range": "Evidence",
+        "valueRenderOption": "UNFORMATTED_VALUE"
+    })
+        .then(function (response) {
+
+            var updateID = document.getElementById('update-id').value;
+            var result = response.result;
+            var numRows = result.values ? result.values.length : 0;
+            var updateNameInput = document.getElementById('update-name');
+            var updateDateInput = document.getElementById('update-date');
+            var updateThemeInput = document.getElementById('update-theme');
+            var updateDescriptionInput = document.getElementById('update-description');
+
+            for (i = 1; i < numRows; i++) {
+                if (i == updateID) {
+                    updateNameInput.value = result.values[i][0];
+                    updateDateInput.value = result.values[i][1];
+                    updateThemeInput.value = result.values[i][2];
+                    updateDescriptionInput.value = result.values[i][3];
+                }
+            }
+        },
+            function (err) { console.error("Execute error", err); });
+};
+
+var updateIDButton = document.querySelector("button[id=b-update-ID]");
+
+updateIDButton.onclick = function updateSignInStatus(isSignedIn) {
+    if (isSignedIn) {
+        document.getElementById("out-update").style.display = "inline";
+        document.getElementById("in-update").style.display = "none";
+        searchID();
+    }
+};
+
+resetIDButton = document.querySelector("button[id=b-reset-update]");
+
+resetIDButton.onclick = function () {
+    document.getElementById("out-update").style.display = "none";
+    document.getElementById("in-update").style.display = "inline";
+    document.getElementById('update-name').value = "";
+    document.getElementById('update-date').value = "";
+    document.getElementById('update-theme').value = "";
+    document.getElementById('update-description').value = "";
 };
 
 var updateButton = document.querySelector("button[id=b-update]");
@@ -230,6 +289,69 @@ var updateButton = document.querySelector("button[id=b-update]");
 updateButton.onclick = function updateSignInStatus(isSignedIn) {
     if (isSignedIn) {
         makeApiCallUpdate();
+    }
+};
+
+
+function searchOptions() {
+
+    return gapi.client.sheets.spreadsheets.values.get({
+        "spreadsheetId": "13rt5Sgq0puS-a5t_zWdL-QrJZnplbV9aMSATLh_0CPI",
+        "range": "Evidence",
+        "valueRenderOption": "UNFORMATTED_VALUE"
+    })
+        .then(function (response) {
+
+            var result = response.result;
+            var numRows = result.values ? result.values.length : 0;
+            var options = document.getElementById('options');
+            for (i = 1; i < numRows; i++) {
+
+                var option = document.createElement('option');
+                option.innerText = result.values[i][0]+' '+result.values[i][1]+' '+result.values[i][2];
+
+                options.appendChild(option);
+
+            }
+        },
+            function (err) { console.error("Execute error", err); });
+};
+
+function searchSelects() {
+
+    return gapi.client.sheets.spreadsheets.values.get({
+        "spreadsheetId": "13rt5Sgq0puS-a5t_zWdL-QrJZnplbV9aMSATLh_0CPI",
+        "range": "Evidence",
+        "valueRenderOption": "UNFORMATTED_VALUE"
+    })
+        .then(function (response) {
+            var updateNameInput = document.getElementById('update-name');
+            var updateDateInput = document.getElementById('update-date');
+            var updateThemeInput = document.getElementById('update-theme');
+            var updateDescriptionInput = document.getElementById('update-description');
+            var selectedOptions = document.getElementById('options').value;
+            var result = response.result;
+            var numRows = result.values ? result.values.length : 0;
+
+            for (i = 1; i < numRows; i++) {
+                if ((result.values[i][0]+' '+result.values[i][1]+' '+result.values[i][2]) == selectedOptions) {
+                            updateNameInput.value = result.values[i][0];
+                            updateDateInput.value = result.values[i][1];
+                            updateThemeInput.value = result.values[i][2];
+                            updateDescriptionInput.value = result.values[i][3];
+                }
+            }
+        },
+            function (err) { console.error("Execute error", err); });
+};
+
+var updateOptionsButton = document.querySelector("button[id=b-update-options]");
+
+updateOptionsButton.onclick = function updateSignInStatus(isSignedIn) {
+    if (isSignedIn) {
+        document.getElementById("out-update").style.display = "inline";
+        document.getElementById("in-update").style.display = "none";
+        searchSelects();
     }
 };
 
@@ -260,9 +382,11 @@ function handleClientLoad() {
 function updateSignInStatus(isSignedIn) {
     if (isSignedIn) {
         document.getElementById("signin-button").style.backgroundColor = "green";
+        document.getElementById("signout-button").style.display = "inline";
     }
     else {
         document.getElementById("signin-button").style.backgroundColor = "red";
+        document.getElementById("signout-button").style.display = "none";
     }
 };
 

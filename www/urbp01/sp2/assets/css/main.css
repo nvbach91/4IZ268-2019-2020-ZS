@@ -18,10 +18,10 @@ nav {
 
 .nav-item {
     text-align: center;
-    height: 25px;
+    height: 50px;
     width: 15%;
     margin: 0;
-    font-size: 11px;
+    font-size: 14px;
     padding: 5px;
     background-color: dimgray;
 }
@@ -38,7 +38,7 @@ h1 {
 
 a {
     display: inline-block;
-    width: 125px;
+    min-width: 125px;
     background-color: coral;
     color: white;
     padding: 15px;
@@ -116,6 +116,10 @@ button:hover {
     color: black;
 }
 
+.hidden {
+    display: none;
+}
+
 .description {
     width: 85%;
     height: 250px;
@@ -155,6 +159,8 @@ footer {
 
 .update {
     display: none;
+    width: 750px;
+    min-height: 500px;
     margin: 0;
     background: rgb(187, 187, 187);
     text-align: center;

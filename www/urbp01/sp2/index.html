@@ -19,8 +19,8 @@
         <button class="nav-item" id="nav-view">Režim zobrazení</button>
         <button class="nav-item" id="nav-edit">Režim zápisu</button>
         <button class="nav-item" id="nav-update">Režim úpravy</button>
-        <button class="nav-item" id="signin-button">Přihlášení</button>
-        <button class="nav-item" id="signout-button">Odhlášení</button>
+        <button class="nav-item hidden" id="signin-button">Přihlášení</button>
+        <button class="nav-item hidden" id="signout-button">Odhlášení</button>
     </nav>
     <div id="d-intro" class="intro">
         <h1>Deník trenéra</h1>
@@ -45,7 +45,7 @@
     </div>
     <div id="d-view" class="view">
         <div class="in" id="in-view">
-            <form>
+            <form onSubmit="return false;">
                 <h1>Režim zobrazení</h1>
                 <input id="s-name" name="s-name" type="text" placeholder="Vložte jméno">
                 <button type="button" id="b-view">Zobrazit</button>
@@ -61,15 +61,26 @@
     </div>
     <div id="d-update" class="update">
         <div class="in" id="in-update">
-            <form>
+            <form onSubmit="return false;">
                 <h1>Režim úpravy</h1>
-                <input id="update-id" name="update-id" type="text" placeholder="Vložte ID záznamu">
+                <input id="update-id" name="update-id" type="number" placeholder="Vložte ID záznamu">
+                <button type="button" id="b-update-ID">Vybrat ID</button>
+                <div>
+                    <select name="options" id="options">
+                    </select>
+                </div>
+                <button type="button" id="b-update-options">Vybrat možnosti</button>
+            </form>
+        </div>
+        <div class="out" id="out-update">
+            <form onSubmit="return false;">
                 <input id="update-name" name="update-name" type="text" placeholder="Vložte jméno">
                 <input id="update-date" name="update-date" type="date">
                 <input id="update-theme" name="update-theme" type="text" placeholder="Vložte téma">
                 <textarea id="update-description" class="description" name="description"
                     placeholder="Popis tréninku"></textarea>
                 <button type="button" id="b-update">Aktualizovat</button>
+                <button type="button" id="b-reset-update">Reset</button>
             </form>
         </div>
     </div>
