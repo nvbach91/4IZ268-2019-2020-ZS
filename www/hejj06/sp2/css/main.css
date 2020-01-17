@@ -1,0 +1,70 @@
+.page-header{
+    border-bottom: 2px solid lightgray;
+    margin-bottom: 10px;
+}
+
+h2{
+    width: fit-content;
+    border-bottom: solid 2px gray;
+}
+
+.row{
+    border-bottom: 2px solid lightgray;
+}
+
+.row p{
+    margin: 10px 0;
+}
+
+.surname-button{
+    color: blue;
+    width: fit-content;
+}
+
+.surname-button:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.row .col-sm-3:nth-child(4){
+    text-align: center;
+}
+
+.h2-new-employee{
+    margin-top: 40px;
+}
+
+.input-group{
+    margin-bottom: 16px;
+}
+
+
+/*todolist html*/
+.todolist, .name-surname{
+    width:  100%;
+    text-align: center;
+}
+
+.name-surname{
+    color: gray;
+    font-style: italic;
+    border-bottom: none;
+}
+
+.name-department{
+    color: gray;
+    font-size: 24px;
+    text-align: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    font-style: italic;
+    border-bottom: 2px solid gray;
+}
+
+#todo-tasks .row:nth-child(n+2):hover, #done-tasks .row:nth-child(n+2):hover{
+    background-color: lightgrey;
+}
+
+#h2-done, #h2-new{
+    margin-top: 30px;
+}
