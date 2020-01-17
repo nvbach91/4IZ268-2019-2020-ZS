@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Email</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="image/favicon.jpg" rel="icon" type="image/x-icon">
+    <meta name="google-signin-client_id" content="" id="cid" />
+</head>
+
+<body>
+    <img class="background-image" src="image/pozadi.jpg" alt="Obrázek na pozadí" />
+    <div id="email">
+        <div class="sprava_uzivatele">
+            <figure class="vert-center">
+                <h2 id="Message4NotLoggedIn">Pro užívání této aplikace se prosím přihlaste pomocí svého účtu google</h2>
+                <div id="authorize_button" class="log-in">Přihlásit se</div>
+            </figure>
+            <div id="signout_button" class="sign-out">Odhlásit se</div>
+        </div>
+    </div>
+    <div class="zprava_uzivatele">
+        <form method="post" id="formular">
+            <input type="email" required placeholder="Váš email" id="Vas_email">
+            <input type="email" placeholder="Email příjemce" id="Email_prijemce" class="mw100">
+            <select id="recipient" class="mw100">
+
+            </select>
+            <input type="text" required placeholder="Předmět" id="predmet">
+            <textarea required placeholder="Váš text" rows="20" id="content"></textarea>
+            <input type="submit" value="Odeslat" id="odeslat">
+        </form>
+    </div>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./js/main.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+
+</body>
+
+</html>

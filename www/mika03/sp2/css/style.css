@@ -1,0 +1,147 @@
+body {
+    max-width: 1920px;
+    display: block;
+    margin: 0 auto;
+    font-family: "Roboto", sans-serif;
+    overflow: hidden;
+}
+
+.background-image {
+    position: absolute;
+    display: block;
+    height: 100%;
+    width: 100%;
+    filter: brightness(0.9);
+    top: 0;
+}
+
+#Message4NotLoggedIn {
+    position: relative;
+    color: #fff;
+    font-size: 36px;
+    text-align: center;
+}
+
+#email {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.select {
+    max-width: 20%;
+    margin: 0 auto;
+    float: right;
+}
+
+.mw1OO {
+    max-width: 1280px;
+    width: 100%;
+    display: inline-block;
+}
+
+.vert-center {
+    position: relative;
+    top: 40%;
+    transform: translateY(-50%);
+}
+
+.f-right>div {
+    float: right !important;
+}
+
+.log-in {
+    float: unset;
+    max-width: 150px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #fff;
+    color: #272727;
+    display: none;
+    padding: 10px 20px;
+    margin: 0 auto;
+}
+
+.sign-out {
+    float: right;
+    max-width: 150px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #fff;
+    color: #272727;
+    display: none;
+    padding: 10px 20px;
+}
+
+.sprava_uzivatele {
+    height: 50px;
+    width: 100%;
+    position: relative;
+    display: block;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+
+.notLoggedIn {
+    height: 100vh;
+}
+
+.image {
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.inverted {
+    filter: invert(1);
+}
+
+.image img {
+    display: none;
+    height: 50px;
+    width: auto;
+    position: relative;
+    margin-top: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.zprava_uzivatele {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.zprava_uzivatele form {
+    width: 100%;
+    position: relative;
+}
+
+.zprava_uzivatele form input, .zprava_uzivatele form select {
+    box-sizing: border-box;
+    width: 100%;
+    display: block;
+    padding: 10px 40px;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin: 0 auto 5px auto;
+    position: relative;
+    background-color: whitesmoke;
+}
+
+#odeslat {
+    max-width: 25%;
+    float: right;
+}
+
+.zprava_uzivatele form textarea {
+    box-sizing: border-box;
+    width: 100%;
+    display: block;
+    padding: 10px 40px;
+    resize: none;
+    margin: 0 auto 5px auto;
+    position: relative;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-family: "Roboto", sans-serif;
+    background-color: whitesmoke;
+}
