@@ -1,0 +1,342 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 1300px;
+    height: 100%;
+}
+
+.menu-container {
+    max-width: inherit;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+    margin: 0 auto;
+    z-index: 1;
+    /* background-color: white; */
+    pointer-events: none;
+}
+
+.top-container {
+    display: flex;
+    text-align: center;
+    line-height: 50px;
+}
+
+.top-container div {
+    border-bottom: 2px black solid;
+    height: 50px;
+    flex: calc(100% / 2);
+    transition: background-color 0.5s ease;
+    background-color: white;
+    display: block;
+    text-decoration: none;
+    color: black;
+    text-decoration: none;
+    pointer-events: auto;
+}
+
+.top-container div:hover {
+    background-color: turquoise;
+}
+
+nav {
+    display: flex;
+    text-align: center;
+    flex-wrap: wrap;
+    line-height: 50px;
+    height: 100px;
+    /*border-top: 2px black solid;*/
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    transition: height 0.5s ease;
+}
+
+nav div {
+    border-bottom: 2px black solid;
+    height: 50px;
+    flex: calc(100% / 8);
+    transition: background-color 0.5s ease;
+    background-color: white;
+    display: block;
+    text-decoration: none;
+    color: black;
+    text-decoration: none;
+    pointer-events: auto;
+}
+
+nav div:hover {
+    background-color: turquoise;
+}
+
+aside {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    padding: 50px 0 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    transition: width 0.5s ease;
+}
+
+aside div {
+    border-bottom: 2px black solid;
+    height: 30px;
+    transition: background-color 0.5s ease;
+    background-color: white;
+    display: block;
+    text-decoration: none;
+    color: black;
+    text-decoration: none;
+    pointer-events: auto;
+}
+
+aside div:hover {
+    background-color: turquoise;
+}
+
+.main-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 200px;
+    margin: 0 auto;
+}
+
+.spinner {
+    position: relative;
+    top: calc(50% - 100px);
+    left: calc(50% - 100px);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    border: 30px solid transparent;
+    border-top-color: firebrick;
+    border-bottom-color: firebrick;
+    animation: spinning 2s linear infinite;
+}
+
+@keyframes spinning {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#display-list {
+    display: flex;
+    width: 1000px;
+    flex-direction: column;
+}
+
+.unit-card {
+    border: 2px black solid;
+    /* max-width: 400px;
+    flex: calc(100% / 3); */
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.unit-card div {
+    text-align: center;
+    background-color: grey;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.even-row th {
+    padding: 10px;
+    background: lightblue;
+}
+
+.odd-row th {
+    padding: 10px;
+    background: white;
+}
+
+.army-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.title-box {
+    padding: 20px;
+    background-color: #ddd;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.title-box div {
+    /* flex: calc(100% / 3);*/
+    height: 30px;
+    flex-grow: 1;
+    display: flex;
+    margin: 10px;
+    line-height: 30px;
+}
+
+.units-box {
+    padding: 20px;
+    background-color: rgb(238, 238, 238);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-unit {
+    font-size: 20px;
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    transition: background-color 0.5s ease;
+    text-align: center;
+    line-height: 50px;
+    border: 2px black solid;
+    margin: 10px auto;
+}
+
+.add-unit:hover {
+    background-color: turquoise;
+}
+
+.unit-box {
+    /* font-size: 20px;     */
+    width: 900px;
+    padding: 20px;
+    background-color: white;
+    /* text-align: center; */
+    line-height: 50px;
+    border: 2px black solid;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.unit-box table {
+    margin: 10px 0 10px 0;
+    border: 1px solid black;
+}
+
+.unit-box table tr th {
+    max-width: 250px;
+    padding: 0 10px 0 10px;
+}
+
+.unit-box table tr:nth-child(odd) {
+    background: white;
+}
+
+.unit-box table tr:nth-child(even) {
+    background: lightskyblue;
+}
+
+.unit-box table tr:nth-child(1) {
+    background: lightgray;
+}
+
+.unit-box-header {
+    margin: 10px;
+    display: flex;
+}
+
+.unit-box-settings {
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.unit-box-settings div {
+    /* min-width: 300px; */
+    /* flex: 0%; */
+    height: 25px;
+    line-height: 25px;
+    flex-grow: 1;
+    display: flex;
+    margin: 10px;
+}
+
+.unit-box-info {
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+button {
+    border: black 1px solid;
+    transition: background-color 0.5s ease;
+    background-color: white;
+}
+
+button:hover {
+    background-color: turquoise;
+}
+
+select, input {
+    border: black 1px solid;
+    background-color: white;
+}
+
+.army-select-box {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.army-select-box>div {
+    margin: 20px;
+    transition: background-color 0.5s ease;
+}
+
+.army-select-box>div:hover {
+    background-color: lightgoldenrodyellow;
+}
+
+.army-display-selector {
+    font-size: 13px;
+    text-align: center;
+    border: 2px black solid;
+    border-radius: 10px;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.army-display-selector div {
+    padding: 10px 0 10px 0;
+}
+
+.army-display-selector button:hover {
+    background-color: rgb(255, 151, 151);
+}
+
+.army-add {
+    font-size: 50px;
+    text-align: center;
+    line-height: 200px;
+    border: 2px black solid;
+    border-radius: 10px;
+    height: 200px;
+    width: 200px;
+}
