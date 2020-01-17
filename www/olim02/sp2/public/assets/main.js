@@ -300,8 +300,31 @@ function courseBuildTableRow(id) {
   var semester = $("#semester").val();
 
   addCourseToDatabase(courseId, mandatority, name, ects, semester);
-  return firebase.database().ref('users/' + uid + '/courses').
-    on('value', gotData, errData);
+
+  var ret =
+    "<tr>" +
+
+    "<td>" +
+    "<button type='button' " +
+    "onclick='courseDisplay(this);' " +
+    "class='btn dark far fa-edit'" +
+    "</button>" +
+    "</td>" +
+
+    "<td>" + courseId + "</td>" +
+    "<td>" + name + "</td>" +
+    "<td>" + ects + "</td>" +
+    "<td>" + semester + "</td>" +
+
+    "<td>" +
+    "<button type='button' " +
+    "onclick='courseDelete(this);' " +
+    "class='btn dark far fa-trash-alt'" +
+    "</button>" +
+    "</td>" +
+
+    "</tr>"
+  return ret;
 }
 
 /*----------------------------ADDING DATA IN STUDY PLAN---------------------------------------------------*/
@@ -314,8 +337,26 @@ function addToPlan() {
   firebase.database().ref('users/' + uid + '/courses/' + courseId).update({
     actualSemester: actualSemester
   });
-  return firebase.database().ref('users/' + uid + '/courses').
-    on('value', gotData, errData);
+    var courseName = usersAllCourses[courseId].courseName;
+    var ects = usersAllCourses[courseId].ects;
+
+    var ret =
+    "<tr>" +
+
+    "<td>" + courseId + "</td>" +
+    "<td>" + courseName + "</td>" +
+    "<td>" + ects + "</td>" +
+
+    "<td>" +
+    "<button type='button' " +
+    "onclick='delFromPlan(this)' " +
+    "class='btn dark far fa-trash-alt'" +
+    "</button>" +
+    "</td>" +
+
+    "</tr>"
+    return ret;
+
 }
 
 function delFromPlan(ctl) {
@@ -327,4 +368,36 @@ function delFromPlan(ctl) {
   $(ctl).parents("tr").remove();
 }
 
-/*-------------------------------CHART DATA--------------------------------------------*/
+
+
+$('#nav-summary').click(function () {
+  var page = "summary";
+  changePage(page);
+})
+
+$('#nav-plan').click(function () {
+  var page = "plan";
+  changePage(page);
+})
+
+$('#nav-courses').click(function () {
+  var page = "courses";
+  changePage(page);
+})
+
+function changePage(page) {
+  $('#hide-study-plan').removeAttr('class');
+  $('#hide-summary').removeAttr('class');
+  $('#hide-courses').removeAttr('class');
+  var currPage = page;
+  if (currPage === 'summary') {
+    $('#hide-study-plan').attr('class', 'd-none d-sm-block d-md-none');
+    $('#hide-courses').attr('class', 'd-none d-sm-block d-md-none');
+  } else if (currPage === 'plan') {
+    $('#hide-summary').attr('class', 'd-none d-sm-block d-md-none');
+    $('#hide-courses').attr('class', 'd-none d-sm-block d-md-none');
+  } else {
+    $('#hide-summary').attr('class', 'd-none d-sm-block d-md-none');
+    $('#hide-study-plan').attr('class', 'd-none d-sm-block d-md-none');
+  }
+}

@@ -25,9 +25,11 @@
       <img class="mb-4" src="./img/olive-tree-vector-19.png" alt="olive tree logo" width="150" height="150">
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="email" class="form-control" name="email" placeholder="Email address" required autofocus>
+      <input type="email" id="email" class="form-control" name="email" placeholder="Email address" required autofocus
+        autocomplete="email">
       <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="password" class="form-control" name="password" placeholder="Password" required>
+      <input type="password" id="password" class="form-control" name="password" placeholder="Password" required
+        autocomplete="off">
 
       <button class="btn btn-lg btn-primary btn-block" type="submit" id="quickstart-sign-in" name="signin">Log
         in</button>
@@ -60,19 +62,19 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="#summary">
+                <a id="nav-summary" class="nav-link" href="#summary">
                   <span data-feather="pie-chart"></span>
                   Summary
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#study-plan-page">
+                <a id="nav-plan" class="nav-link" href="#study-plan-page">
                   <span data-feather="list"></span>
                   Study plan
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#courses-page">
+                <a id="nav-courses" class="nav-link" href="#courses-page">
                   <span data-feather="book-open"></span>
                   Courses
                 </a>
@@ -82,219 +84,224 @@
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-        <!-----------------------------------------------------------SUMMARY----------------------------------------------------------------------------->
-            <h1 id="summary"><br>Summary</h1>
+          <!-----------------------------------------------------------SUMMARY----------------------------------------------------------------------------->
+          <div id="hide-summary">
+            <h1 id="summary" class="p-5">Summary</h1>
 
 
-          <canvas class="w-100" id="mychart" width="900" height="150"></canvas>
-
+            <canvas class="w-100" id="mychart" width="900" height="150"></canvas>
+          </div>
 
           <!-----------------------------------------------------------STUDY PLAN----------------------------------------------------------------------------->
-          <h1 id="study-plan-page"><br>Study plan</h1>
+          <div id="hide-study-plan" class="d-none d-sm-block d-md-none">
+            <h1 id="study-plan-page" class="p-5">Study plan</h1>
 
-          <form class="form-signin">
-            <img class="mb-4" src="./img/olive-tree-vector-19.png" alt="olive tree logo" width="150" height="150">
+            <form class="form-signin">
+              <img class="mb-4" src="./img/olive-tree-vector-19.png" alt="olive tree logo" width="150" height="150">
 
-            <label for="inputId" class="sr-only">Id</label>
-            <input type="text" list="id-opts" id="course-id-plan" class="form-control" name="course-id-plan"
-              placeholder="Course-ID" required autocomplete="off">
+              <label for="inputId" class="sr-only">Id</label>
+              <input type="text" list="id-opts" id="course-id-plan" class="form-control" name="course-id-plan"
+                placeholder="Course-ID" required autocomplete="off">
 
-            <datalist id="id-opts">
-            </datalist>
+              <datalist id="id-opts">
+              </datalist>
 
-            <label for="inputSem" class="sr-only">Semester</label>
-            <input type="number" min="1" max="6" id="actual-sem" class="form-control" name="actual-sem"
-              placeholder="Semester" required>
+              <label for="inputSem" class="sr-only">Semester</label>
+              <input type="number" min="1" max="6" id="actual-sem" class="form-control" name="actual-sem"
+                placeholder="Semester" required>
 
-            <p></p>
+              <p></p>
 
-            <button class="btn btn-primary btn-block" type="submit" id="add-plan-btn" name="add-plan-btn">Add</button>
-          </form>
+              <button class="btn btn-primary btn-block" type="submit" id="add-plan-btn" name="add-plan-btn">Add</button>
+            </form>
 
-          <h2>First semester</h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm" id="table-1-sem">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>ECTS</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
+            <h2>First semester</h2>
+            <div class="table-responsive">
+              <table class="table table-striped table-sm" id="table-1-sem">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>ECTS</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>Second semester</h2>
+            <div class="table-responsive">
+              <table class="table table-striped table-sm" id="table-2-sem">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>ECTS</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>Third semester</h2>
+            <div class="table-responsive">
+              <table class="table table-striped table-sm" id="table-3-sem">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>ECTS</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>Fourth semester</h2>
+            <div class="table-responsive">
+              <table class="table table-striped table-sm" id="table-4-sem">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>ECTS</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>Fifth semester</h2>
+            <div class="table-responsive">
+              <table class="table table-striped table-sm" id="table-5-sem">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>ECTS</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>Sixth semester</h2>
+            <div class="table-responsive">
+              <table class="table table-striped table-sm" id="table-6-sem">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>ECTS</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+
           </div>
-
-          <h2>Second semester</h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm" id="table-2-sem">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>ECTS</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-
-          <h2>Third semester</h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm" id="table-3-sem">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>ECTS</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-
-          <h2>Fourth semester</h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm" id="table-4-sem">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>ECTS</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-
-          <h2>Fifth semester</h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm" id="table-5-sem">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>ECTS</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-
-          <h2>Sixth semester</h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm" id="table-6-sem">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>ECTS</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-
 
           <!-----------------------------------------------------------COURSES----------------------------------------------------------------------------->
-          <h1 id="courses-page"><br>Courses</h1>
+          <div id="hide-courses" class="d-none d-sm-block d-md-none">
+            <h1 id="courses-page" class="p-5">Courses</h1>
 
-          <form class="form-signin">
-            <img class="mb-4" src="./img/olive-tree-vector-19.png" alt="olive tree logo" width="150" height="150">
-
-
-
-            <label for="inputId" class="sr-only">Mandatority</label>
-            <input list="mandatority-opts" id="mandatority" class="form-control" name="Mandatority"
-              placeholder="Mandatority" required autocomplete="off">
-
-            <datalist id="mandatority-opts">
-              <option value="mandatory"></option>
-              <option value="semi-optional"></option>
-              <option value="optional"></option>
-            </datalist>
-
-            <label for="inputId" class="sr-only">Id</label>
-            <input type="text" id="course-id" class="form-control" name="course-id" placeholder="Course-ID" required>
-
-            <label for="inputName" class="sr-only">Name</label>
-            <input type="text" id="name" class="form-control" name="Name" placeholder="Name" required>
-
-            <label for="inputECTS" class="sr-only">ECTS</label>
-            <input type="number" id="ects" class="form-control" name="ECTS" placeholder="ECTS" required>
-
-            <label for="inputSemester" class="sr-only">Semester</label>
-            <input type="number" min="1" max="20" id="semester" class="form-control" name="Semester"
-              placeholder="Recommended semester" required>
-            <p></p>
-
-            <button class="btn btn-primary btn-block" type="submit" id="update-btn" name="update-btn">Add</button>
-          </form>
+            <form class="form-signin">
+              <img class="mb-4" src="./img/olive-tree-vector-19.png" alt="olive tree logo" width="150" height="150">
 
 
-          <h2>Mandatory courses</h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm" id="table-mandatory">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>ECTS</th>
-                  <th>recommended <br> semester</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
 
-          <h2>Semi-optional courses</h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm" id="table-semi-optional">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>ECTS</th>
-                  <th>recommended <br> semester</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-          <h2>Optional courses</h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm" id="table-optional">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>ECTS</th>
-                  <th>recommended <br> semester</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
+              <label for="inputId" class="sr-only">Mandatority</label>
+              <input list="mandatority-opts" id="mandatority" class="form-control" name="Mandatority"
+                placeholder="Mandatority" required autocomplete="off">
+
+              <datalist id="mandatority-opts">
+                <option value="mandatory"></option>
+                <option value="semi-optional"></option>
+                <option value="optional"></option>
+              </datalist>
+
+              <label for="inputId" class="sr-only">Id</label>
+              <input type="text" id="course-id" class="form-control" name="course-id" placeholder="Course-ID" required>
+
+              <label for="inputName" class="sr-only">Name</label>
+              <input type="text" id="name" class="form-control" name="Name" placeholder="Name" required>
+
+              <label for="inputECTS" class="sr-only">ECTS</label>
+              <input type="number" id="ects" class="form-control" name="ECTS" placeholder="ECTS" required>
+
+              <label for="inputSemester" class="sr-only">Semester</label>
+              <input type="number" min="1" max="20" id="semester" class="form-control" name="Semester"
+                placeholder="Recommended semester" required>
+              <p></p>
+
+              <button class="btn btn-primary btn-block" type="submit" id="update-btn" name="update-btn">Add</button>
+            </form>
+
+
+            <h2>Mandatory courses</h2>
+            <div class="table-responsive">
+              <table class="table table-striped table-sm" id="table-mandatory">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>ECTS</th>
+                    <th>recommended <br> semester</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>Semi-optional courses</h2>
+            <div class="table-responsive">
+              <table class="table table-striped table-sm" id="table-semi-optional">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>ECTS</th>
+                    <th>recommended <br> semester</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <h2>Optional courses</h2>
+            <div class="table-responsive">
+              <table class="table table-striped table-sm" id="table-optional">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>ECTS</th>
+                    <th>recommended <br> semester</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
           </div>
         </main>
       </div>

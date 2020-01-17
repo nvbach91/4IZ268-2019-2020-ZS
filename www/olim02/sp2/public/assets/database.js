@@ -17,6 +17,8 @@ function gotData(snapshot) {
     $("#table-optional tbody tr").remove();
     $("#id-opts option").remove();
 
+    window.usersAllCourses = courses;
+
     for (var i = 0; i < keys.length; i++) {
         var k = keys[i];
         var courseId = k;
