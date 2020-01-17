@@ -43,6 +43,8 @@ App.init = () => {
 $(document).ready(() => {
     App.init();
 
+
+
     if (App.getUrlIds()[0] == null && App.getUrlIds()[1] == null) {
         var stateObj = { foo: "bar" };
         history.replaceState(stateObj, "page 2", `?menu=home`);
@@ -57,14 +59,26 @@ $(document).ready(() => {
 
     $('#home').click(function () {
         if (App.armyArray != '') {
-            if (confirm('You have unsaved army. Going away will delete your army. Are you sure you want to delete?')) {
-                App.unitArmyBuilderNumber = 0;
-                App.armyArray = [];
-                App.armyRestID = '';
-                var stateObj = { foo: "bar" };
-                history.replaceState(stateObj, "page 2", `?menu=home`);
-                App.paramStateSolve();
-            }
+
+            Swal.fire({
+                title: 'You have unsaved army.',
+                text: "Going away will delete your army. Are you sure you want to delete?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    App.unitArmyBuilderNumber = 0;
+                    App.armyArray = [];
+                    App.armyRestID = '';
+                    var stateObj = { foo: "bar" };
+                    history.replaceState(stateObj, "page 2", `?menu=home`);
+                    App.paramStateSolve();
+                }
+
+            });
         } else {
             var stateObj = { foo: "bar" };
             history.replaceState(stateObj, "page 2", `?menu=home`);
@@ -93,23 +107,47 @@ $(document).ready(() => {
             history.replaceState(stateObj, "page 2", `?race=${urlParams[0]}&menu=${this.id}`);//změna záznamu aktuálního stavu v historii         
             App.paramStateSolve();
         } else {
-            alert("Select faction first");
+            Swal.fire('Select faction first');
         }
     })
 
     $('#builder').click(function () {
         if (App.armyArray != '') {
-            if (confirm('You have unsaved army. Going away will delete your army. Are you sure you want to delete?')) {
-                App.unitArmyBuilderNumber = 0;
-                App.armyArray = [];
-                App.armyRestID = '';
-                var stateObj = { foo: "bar" };
-                history.replaceState(stateObj, "page 2", `?menu=${this.id}`);//změna záznamu aktuálního stavu v historii         
-                App.paramStateSolve();
 
-            } else {
+            Swal.fire({
+                title: 'You have unsaved army.',
+                text: "Going away will delete your army. Are you sure you want to delete?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    App.unitArmyBuilderNumber = 0;
+                    App.armyArray = [];
+                    App.armyRestID = '';
+                    var stateObj = { foo: "bar" };
+                    history.replaceState(stateObj, "page 2", `?menu=${this.id}`);//změna záznamu aktuálního stavu v historii         
+                    App.paramStateSolve();
 
-            }
+                }
+
+            });
+
+
+
+            // if (confirm('You have unsaved army. Going away will delete your army. Are you sure you want to delete?')) {
+            //     App.unitArmyBuilderNumber = 0;
+            //     App.armyArray = [];
+            //     App.armyRestID = '';
+            //     var stateObj = { foo: "bar" };
+            //     history.replaceState(stateObj, "page 2", `?menu=${this.id}`);//změna záznamu aktuálního stavu v historii         
+            //     App.paramStateSolve();
+
+            // } else {
+
+            // }
         } else {
 
             var stateObj = { foo: "bar" };
@@ -240,8 +278,8 @@ App.displayContent = (faction, database) => {
 
             for (let i = 0; i < App.allArmiesArray.length; i++) {
                 htmlString += `
-                <div class="army-display-selector" id="${App.allArmiesArray[i]._id}">
-                    <div>ID: ${App.allArmiesArray[i]._id}</div>
+                <div class="army-display-selector" id="${App.allArmiesArray[i]._id}">                
+                    <div style="background-color:${App.allArmiesArray[i].army.colour}">ID: ${App.allArmiesArray[i]._id}</div>
                     <div>Name: ${App.allArmiesArray[i].army.name}</div>
                     <div>Faction: ${App.allArmiesArray[i].army.faction}</div>                
                     <button id="delete-army-button${App.allArmiesArray[i]._id}">Delete</button>
@@ -351,7 +389,6 @@ App.displayContent = (faction, database) => {
             $('.army-display-selector').click(function () {
 
                 App.armyArray = App.allArmiesArray.find(({ _id }) => _id === this.id).army;
-
                 App.armyRestID = this.id;
                 App.displayContent('none', 'addArmy');
 
@@ -361,20 +398,47 @@ App.displayContent = (faction, database) => {
             $('.army-display-selector button').click(function (e) {
                 e.stopPropagation();
 
-                if (confirm('Do you really want to delete this army?')) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you really want to delete this army?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
 
-                    let thisButtonId = this.id.replace("delete-army-button", "");
+                    if (result.value) {
+                        let thisButtonId = this.id.replace("delete-army-button", "");
 
-                    $(`#${thisButtonId}`).remove();
+                        $(`#${thisButtonId}`).remove();
 
-                    $.when(
-                        $.ajax(App.settingsDelete, App.settingsDelete.url = `https://killteam-12dc.restdb.io/rest/armies/${thisButtonId}`).done((response1) => { })
-                    ).then(function () {
+                        $.when(
+                            $.ajax(App.settingsDelete, App.settingsDelete.url = `https://killteam-12dc.restdb.io/rest/armies/${thisButtonId}`).done((response1) => { })
+                        ).then(function () {
 
-                        alert("Deleted");
-                        App.getContent();
-                    });
-                }
+
+                            Swal.fire('Deleted');
+                            App.getContent();
+                        });
+                    }
+                });
+
+                // if (confirm('Do you really want to delete this army?')) {
+
+                //     let thisButtonId = this.id.replace("delete-army-button", "");
+
+                //     $(`#${thisButtonId}`).remove();
+
+                //     $.when(
+                //         $.ajax(App.settingsDelete, App.settingsDelete.url = `https://killteam-12dc.restdb.io/rest/armies/${thisButtonId}`).done((response1) => { })
+                //     ).then(function () {
+
+
+                //         Swal.fire('Deleted');
+                //         App.getContent();
+                //     });
+                // }
             })
         }
 
@@ -382,7 +446,7 @@ App.displayContent = (faction, database) => {
 
             App.armyName = $('#army-name');
             App.armySelect = $('#army-select');
-
+            App.colourSelect = $('#army-colour');
 
             let htmlString = '';
             let factionsForDropdown = new Set(App.unitsArray.map(x => x.faction));
@@ -392,6 +456,7 @@ App.displayContent = (faction, database) => {
 
                 App.armyName.val(App.armyArray.name);
                 App.armySelect.val(App.armyArray.faction);
+                App.colourSelect.val(App.armyArray.colour);
                 htmlString += `<option value="${App.armyArray.faction}">${App.armyArray.faction}</option>`;
                 App.armySelect.append(htmlString);
                 for (let i = 0; i < App.armyArray.units.length; i++) {
@@ -403,6 +468,7 @@ App.displayContent = (faction, database) => {
                 App.armyArray = {
                     "name": App.armyName.val(),
                     "faction": App.armySelect.val(),
+                    "colour": App.colourSelect.val(),
                     "units": [
                     ]
                 };
@@ -412,9 +478,22 @@ App.displayContent = (faction, database) => {
                 App.armySelect.append(htmlString);
             }
 
-            App.armyName.blur(function () {
+            App.armyName.blur(App.fixInputValue).blur(function () {
+                let t = $(this);       
+                App.armyArray.name = t.val();
 
-                App.armyArray.name = App.armyName.val();
+                // if (App.armyName.val().trim() !== '') {
+                //     App.armyArray.name = App.armyName.val().trim();
+                //     App.armyName.val(App.armyName.val().trim());
+                // } else {
+                //     Swal.fire('Name is empty');
+                // }
+
+            });
+
+            App.colourSelect.change(function () {
+
+                App.armyArray.colour = App.colourSelect.val();
             });
 
             let previous;
@@ -430,17 +509,40 @@ App.displayContent = (faction, database) => {
             }).change(function () {
 
                 if (App.armyArray.units.length > 0) {
-                    if (confirm('You have unsaved army. Changing faction will delete all units. Do you want to delete all units?')) {
 
-                        $('.unit-box').remove();
+                    Swal.fire({
+                        title: 'You have unsaved army.',
+                        text: "Changing faction will delete all units. Do you want to delete all units?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
 
-                        App.armyArray.faction = App.armySelect.val();
-                        App.armyArray.units = [];
-                        App.unitArmyBuilderNumber = 0;
+                        if (result.value) {
+                            $('.unit-box').remove();
 
-                    } else {
-                        this.selectedIndex = previous;
-                    }
+                            App.armyArray.faction = App.armySelect.val();
+                            App.armyArray.units = [];
+                            App.unitArmyBuilderNumber = 0;
+                        } else {
+                            this.selectedIndex = previous;
+                        }
+                    });
+
+
+                    // if (confirm('You have unsaved army. Changing faction will delete all units. Do you want to delete all units?')) {
+
+                    //     $('.unit-box').remove();
+
+                    //     App.armyArray.faction = App.armySelect.val();
+                    //     App.armyArray.units = [];
+                    //     App.unitArmyBuilderNumber = 0;
+
+                    // } else {
+                    //     this.selectedIndex = previous;
+                    // }
                 } else {
 
                     App.armyArray.faction = App.armySelect.val();
@@ -451,8 +553,7 @@ App.displayContent = (faction, database) => {
             $('#army-saver').click(function () {
 
                 if (App.armyArray.units.length == 0) {
-                    alert("You have no units in your army");
-
+                    Swal.fire('You have no units in your army');
                 } else {
 
                     for (let o = 0; o < App.armyArray.units.length; o++) {
@@ -504,16 +605,14 @@ App.displayContent = (faction, database) => {
                         // alert('all complete');
 
                         $('#army-saver').prop('disabled', false);
-
-                        alert("Saved");
-
+                        Swal.fire('Saved');
                         App.getContent();
 
                     });
                 }
             })
 
-            $('.add-unit').click(function () {                
+            $('.add-unit').click(function () {
                 App.unitArmyAdder(true);
             })
         }
@@ -530,7 +629,7 @@ App.displayContent = (faction, database) => {
 App.unitArmyAdder = (isNew, values) => {
     let htmlString = '';
 
-    if (App.armyName.val() != '') {
+    if (App.armyName.val().trim() != '') {
 
         htmlString = `
         <div class="unit-box" id="unit${App.unitArmyBuilderNumber}">
@@ -639,17 +738,30 @@ App.unitArmyAdder = (isNew, values) => {
             App.solveArmyPoints();
         })
 
-        $(`.unit-name-input`).blur(function () {
-            let thisSelectId = this.id.replace("unit-name-input", "");
-            App.solveArmyArrayUnits(thisSelectId, "name", this.value);
+        $(`.unit-name-input`).blur(App.fixInputValue).blur(function () {            
+            let t = $(this);
+
+            let thisSelectId = t.attr("id").replace("unit-name-input", "");
+            App.solveArmyArrayUnits(thisSelectId, "name", t.val());
         });
 
         ++App.unitArmyBuilderNumber;
 
     } else {
-        alert("Choose some name first");
+        Swal.fire('Choose some name first');
     }
 }
+
+App.fixInputValue = function () {
+    let t = $(this);
+    if (t.val().trim() !== '') {
+
+        t.val(t.val().trim());       
+    } else {
+        Swal.fire('Name is empty');
+        t.val("");     
+    }
+};
 
 App.solveArmyArrayUnits = (unitid, type, value) => {
     let unitInArray = App.armyArray.units.find(({ id }) => id == parseInt(unitid))
@@ -792,7 +904,7 @@ App.fillIndividualUnitRow = (boxID, nameOverride) => {
 
     if (table.rows.length > 1) {
         table.deleteRow(1);
-    }    
+    }
 
     $(`#unit-table${boxID} tbody`).append(htmlString);
 
@@ -821,7 +933,7 @@ App.fillIndividualUnitRow = (boxID, nameOverride) => {
         $(`#specialism-select${boxID}`).val(nameOverride.spec);
         $(`#weapon-select${boxID}`).val(nameOverride.weapons);
 
-        $(`#unit-name-input${boxID}`).val(nameOverride.name);              
+        $(`#unit-name-input${boxID}`).val(nameOverride.name);
 
     } else {
         $(`#unit-name-input${boxID}`).val(chance.last());
@@ -844,6 +956,14 @@ App.constructArmyHTML = () => {
             <div>
                 <span>Faction:</span>
                 <select id="army-select"></select>
+            </div>
+            <div>
+                <span>Colour:</span>
+                <select id="army-colour">
+                    <option>red</option>
+                    <option>green</option>
+                    <option>blue</option>
+                </select>
             </div>
             <div>
                 <span>Points:</span>
