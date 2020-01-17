@@ -638,6 +638,7 @@ h3 {
     background-color: #447c9c;
     color: white;
     font-weight: bold;
+    margin-right: 30px;
 }
 
 #submit-button:hover {

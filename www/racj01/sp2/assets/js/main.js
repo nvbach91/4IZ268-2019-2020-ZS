@@ -1,16 +1,16 @@
 const App = {};
 
-const favorite = $('#players');
+//const favorite = $('#players');
 var likedPlayers = JSON.parse(localStorage.getItem('favorites'));
 
 $(document).ready(() => {
 
     App.init();
 
-    printFavorites(likedPlayers);
+    App.printFavorites(likedPlayers);
 
-    const liked = $('#players');
-    setFavorites(liked);
+    //const liked = $('#players');
+    setFavorites(App.liked);
 
 
 
@@ -25,38 +25,38 @@ $(document).ready(() => {
     });
 
     App.like.click(() => {
-        if(!likedPlayers) {
-            favorite.empty();
+        if (!likedPlayers) {
+            App.liked.empty();
             likedPlayers[0] = App.currentPlayer;
             localStorage.setItem('favorites', JSON.stringify(likedPlayers));
-            printFavorites(likedPlayers);
-            setFavorites(liked);
+            App.printFavorites(likedPlayers);
+            setFavorites(App.liked);
         }
-        else if(likedPlayers.includes(App.currentPlayer)) {
+        else if (likedPlayers.includes(App.currentPlayer)) {
             alert('Player is already liked');
         }
         else {
-            favorite.empty();
+            App.liked.empty();
             likedPlayers[likedPlayers.length] = App.currentPlayer;
             localStorage.setItem('favorites', JSON.stringify(likedPlayers));
-            printFavorites(likedPlayers);
-            setFavorites(liked);
+            App.printFavorites(likedPlayers);
+            setFavorites(App.liked);
         }
     });
 
     App.dislike.click(() => {
-        if(!likedPlayers) {
+        if (!likedPlayers) {
             return false;
         }
-        else if(!likedPlayers.includes(App.currentPlayer)) {
+        else if (!likedPlayers.includes(App.currentPlayer)) {
             alert('Player is not liked');
         }
         else {
-            favorite.empty();
-            likedPlayers.splice(likedPlayers.indexOf(App.currentPlayer), 1 );
+            App.liked.empty();
+            likedPlayers.splice(likedPlayers.indexOf(App.currentPlayer), 1);
             localStorage.setItem('favorites', JSON.stringify(likedPlayers));
-            printFavorites(likedPlayers);
-            setFavorites(liked);
+            App.printFavorites(likedPlayers);
+            setFavorites(App.liked);
         }
 
     });
@@ -69,13 +69,16 @@ App.init = () => {
     App.nameInput = $('#player-name-input');
     App.button = $('#submit-button');
     App.playerList = $('#users');
-    App.MY_KEY = 'RGAPI-ed105680-96a5-4633-a959-6e8030633f8d';
+    App.MY_KEY = 'RGAPI-6c11206b-9e66-4953-afbd-8e708bffa4ef';
     App.urlID = 'https://cors-anywhere.herokuapp.com/https://eun1.api.riotgames.com/tft/';
     App.urlMatch = 'https://cors-anywhere.herokuapp.com/https://europe.api.riotgames.com/tft/match/v1/matches/';
     App.spinner = $('<div class="spinner"></div>');
     App.like = $('#like-button');
     App.dislike = $('#dislike-button')
     App.currentPlayer = '';
+    App.liked = $('#players');
+    App.gameResponses = [];
+    App.sortedGameResponses = [];
 };
 
 var print = function (playerNameValue) {
@@ -85,38 +88,66 @@ var print = function (playerNameValue) {
     }).done((resp) => {
         var playerID = resp.puuid;
         const player = $(
-        `<div>
+            `<div>
             <div class="top-line">
                 <h2>${playerNameValue} (${resp.summonerLevel})</h2>
             </div> 
-            <div id="${playerNameValue}">
-                <div class="header">
+            <div class="header">
                     <div>Placement</div>
                     <div>Level</div>
                     <div>Poslední kolo</div>
                     <div>Poškození</div>
                     <div>Datum</div>
-                </div>
+            </div>
+            <div id="${playerNameValue}">
             </div>
         </div>`);
-        const gameList = $(`#${playerNameValue}`);
         App.playerList.append(player);
         App.playerList.append(App.spinner);
         $.ajax({
             method: 'GET',
             url: `${App.urlMatch}by-puuid/${playerID}/ids?count=10&api_key=${App.MY_KEY}`,
         }).done((resp) => {
-            var games = resp;
+            const games = resp;
+            const promises = [];
             const gameList = $(`#${playerNameValue}`);
-            games.forEach(game => {
-                $.ajax({
+            gameList.detach();
+            App.gameResponses = [];
+            games.forEach((game) => {
+                const promise = $.ajax({
                     method: 'GET',
                     url: `${App.urlMatch}${game}?api_key=${App.MY_KEY}`,
                 }).done((resp) => {
-                    var gameTime = new Date(resp.info.game_datetime);
-                    var players = resp.info.participants;
+                    App.gameResponses.push(resp);
+                });
+                promises.push(promise);
+            });
+
+            $.when(...promises).then((res) => {
+
+                //console.log(App.gameResponses);
+
+                App.sortedGameResponses = App.gameResponses;
+
+                for (var j = 0; j < App.gameResponses.length; j++) {
+                    for (var i = 0; i < App.gameResponses.length - 1; i++) {
+                        if (App.gameResponses[i].info.game_datetime > App.gameResponses[i + 1].info.game_datetime) {
+                            App.sortedGameResponses[i] = App.gameResponses[i];
+                        }
+                        if (App.sortedGameResponses[i].info.game_datetime < App.gameResponses[i + 1].info.game_datetime) {
+                            App.sortedGameResponses[i] = App.gameResponses[i + 1];
+                        }
+                    }
+                }
+
+                //console.log(App.sortedGameResponses);
+
+                App.gameResponses.forEach(gameResponse => {
+                    const players = gameResponse.info.participants;
+                    const gameTime = new Date(gameResponse.info.game_datetime);
+
                     players.forEach(player => {
-                        if (player.puuid == playerID) {
+                        if (player.puuid === playerID) {
                             const match = $(`<div class="row">
                                 <div>${player.placement}</div>
                                 <div>${player.level}</div>
@@ -127,42 +158,46 @@ var print = function (playerNameValue) {
                             gameList.append(match);
                         }
                     });
-                }).always(() => {
-                    App.spinner.remove();
-                })
-            });
+                });
+
+                App.spinner.remove();
+                gameList.appendTo(App.playerList.children())
+
+            })
+
         });
     });
 
 };
 
 
-var printFavorites = function (likedPlayers) {
+App.printFavorites = function (likedPlayers) {
 
-    if(!likedPlayers) {
-       return false;
+    if (!likedPlayers) {
+        return false;
     }
 
-    if(likedPlayers.length == 1) {
+    if (likedPlayers.length === 1) {
         const item = $(`<li id="liked">${likedPlayers[0]}</li>`);
-        favorite.append(item);
+        App.liked.append(item);
     }
     else if (likedPlayers != null) {
         likedPlayers.forEach(player => {
             const item = $(`<li id="liked">${player}</li>`);
-            favorite.append(item);
+            App.liked.append(item);
         });
     }
 };
 
 var setFavorites = function (liked) {
-    liked.children().click(function() {
+    liked.children().click(function () {
         var name = $(this).html();
-         if (!name) {
-             return alert('Please enter a player name');
-         }
-         App.currentPlayer = name;
-         App.playerList.empty();
-         print(name);
-     });
+        if (!name) {
+            return alert('Please enter a player name');
+        }
+        App.currentPlayer = name;
+        App.playerList.empty();
+        print(name);
+    });
 }
+
