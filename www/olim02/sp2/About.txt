@@ -1,0 +1,22 @@
+Studijní organizér - do aplikace student zadá předměty, které se týkají jeho studia. 
+Přidá k nim údaje jako počet kreditů, ident, status povinný/volitelný a doporučený semestr zapsání kurzu. 
+Z přidaných předmětů pak bude moci sestavit svůj studijní plán, včetně zapsání předmětů do aktuálního rozvrhu. 
+Tam si bude moci zapisovat i termíny zkoušek a průběžných testů. Při plnění testů může zadávat počty bodů. 
+Předměty pak vytvoří statistická data jako kolik si musí student ještě zapsat volitelných předmětů, jaký má průměr, atd. 
+Jako prvek navíc si bude moct přidávat tasky do ToDo listu, které si bude moci odškrtávat po splnění.
+
+Aplikace musí být schopna zobrazit aktuální rozvrh předmětů a zkoušek. 
+Dále zobrazí přehledný plán na všechny semestry. 
+Sestaví z dat statistické údaje a dá uživateli možnost vkládat prvky do ToDo listu.
+
+FormData - https://developer.mozilla.org/en-US/docs/Web/API/FormData
+API pro získávání dat z formulářů na vkládání kurzů	
+JQuery - https://jquery.com/
+Angular - https://angular.io/
+React - https://reactjs.org/	
+https://drive.google.com/open?id=1j5tzRxQ2YFqkyyJXEl2d4YwqLPdWiHp5, 
+https://drive.google.com/open?id=1AS5X-dq6zwTlY84Ytbva_t26BxhZuOv8, 
+https://drive.google.com/open?id=1qYSv2_MQ2XmQzOEQJyx3WNypoP-mOB1_,
+https://drive.google.com/open?id=1wI9OBt7B0jX-En8PlVO0olcVmfgEKkQj,
+https://drive.google.com/open?id=131mhI9e6zjEZcAcAfg2M3j727K7_8SkL		
+
