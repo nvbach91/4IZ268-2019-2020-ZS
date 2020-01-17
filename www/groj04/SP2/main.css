@@ -13,7 +13,7 @@ main {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.form {
+form {
   margin-left: 33%;
   margin-top: 20%;
   margin-right: 35%;
@@ -74,4 +74,8 @@ body {
 
 .btn-two {
   grid-column: span 2;
+}
+
+#tryout {
+  display: none;
 }

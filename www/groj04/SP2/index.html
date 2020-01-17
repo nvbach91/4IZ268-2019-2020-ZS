@@ -5,57 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Calculator</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="main.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link href="./main.css" rel="stylesheet" />
   </head>
   <body>
     <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize_button" >Authorize</button>
-    <button id="signout_button" >Sign Out</button>
+    <button id="authorize_button">Authorize</button>
+    <button id="signout_button">Sign Out</button>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
     <main id="disp">
-      <div class="form">
-      <h1>Gmail form</h1>
-      <label for="email">
-          <input id="mail" type="email" name="email" pattern="[a-z0-9._%+-]+@gmail.com" required placeholder="Please fill in your gmail account for example Name@gmal.com">
-      </label> <br>
-      <button id="confirm">Confirm</button>
-    </div>
+      <form onsubmit="removeFunction()">
+        <h1>Gmail form</h1>
+        <label for="email">
+          <input
+            id="mail"
+            type="email"
+            name="email"
+            pattern="[a-z0-9._%+-]+@gmail.com"
+            required
+            placeholder="Please fill in your gmail account for example Name@gmal.com"
+          />
+          <p id="tryout"></p>
+        </label>
+        <br />
+        <input id="confirm" type="submit" value="Submit" />
+      </form>
     </main>
-  
-      <div class="calculator-body">
-        <div class="output">
-          <div id="prev-opButton" class="previous-operand"></div>
-          <div id="cur-opButton" class="current-operand"></div>
-        </div>
-        <button id="all-clear" class="btn btn-danger">AC</button>
-        <button id="opButton" class="btn btn-primary">+</button>
-        <button id="opButton" class="btn btn-primary">-</button>
-        <button id="delButton" class="btn btn-warning">DEL</button>
-        <button id="numButton" class="btn btn-light">1</button>
-        <button id="numButton" class="btn btn-light">2</button>
-        <button id="numButton" class="btn btn-light">3</button>
-        <button id="opButton" class="btn btn-primary">*</button>
-        <button id="numButton" class="btn btn-light">4</button>
-        <button id="numButton" class="btn btn-light">5</button>
-        <button id="numButton" class="btn btn-light">6</button>
-        <button id="opButton" class="btn btn-primary">÷</button>
-        <button id="numButton" class="btn btn-light">7</button>
-        <button id="numButton" class="btn btn-light">8</button>
-        <button id="numButton" class="btn btn-light">9</button>
-        <button id="numButton" class="btn btn-secondary">.</button>
-        <button id="opButton" class="btn btn-primary">x^y</button>
-        <button id="numButton" class="btn btn-light">0</button>
-        <button id="eqButton" class="btn btn-success btn-two">=</button>
+
+    <div class="calculator-body">
+      <div class="output">
+        <div id="prev-opButton" class="previous-operand"></div>
+        <div id="cur-opButton" class="current-operand"></div>
       </div>
+      <button id="all-clear" class="btn btn-danger">AC</button>
+      <button id="opButton" class="btn btn-primary">+</button>
+      <button id="opButton" class="btn btn-primary">-</button>
+      <button id="delButton" class="btn btn-warning">DEL</button>
+      <button id="numButton" class="btn btn-light">1</button>
+      <button id="numButton" class="btn btn-light">2</button>
+      <button id="numButton" class="btn btn-light">3</button>
+      <button id="opButton" class="btn btn-primary">*</button>
+      <button id="numButton" class="btn btn-light">4</button>
+      <button id="numButton" class="btn btn-light">5</button>
+      <button id="numButton" class="btn btn-light">6</button>
+      <button id="opButton" class="btn btn-primary">÷</button>
+      <button id="numButton" class="btn btn-light">7</button>
+      <button id="numButton" class="btn btn-light">8</button>
+      <button id="numButton" class="btn btn-light">9</button>
+      <button id="numButton" class="btn btn-secondary">.</button>
+      <button id="opButton" class="btn btn-primary">x^y</button>
+      <button id="numButton" class="btn btn-light">0</button>
+      <button id="eqButton" class="btn btn-success btn-two">=</button>
+    </div>
 
-
-      <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"> </script>
-    <script src="main.js" defer></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script
+      async
+      defer
+      src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()"
+    ></script>
+    <script src="./main.js" defer></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
