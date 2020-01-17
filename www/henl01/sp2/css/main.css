@@ -29,6 +29,11 @@ hr {
     border-radius: 2px;
 }
 
+.row {
+    flex-wrap: nowrap;
+    overflow: auto;
+}
+
 .section, .new-section {
     margin-top: 10px;
     border: 5px solid white;
@@ -96,6 +101,10 @@ hr {
 
 .new-section button {
     margin-top: 20px;
+}
+
+.spinnerDiv {
+    margin: auto;
 }
 
 .spinner {

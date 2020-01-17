@@ -18,6 +18,7 @@ App.init = () => {
     App.dataSection2 = new Array();
     App.dataSection3 = new Array();
     App.dataSection4 = new Array();
+    App.spinnerDiv = $('.spinner-div');
 };
 
 $(document).ready(() => {
@@ -35,20 +36,20 @@ $(document).ready(() => {
             var sectionFromID = parentFromID.substr(parentFromID.length - 1);
             var parentToID = event.to.parentNode.id;
             var sectionToID = parentToID.substr(parentToID.length - 1);
-            console.log(itemName);
-            console.log(sectionFromID);
-            console.log(sectionToID);
+            // console.log(itemName);
+            // console.log(sectionFromID);
+            // console.log(sectionToID);
 
             /** Získat generické ID pro přesouvaný úkol. */
             $.ajax(settings,
                 settings.method = 'GET',
                 settings.url = `https://henl01-2446.restdb.io/rest/ukoly?q={"Section":${sectionFromID},"Text":"${itemName}"}`
             ).done((resp) => {
-                console.log(resp);
+                // console.log(resp);
                 var taskDefaultID = resp[0]._id;
             
                 newTaskSection = {"Section": sectionToID, "Nazev": itemName};
-                console.log(newTaskSection);
+                // console.log(newTaskSection);
 
                 /** Update atributu "Section" u přesunutého úkolu. */
                 $.ajax(settings,
@@ -70,7 +71,7 @@ $(document).ready(() => {
             message: 'Zadejte název',
             input: `<input name="taskName" type="text" class="vex-dialog-prompt-input" placeholder="Název" value="${name}" required>`,
             callback: function (value) {
-                console.log(value);
+                // console.log(value);
                 if (value !== false) {
                     $('h1')[0].innerText = value;
                 }
@@ -81,17 +82,17 @@ $(document).ready(() => {
     let sectionsHTML = '';
     let exportSectionsHTML = '';
 
-    App.sections.append(spinner);
+    App.spinnerDiv.append(spinner);
 
     /** Získání a načtení všech sekcí z databáze. */
     $.ajax(settings,
         settings.method = 'GET',
-        settings.url = 'https://henl01-2446.restdb.io/rest/sekce?sort=ID')
-    .done((resp) => {
+        settings.url = 'https://henl01-2446.restdb.io/rest/sekce?sort=ID'
+    ).done((resp) => {
         spinner.remove();
-        console.log("resp");
-        console.log(resp);
-        console.log(resp.length);
+        // console.log("resp");
+        // console.log(resp);
+        // console.log(resp.length);
         var classes;
         var counter = 0;
         /** Vytvoření jednotlivých sekcí. */
@@ -103,7 +104,7 @@ $(document).ready(() => {
                 classes = 'col-sm-3 section deletable';
             }
             sectionsHTML += 
-            `<div class="${classes}" id="section-${section.ID}">
+            `<div class="${classes} ${section.Barva}" id="section-${section.ID}">
                 <div class="section-name">
                     <h2>${section.Nazev}</h2>
                     <i class="fa fa-edit"></i>
@@ -114,16 +115,23 @@ $(document).ready(() => {
                 <div id="tasks" class="list-group"></div>
             </div>`
             exportSectionsHTML += `<li><a href="#" id="${section.Nazev}">${section.Nazev}</a></li>`;
+            // console.log("Vytvoření");
+            // console.log($(`#section-${section.ID}`));
         });
-        if(resp.length < 4) {
+        // if(resp.length < 4) {
             sectionsHTML += 
             `<div class="col-sm-3 new-section" id="new-section">
                 <button class="btn btn-primary new-section-create">Nová sekce</button>
             </div>`
-        }
+        // }
         /** Přidání vytvořených sekcí do HTML. */
         App.exportSections.append(exportSectionsHTML);
         App.sections.append(sectionsHTML);
+
+        resp.forEach(section => {
+            App.nastavBarvu($(`#section-${section.ID}`)[0]);
+            // console.log($(`#section-${section.ID}`)[0]);
+        });
 
         /** Místa pro ukládání úkolů do jednotlivých sekcí. */
         App.section1 = $('#section-1 #tasks');
@@ -131,7 +139,7 @@ $(document).ready(() => {
         App.section3 = $('#section-3 #tasks');
         App.section4 = $('#section-4 #tasks');
 
-        App.sections.append(spinner);
+        App.spinnerDiv.append(spinner);
 
         /** Získání a načtení všech úkolů z databáze. */
         $.ajax(settings,
@@ -139,8 +147,8 @@ $(document).ready(() => {
             settings.url = 'https://henl01-2446.restdb.io/rest/ukoly?sort=Text')
         .done((resp) => {
             spinner.remove();
-            console.log("Tasks");
-            console.log(resp);
+            // console.log("Tasks");
+            // console.log(resp);
             resp.forEach(task => {
                 let taskHTML = 
                 `<div class="task list-group-item">
@@ -152,11 +160,11 @@ $(document).ready(() => {
 
             /** Odstranění vybraného úkolu. */
             $(document).on('click', '.section .task .fa-trash', function(){
-                console.log("Smaž");
+                // console.log("Smaž");
 
                 const task = $(this).parent();
                 const taskName = task[0].innerText;
-                console.log(taskName);
+                // console.log(taskName);
 
                 let taskDefaultID;
 
@@ -164,18 +172,18 @@ $(document).ready(() => {
                     className: 'vex-theme-default',
                     message: 'Opravdu chcete úkol smazat?',
                     callback: function (value) {
-                        console.log(value);
+                        // console.log(value);
                         if (value === true) {
                             /** Odstraní úkol ze stránky. */
                             task.remove();
-                            App.sections.append(spinner);
+                            App.spinnerDiv.append(spinner);
                             /** Získá generické ID úkolu, který bude smazán. */
                             $.ajax(settings,
                                 settings.method = 'GET',
                                 settings.url = `https://henl01-2446.restdb.io/rest/ukoly?q={"Text":"${taskName}"}`
-                                ).done((resp) => {
+                            ).done((resp) => {
                                     taskDefaultID = resp[0]._id;
-                                    console.log(taskDefaultID);
+                                    // console.log(taskDefaultID);
 
                                     /** Odstranění úkolu z databáze. */
                                     $.ajax(settings,
@@ -192,7 +200,7 @@ $(document).ready(() => {
             });
 
             /** Vytvoření draggable a sortable seznamů pro přesouvání úkolů. */
-            console.log(App.section4);
+            // console.log(App.section4);
             Sortable.create(App.section1[0], options);
             Sortable.create(App.section2[0], options);
             Sortable.create(App.section3[0], options);
@@ -219,7 +227,7 @@ $(document).ready(() => {
                     }
                     content[index].push($(this).text().trim());
                 });
-                console.log(content);
+                // console.log(content);
                 a.onclick = function (e) {
                     return ExcellentExport.convert({
                         anchor: this,
@@ -257,7 +265,7 @@ $(document).ready(() => {
                     }
                     content[index].push($(this).text().trim());
                 });
-                console.log(content);
+                // console.log(content);
                 a.onclick = function (e) {
                     return ExcellentExport.convert({
                         anchor: this,
@@ -295,7 +303,7 @@ $(document).ready(() => {
                     }
                     content[index].push($(this).text().trim());
                 });
-                console.log(content);
+                // console.log(content);
                 a.onclick = function (e) {
                     return ExcellentExport.convert({
                         anchor: this,
@@ -333,7 +341,7 @@ $(document).ready(() => {
                     }
                     content[index].push($(this).text().trim());
                 });
-                console.log(content);
+                // console.log(content);
                 a.onclick = function (e) {
                     return ExcellentExport.convert({
                         anchor: this,
@@ -359,8 +367,8 @@ $(document).ready(() => {
         $(document).on('click', '.new-task-create', function() {
             /** Získání sekce, kde se nový úkol vytváří. */
             const parentId = $(document.activeElement).parent().attr('id');
-            console.log($(document.activeElement)[0]);
-            console.log(parentId);
+            // console.log($(document.activeElement)[0]);
+            // console.log(parentId);
             const sectionID = parentId.substr(parentId.length - 1);
 
             vex.dialog.prompt({
@@ -368,7 +376,7 @@ $(document).ready(() => {
                 message: 'Zadejte název úkolu',
                 input: '<input name="taskName" type="text" class="vex-dialog-prompt-input" placeholder="Název úkolu" required>',
                 callback: function (value) {
-                    console.log(value);
+                    // console.log(value);
                     if (value !== false) {
                         /** Vytvoření a přidání úkolu do stránky. */
                         let taskHTML = 
@@ -378,10 +386,10 @@ $(document).ready(() => {
                         </div>`;
                         App.appendToSection(taskHTML, parseInt(sectionID));
                         
-                        App.sections.append(spinner);
+                        App.spinnerDiv.append(spinner);
                         /** Uložení nového úkolu do databáze. */
                         const newTask = {"Section": sectionID, "Text": value};
-                        console.log(newTask);
+                        // console.log(newTask);
                         
                         $.ajax(settings,
                             settings.method = 'POST',
@@ -390,6 +398,10 @@ $(document).ready(() => {
                         ).done(function (response) {
                             spinner.remove();
                             console.log(response);
+                        }).fail((resp) => {
+                            var mes = resp.responseJSON;
+                            console.log(mes);
+                            console.log(mes.message);
                         });
                     }
                 }
@@ -398,37 +410,63 @@ $(document).ready(() => {
 
         /** Vytvoření a přidání nové sekce. */
         $(document).on('click', '.new-section-create', function () {
-            vex.dialog.prompt({
+            vex.dialog.open({
                 className: 'vex-theme-default',
                 message: 'Zadejte název sekce',
-                input: '<input name="taskName" type="text" class="vex-dialog-prompt-input" placeholder="Název sekce" required>',
-                callback: function (value) {
-                    console.log(value);
-                    if (value !== false) {
+                input: [
+                    '<input name="name" type="text" class="vex-dialog-prompt-input" placeholder="Název sekce" required>',
+                    '<div class="vex-custom-field-wrapper">',
+                        '<label for="color">Color</label>',
+                        '<select name="color">',
+                            '<option name="color" value="red">Červená</option>',
+                            '<option name="color" value="green">Zelená</option>',
+                            '<option name="color" value="blue">Modrá</option>',
+                        '</select>',
+                    '</div>'
+                ].join(''),
+                callback: function (data) {
+                    console.log(data.name);
+                    console.log(data.color);
+                    console.log(counter);
+                    counter++;
+                    console.log(counter);
+                    if (data !== false) {
                         /** Vytvoření a přidání sekce do stránky a do tlačítka na export. */
                         sectionsHTML = 
-                            `<div class="col-sm-3 section deletable" id="section-4">
+                            `<div class="col-sm-3 section deletable ${data.color}" id="section-${counter}">
                                 <div class="section-name">
-                                    <h2>${value}</h2>
+                                    <h2>${data.name}</h2>
                                     <i class="fa fa-edit"></i>
                                     <i class="fa fa-trash"></i>
                                 </div>
                                 <hr>
                                 <button class="btn btn-primary new-task-create">Nový úkol</button>
                                 <div class="tasks"></div>
+                            </div>
+                            <div class="col-sm-3 new-section" id="new-section">
+                                <button class="btn btn-primary new-section-create">Nová sekce</button>
                             </div>`;
-                        exportSectionsHTML = `<li><a href="#" id="${value}">${value}</a></li>`;
+                        exportSectionsHTML = `<li><a href="#" id="${data.name}">${data.name}</a></li>`;
 
                         $('.new-section').remove();
                         App.exportSections.append(exportSectionsHTML);
                         App.sections.append(sectionsHTML);
-                        App.section4 = $('#section-4');
+                        App.nastavBarvu($(`#section-${counter}`)[0]);
+                        App.section4 = $(`#section-${counter}`);
+                        App.section5 = $(`#section-${counter}`);
+                        App.section6 = $(`#section-${counter}`);
+                        App.section7 = $(`#section-${counter}`);
+                        App.section8 = $(`#section-${counter}`);
                         Sortable.create(App.section4[0], options);
+                        Sortable.create(App.section5[0], options);
+                        Sortable.create(App.section6[0], options);
+                        Sortable.create(App.section7[0], options);
+                        Sortable.create(App.section8[0], options);
 
-                        App.sections.append(spinner);
+                        App.spinnerDiv.append(spinner);
                         /** Uložení nové sekce do databáze. */
-                        const newSection = {"ID": 4, "Nazev": value};
-                        console.log(newSection);
+                        const newSection = {"ID": counter, "Nazev": data.name, "Barva": data.color};
+                        // console.log(newSection);
                         
                         $.ajax(settings,
                             settings.method = 'POST',
@@ -448,7 +486,7 @@ $(document).ready(() => {
             /** Získání původního názvu. */
             const section = $(this).siblings();
             const sectionName = section[0].innerText;
-            console.log(sectionName);
+            // console.log(sectionName);
 
             let sectionDefaultID;
             let sectionMyID;
@@ -458,9 +496,9 @@ $(document).ready(() => {
                 message: 'Zadejte nový název sekce',
                 input: '<input name="sectionName" type="text" class="vex-dialog-prompt-input" placeholder="Název sekce" required>',
                 callback: function (value) {
-                    console.log(value);
+                    // console.log(value);
                     if (value !== false) {
-                        App.sections.append(spinner);
+                        App.spinnerDiv.append(spinner);
                         /** Přejmenování sekce na stránce a získání generického ID z databáze. */
                         section[0].innerText = value;
                         $.ajax(settings,
@@ -494,12 +532,13 @@ $(document).ready(() => {
         $(document).on('click', '.section-name .fa-trash', function(){
             /** Získání ID dané sekce. */
             const section = $(this).parent();
-            console.log(section);
+            // console.log(section);
             const sectionName = section[0].innerText;
-            console.log(sectionName);
+            // console.log(sectionName);
             const parentID = $(this).parent().parent().attr('id');
             const sectionID = $(this).parent().parent().attr('id').substr(parentID.length - 1);
-            console.log(sectionID);
+            // console.log(sectionID);
+            counter--;
 
             let sectionDefaultID;
 
@@ -507,26 +546,26 @@ $(document).ready(() => {
                 className: 'vex-theme-default',
                 message: 'Opravdu chcete sekci smazat? Budou smazány všechny úkoly v této sekci.',
                 callback: function (value) {
-                    console.log(value);
+                    // console.log(value);
                     if (value === true) {
                         /** Odstranění sekce ze stránky a z tlačítka pro export. */
                         section.parent().remove();
                         $(`#${sectionName}`).remove();
                         /** Vytvoření tlačítka pro přidání nové sekce. */
-                        sectionsHTML = 
-                            `<div class="col-sm-3 new-section" id="new-section">
-                                <button class="btn btn-primary new-section-create">Nová sekce</button>
-                            </div>`
-                        App.sections.append(sectionsHTML);
+                        // sectionsHTML = 
+                        //     `<div class="col-sm-3 new-section" id="new-section">
+                        //         <button class="btn btn-primary new-section-create">Nová sekce</button>
+                        //     </div>`
+                        // App.sections.append(sectionsHTML);
 
-                        App.sections.append(spinner);
+                        App.spinnerDiv.append(spinner);
                         /** Získá generické ID pro sekci, která bude smazaná. */
                         $.ajax(settings,
                             settings.method = 'GET',
                             settings.url = `https://henl01-2446.restdb.io/rest/sekce?q={"Nazev":"${sectionName}"}`
                         ).done((resp) => {
                             sectionDefaultID = resp[0]._id;
-                            console.log(sectionDefaultID);
+                            // console.log(sectionDefaultID);
 
                             /** Odstraní danou sekci z databáze. */
                             $.ajax(settings,
@@ -541,15 +580,15 @@ $(document).ready(() => {
                                 settings.method = 'GET',
                                 settings.url = `https://henl01-2446.restdb.io/rest/ukoly?q={"Section":${sectionID}}`
                             ).done((resp) => {
-                                console.log(resp);
+                                // console.log(resp);
                                 var tasks = new Array();
                                 resp.forEach(task => {
                                     tasks.push(task._id);
                                 });
-                                console.log(tasks);
+                                // console.log(tasks);
 
                                 tasks.forEach(task => {
-                                    console.log(task);
+                                    // console.log(task);
                                     $.ajax(settings,
                                         settings.method = 'DELETE',
                                         settings.url = `https://henl01-2446.restdb.io/rest/ukoly/${task}`
@@ -564,6 +603,8 @@ $(document).ready(() => {
                 }
             });
         });
+    }).fail((resp) => {
+        console.log(resp);
     });
 
 
@@ -626,4 +667,15 @@ App.appendToSection = (task, sec) => {
         default:
             break;
     };
+};
+
+/** Funkce pro nastavení barvy jednotlivé sekce. */
+App.nastavBarvu = (sekce) => {
+    console.log("Sekce");
+    console.log(sekce);
+    var classes = sekce.getAttribute('class').split(" ");
+    console.log(classes.length);
+    var color = classes[classes.length - 1];
+    console.log(classes);
+    sekce.style.backgroundColor = `${color}`;
 };
