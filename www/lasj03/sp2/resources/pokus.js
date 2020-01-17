@@ -1,16 +1,32 @@
 var input = document.getElementById('query');
+var spinner = document.querySelector('.spinner2');
 
-tyden = new Array("neděle", "pondělí", "úterý", "středa", "čtvrtek", "pátek", "sobota");
+tyden = ["neděle", "pondělí", "úterý", "středa", "čtvrtek", "pátek", "sobota"];
 
+displayedCities = [];
 var result = [];
+
+/*Spinner*/
+
+
 /*
 Po zadání latitude a longitude vrací předpověď počasí
 */
-window.onload = function() {
-    for (var i = 0; i < localStorage.length; i++) {
-        createFavoriteItem(localStorage.getItem(localStorage.key(i)));
-    }
+document.querySelector("#search-button").onclick = function() {
+    spinner.className = 'spinner';
 }
+
+
+$(document).ready(() => {
+        for (var i = 0; i < localStorage.length; i++) {
+            createFavoriteItem(localStorage.getItem(localStorage.key(i)));
+        }
+    })
+    /*window.onload = function() {
+        for (var i = 0; i < localStorage.length; i++) {
+            createFavoriteItem(localStorage.getItem(localStorage.key(i)));
+        }
+    }*/
 
 function getForecast(latlong) {
     var urlDarkSky = `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/baab8fd9c1efb00edda82f01f5f91488/${latlong[0].y},${latlong[0].x}?lang=cs&units=si`;
@@ -28,17 +44,26 @@ function createFavoriteItem(city) {
     var a = document.createElement("a");
     a.innerText = city;
     a.id = city;
-    document.querySelector("#myDropdown").appendChild(a);
+    document.querySelector("#my-dropdown").appendChild(a);
     a.onclick = function() {
         document.querySelector("#query").value = city;
-        document.querySelector("#hledat-button").click();
+        document.querySelector("#search-button").click();
     }
 }
 
 
 function createDiv(weatherInfo) {
+    if (!(displayedCities.indexOf(input.value) === -1)) {
+        position = displayedCities.indexOf(input.value);
+        console.log('position: ' + position);
+        displayedCities[position + 1].remove();
+        displayedCities[position + 2].remove();
+        displayedCities.splice(position, 3);
+    }
+
     var wrapper = document.createElement("div");
     wrapper.className = 'forecast-wrapper';
+
     var value = document.querySelector("#query").value;
     var header = document.createElement("div");
     var headerP = document.createElement("p");
@@ -52,7 +77,7 @@ function createDiv(weatherInfo) {
     headerFavoritesIcon.className = 'weather-favorrite-icon';
 
     headerFavoritesIcon.onclick = function() {
-        if ((headerFavoritesIcon.src.indexOf("unselected") == -1)) {
+        if ((headerFavoritesIcon.src.indexOf("unselected") === -1)) {
             headerFavoritesIcon.src = 'resources/icons/favorite_unselected.png';
             localStorage.removeItem(value);
             try {
@@ -72,9 +97,12 @@ function createDiv(weatherInfo) {
     header.appendChild(headerP);
 
     headerP.innerText = input.value;
+    displayedCities.push(input.value);
+    displayedCities.push(header);
+    displayedCities.push(wrapper);
     document.getElementsByClassName('city-wrapper')[0].appendChild(header);
 
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 8; i++) {
 
         var forecastDay = document.createElement("div");
         forecastDay.className = 'forecast-day';
@@ -110,12 +138,15 @@ function createDiv(weatherInfo) {
     }
 
     document.getElementsByClassName('city-wrapper')[0].appendChild(wrapper);
+    spinner.className = 'spinner2'
+    window.scrollTo(0, document.body.scrollHeight);
 }
+
 
 /*toggle between hiding and showing the dropdown content */
 
 document.querySelector(".dropbtn").onclick = function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
+    document.getElementById("my-dropdown").classList.toggle("show");
 
 }
 

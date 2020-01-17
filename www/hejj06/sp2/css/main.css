@@ -68,3 +68,22 @@ h2{
 #h2-done, #h2-new{
     margin-top: 30px;
 }
+
+/* obhajoba */
+.loader, .loader2 {
+    border: 16px solid white;
+    border-radius: 50%;
+    border-top: 16px solid lightgray;
+    border-bottom: 16px solid lightgray;
+    width: 80px;
+    height: 80px;
+    animation: spin 2s infinite; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

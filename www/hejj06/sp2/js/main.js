@@ -54,10 +54,15 @@ let checkIncomeDepartmentFromUrl = false;
 
 let href = '';
 
-
+//obhajoba
+let allDepartmentsWithDuplicites = [];
+let spinnerDiv = `<div class="loader"></div>`;
+let spinnerDiv2 = `<div class="loader2"></div>`;
 
 
 $(document).ready(() => {
+
+
 
     if (location.hash === "") {
         loadCoreFunction();
@@ -102,12 +107,11 @@ function loadCoreFunction() {
                 <h1>Databáze zaměstnanců</h1>
             </div>
 
-            <div class="form-group">
+            <div class="form-group for-spinner">
                 <label for="exampleFormControlSelect1">Filtr:</label>
                 <select class="form-control" id="exampleFormControlSelect1" placeholder="Default input">
                 </select>
             </div>
-
 
             <h2>Seznam zaměstnanců</h2>
             <div id="list">
@@ -156,6 +160,7 @@ function loadCoreFunction() {
         </form>`
     $('.container').append(employeeHTML);
 
+
     App.employeeList = $('#list');
     App.departmentList = $('#exampleFormControlSelect1');
     App.departmentList2 = $('#inputGroupSelect01');
@@ -164,8 +169,11 @@ function loadCoreFunction() {
 
 }
 
+
 /*** Funkce, která načte data z databáze a "vykreslí" data na úvodní stránku ***/
 function ajaxHomePageFunction() {
+
+    App.employeeList.append(spinnerDiv);
 
     $.ajax(get,
         get.url = 'https://mycompanydb-704c.restdb.io/rest/employee'
@@ -173,9 +181,11 @@ function ajaxHomePageFunction() {
 
         App.employeesFromDB = resp;
         employeeHTML = '';
+
         resp.forEach(element => {
             loadDataFunction(element);
         });
+        $('.loader').remove();
         App.employeeList.append(employeeHTML);
 
         $('.surname-button').click(function () {
@@ -186,16 +196,42 @@ function ajaxHomePageFunction() {
     });
 }
 
+
 /*** Funkce, která načte oddělení z databáze ***/
 function ajaxDepartmentFunction() {
-    $.ajax(get).done((resp2) => {
-        departmentHTML += `<option>Všechna oddělení</option>`;
+
+    $(".for-spinner").append(spinnerDiv2);
+
+    $.ajax(get,
+        get.url = 'https://mycompanydb-704c.restdb.io/rest/employee'
+    ).done((resp3) => {
+        resp3.forEach(element => {
+            allDepartmentsWithDuplicites.push(element.department[0].name);
+        });
+        console.log(allDepartmentsWithDuplicites.length);
+    });
+
+
+    $.ajax(get,
+        get.url = 'https://mycompanydb-704c.restdb.io/rest/department'
+    ).done((resp2) => {
+        let howManyEmployees = 0;
+        departmentHTML += `<option>Všechna oddělení (počet zaměstnanců = ${allDepartmentsWithDuplicites.length})</option>`;
         resp2.forEach(element2 => {
+            howManyEmployees = 0;
+            allDepartmentsWithDuplicites.forEach(element => {
+                if (element === element2.name) {
+                    howManyEmployees++;
+                }
+            });
+
             if (urlHash !== element2.name) {
                 departmentHTML +=
-                    `<option value="${element2.name}">${element2.name}</option>`;
+                    `<option value="${element2.name}">${element2.name} (počet zaměstnanců = ${howManyEmployees})</option>`;
             }
         });
+        $('.loader2').remove();
+
         App.departmentList.append(departmentHTML);
         App.departmentList2.append(departmentHTML);
     });
@@ -207,7 +243,7 @@ function departmentChangeFunction() {
     employeeHTML = '';
 
     App.employeesFromDB.forEach(element => {
-        if (element.department[0].name === App.departmentList.val() || App.departmentList.val() === "Všechna oddělení") {
+        if (element.department[0].name === App.departmentList.val() || App.departmentList.val() === `Všechna oddělení (počet zaměstnanců = ${allDepartmentsWithDuplicites.length})`) {
             loadDataFunction(element);
         }
     });
@@ -221,7 +257,7 @@ function departmentChangeFunction() {
 
     //změna URL dle zvoleného oddělení
     href = location.href;
-    if (App.departmentList.val() !== "Všechna oddělení") {
+    if (App.departmentList.val() !== `Všechna oddělení (počet zaměstnanců = ${allDepartmentsWithDuplicites.length}`) {
         if (location.hash === "") {
             href = location.href + "#" + App.departmentList.val();
             history.pushState(null, null, href);
@@ -478,78 +514,132 @@ function todoFunction(resp) {
             //přidávací tlačítko
             $('#insertTaskButton').click(function () {
 
-                alert("No a tohle bohužel nefunguje :(");
+                // alert("No a tohle bohužel nefunguje :(");
 
-                // //výběr označené varianty radio buttonu
-                // for (let i = 0; i < $('.my-radio-button').length; i++) {
-                //     if ($('.my-radio-button')[i].firstElementChild.checked === true) {
-                //         let radio = $('.my-radio-button')[i].lastElementChild.innerText;
-                //         inputRelevancy = radio;
-                //     }
-                // }
+                //výběr označené varianty radio buttonu
+                for (let i = 0; i < $('.my-radio-button').length; i++) {
+                    if ($('.my-radio-button')[i].firstElementChild.checked === true) {
+                        let radio = $('.my-radio-button')[i].lastElementChild.innerText;
+                        inputRelevancy = radio;
+                    }
+                }
 
-                // inputCode = $('#inputCode')[0].value;
-                // inputDescription = $('#inputDescription')[0].value;
-                // inputDone = $('.my-checkbox')[0].checked;
+                inputCode = $('#inputCode')[0].value;
+                inputDescription = $('#inputDescription')[0].value;
+                inputDone = $('.my-checkbox')[0].checked;
 
                 // console.log(inputCode);
                 // console.log(inputDescription);
                 // console.log(inputRelevancy);
                 // console.log(inputDone);
 
-                // var jsondata = {
-                //     "code": inputCode,
-                //     "description": inputDescription,
-                //     "relevancy": inputRelevancy,
-                //     "done": inputDone
-                // };
+                var jsondata = {
+                    "code": inputCode,
+                    "description": inputDescription,
+                    "relevancy": inputRelevancy,
+                    "done": inputDone
+                };
 
-                // $.ajax(post,
-                //     post.data = JSON.stringify(jsondata),
-                //     post.url = "https://mycompanydb-704c.restdb.io/rest/task"
-                // ).done(function (response) {
+                $.ajax(post,
+                    post.data = JSON.stringify(jsondata),
+                    post.url = "https://mycompanydb-704c.restdb.io/rest/task"
+                ).done(function (response) {
+                    // console.log(response);
 
-                //     var jsondata = {
-                //         "$push": {
-                //             "task": [{
-                //                 "_id": response._id,
-                //                 "code": inputCode,
-                //                 "description": inputDescription,
-                //                 "relevancy": inputRelevancy,
-                //                 "done": inputDone
-                //             }]
-                //         }
-                //     };
+                    var jsondata2 = [{
+                        "_id": response._id,
+                        "code": inputCode,
+                        "description": inputDescription,
+                        "relevancy": inputRelevancy,
+                        "done": inputDone
+                    }];
 
-                //     var put = {
-                //         "async": true,
-                //         "crossDomain": true,
-                //         "url": `https://mycompanydb-704c.restdb.io/rest/employee/${element._id}`,
-                //         "method": "PUT",
-                //         "headers": {
-                //             "content-type": "application/json",
-                //             "x-apikey": "5deb8ea54658275ac9dc240a",
-                //             "cache-control": "no-cache"
-                //         },
-                //         "processData": false,
-                //         "data": JSON.stringify(jsondata)
-                //     }
+                    var task = jsondata2.concat(element.task);
 
-                //     console.log(JSON.stringify(jsondata));
+                    jsondata2 = { taskK };
 
-                //     $.ajax(put).done(function (response) {
-                //         console.log(response);
-                //     });
+                    var patch = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": `https://mycompanydb-704c.restdb.io/rest/employee/${element._id}`,
+                        "method": "PATCH",
+                        "headers": {
+                            "content-type": "application/json",
+                            "x-apikey": "5deb8ea54658275ac9dc240a",
+                            "cache-control": "no-cache"
+                        },
+                        "processData": false,
+                        "data": JSON.stringify(jsondata2)
+                    }
 
-                //     // $.ajax(post,
-                //     //     post.method = "PUT",
-                //     //     post.data = JSON.stringify(jsondata),
-                //     //     post.url = `https://mycompanydb-704c.restdb.io/rest/employee/${element._id}`
-                //     // ).done(function (response) {
-                //     //     console.log(response);
-                //     // });
+                    $.ajax(patch).done(function (response) {
+                        console.log(response.task);
+                        let arrayLength = response.task.length;
+                        console.log(response.task[arrayLength - 1]);
 
-                // });
+                        newTaskHTML =
+                            `<div class="row">
+                            <div class="col-sm-1">
+                                <div>${response.task[0].code}</div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div>${response.task[0].relevancy}</div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div>${response.task[0].done}</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div>${response.task[0].description}</div>
+                            </div>
+                        </div>
+                        `
+                        if (response.task[0].done === true) {
+                            $('#done-tasks').append(newTaskHTML);
+                        }
+                        else {
+                            $('#todo-tasks').append(newTaskHTML);
+                        }
+
+                    });
+
+                    /*** NEFUNKČNÍ VAIANTA S PUSH ***/
+                    // var jsondata2 = {
+                    //     "$push": {
+                    //         "task": {
+                    //             "_id": response._id,
+                    //             "code": inputCode,
+                    //             "description": inputDescription,
+                    //             "relevancy": inputRelevancy,
+                    //             "done": inputDone
+                    //         }
+                    //     }
+                    // };
+
+                    // var put = {
+                    //     "async": true,
+                    //     "crossDomain": true,
+                    //     "url": `https://mycompanydb-704c.restdb.io/rest/employee/${element._id}`,
+                    //     "method": "PUT",
+                    //     "headers": {
+                    //         "content-type": "application/json",
+                    //         "x-apikey": "5deb8ea54658275ac9dc240a",
+                    //         "cache-control": "no-cache"
+                    //     },
+                    //     "processData": false,
+                    //     "data": JSON.stringify(jsondata2)
+                    // }
+
+                    // $.ajax(put).done(function (response) {
+                    //     console.log(response);
+                    // });
+
+                }).fail(function (resp) {
+                    if (resp.status === 0) {
+                        alert('Nejste připojeni k internetu');
+                    } else {
+                        alert(resp.responseJSON.message);
+                    }
+                });
             });
         }
     });
@@ -558,15 +648,18 @@ function todoFunction(resp) {
 
     // history.pushState('todo', null, 'todo.html');
     $('#btn-back').click(function () {
-        href = href.split("#");
+        href = location.href.split("#");
         href = href[0];
         history.pushState(null, null, href);
 
         //opět načtení první stránky
         loadCoreFunction();
-        App.departmentList.append(departmentHTML);
-        App.departmentList2.append(departmentHTML);
+        urlHash = '';
+        departmentHTML = '';
+        employeeHTML = '';
+        ajaxDepartmentFunction()
         ajaxHomePageFunction();
+        App.employeeList.append(employeeHTML);
         $(App.departmentList).change(function () {
             departmentChangeFunction();
         });
