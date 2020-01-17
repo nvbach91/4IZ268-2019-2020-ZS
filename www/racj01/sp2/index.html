@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <script src="https://kit.fontawesome.com/25f772e305.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="https://tft-cheatsheet.com/favicon.ico">
+    <title>TFT - App</title>
+</head>
+
+<body>
+    <div class="layout">
+        <nav class="nav-champ">
+            <div class="menu-item"> <i class="fa fa-home"></i><a href="../../../sp1/index.html">Home</a></div>
+            <div class="menu-item menu-active"><i class="fas fa-chess-pawn"></i><a href="./index.html">App</a></div>
+        </nav>
+        <div class="menu-line">
+            <div class="favorites">
+                Favorites:
+                <ul id="players"></ul>
+            </div>
+        </div>
+        <main class="main-home">
+            <div class="main-header">
+                <h1>Summoners match history</h1>
+            </div>
+            <div class="description">
+                <p class="home-content">
+                    V této aplikaci si můžete zobrazit posledních 10 her daného hráče.
+                </p>
+            </div>
+
+            <div class="ui">
+                <label>ID:</label>
+                <input id="player-name-input">
+                <button id="submit-button">Search</button>
+                <button id="like-button">like</button>
+                <button id="dislike-button">dislike</button>
+            </div>
+
+            <div id="users">
+
+            </div>
+
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
