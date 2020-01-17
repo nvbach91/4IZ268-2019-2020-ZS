@@ -27,6 +27,18 @@ body {
     margin: 0 auto;
 }
 
+.select {
+    max-width: 20%;
+    margin: 0 auto;
+    float: right;
+}
+
+.mw1OO {
+    max-width: 1280px;
+    width: 100%;
+    display: inline-block;
+}
+
 .vert-center {
     position: relative;
     top: 40%;
@@ -103,7 +115,7 @@ body {
     position: relative;
 }
 
-.zprava_uzivatele form input {
+.zprava_uzivatele form input, .zprava_uzivatele form select {
     box-sizing: border-box;
     width: 100%;
     display: block;

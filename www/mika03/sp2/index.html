@@ -24,11 +24,14 @@
         </div>
     </div>
     <div class="zprava_uzivatele">
-        <form method="post">
-            <input type="email" placeholder="Váš email" id="Vas_email">
-            <input type="email" placeholder="Email příjemce" id="Email_prijemce">
-            <input type="text" placeholder="Předmět" id="predmet">
-            <textarea placeholder="Váš text" rows="20" id="content"></textarea>
+        <form method="post" id="formular">
+            <input type="email" required placeholder="Váš email" id="Vas_email">
+            <input type="email" placeholder="Email příjemce" id="Email_prijemce" class="mw100">
+            <select id="recipient" class="mw100">
+
+            </select>
+            <input type="text" required placeholder="Předmět" id="predmet">
+            <textarea required placeholder="Váš text" rows="20" id="content"></textarea>
             <input type="submit" value="Odeslat" id="odeslat">
         </form>
     </div>

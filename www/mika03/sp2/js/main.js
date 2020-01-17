@@ -4,7 +4,7 @@ const GLOBALS = { // definujeme globální konstanu do níž budeme ukládat glo
   CLIENT_ID: '631879115548-s5kka655adveq9mbt4atjfq87gptdfba.apps.googleusercontent.com', // Definuje náš projekt na serverech googlu
   API_KEY: 'AIzaSyBcxLfYjgXCNmUSR8BtbAvo5Y23p_ZePng', // Klíč potřebný k udělení práv naší aplikaci.
   DISCOVERY_DOCS: ["https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"], // Soubory potřebné pro API
-  SCOPES: 'https://www.googleapis.com/auth/gmail.send ' + 'https://www.googleapis.com/auth/gmail.readonly', // Definice vyžadovaných práv pro naši aplikaci
+  SCOPES: 'https://www.googleapis.com/auth/gmail.send ', // Definice vyžadovaných práv pro naši aplikaci
   buttons: {
     authorizeButton: document.getElementById('authorize_button'), // Vybíráme tlačítko "Přihlásit se"
     signoutButton: document.getElementById('signout_button'),// vybíráme tlačítko "Odhlásit se"
@@ -113,16 +113,22 @@ clearDiacritics = (string) => {
  * 
  * Odešle request na servery googlu, aby odeslali zprávu specifikovanou parametrem message
  */
-sendFunction = (fromId, message) => {
+sendFunction = (fromId, message, recipient) => {
   gapi.client.gmail.users.messages.send({ // API metoda pro odesílání zpráv vrací slib 
     'userId': fromId,
     'resource': {
-      'raw': message
+      'raw': message,
     }
   }).then(function () { // then() - metoda slibu, která se provede po jeho splnění
+    // ukládat email příjemce do local storage
+    // přidat email příjemce do select 
+
+    $("#recipient").append(`<option value="${recipient}">${recipient}</option>`);
+
     alert("Sent!") // Upozorníme, že email se odeslal
   });
 }
+
 /**
  * 
  * @param {String} from - Emailová adresa odesílatele
@@ -134,7 +140,12 @@ function send(from, to, subject, message) {
   let firstStep = composeMessage(from, to, subject, message); // složíme zprávu
   let secondStep = encodeMessage(firstStep); // zakódujeme do syrového stavu
   let thirdStep = finalMessageEncode(secondStep); // vyčistíme zakódování
-  sendFunction(GLOBALS.currentUser.id, thirdStep); // odešleme email na API
+  sendFunction(GLOBALS.currentUser.id, thirdStep, to); // odešleme email na API
+  if (localStorage.getItem("previousRecipient") === null) {
+    localStorage.setItem("previousRecipient", to);
+  } else {
+    localStorage.setItem("previousRecipient", localStorage.getItem("previousRecipient") + "," + to);
+  }
 }
 $("#cid").attr("content", GLOBALS.CLIENT_ID); // "Přidáváme odkaz na naši aplikaci do meta dat"
 
@@ -158,7 +169,8 @@ function initClient() {
     gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
     // Kontrolujeme zda se uživatel nepřihlásil už dříve
-    updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+    updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get()
+    );
 
     // Přidáváme čekání na kliknutí na tlačítka přihlásit se a odhlásit se
     $(GLOBALS.buttons.authorizeButton).click(handleAuthorizeButton);
@@ -208,7 +220,7 @@ function updateSigninStatus(isSignedIn) {
  * Metoda která se stará o stisknutí tlačítka "Přihlásit se"
  */
 function handleAuthorizeButton() {
-  gapi.auth2.getAuthInstance().signIn(); // Funkce API která spouští přihlašovací sekvenci
+  gapi.auth2.getAuthInstance().signIn() // Funkce API která spouští přihlašovací sekvenci
 }
 
 /**
@@ -228,7 +240,7 @@ function handleSignOutButton() {
  */
 function fillEmail() {
   GLOBALS.otherElements.senderEmail.val(GLOBALS.currentUser.address); // Nastavujeme hodnotu pole na aktuální email uživatele
-  GLOBALS.otherElements.senderEmail.attr("disabled", true); // Pole vypneme
+  GLOBALS.otherElements.senderEmail.attr("disabled", true); // Pole vypneme 
 }
 /**
  * Třída Email ukládá vlastnosti emailu, který se bude odesílat
@@ -311,7 +323,7 @@ function validate(text, sender, recipient, subject) {
   return isOk; // Vracíme proměnou isOk, která nabývá hodnoty true či false
 }
 
-$("#odeslat").click(e => { // po stisknutí tlačítka "odeslat" provedeme následující
+/*$("#odeslat").click(e => { // po stisknutí tlačítka "odeslat" provedeme následující
   e.preventDefault(); // Zabráníme reálnému potvrzení odeslání formuláře (redirect na jinou stránku - aktualizace okna, která by vše zrušila)
   if (validate( // kontrola validity dat
     GLOBALS.otherElements.emailContent.val(), // Vybíráme obsah pole pro obsah emailu
@@ -324,4 +336,18 @@ $("#odeslat").click(e => { // po stisknutí tlačítka "odeslat" provedeme násl
     GLOBALS.otherElements.receiverEmail.val(""); // Vyprazdňujeme pole pro email příjemce
     GLOBALS.otherElements.subjectContent.val(""); // Vyprazdňujeme pole pro předmět emailu
   }
+}); */
+
+$("#formular").submit(e => {
+  e.preventDefault();
+  GLOBALS.email = new Email(GLOBALS.otherElements.emailContent.val(),
+    GLOBALS.otherElements.senderEmail.val(),
+    GLOBALS.otherElements.receiverEmail.val(),
+    GLOBALS.otherElements.subjectContent.val());
+  send(GLOBALS.email.sender, GLOBALS.email.recipient, GLOBALS.email.subject, GLOBALS.email.text);
 });
+
+$("#recipient").on("change", () => {
+  GLOBALS.otherElements.receiverEmail.val($("#recipient").val());
+})
+
