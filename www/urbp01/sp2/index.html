@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Deník trenéra propojený s Google tabulkou." />
+    <meta name="keywords" content="meta, deník, trenér, zápis, úprava, zobrazení, režim" />
+    <meta name="author" content="Petr Urban" />
+    <title>Deník trenéra</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/main.css" />
+    <link href='./assets/img/logo.png' rel='shortcut icon' type='image/png'>
+</head>
+
+<body>
+    <nav id="nav">
+        <button class="nav-item" id="nav-menu">Menu</button>
+        <button class="nav-item" id="nav-view">Režim zobrazení</button>
+        <button class="nav-item" id="nav-edit">Režim zápisu</button>
+        <button class="nav-item" id="nav-update">Režim úpravy</button>
+        <button class="nav-item hidden" id="signin-button">Přihlášení</button>
+        <button class="nav-item hidden" id="signout-button">Odhlášení</button>
+    </nav>
+    <div id="d-intro" class="intro">
+        <h1>Deník trenéra</h1>
+        <p>Vítejte, právě jste se dostali k webové aplikaci Deník trenéra, která Vám umožní zapisovat data o vašich
+            trénincích. Zvolte si režim, který chcete využívat jako první.</p>
+        <a id="a-view">Režim zobrazení</a>
+        <a id="a-edit">Režim zápisu</a>
+        <a id="a-update">Režim úpravy</a>
+    </div>
+    <div id="d-edit" class="edit">
+        <div class="in">
+            <form>
+                <h1>Režim zápisu</h1>
+                <input id="edit-name" name="name" type="text" placeholder="Vložte jméno">
+                <input id="edit-date" name="date" type="date">
+                <input id="edit-theme" name="theme" type="text" placeholder="Vložte téma">
+                <textarea id="edit-description" class="description" name="description"
+                    placeholder="Popis tréninku"></textarea>
+                <button type="button" id="b-edit">Vložit</button>
+            </form>
+        </div>
+    </div>
+    <div id="d-view" class="view">
+        <div class="in" id="in-view">
+            <form onSubmit="return false;">
+                <h1>Režim zobrazení</h1>
+                <input id="s-name" name="s-name" type="text" placeholder="Vložte jméno">
+                <button type="button" id="b-view">Zobrazit</button>
+            </form>
+        </div>
+        <div class="out" id="out-view">
+            <div>
+                <button type="button" id="b-reset">Reset</button>
+            </div>
+            <div id="out-content">
+            </div>
+        </div>
+    </div>
+    <div id="d-update" class="update">
+        <div class="in" id="in-update">
+            <form onSubmit="return false;">
+                <h1>Režim úpravy</h1>
+                <input id="update-id" name="update-id" type="number" placeholder="Vložte ID záznamu">
+                <button type="button" id="b-update-ID">Vybrat ID</button>
+                <div>
+                    <select name="options" id="options">
+                    </select>
+                </div>
+                <button type="button" id="b-update-options">Vybrat možnosti</button>
+            </form>
+        </div>
+        <div class="out" id="out-update">
+            <form onSubmit="return false;">
+                <input id="update-name" name="update-name" type="text" placeholder="Vložte jméno">
+                <input id="update-date" name="update-date" type="date">
+                <input id="update-theme" name="update-theme" type="text" placeholder="Vložte téma">
+                <textarea id="update-description" class="description" name="description"
+                    placeholder="Popis tréninku"></textarea>
+                <button type="button" id="b-update">Aktualizovat</button>
+                <button type="button" id="b-reset-update">Reset</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; Petr Urban, Vysoká škola ekonomická v Praze, Fakulta informatiky a statistiky</p>
+        <p>Vytvořeno za účelem semestrální práce z předmětu 4IZ268</p>
+    </footer>
+    <script src="./assets/js/main.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+</body>
+
+</html>
