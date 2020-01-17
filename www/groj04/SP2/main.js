@@ -1,32 +1,3 @@
-/**
- * uložení email do local storage
- */
-$(document).ready(function() {
-  $("#confirm").click(function removeFunction() {
-    var mail = $("#mail").val();
-    localStorage.setItem("mail", mail);
-    console.log(localStorage.getItem("mail"));
-    $("main").remove();
-    /**
- *     $('#main').compare(function(){ 
-    text = document.getElementById('mail').innerHTML
-    var success = document.getElementById('tryout').innerHTML = /[a-z0-9._%+-]+@gmail.com/.test(text)
-    if (success !== true) {
-      alert("Invalid gmail input.");
-    } else {
-    }
-    }) 
- * 
- */
-  });
-});
-
-/**
- * vytvoření třídy kalkulačka s funkcemi
- * zobrazuje text elementy na displayi
- * prev = prev protože určujeme že prev je ta konstanta prev
- * this.clear protože hned na začátku nechceme žádné proměnné ani operace
- */
 class Calculator {
   constructor(previousOperandTextElement, currentOperandTextElement) {
     this.previousOperandTextElement = previousOperandTextElement;
@@ -34,18 +5,11 @@ class Calculator {
     this.clear();
   }
 
-  /**
-   * Zobrazuje cisla v "displayi"
-   *
-   */
   displayNumber(number) {
     if (number === "." && this.currentOperand.includes(".")) return;
     this.currentOperand = this.currentOperand.toString() + number.toString();
   }
-  /**
-   * určuje jaká se provede operace
-   * this.operation ukazuje na operaci z compute
-   */
+
   whichOperation(operation) {
     if (!this.currentOperand) return;
     if (this.previousOperand !== "") {
@@ -56,10 +20,7 @@ class Calculator {
     this.previousOperand = this.currentOperand;
     this.currentOperand = "";
   }
-  /**
-   * udává operaci
-   * if is nan nepůstí rovnítko když není operace kompletní jinak se to pokazí
-   */
+
   compute() {
     let computation;
     const prev = parseFloat(this.previousOperand);
@@ -84,18 +45,30 @@ class Calculator {
       default:
         return;
     }
+    localStorage.setItem(
+      "processing",
+      `${this.previousOperand} ${this.operation} ${this.currentOperand}`
+    );
+
+    console.log(localStorage.getItem("processing"));
+
+    localStorage.setItem("result", computation);
+    console.log(localStorage.getItem("result"));
+
+    var processHistory = document.createElement("LI");
+    var history = document.createElement("LI");
+    history.innerText = localStorage.getItem("result");
+    processHistory.innerText = localStorage.getItem("processing");
+    document.querySelector("#history").prepend(processHistory);
+    document.querySelector("#history").prepend(history);
+    localStorage.removeItem("result");
+    localStorage.removeItem("processing");
+
     this.currentOperand = computation;
     this.operation = undefined;
     this.previousOperand = "";
-    /**
-     * výsledek (computation) do local storage
-     */
-    localStorage.setItem("result", computation);
-    console.log(localStorage.getItem("result"));
   }
-  /**
-   * pomáhá se zobrazením desetinných čísel
-   */
+
   getDisplayNumber(number) {
     const stringNumber = number.toString();
     const integerDigits = parseFloat(stringNumber.split(".")[0]);
@@ -114,9 +87,7 @@ class Calculator {
       return integerDisplay;
     }
   }
-  /**
-   * aktualizuje display podle zadaných hodnot
-   */
+
   updateDisplay() {
     this.currentOperandTextElement.innerText = this.getDisplayNumber(
       this.currentOperand
@@ -129,25 +100,17 @@ class Calculator {
       this.previousOperandTextElement.innerText = "";
     }
   }
-  /**
-   * smaže zdané hodnoty
-   */
+
   clear() {
     this.currentOperand = "";
     this.previousOperand = "";
     this.operation = undefined;
   }
-  /**
-   * smaže jedno poslední zadané aktuální číslo
-   */
+
   delete() {
     this.currentOperand = this.currentOperand.toString().slice(0, -1);
   }
 }
-
-/**
- * zadaní konstant z buttonů
- */
 
 const numberButtons = document.querySelectorAll("#numButton");
 const operationButtons = document.querySelectorAll("#opButton");
@@ -156,11 +119,6 @@ const deleteButton = document.querySelector("#delButton");
 const allClearButton = document.querySelector("#all-clear");
 const previousOperandTextElement = document.querySelector("#prev-opButton");
 const currentOperandTextElement = document.querySelector("#cur-opButton");
-
-/**
- * funkčnost kalkulačky
- * každý button provede určitou operaci spojenou s funkcemi
- */
 
 const calculator = new Calculator(
   previousOperandTextElement,
@@ -196,86 +154,96 @@ deleteButton.addEventListener("click", button => {
   calculator.updateDisplay();
 });
 
+const App = {};
 // Client ID and API key from the Developer Console
-var CLIENT_ID =
-  1031527171533 - l8ui4balolna0o8r5126tgh21qjni788.apps.googleusercontent.com;
-var API_KEY = AIzaSyDYh5v3oIGPq0JZSzyCmX3O3TvcVoD4vmM;
+App.CLIENT_ID =
+  "811896952216-mhq4lvetepolp6koaa0flbv99bb0f2g6.apps.googleusercontent.com";
+App.API_KEY = "AIzaSyDjg8j6AF95YVY7cviGNGxyWtErNSZIIEE";
+App.spreadsheetId = "1OZwvAfh0q0hQkCwh34iVBBW24mnMyJh5OuEMXYbu8vg";
 
 // Array of API discovery doc URLs for APIs used by the quickstart
-var DISCOVERY_DOCS = [
-  "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"
+App.DISCOVERY_DOCS = [
+  "https://sheets.googleapis.com/$discovery/rest?version=v4"
 ];
 
 // Authorization scopes required by the API; multiple scopes can be
 // included, separated by spaces.
-var SCOPES = "https://www.googleapis.com/auth/drive.metadata.readonly";
-
-var authorizeButton = document.getElementById("authorize_button");
-var signoutButton = document.getElementById("signout_button");
+// https://developers.google.com/identity/protocols/googlescopes
+App.SCOPES = "https://www.googleapis.com/auth/spreadsheets";
 
 /**
  *  On load, called to load the auth2 library and API client library.
  */
-function handleClientLoad() {
-  gapi.load("client:auth2", initClient);
-}
+App.handleClientLoad = () => {
+  gapi.load("client:auth2", App.initClient);
+};
 
 /**
  *  Initializes the API client library and sets up sign-in state
  *  listeners.
  */
-function initClient() {
+App.initClient = () => {
   gapi.client
     .init({
-      apiKey: API_KEY,
-      clientId: CLIENT_ID,
-      discoveryDocs: DISCOVERY_DOCS,
-      scope: SCOPES
+      apiKey: App.API_KEY,
+      clientId: App.CLIENT_ID,
+      discoveryDocs: App.DISCOVERY_DOCS,
+      scope: App.SCOPES
     })
     .then(
-      function() {
+      () => {
         // Listen for sign-in state changes.
-        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+        gapi.auth2.getAuthInstance().isSignedIn.listen(App.updateSigninStatus);
 
         // Handle the initial sign-in state.
-        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-        authorizeButton.onclick = handleAuthClick;
-        signoutButton.onclick = handleSignoutClick;
+        App.updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        App.authorizeButton.click(App.handleAuthClick);
+        App.signoutButton.click(App.handleSignoutClick);
       },
-      function(error) {
-        appendPre(JSON.stringify(error, null, 2));
+      error => {
+        App.appendPre(JSON.stringify(error, null, 2));
       }
     );
-}
+};
+
 
 /**
  *  Called when the signed in status changes, to update the UI
  *  appropriately. After a sign-in, the API is called.
  */
-function updateSigninStatus(isSignedIn) {
+App.updateSigninStatus = isSignedIn => {
   if (isSignedIn) {
-    authorizeButton.style.display = "none";
-    signoutButton.style.display = "block";
-    listFiles();
+    App.authorizeButton.hide();
+    App.signoutButton.show();
+    App.listData();
   } else {
-    authorizeButton.style.display = "block";
-    signoutButton.style.display = "none";
+    App.authorizeButton.show();
+    App.signoutButton.hide();
   }
-}
+};
+
 
 /**
  *  Sign in the user upon button click.
  */
-function handleAuthClick(event) {
+App.handleAuthClick = event => {
   gapi.auth2.getAuthInstance().signIn();
-}
+};
+/**
+ * Get email atemt tha has failed
+ */
+App.getClientsEmail = isSignedIn => {
+  gapi.auth2.getEmail()
+  var xe = gapi.auth2.getEmail()
+  console.log(xe)
+};
 
 /**
  *  Sign out the user upon button click.
  */
-function handleSignoutClick(event) {
+App.handleSignoutClick = event => {
   gapi.auth2.getAuthInstance().signOut();
-}
+};
 
 /**
  * Append a pre element to the body containing the given message
@@ -283,31 +251,71 @@ function handleSignoutClick(event) {
  *
  * @param {string} message Text to be placed in pre element.
  */
-function appendPre(message) {
-  var pre = document.getElementById("content");
-  var textContent = document.createTextNode(message + "\n");
-  pre.appendChild(textContent);
-}
+App.appendPre = message => {
+  $("#content").append(message);
+};
 
 /**
- * Print files.
+ * Print the names and majors of students in a sample spreadsheet:
+ * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
  */
-function listFiles() {
-  gapi.client.drive.files
-    .list({
-      pageSize: 10,
-      fields: "nextPageToken, files(id, name)"
+App.listData = () => {
+  const tableBody = document.querySelector("#table-body");
+  const rows = [];
+  gapi.client.sheets.spreadsheets.values
+    .get({
+      spreadsheetId: App.spreadsheetId,
+      range: "Sheet1!A1:D101"
     })
-    .then(function(response) {
-      appendPre("Files:");
-      var files = response.result.files;
-      if (files && files.length > 0) {
-        for (var i = 0; i < files.length; i++) {
-          var file = files[i];
-          appendPre(file.name + " (" + file.id + ")");
+    .then(
+      response => {
+        const range = response.result;
+        if (range.values.length > 0) {
+          for (i = 0; i < range.values.length; i++) {
+            const row = range.values[i];
+            rows.push(row);
+          }
+          tableBody.innerHTML = rows
+            .map(
+              row =>
+                `<tr>${row.map(value => `<td>${value}</td>`).join("")}</tr>`
+            )
+            .join("");
+        } else {
+          App.appendPre("No data found.");
         }
-      } else {
-        appendPre("No files found.");
+      },
+      response => {
+        App.appendPre("Error: " + response.result.error.message);
       }
-    });
-}
+    );
+};
+
+$(document).ready(() => {
+  App.handleClientLoad();
+  App.authorizeButton = $("#authorize_button");
+  App.signoutButton = $("#signout_button");
+  App.signoutButton = $("#signout_button");
+  App.addForm = $("#add-form").submit(e => {
+    e.preventDefault();
+    const data = {};
+    App.addForm
+      .serializeArray()
+      .forEach(({ name, value }) => (data[name] = value));
+    gapi.client.sheets.spreadsheets.values
+      .append({
+        spreadsheetId: App.spreadsheetId,
+        range: "Sheet1!A1",
+        valueInputOption: "RAW",
+        insertDataOption: "INSERT_ROWS",
+        resource: {
+          values: [[data.id, data.name, data.birth, data.height]]
+        }
+      })
+      .then(response => {
+        var result = response.result;
+        //console.log(`${result.updates.updatedCells} cells appended.`);
+        App.listData();
+      });
+  });
+});
