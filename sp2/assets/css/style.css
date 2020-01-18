@@ -1,0 +1,16 @@
+body { 
+background:rgb(70, 4, 70);
+} 
+.m1{ 
+margin: 220px;
+}
+.p-2{ 
+border-radius: 20px;
+}
+.border{ 
+color: grey;
+}
+.logo{ 
+height: 50px;
+width: 100px;
+}
