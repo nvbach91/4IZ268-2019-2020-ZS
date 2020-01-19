@@ -16,14 +16,29 @@
     <h1> Welcome to my application</h1>
     <p> In this app you can see last posts, weather and location without using facebook.</p>
     </div>
-    <button id = "find-me">Show my location</button><br/>
-    <p id = "status"></p>
-    <a id = "map-link" target="_blank"></a>
     <button class="d-inline p-2 bg-dark text-white" id="login">Login with Facebook</button>
     <button style="display:none;" id="logout">Logout</button>           
     <div  id="status"></div >
+        <button id = "find-me">Show my location</button><br/>
+        <p id = "status"></p>
+        <a id = "map-link" target="_blank"></a>
+        <div class="text-white">
+
+            <div class="top-border left"></div>
+            <div class="top-border right"></div>
+            <h2>Current local weather</h2>
+        
+            <span id="showCity"></span>
+            <span id="showCountry"></span>
+            <img id="showIcon">
+            <p id="showTemp"></p>
+        
+            <button class="text-black" id="unit">Change Unit</button>
+        
+          </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="assets/js/script.js"></script>
 <script src="assets/js/location.js"></script>
+<script src="assets/js/weather.js"></script>
 </html>
