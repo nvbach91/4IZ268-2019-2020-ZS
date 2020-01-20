@@ -13,34 +13,44 @@
     <header>
         <div class="logo">
             <img src="./img/logo.png" alt="logo">
-            <h1>Památky UNESCO v Česku</h1>
+            <h1>Památky UNESCO v České republice</h1>
         </div>
     </header>
     <main>
-        <div id="unescoList">
+        <div class="unescoList">
             <div>
-                <p>asdasdasdad</p>
+                <h2>Vyberte památku, ke které se chete podívat.</h2>
+            </div>
+            <div class="menu">
+                <select id="select">
+                    <option></option>
+                </select>
             </div>
             <div>
-                <button id="button">Ukázat trasu</button>
+                <button class="btn" id="buttonNav">Navigovat z mé lokace</button>
+            </div>
+            <div>
+                <button class="btn" id="buttonCancel">Zrušit navigování</button>
             </div>
         </div>
         <div id="map">
         </div>
-        <div id="info">
-            <div>
-                <p>asdasdasdad</p>
-            </div>
-            <div>
-                <p>asdasdasdad</p>
-            </div>
+        <div class="info">
+            <div id="unesco"></div>
+            <div id="path"></div>
         </div>
     </main>
+    <div class="collection">
+        <div>
+            <h2></h2>
+            <ul id="save-contents"></ul>
+        </div>
+    </div>
     <footer>
         &copy; 2019, Jakub Vysušil
     </footer>
     <script src="https://api.mapy.cz/loader.js"></script>
-    <script type="text/javascript">Loader.load()</script>
+    <script>Loader.load()</script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="./js/main.js"></script>
 </body>

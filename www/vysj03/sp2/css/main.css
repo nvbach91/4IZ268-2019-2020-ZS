@@ -4,10 +4,12 @@
 
 body {
     font-family: sans-serif;
+    max-width: 1680px;
+    margin: auto;
 }
 
 header {
-    border-top: 5px green solid;
+    border-top: 5px rgb(21, 94, 21) solid;
 }
 
 .logo {
@@ -28,9 +30,35 @@ main {
     display: flex;
 }
 
-#unescoList {
+.unescoList {
     width: 20%;
     text-align: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+.menu {
+    height: 30px;
+}
+
+#select {
+    height: 30px;
+    border: 1px rgb(21, 94, 21) solid;
+}
+
+.btn {
+    margin-top: 10px;
+    padding: 10px;
+    color: white;
+    background-color: rgb(21, 94, 21);
+    border: none;
+    width: 200px;
+}
+
+.btn:hover {
+    background-color: rgb(3, 43, 3);
+    transition: background-color 0.5s ease;
+    cursor: pointer;
 }
 
 #map {
@@ -40,11 +68,27 @@ main {
     margin-bottom: 10px;
     margin-left: auto;
     margin-right: auto;
+    border: 2px rgb(21, 94, 21) solid;
 }
 
-#info {
+.info {
     width: 20%;
-    text-align: center;
+    text-align: left;
+    line-height: 1.5;
+}
+
+#unesco, #path {
+    display: flex;
+    text-align: left;
+    padding: 10px;
+    border: 2px rgb(21, 94, 21) solid;
+    border-left: none;
+    height: 100px;
+    align-items: center;
+}
+
+#unesco {
+    border-bottom: none;
 }
 
 footer {
@@ -53,6 +97,8 @@ footer {
     align-items: center;
     color: white;
     height: 50px;
-    padding: 10px;
-    background-color: green;
+    width: 1680px;
+    background-color: rgb(21, 94, 21);
+    bottom: 0;
+    position: absolute;
 }

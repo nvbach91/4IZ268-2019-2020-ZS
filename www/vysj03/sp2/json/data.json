@@ -1,0 +1,93 @@
+[
+    {
+        "name": "Praha - historické centrum",
+        "id": 1,
+        "coordinates": "50°5'10.644\"N, 14°24'46.050\"E",
+        "adress": "Karlův most, 110 00 Praha 1",
+        "description": "Praha je historická metropole a jedno z nejkrásnějších měst Evropy."
+    },
+    {
+        "name": "Český Krumlov - historické centrum",
+        "id": 2,
+        "coordinates": "48°48'38.114\"N, 14°18'53.311\"E",
+        "adress": "Náměstí Svornosti, 381 01 Český Krumlov",
+        "description": "Středověké centrum města Český Krumlov, které obklopuje meandry Vltavy, tvoří s rozsáhlým areálem hradu a zámku jedinečný soubor městské zástavby."
+    },
+    {
+        "name": "Telč - historické centrum",
+        "id": 3,
+        "coordinates": "49°11'2.767\"N, 15°27'16.147\"E",
+        "adress": "Náměstí Zachariáše z Hradce, 588 56 Telč",
+        "description": "Historické jádro města Telč patří k nejcennějším městským památkovým rezervacím na Moravě."
+    },
+    {
+        "name": "Poutní kostel sv. Jana Nepomuckého",
+        "id": 4,
+        "coordinates": "49°34'53.311\"N, 15°56'39.424\"E",
+        "adress": "Sychrova 491/18, 591 02 Žďár nad Sázavou",
+        "description": "Poutní kostel svatého Jana Nepomuckého patří mezi nejvýznamnější stavby barokního stavitele Jana Blažeje Santiniho-Aichela."
+    },
+    {
+        "name": "Katedrála Nanebevzetí Panny Marie",
+        "id": 5,
+        "coordinates": "49°57'35.702\"N, 15°17'24.993\"E",
+        "adress": "U Zastávky 280, 284 03 Kutná Hora",
+        "description": "Katedrála Nanebevzetí Panny Marie a svatého Jana Křtitele v Sedlci u Kutné Hory je konventním chrámem bývalého nejstaršího cisterciáckého opatství v Čechách."
+    },
+    {
+        "name": "Lednicko-Valtický areál",
+        "id": 6,
+        "coordinates": "49°11'30.435\"N, 16°35'47.113\"E",
+        "adress": "Pekařská 88, 602 00 Brno-střed",
+        "description": "Lednicko-valtický areál je krajinný celek o rozloze 283,09 km2 v okrese Břeclav. Tato oblast na pomezí Moravy a Dolního Rakouska byla v průběhu 18. a 19. století knížecím rodem Lichtenštejnů zformována do podoby přírodního parku."
+    },
+    {
+        "name": "Kroměříž - zahrady a zámek",
+        "id": 7,
+        "coordinates": "49°17'51.104\"N, 17°22'59.152\"E",
+        "adress": "Gen. Svobody 1192, 767 01 Kroměříž",
+        "description": "Arcibiskupský zámek Kroměříž postavený ve slohu raného baroka a k němu přiléhající Podzámecká zahrada a Květná zahrada v západní části města jsou jedny z nejvýznamnějších památek Kroměříže."
+    },
+    {
+        "name": "Holašovice - vesnická rezervace",
+        "id": 8,
+        "coordinates": "48°58'11.111\"N, 14°16'20.719\"E",
+        "adress": "Holašovice 23, 373 84 Jankov",
+        "description": "Vesnická památková rezervace v Holašovicích je středověký systém obytných budov a architektonický styl tvořený štukovým dekorem tzv. Selské baroko."
+    },
+    {
+        "name": "Zámek Litomyšl",
+        "id": 9,
+        "coordinates": "49°52'24.372\"N, 16°18'45.535\"E",
+        "adress": "Jiráskova 93, 570 01 Litomyšl",
+        "description": "Ve městě Litomyšl byl zapsán do světového dědictví renesanční zámek a zámecký areál ze 2. poloviny 16. století."
+    },
+    {
+        "name": "Sloup Nejsvětější Trojice",
+        "id": 10,
+        "coordinates": "49°35'38.290\"N, 17°15'1.458\"E",
+        "adress": "Horní náměstí, 779 00 Olomouc",
+        "description": "Sloup Nejsvětější Trojice v Olomouci je monument postavený ke slávě Boží v letech 1716 až 1754. Jeho hlavním účelem byla okázalá oslava katolické církve a víry, částečně vyvolaná pocitem vděčnosti za ukončení moru, který na Moravě udeřil v letech 1714 až 1716."
+    },
+    {
+        "name": "Vila Tugendhad",
+        "id": 11,
+        "coordinates": "49°12'25.792\"N, 16°36'57.816\"E",
+        "adress": "Černopolní 45, 613 00 Brno",
+        "description": "Vila Tugendhat je nejznámější evropská vila Ludwiga van der Rohe. Byla postavena v letech 1929–1930."
+    },
+    {
+        "name": "Bazilika sv. Prokopa",
+        "id": 12,
+        "coordinates": "49°13'2.324\"N, 15°52'23.360\"E",
+        "adress": "Zámek 1, Podklášteří, 674 01 Třebíč",
+        "description": "Bazilika svatého Prokopa je románsko-gotický křesťanský kostel v Třebíči. Byl vybudován na místě původní mariánské kaple při benediktinském klášteře přibližně v letech 1240 až 1280."
+    },
+    {
+        "name": "Národní hřebčín Kladruby nad Labem",
+        "id": 13,
+        "coordinates": "49°55'9.254\"N, 15°48'29.384\"E",
+        "adress": "Zámecký park 150, 538 21 Slatiňany",
+        "description": "Národní hřebčín Kladruby nad Labem je chovnou stanicí běloušů českého plemene starokladrubských koní. Chovu koní se v Kladrubech nad Labem věnovali již Pernštejnové, kteří zdejší panství zakoupili v roce 1491."
+    }
+]
