@@ -9,36 +9,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="css.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="facebook.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> <!--css-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!--jQuery-->
+    <script src="https://cdn.rawgit.com/mozilla/localForage/master/dist/localforage.js"></script> <!--local storage-->
+    <script type="text/javascript" src="facebook.js"></script> <!--JavaScript-->
     <title>Facebook</title>
 </head>
 
 <body>
 
     <div class="hlavicka"><img src="fb.png" alt="LOGO"></div>
-    <h1>Příspěvky na Facebooku</h1>
+    <div id="vypis">
+        <h1>Příspěvky na Facebooku</h1>
+        <br>
+        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+        <div class="fb-img"></div><div class="fb-name"></div>
+    </div>
 
     <main>
-        <select id="ddrp1" onclick="hello()" onchange="SelectChanged(this)">
-            <option value="0">Zvolte možnost</option>
-            <option value="1">Český florbal</option>
-            <option value="2">SVK</option>
-        </select>
+        <input class="url" type="text" placeholder="URL vaší FB stránky">
+        <button class="uloz">Uložit</button>
+        <br>
     </main>
 
-
-    <iframe id="CFBU" class="cf"
-        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fceskyflorbal%2F&tabs=timeline&width=1000&height=700&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=true&appId"
-        width="1000" height="700" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
-        allowTransparency="true" allow="encrypted-media"></iframe>
-
-    <iframe id="SOKOL" class="sk"
-        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FSKVflorbal%2F&tabs=timeline&width=1000&height=700&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=true&appId"
-        width="1000" height="700" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
-        allowTransparency="true" allow="encrypted-media"></iframe>
-
+    <div class="fb-iframes"></div>
 
 </body>
 
