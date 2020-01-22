@@ -7,7 +7,7 @@ function geoFindMe() {
   mapLink.textContent = '';
 
   function success(position) {
-    const latitude  = position.coords.latitude;
+    const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
 
     status.textContent = '';
