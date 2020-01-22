@@ -1,0 +1,174 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html {
+    font-family: 'Alata';
+    min-height: 100%;
+    min-width: 100%;
+    background: rgba(0,32,63,1);
+    background-repeat: no-repeat;
+    color: white;
+    background-size: 100% 100%;
+    padding: 15px;
+    padding-bottom: 250px;
+}
+
+
+header {
+    text-align: center;
+    margin: 10px;
+}
+
+h1 {
+    text-align: center;
+    padding: 20px;
+}
+
+.link {
+    text-align: center;
+    display: inline-block ;
+    padding: 20px;
+    border-radius: 25px;
+    border: 2px solid white;
+    width: 20%;
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+a:visited { 
+    text-decoration: none;
+    color: white;
+}
+
+.search {
+    display: inline-block;
+    text-align: center;
+    border-radius: 25px;
+    border: 2px solid white;
+    padding: 20px;
+    width: 70%;
+    margin: 10px;
+}
+
+.js-name {
+    width: 50%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 2px solid white;
+}
+
+.js-type {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 2px solid white;
+}
+
+.js-year {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 2px solid white;
+}
+
+#searchButton {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 2px solid white;
+}
+
+.js-results {
+    padding-top: 10px;
+}
+
+.favorites {
+    position: relative;
+    min-height: 100vh;
+}
+  
+
+.movieItem {
+    display: inline-block;
+    width: 23%;
+    margin: 10px;
+    vertical-align: top;
+}
+
+.detailButton {
+    border-radius: 25px;
+    border: 1px solid white;
+    padding: 4px;
+    margin: 3px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.favoriteButton {
+    border-radius: 5px;
+}
+
+.img {
+    max-height: 445px;
+
+}
+
+.movieDetailItem {
+    display: inline-block;
+    width: 310px;
+    height: 800px;
+    margin: 5px;
+    text-align: left, justify;
+    vertical-align: top;
+    margin-bottom: 0;
+}
+
+h2 {
+    text-align: left;
+    width: 300px;
+    height: 80px;
+    position: relative;
+}
+
+
+footer {
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    background-color: rgba(0,32,63,1);
+}
+
+
+@media (max-width: 800px) {
+    body {
+        max-width: 800px;
+    }
+    .movieItem {
+        width: 40%;
+        margin: 5px;
+    }
+    .movieDetailItem {
+        width: 40%;
+        margin: 5px;
+    }
+
+    .js-type {
+        width: 50%;
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 2px solid black;
+    }
+}

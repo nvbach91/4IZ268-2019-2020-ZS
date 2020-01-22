@@ -1,54 +1,107 @@
-$(function() {
-    console.log( "ready!" );
+$(document).ready(function () {
+    console.log('%cREADY', 'color: green');
 
-    $( ".js-searchButton" ).click(function() {
-        const API_KEY = "b1bcd06d";
+    let favoriteMovies = localStorage.getItem("favoriteMovies");
+    if (!favoriteMovies) {
+        localStorage.setItem("favoriteMovies", JSON.stringify([]));
+    }
+
+    $("#searchButton").click(function (event) {
+        event.preventDefault();
 
         const name = $(".js-name").val();
         const year = $(".js-year").val();
         const type = $(".js-type").val();
-        
-        if(name === "") {
-            alert("Zadej název!");
-            return;
-        }
 
-        const params = {
-            apiKey: API_KEY,
-            s: name,   
-        };
+        let params = buildApiParams(name, year, type);
 
-        console.log(year.length);
-
-        if(year.length > 0) {
-            params.year = year;
-        }
-
-        if(type.length > 0) {
-            params.type = type;
-        }
         $.ajax({
-            method: "GET",
-            url: "http://www.omdbapi.com/",
-            data: params
-            
-        }).done(function(data) {
-            console.log(data);
-            
-            if(data.Response === "False") {
-                $(".js-results").append("<div>Žádné výsledky!</div>")
-                return;
+            method: 'GET',
+            url: 'http://www.omdbapi.com/',
+            data: params,
+            success: response => {
+                console.log('RESPONSE FROM API', response);
+                if (!response.Search) {
+                    alert('Nebyly nalezeny žádné výsledky');
+                    return;
+                }
+                $(".js-results").html('');
+                $(".js-results").append(buildResultsHTML(response));
+            },
+            error: () => {
+                console.log('Chyba při spojení se serverem');
             }
-            
-            data.Search.forEach(function(item){
-                $(".js-results").append("<div data-id='"+ item.imdbID +"'>" + "<img src='"+ item.Poster + "' alt='"+ item.Title +"'>" + item.Title + item.Year + item.Type + "</div>")
+        })
 
-            });
-
-        }).fail(function(jqXHR, textStatus) {
-            alert("Chyba při spojení se serverem: " + textStatus);
-        });
     });
 
-}); 
+    $(document).on("click", ".favoriteButton", function () {
+        var favoriteImdbID = $(this).val();
 
+        if (!isInFavorites(favoriteImdbID)) {
+            addToFavoriteMovies(favoriteImdbID);
+            document.getElementById(`favorite-${favoriteImdbID}`).innerHTML = 'Odebrat z oblíbených';
+        } else {
+            removeFromFavorites(favoriteImdbID);
+            document.getElementById(`favorite-${favoriteImdbID}`).innerHTML = 'Přidat do oblíbených';
+        }
+    });
+
+    $(document).on("click", ".detailButton", (event) => {
+        localStorage.setItem("detailMovieID", event.target.id);
+    });
+});
+
+function addToFavoriteMovies(imdbID) {
+    let movieList = JSON.parse(localStorage.getItem("favoriteMovies"));
+    movieList.push(imdbID);
+    localStorage.setItem("favoriteMovies", JSON.stringify(movieList));
+}
+
+function removeFromFavorites(imdbID) {
+    let movieList = JSON.parse(localStorage.getItem("favoriteMovies"));
+    movieList.splice(movieList.indexOf(imdbID), 1);
+    localStorage.setItem("favoriteMovies", JSON.stringify(movieList));
+}
+
+function isInFavorites(imdbId) {
+    let movieList = JSON.parse(localStorage.getItem("favoriteMovies"));
+    return movieList.includes(imdbId);
+}
+
+function buildResultsHTML(res) {
+    let html = "";
+    res.Search.forEach(movie => {
+        let buttonText = "";
+        if (isInFavorites(movie.imdbID)) {
+            buttonText = "Odebrat z oblibených";
+        } else {
+            buttonText = "Přidat do oblíbených";
+        }
+        html +=
+            `<div id="${movie.imdbID}" class='movieItem'>
+                <h2>${movie.Title} (${movie.Year})</h2>
+                <img width: '50px' src='${movie.Poster}' alt="Movie image"/>
+                <button id="favorite-${movie.imdbID}" class="favoriteButton" value="${movie.imdbID}">${buttonText}</button>
+                <a id="${movie.imdbID}" class="detailButton" href="detail.html">Více informací</a>
+            </div>`;
+    });
+    return html;
+}
+
+function buildApiParams(name, year, type) {
+    let params = {
+        apiKey: 'b1bcd06d',
+        r: 'json'
+    };
+    if (name) {
+        params.s = name;
+    }
+    if (year) {
+        params.y = year;
+    }
+    if (type) {
+        params.type = type;
+    }
+    return params;
+}
