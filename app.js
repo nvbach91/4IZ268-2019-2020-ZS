@@ -414,7 +414,11 @@ App.createPokemon = (pokemonName) => { //creates pokemons[gifs]. Handles click a
     pokemon.addClass('pokemon');
     pokemon.attr('id', 'pokemon');
     pokemon.attr('alt', pokemonName);
-    pokemon.attr('src', `http://www.pokestadium.com/sprites/xy/${pokemonName.toLowerCase()}.gif`);
+    //had to add another if clause for mr mime
+    if (pokemonName === 'mr-mime') {
+        pokemonName = 'mrmime';
+    }
+    pokemon.attr('src', `https://play.pokemonshowdown.com/sprites/xyani/${pokemonName.toLowerCase()}.gif`); //http://www.pokestadium.com/sprites/xy/${pokemonName.toLowerCase()}.gif //needed to change source because of http->https
     pokemon.dblclick(() => { //doubleclick adds pokemon to game
         if ($('img[id="pokemon-in-game-wanted"]').length > 0) {
 
