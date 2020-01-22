@@ -1,3 +1,5 @@
+/**connecting to my api */
+
 window.fbAsyncInit = function() {
     FB.init({
         appId: '481993722443745',
@@ -6,7 +8,7 @@ window.fbAsyncInit = function() {
     });
     FB.AppEvents.logPageView();
 };
-
+/**defines buttons functions: share, like, post */
 document.getElementById('share-button').addEventListener('click', function() {
     FB.ui({
         method: 'share',

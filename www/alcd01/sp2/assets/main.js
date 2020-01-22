@@ -1,8 +1,6 @@
 /**
- * Updating scoreBoard using local storage
- */
-
-/**
+ * Updating scoreBoard using local storage,
+ *
  * Updating lastScore using local storage
  */
 $(document).ready(function() {
@@ -95,6 +93,8 @@ $(document).ready(function() {
   });
 });
 
+/**The main function, which is creating and updating everything in game */
+
 function play() {
   /**game window creating
    * declaring game physics
@@ -133,8 +133,7 @@ function play() {
   game = new Phaser.Game(config);
   /**image preload */
   function preload() {
-    /**loading screen 1 */
-
+    /**loading screen*/
     this.load.image("background", "assets/background.png");
     this.load.image("basePlatform", "assets/ground.png");
     this.load.image("platform1", "assets/platform1.png");
@@ -401,11 +400,11 @@ function play() {
     var fifthName = localStorage.getItem("fifthName");
 
     //scoreBoard update
+    //actuallizing top 5
     if (
       score > localStorage.getItem("firstScore") ||
       localStorage.getItem("firstScore") === "null"
     ) {
-      //actuallizing top 5
       localStorage.setItem("fifthScore", fourthScore);
       localStorage.setItem("fourthScore", thirdScore);
       localStorage.setItem("thirdScore", secondScore);
@@ -433,7 +432,6 @@ function play() {
       score > localStorage.getItem("secondScore") ||
       localStorage.getItem("secondScore") === "null"
     ) {
-      //actuallizing top 5
       localStorage.setItem("fifthScore", fourthScore);
       localStorage.setItem("fourthScore", thirdScore);
       localStorage.setItem("thirdScore", secondScore);
@@ -459,7 +457,6 @@ function play() {
       score > localStorage.getItem("thirdScore") ||
       localStorage.getItem("thirdScore") === "null"
     ) {
-      //actuallizing top 5
       localStorage.setItem("fifthScore", fourthScore);
       localStorage.setItem("fourthScore", thirdScore);
 
@@ -483,7 +480,6 @@ function play() {
       score > localStorage.getItem("fourthScore") ||
       localStorage.getItem("fourthScore") === "null"
     ) {
-      //actuallizing top 5
       localStorage.setItem("fifthScore", fourthScore);
 
       localStorage.setItem("fifthName", fourthName);
@@ -572,7 +568,9 @@ function play() {
             }, this);*/
   }
 }
-
+/**Restarting game
+ * 
+ */
 function Restart() {
   LSFLS = $("li").text(); //last scores from local storage
   localStorage.setItem("lastScores", LSFLS);
@@ -625,7 +623,7 @@ function Restart() {
     });
   });
 }
-
+/**Updating scoreBoard (top5) */
 function topFive() {
   $(document).ready(function() {
     document.querySelector(
