@@ -39,6 +39,7 @@ class Main {
             }
             return -1
         }
+        console.log(first, second)
         return this.topCurrencies.includes(second.key) ? 1 : first.currencyName.localeCompare(second.currencyName)
     }
 
@@ -79,7 +80,7 @@ class Main {
         if (!array.some((x) => x == currency)) {
             array.push(currency);
         }
-        array = array.sort(this.sortByName)
+        array = array.sort()
         localStorage.setItem(actualCurrency, JSON.stringify(array));
         this.renderFavorite();
     }
