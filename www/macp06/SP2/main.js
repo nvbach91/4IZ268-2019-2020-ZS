@@ -7,18 +7,20 @@ $(document).ready(() => {
             $.get("https://api.exchangeratesapi.io/latest") // ziskani men s kurzem
                 .then((data) => {
                     const keys = Object.keys(data.rates)
-                    keys.push("EUR") //pridani eura v seznamu totiz neni
-                    main.currencies = main.currencies.filter((c) => keys.some((r) => r == c.key)).sort(main.sortByName) //filtrace men ke kterym mame data a serazeni podle abecedy
+                    keys.push("EUR") //pridani noveho prvku 
+                    main.currencies = main.currencies.filter((c) => keys.some((r) => r === c.key)).sort(main.sortByName) //filtrace men ke kterym mame data a serazeni podle abecedy
                     main.renderSelect("currencyFrom");
                     main.renderSelect("currencyTo", 1);
                     main.renderSelect("favoriteCurrencyAdd", 1);
                     main.renderSelect("favoriteCurrency");
                     main.updateFavorite();
-                    main.setUpFlags();
-                    main.fromCurrency.val(1)
+                    main.setUpFlags(); // nastavení obr. vlajky
+                    main.fromCurrency.val(1) // nastaveni vstupu
                     main.getCurrencyValue()
                 })
-        });
+        }); 
+        
+        // pridani EventHandler
     $('#fromCurrency').bind('keyup mouseup', main.getCurrencyValue);
     $('select.convertor-select').change(main.getCurrencyValue);
     $('#addFavorite').click(main.addFavorite);
@@ -26,7 +28,7 @@ $(document).ready(() => {
     $('#updateFavorite').click(main.updateFavorite);
 });
 
-class Main {
+class Main { 
 
     constructor() {
         this.currencies = [];
@@ -51,61 +53,61 @@ class Main {
         return this.topCurrencies.includes(second.key) ? 1 : first.currencyName.localeCompare(second.currencyName)
     }
 
-    findCurrencyByKey = (key) => {
-        const currency = this.currencies.filter((c) => c.key == key)
-        return currency.length == 0 ? {} : currency[0] // kontrola pole
+    findCurrencyByKey = (key) => { //vyhledani meny podle klice (eur,usd)
+        const currency = this.currencies.filter((c) => c.key == key) // vraci kopii pole podle funkce
+        return currency.length === 0 ? {} : currency[0] // kontrola pole
     }
 
-    changeFavorite = () => {
+    changeFavorite = () => { //interval pro ziskani aktualnich kurzu po 20 sekundach
         clearInterval(this.intervalFavorite);
         this.intervalFavorite = setInterval(this.updateFavorite, 20000);
         this.updateFavorite();
     }
 
-    updateFavorite = () => {
+    updateFavorite = () => { //provolani api, ziskani kurzu
         $.get(`https://api.exchangeratesapi.io/latest?base=${this.favoriteCurrency.val()}`)
             .then((data) => {
-                this.changeValues(data.rates);
-                this.renderFavorite();
+                this.changeValues(data.rates); //zmena dat
+                this.renderFavorite(); // vykresleni dat
             });
     }
 
-    changeValues = (data) => {
+    changeValues = (data) => { //funkce na zmenu dat
         $.each(data, (key, value) => {
             this.findCurrencyByKey(key).value = value;
         });
     }
 
-    addFavorite = () => {
+    addFavorite = () => {                   
         const currency = this.favoriteCurrencyAdd.val();
         const actualCurrency = this.favoriteCurrency.val();
-        var array = localStorage.getItem(actualCurrency);
-        if (!array) {
+        var array = localStorage.getItem(actualCurrency); // zalozeni string
+        if (!array) { // existuje to?
             array = [];
         } else {
-            array = JSON.parse(array);
+            array = JSON.parse(array); //vytvoreni array ze stringu
         }
-        if (!array.some((x) => x == currency)) {
+        if (!array.some((x) => x === currency)) { // zabranuje duplicite
             array.push(currency);
         }
-        array = array.sort()
-        localStorage.setItem(actualCurrency, JSON.stringify(array));
+        array = array.sort() //serazeni tabulky oblibenych
+        localStorage.setItem(actualCurrency, JSON.stringify(array)); //prepsani pole do stringu a ulozeni do localStorage
         this.renderFavorite();
     }
 
-    renderSelect = (id, selectedItem = 0) => {
+    renderSelect = (id, selectedItem = 0) => { //vykresleni do selectu prijem id a zvoleny sectedItem
         const select = $(`#${id}`);
         select.empty();
         let currency = [];
         this.currencies.forEach((c, index) => {
-            currency.push($(`<option ${selectedItem == index ? "selected" : ""}></option>`).text(c.currencyName).val(c.key));
+            currency.push($(`<option ${selectedItem === index ? "selected" : ""}></option>`).text(c.currencyName).val(c.key));
         });
         select.append(currency);
     }
 
     setUpFlags = () => {
         const array = [];
-        this.currencies.forEach((value) => array.push($.get(`https://restcountries.eu/rest/v2/currency/${value.key}`)
+        this.currencies.forEach((value) => array.push($.get(`https://restcountries.eu/rest/v2/currency/${value.key}`) //pro kazdou menu prijimam vlajku
             .then((data) => {
                 if (data.length > 0) {
                     value.flag = "<img height='16' src='" + data[0].flag + "' />";
@@ -114,23 +116,23 @@ class Main {
                 }
             })
         ));
-        Promise.all(array).then(() => {
+        Promise.all(array).then(() => { //zarizuje ze vykresleni vlajek bude az po tom co kazda mena ma vlajku
             this.renderFavorite();
-            this.favoriteCurrency.attr("disabled", false);
+            this.favoriteCurrency.attr("disabled", false); 
         });
     }
 
-    renderFavorite = () => {
+    renderFavorite = () => { //vykresli tabulku oblibenych
         const currency = this.favoriteCurrency.val();
-        this.tableOfCurrency.empty();
+        this.tableOfCurrency.empty(); //vyprazdeni tabulky
         if (typeof currency === "string") {
             let favorites = localStorage.getItem(currency);
-            if (favorites == null || favorites == "") {
+            if (favorites === null || favorites === "") {
                 favorites = [];
             } else {
                 favorites = JSON.parse(favorites);
                 favorites.forEach((t) => {
-                    const row = $("<tr></tr>");
+                    const row = $("<tr></tr>"); //vytvoreni radku
                     const c = this.findCurrencyByKey(t)
                     row.append($(`<td>${c.flag}</td>`))
                     row.append($(`<td>${c.id}</td>`))
@@ -141,7 +143,7 @@ class Main {
         }
     }
 
-    getCurrencyValue = () => {
+    getCurrencyValue = () => { //zjisteni hdonoty meny
         const from = this.currencyFrom.val(),
             to = this.currencyTo.val();
         $.get(`https://api.exchangeratesapi.io/latest?base=${from}&symbols=${to}`)
@@ -152,7 +154,7 @@ class Main {
             })
     }
 
-    calculateCurrency = (data, currency) => {
+    calculateCurrency = (data, currency) => { //vypocet 
         let from = this.fromCurrency.val();
         if (from < 0) {
             this.fromCurrency.val(1)
