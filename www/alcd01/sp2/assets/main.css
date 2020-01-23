@@ -17,7 +17,8 @@ main {
     flex-direction: column;
 }
 
-h1 {
+h1,
+h2 {
     margin-bottom: 100px;
 }
 
@@ -68,4 +69,84 @@ button:hover {
     justify-content: center;
     align-items: center;
     left: 0;
+}
+
+.errorName {
+    top: 0;
+    position: absolute;
+    width: 100vw;
+    height: 30vh;
+    color: white;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+}
+
+.scoreBoard {
+    position: absolute;
+    left: 72vw;
+    bottom: 40vh;
+    display: inline;
+    min-height: 300px;
+}
+
+.lastScore {
+    position: absolute;
+    left: 5vw;
+    bottom: 40vh;
+    display: inline;
+    min-height: 300px;
+    max-width: 500px;
+}
+
+td {
+    padding-right: 30px;
+}
+
+li {
+    list-style-type: none;
+}
+
+.fbBtns {
+    margin: 0;
+    position: relative;
+    height: 60px;
+    width: 150px;
+    font-size: large;
+    justify-content: center;
+    left: 5vw;
+    bottom: 10vh;
+    background-color: rgb(0, 132, 255);
+}
+
+#fb-like {
+    position: absolute;
+    left: 5vw;
+    bottom: 20vh;
+}
+
+.preRestart {
+    position: absolute;
+    left: 36vw;
+    bottom: 55vh;
+    display: inline;
+    min-height: 300px;
+    max-width: 500px;
+}
+
+.noShare {
+    position: absolute;
+    left: 36vw;
+    bottom: 55vh;
+    display: inline;
+    min-height: 300px;
+    max-width: 500px;
+}
+
+@media screen and (max-width: 1900px) {
+    .lastScore {
+        max-width: 150px;
+    }
 }
