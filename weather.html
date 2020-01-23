@@ -10,45 +10,20 @@
     <title>Weather</title>
 </head>
 <body>
-    <div id="today">
-        <div class="location">
-            <h1 class="location-timezone">Timezone</h1>
-            <h2 id="day">DAY</h2>
-        </div>
-        <div class="temperature">
-            <canvas id="icon1"></canvas>
-            <h2 class="temperature-degree">##</h2>
-            <div class="temperature-description"></div>
-        </div>
-        <p id="wear"></p>
+    <form>
+        <select id="select">
+          <option value="1">One day forecast</option>
+          <option value="2">Two days forecast</option>
+          <option value="3">Three days forecast</option>
+          <option value="4">Four days forecast</option>
+          <option value="5">Five days forecast</option>
+          <option value="6">Six days forecast</option>
+          <option value="7" >Seven days forecast</option>
+        </select>
+    </form>
+    <div class="things">
+
     </div>
-    <div id="tomorrow">
-        <div class="location2">
-            <h1 class="location-timezone2">Timezone</h1>
-            <h2 id="day2">DAY</h2>
-        </div>
-        <div class="temperature2">
-            <canvas id="icon2"></canvas>
-            <h2 class="temperature-degree2">##</h2>
-            <div class="temperature-description2"></div>
-        </div>
-        <p id="wear2"></p>
-    </div>
-    <div id="overmorrow">
-            <div class="location3">
-                <h1 class="location-timezone3">Timezone</h1>
-                <h2 id="day3">DAY</h2>
-            </div>
-            <div class="temperature3">
-                <canvas id="icon3"></canvas>
-                <h2 class="temperature-degree3">##</h2>
-                <div class="temperature-description3"></div>
-            </div>
-            <p id="wear3"></p>
-        </div>
-
-
-
     <script src="scripts/jquery-3.4.1.js"></script>
     <script src="app.js"></script>
     <script src="scripts/skycons.js"></script>   
