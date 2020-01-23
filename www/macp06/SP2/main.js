@@ -10,11 +10,13 @@ $(document).ready(() => {
                     keys.push("EUR") //pridani eura v seznamu totiz neni
                     main.currencies = main.currencies.filter((c) => keys.some((r) => r == c.key)).sort(main.sortByName) //filtrace men ke kterym mame data a serazeni podle abecedy
                     main.renderSelect("currencyFrom");
-                    main.renderSelect("currencyTo");
-                    main.renderSelect("favoriteCurrencyAdd");
+                    main.renderSelect("currencyTo", 1);
+                    main.renderSelect("favoriteCurrencyAdd", 1);
                     main.renderSelect("favoriteCurrency");
                     main.updateFavorite();
                     main.setUpFlags();
+                    main.fromCurrency.val(1)
+                    main.getCurrencyValue()
                 })
         });
     $('#fromCurrency').bind('keyup mouseup', main.getCurrencyValue);
@@ -29,7 +31,14 @@ class Main {
     constructor() {
         this.currencies = [];
         this.intervalFavorite;
-        this.topCurrencies = ["EUR", "CZK", "USD"] // muj top vyber
+        this.topCurrencies = ["EUR", "CZK", "USD"] // muj top vyber $('#favoriteCurrency')
+        this.favoriteCurrencyAdd = $('#favoriteCurrencyAdd')
+        this.favoriteCurrency = $('#favoriteCurrency')
+        this.tableOfCurrency = $('#tableOfCurrency')
+        this.toCurrency = $("#toCurrency")
+        this.fromCurrency = $("#fromCurrency")
+        this.currencyTo = $("#currencyTo")
+        this.currencyFrom = $("#currencyFrom")
     }
 
     sortByName = (first, second) => { //funkce pro serazeni
@@ -39,7 +48,6 @@ class Main {
             }
             return -1
         }
-        console.log(first, second)
         return this.topCurrencies.includes(second.key) ? 1 : first.currencyName.localeCompare(second.currencyName)
     }
 
@@ -55,7 +63,7 @@ class Main {
     }
 
     updateFavorite = () => {
-        $.get(`https://api.exchangeratesapi.io/latest?base=${$('#favoriteCurrency').val()}`)
+        $.get(`https://api.exchangeratesapi.io/latest?base=${this.favoriteCurrency.val()}`)
             .then((data) => {
                 this.changeValues(data.rates);
                 this.renderFavorite();
@@ -69,8 +77,8 @@ class Main {
     }
 
     addFavorite = () => {
-        const currency = $('#favoriteCurrencyAdd').val();
-        const actualCurrency = $('#favoriteCurrency').val();
+        const currency = this.favoriteCurrencyAdd.val();
+        const actualCurrency = this.favoriteCurrency.val();
         var array = localStorage.getItem(actualCurrency);
         if (!array) {
             array = [];
@@ -85,12 +93,12 @@ class Main {
         this.renderFavorite();
     }
 
-    renderSelect = (id) => {
+    renderSelect = (id, selectedItem = 0) => {
         const select = $(`#${id}`);
         select.empty();
         let currency = [];
-        this.currencies.forEach((c) => {
-            currency.push($('<option></option>').text(c.currencyName).val(c.key));
+        this.currencies.forEach((c, index) => {
+            currency.push($(`<option ${selectedItem == index ? "selected" : ""}></option>`).text(c.currencyName).val(c.key));
         });
         select.append(currency);
     }
@@ -108,14 +116,13 @@ class Main {
         ));
         Promise.all(array).then(() => {
             this.renderFavorite();
-            $('#favoriteCurrency').attr("disabled", false);
+            this.favoriteCurrency.attr("disabled", false);
         });
     }
 
     renderFavorite = () => {
-        const currency = $('#favoriteCurrency').val();
-        const table = $("#tableOfCurrency");
-        table.empty();
+        const currency = this.favoriteCurrency.val();
+        this.tableOfCurrency.empty();
         if (typeof currency === "string") {
             let favorites = localStorage.getItem(currency);
             if (favorites == null || favorites == "") {
@@ -128,28 +135,30 @@ class Main {
                     row.append($(`<td>${c.flag}</td>`))
                     row.append($(`<td>${c.id}</td>`))
                     row.append($(`<td>${c.value}</td>`))
-                    table.append(row)
+                    this.tableOfCurrency.append(row)
                 });
             }
         }
     }
 
     getCurrencyValue = () => {
-        const from = document.getElementById("currencyFrom").value,
-            to = document.getElementById("currencyTo").value;
+        const from = this.currencyFrom.val(),
+            to = this.currencyTo.val();
         $.get(`https://api.exchangeratesapi.io/latest?base=${from}&symbols=${to}`)
             .then((data) => {
                 this.calculateCurrency(data, to);
                 $('#currencyConvert').text(" 1 " + data.base + " = ");
                 $('#currencyConvertTo').text(" " + (data.rates[to] + 0).toFixed(2) + " " + to);
-
             })
     }
 
     calculateCurrency = (data, currency) => {
-        const from = $("#fromCurrency").val(),
-            toCurrency = $("#toCurrency");
-        toCurrency.val((data.rates[currency] * from).toFixed(2));
+        let from = this.fromCurrency.val();
+        if (from < 0) {
+            this.fromCurrency.val(1)
+            from = 1
+        }
+        this.toCurrency.val((data.rates[currency] * from).toFixed(2));
     }
 
 }
