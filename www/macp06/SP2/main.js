@@ -1,186 +1,155 @@
-var currencies;
-var intervalFavorite;
-$(window).on("load", function () {
-    // Get all currencies
-    $.ajax({
-        dataTypes: "json",
-        url: "https://free.currconv.com/api/v7/currencies?" + "apiKey=" + "a59d58073ff704d66793",
-        method: 'GET',
-        success: function (data) {
-            currencies = data.results;
-            console.log(data);
-        },
-        error: function (err) {
-            console.log('error:', err)
-        }
 
-
-    }).done(function () {
-        $.ajax({
-            dataTypes: "json",
-            url: "https://api.exchangeratesapi.io/latest",
-            method: 'GET',
-            success: function (data) {
-                changeValues(data.rates);
-                console.log(data);
-                renderSelect("currencyFrom", currencies);
-                renderSelect("currencyTo", currencies);
-                renderSelect("favoriteCurrencyAdd", currencies);
-                renderSelect("favoriteCurrency", currencies);
-                setUpFlags(currencies);
-            },
-            error: function (err) {
-                console.log('error:', err)
-            }
+$(document).ready(() => {
+    const main = new Main() //vytvoreni objektu
+    $.get("https://free.currconv.com/api/v7/currencies?apiKey=a59d58073ff704d66793") // ziskani dat bez hodnoty - nazvy,mesta
+        .then((data) => {
+            Object.keys(data.results).forEach((key) => main.currencies.push({ ...data.results[key], key })) ///prevedu objekt na pole
+            $.get("https://api.exchangeratesapi.io/latest") // ziskani men s kurzem
+                .then((data) => {
+                    const keys = Object.keys(data.rates)
+                    keys.push("EUR") //pridani eura v seznamu totiz neni
+                    main.currencies = main.currencies.filter((c) => keys.some((r) => r == c.key)).sort(main.sortByName) //filtrace men ke kterym mame data a serazeni podle abecedy
+                    main.renderSelect("currencyFrom");
+                    main.renderSelect("currencyTo");
+                    main.renderSelect("favoriteCurrencyAdd");
+                    main.renderSelect("favoriteCurrency");
+                    main.updateFavorite();
+                    main.setUpFlags();
+                })
         });
-    });
-    $('#fromCurrency').bind('keyup mouseup', getCurrencyValue);
-    $('select.convertor-select').bind('change', getCurrencyValue);
-    $('#addFavorite').on("click", addFavorite);
-    $('#favoriteCurrency').on("change", changeFavorite);
-    $('#updateFavorite').on("click", updateFavorite);
-
+    $('#fromCurrency').bind('keyup mouseup', main.getCurrencyValue);
+    $('select.convertor-select').change(main.getCurrencyValue);
+    $('#addFavorite').click(main.addFavorite);
+    $('#favoriteCurrency').change(main.changeFavorite);
+    $('#updateFavorite').click(main.updateFavorite);
 });
 
-function changeFavorite(){
-    clearInterval(intervalFavorite);
-    intervalFavorite = setInterval(updateFavorite, 2000);
-    updateFavorite();
-}
+class Main {
 
-function updateFavorite(){
-    const actualCurrency = $('#favoriteCurrency').val();
-    // debugger;
-    console.log("https://api.exchangeratesapi.io/latest?base="+actualCurrency);
-    $.ajax({
-        dataTypes: "json",
-        url: "https://api.exchangeratesapi.io/latest?base="+actualCurrency,
-        method: 'GET',
-        success: function (data) {
-            console.log(data);
-            changeValues(data.rates);
-            renderFavorite();
-        },
-        error: function (err) {
-            console.log('error:', err)
-        }
-    });
-}
-
-function changeValues(data) {
-    const c = currencies;
-    const result = {};
-    $.each(data, function (key, value) {
-        if (typeof currencies[key] === "undefined")
-            console.log(currencies, key, value);
-        else
-            result[key] = Object.assign({}, currencies[key], { value: value });
-    });
-    result.EUR = Object.assign({ value: 0 }, currencies.EUR); //Because all currencies are towards euro
-    currencies = result;
-}
-
-function addFavorite() {
-    const currency = $('#favoriteCurrencyAdd').val();
-    const actualCurrency = $('#favoriteCurrency').val();
-    var array = window.localStorage.getItem(actualCurrency);
-    if (array == "" || array == null) {
-        array = [];
-    } else {
-        array = JSON.parse(array);
+    constructor() {
+        this.currencies = [];
+        this.intervalFavorite;
+        this.topCurrencies = ["EUR", "CZK", "USD"] // muj top vyber
     }
-    console.log(array);
-    if (!array.some((x) => x == currency))
-        array.push(currency);
-    window.localStorage.setItem(actualCurrency, JSON.stringify(array));
-    //renderSelect(); //TODO
-    renderFavorite();
-}
 
-function renderSelect(id, data) {
-    const select = $('#' + id);
-    select.empty();
-    let currency;
-    $.each(data, function (key, value) {
-        currency = $('<option></option>').text(currencies[key].currencyName).val(key);
-        select.append(currency);
-    });
-}
-
-function setUpFlags(data) {
-    const array = [];
-    $.each(data, function (key, value) {
-        array.push($.ajax({
-            dataTypes: "json",
-            url: "https://restcountries.eu/rest/v2/currency/" + key,
-            method: 'GET',
-            success: function (data) {
-                if (data.length > 0)
-                    currencies[key].flag = "<img height='16' src='" + data[0].flag + "' />";
-                else
-                    currencies[key].flag = "";
-            },
-            error: function (err) {
-                console.log('error:', err)
+    sortByName = (first, second) => { //funkce pro serazeni
+        if (this.topCurrencies.includes(first.key)) {
+            if (this.topCurrencies.includes(second.key)) {
+                return first.currencyName.localeCompare(second.currencyName)
             }
-        }));
-    });
-    Promise.all(array).then(function () {
-        renderFavorite();
-        $('#favoriteCurrency').attr("disabled", false);
-    });
-}
+            return -1
+        }
+        return this.topCurrencies.includes(second.key) ? 1 : first.currencyName.localeCompare(second.currencyName)
+    }
 
-function renderFavorite() {
-    const currency = $('#favoriteCurrency').val();
-    var table = $("#tableOfCurrency");
-    table.empty();
-    if (typeof currency === "string") {
-        var favorites = window.localStorage.getItem(currency);
-        if (favorites == null || favorites == "") {
-            favorites = [];
-        } else {
-            favorites = JSON.parse(favorites);
-            table = document.getElementById("tableOfCurrency");
-            favorites.forEach(function (t) {
-                var row = table.insertRow(0);
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                var cell3 = row.insertCell(2);
-                cell1.innerHTML = currencies[t].flag;
-                cell2.innerHTML = currencies[t].id;
-                cell3.innerHTML = currencies[t].value;
+    findCurrencyByKey = (key) => {
+        const currency = this.currencies.filter((c) => c.key == key)
+        return currency.length == 0 ? {} : currency[0] // kontrola pole
+    }
 
+    changeFavorite = () => {
+        clearInterval(this.intervalFavorite);
+        this.intervalFavorite = setInterval(this.updateFavorite, 20000);
+        this.updateFavorite();
+    }
+
+    updateFavorite = () => {
+        $.get(`https://api.exchangeratesapi.io/latest?base=${$('#favoriteCurrency').val()}`)
+            .then((data) => {
+                this.changeValues(data.rates);
+                this.renderFavorite();
             });
+    }
+
+    changeValues = (data) => {
+        $.each(data, (key, value) => {
+            this.findCurrencyByKey(key).value = value;
+        });
+    }
+
+    addFavorite = () => {
+        const currency = $('#favoriteCurrencyAdd').val();
+        const actualCurrency = $('#favoriteCurrency').val();
+        var array = localStorage.getItem(actualCurrency);
+        if (!array) {
+            array = [];
+        } else {
+            array = JSON.parse(array);
+        }
+        if (!array.some((x) => x == currency)) {
+            array.push(currency);
+        }
+        array = array.sort(this.sortByName)
+        localStorage.setItem(actualCurrency, JSON.stringify(array));
+        this.renderFavorite();
+    }
+
+    renderSelect = (id) => {
+        const select = $(`#${id}`);
+        select.empty();
+        let currency = [];
+        this.currencies.forEach((c) => {
+            currency.push($('<option></option>').text(c.currencyName).val(c.key));
+        });
+        select.append(currency);
+    }
+
+    setUpFlags = () => {
+        const array = [];
+        this.currencies.forEach((value) => array.push($.get(`https://restcountries.eu/rest/v2/currency/${value.key}`)
+            .then((data) => {
+                if (data.length > 0) {
+                    value.flag = "<img height='16' src='" + data[0].flag + "' />";
+                } else {
+                    value.flag = "";
+                }
+            })
+        ));
+        Promise.all(array).then(() => {
+            this.renderFavorite();
+            $('#favoriteCurrency').attr("disabled", false);
+        });
+    }
+
+    renderFavorite = () => {
+        const currency = $('#favoriteCurrency').val();
+        const table = $("#tableOfCurrency");
+        table.empty();
+        if (typeof currency === "string") {
+            let favorites = localStorage.getItem(currency);
+            if (favorites == null || favorites == "") {
+                favorites = [];
+            } else {
+                favorites = JSON.parse(favorites);
+                favorites.forEach((t) => {
+                    const row = $("<tr></tr>");
+                    const c = this.findCurrencyByKey(t)
+                    row.append($(`<td>${c.flag}</td>`))
+                    row.append($(`<td>${c.id}</td>`))
+                    row.append($(`<td>${c.value}</td>`))
+                    table.append(row)
+                });
+            }
         }
     }
-}
 
-function getCurrencyValue() {
-    const from = document.getElementById("currencyFrom").value,
-        to = document.getElementById("currencyTo").value;
-    $.ajax({
-        dataTypes: "json",
-        url: "https://api.exchangeratesapi.io/latest?base=" + from + "&symbols=" + to,
-        method: 'GET',
+    getCurrencyValue = () => {
+        const from = document.getElementById("currencyFrom").value,
+            to = document.getElementById("currencyTo").value;
+        $.get(`https://api.exchangeratesapi.io/latest?base=${from}&symbols=${to}`)
+            .then((data) => {
+                this.calculateCurrency(data, to);
+                $('#currencyConvert').text(" 1 " + data.base + " = ");
+                $('#currencyConvertTo').text(" " + (data.rates[to] + 0).toFixed(2) + " " + to);
 
-        success: function (data) {
-            console.log(data);
-            // console.log(data.base + " 1 = " + to + " " + data.rates[to].fixed(2));
-            calculateCurrency(data, to);
-            $('#currencyConvert').text(data.base + " 1 = " + to + " " + (data.rates[to] + 0).toFixed(2));
-        },
-        error: function (err) {
-            console.log('error:', err)
-        }
+            })
+    }
 
+    calculateCurrency = (data, currency) => {
+        const from = $("#fromCurrency").val(),
+            toCurrency = $("#toCurrency");
+        toCurrency.val((data.rates[currency] * from).toFixed(2));
+    }
 
-    });
-}
-
-function calculateCurrency(data, currency) {
-    const from = document.getElementById("fromCurrency").value,
-        toCurrency = document.getElementById("toCurrency");
-    toCurrency.value = (data.rates[currency] * from).toFixed(2);
 }
 

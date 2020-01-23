@@ -3,79 +3,91 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>exChange</title>
-
+    <meta name="discription" content="eXchange">
+    <meta name="keywords" content="Exchange, Currency, Converter">
+    <meta name="author" content="Petra Machačová">
+    <title>eXchange</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="icon" href="ex-favicon.png" type="image/png" sizes="16x16">
+    
 </head>
 
 <body>
     <div class="body">
-        <div class="image-background">
-            <img src="background.jpg" />
-        </div>
         <header class="header">
-            <img src="logo.png" width="100" />
-            <h1>
-                ExChange
-            </h1>
+            <img alt="logo-Image" src="logo.png" width="70" />
         </header>
+        <main>
+            <article class="abstract">
+                <h1>Welcome to eXchange</h1>
+                <p>
+                    Online eXchange is a currency converter that allows you to quickly check the latest currency
+                    exchange rates.
+                </p>
+            </article>
 
-        <div class="convertor">
-            <div class="convertor-header">
-                <h3>Currency convertor</h3>
-            </div>
-            <div class="convertor-row item1">
-                <label class="convertor-label" for="fromCurrency">
-                    <span>From</span><br>
-                    <input type="number" id="fromCurrency" name="currencyAmount" class="convertor-input" />
-                </label>
-                <select name="currencyFrom" id="currencyFrom" class="convertor-select">
-                </select>
-            </div>
-            <div class="convertor-row item2">
-                <label class="convertor-label" for="toCurrency">
-                    <span>To</span><br>
-                    <input type="number" step='0.01' id="toCurrency" name="currencyAmount" class="convertor-input"
-                        disabled />
-                </label>
-                <select name="currencyTo" id="currencyTo" class="convertor-select">
-                </select>
+
+
+            <div class="convertor">
+                <div class="convertor-header">
+                </div>
+                <div class="convertor-row item1">
+                    <label class="convertor-label" for="fromCurrency">
+                        <span>From</span><br>
+                        <input type="number" id="fromCurrency" name="currencyAmount" class="convertor-input" />
+                    </label>
+                    <select name="currencyFrom" id="currencyFrom" class="convertor-select">
+                    </select>
+                </div>
+                <img class="change-image" src="change-Image.png" alt="Change Image">
+                <div class="convertor-row item2">
+                    <label class="convertor-label" for="toCurrency">
+                        <span>To</span><br>
+                        <input type="number" step='0.01' id="toCurrency" name="currencyAmount" class="convertor-input"
+                            disabled />
+                    </label>
+                    <select name="currencyTo" id="currencyTo" class="convertor-select">
+                    </select>
+                </div>
+
+                <div class="convertor-row convertor-footer">
+                    <span id="currencyConvert"></span>
+                    <span id="currencyConvertTo"></span>
+                </div>
+
             </div>
 
-            <div class="convertor-row convertor-footer">
-                <span id="currencyConvert"></span>
-            </div>
+            <div class="favorites">
+                <div class="convertor-header">
+                    <h3>Favorite Exchange Rates</h3>
+                    <select id="favoriteCurrency" class="favorite-select" disabled>
+                    </select>
+                </div>
+                <table id="tableOfCurrency" class="favorite-table">
+                    <tbody>
+                    </tbody>
 
-        </div>
-
-        <div class="favorites">
-            <div class="convertor-header">
-                <h3>Favorite currency</h3>
-                <select id="favoriteCurrency" class="favorite-select" disabled>
-                </select>
+                </table>
+                <div class="favorite-currency-add">
+                    <select id="favoriteCurrencyAdd" class="favorite-select">
+                    </select>
+                    <button type="button" id="addFavorite" class="favorite-button">Add</button>
+                </div>
+                <div class="favorite-update">
+                    <button type="button" id="updateFavorite">Update</button>
+                </div>
             </div>
-            <table id="tableOfCurrency" class="favorite-table">
-                <tbody>
-                </tbody>
-
-            </table>
-            <div class="favorite-currency-add">
-                <select id="favoriteCurrencyAdd" class="favorite-select">
-                </select>
-                <button type="button" id="addFavorite" class="favorite-button">Add</button>
-            </div>
-            <div class="favorite-update">
-                <button type="button" id="updateFavorite">Update</button>
-            </div>
-        </div>
-
-    <footer class="footer" >
-        <p>Petra Machačová ZS 2019/2020</p>
-    </footer>
+        </main>
+        <footer class="footer">
+            <p>Petra Machačová ZS 2019/2020</p>
+        </footer>
     </div>
 
-</body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="main.js"></script>
+
+
+</body>
 
 </html>
