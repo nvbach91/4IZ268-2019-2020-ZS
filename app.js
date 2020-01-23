@@ -42,40 +42,52 @@ App.init = () => {
     App.pokemonGuessList = [];
     App.pokemonCardList = [];
     App.acquiredPokemons = [];
-    App.sound = new Howl({ src: ['http://23.237.126.42/ost/pokemon-gameboy-sound-collection/gbhogmtx/107-battle%20%28vs%20wild%20pokemon%29.mp3'], loop: true });
+    App.sound = new Howl({ src: ['sound.mp3'], loop: true });
 
 };
 App.checkStorage = () => { //retrieves stored data and loads application to last saved state
     App.acquiredPokemons = JSON.parse(localStorage.getItem('acquiredPokemons'));
-    if (App.acquiredPokemons.length === 0) {
+    /* if (App.acquiredPokemons.length === 0) {
         App.acquiredPokemons = [];
-    }
-    else {
-        App.acquiredPokemons.forEach(item => {
-            var pokemon = $('#pokemon-select').children(`img[alt=${item}]`);
-            pokemon.removeClass('pokemon');
-            pokemon.addClass('pokemon-in-collection');
-            App.pokemonCollection.prepend(pokemon);
+    } */
+    /* else { */
+    var pokemons = []; //*new* created list to put pokemons to to appendem all at once after cycle
+    App.acquiredPokemons.forEach(item => {
+        var pokemon = $(App.pokemonSelect).children(`img[alt=${item}]`); // '#pokemon-select'
+        pokemon.removeClass('pokemon');
+        pokemon.addClass('pokemon-in-collection');
+        pokemons.push(pokemon);
+        //App.pokemonCollection.prepend(pokemon);
 
-        });
-    }
+    });
+    App.pokemonCollection.prepend(pokemons); //*new* appending list after cycle
+    /* } */
     App.pokemonCardList = JSON.parse(localStorage.getItem('pokemonCards'));
-    if (App.pokemonCardList.length === 0) {
+    /* if (App.pokemonCardList.length === 0) {
         App.pokemonCardList = [];
 
-    }
-    else {
-        App.pokemonCardList.forEach(item => {
-            $.get(`https://api.pokemontcg.io/v1/cards?id=${item.pokemonCardId}`).done((resp) => {
-                var pokemonCardImgURL = resp.cards[0].imageUrlHiRes;
-                var pokemonName = item.pokemonName //resp.cards[0].name; // card names might contain special chars, therefore it is needed to to store not only id but also pokemon name without special chars in object
-                var pokemonCardId = resp.cards[0].id;
-                App.createCard(pokemonCardImgURL, pokemonName.toLowerCase(), pokemonCardId);
+    } */
+    /* else { */
+    App.pokemonCardList.forEach(item => {
+        /* $.get(`https://api.pokemontcg.io/v1/cards?id=${item.pokemonCardId}`).done((resp) => {
+            var pokemonCardImgURL = resp.cards[0].imageUrlHiRes;
+            var pokemonName = item.pokemonName //resp.cards[0].name; // card names might contain special chars, therefore it is needed to to store not only id but also pokemon name without special chars in object
+            var pokemonCardId = resp.cards[0].id;
+            App.createCard(pokemonCardImgURL, pokemonName.toLowerCase(), pokemonCardId);
 
-            });
+        }); */
+        var pokemonName = item.pokemonName;
+        var pokemonCardId = item.pokemonCardId;
+        var pokemonCardImgURL = item.pokemonCardImgURL;
+        var cardName = item.cardName;
+        var cardType = item.cardType;
+        var cardSubtype = item.cardSubtype;
+        var cardHP = item.cardHP;
+        var cardRarity = item.cardRarity;
+        App.createCard(pokemonCardImgURL, pokemonName.toLowerCase(), pokemonCardId, cardName, cardType, cardSubtype, cardHP, cardRarity);
 
-        });
-    }
+    });
+    /* } */
     App.missedTotal = JSON.parse(localStorage.getItem('missedTotal'));
     $('#missed-total').text(App.missedTotal);
 
@@ -119,15 +131,15 @@ App.setTimeout = () => { //sets timeout to 15s, App.timeSet prevents from multip
 
 };
 App.createGuess = () => { //generates random picture of pokemon to guess along with three choices to select from. Evaluates user selection and finel round score
-    const pokemonName = $('img[id="pokemon-in-game-wanted"]').attr('alt');
+    const pokemonName = $('#pokemon-in-game-wanted').attr('alt'); //*new* puvodne bylo img[id="pokemon-in-game-wanted"]
     App.pokemonGuessList = [];
     let pokemonToGuess = App.pokemonGen1[Math.floor(Math.random() * App.pokemonGen1.length)];
     App.pokemonGuessList.push(pokemonToGuess);
 
     App.guessSelect = $('<div id="guess-select" class="guess-select">');
-    const pokemonToGuessImg = $('<img>');
-    pokemonToGuessImg.addClass('pokemon-to-guess');
-    pokemonToGuessImg.attr('id', 'pokemon-to-guess');
+    const pokemonToGuessImg = $('<img>')
+        .addClass('pokemon-to-guess')
+        .attr('id', 'pokemon-to-guess'); //*new* chaining
     if (pokemonToGuess === 'nidoranf') {
         pokemonToGuess = 'nidoran-f';
     }
@@ -302,16 +314,24 @@ App.getCard = (pokemonName) => { //gets random pokemon card from api and adds it
         const cardList = resp.cards;
         const randomCard = Math.floor(Math.random() * (cardList.length - 0) + 0);
         const pokemonCardImgURL = resp.cards[randomCard].imageUrlHiRes;
-
         const pokemonCardId = resp.cards[randomCard].id;
-        App.pokemonCardList.push({ pokemonCardId, pokemonName });
+
+        //*new* added more const for other info to store in local storage so that api wont be overloaded with requests for detail info on card
+        const cardName = resp.cards[randomCard].name;
+        const cardType = resp.cards[randomCard].types[0];
+        const cardSubtype = resp.cards[randomCard].subtype;
+        const cardHP = resp.cards[randomCard].hp;
+        const cardRarity = resp.cards[randomCard].rarity;
+        console.log(cardName, cardType, cardSubtype, cardHP, cardRarity);
+
+        App.pokemonCardList.push({ pokemonCardId, pokemonName, pokemonCardImgURL, cardName, cardType, cardSubtype, cardHP, cardRarity });
 
         localStorage.setItem('pokemonCards', JSON.stringify(App.pokemonCardList));
         App.cardsTotal++;
         $('#cards-total').text(App.cardsTotal);
         localStorage.setItem('cardsTotal', JSON.stringify(App.cardsTotal));
 
-        App.createCard(pokemonCardImgURL, pokemonName.toLowerCase(), pokemonCardId);
+        App.createCard(pokemonCardImgURL, pokemonName.toLowerCase(), pokemonCardId, cardName, cardType, cardSubtype, cardHP, cardRarity);
 
     }).always(() => {
         spinner.remove();
@@ -320,18 +340,24 @@ App.getCard = (pokemonName) => { //gets random pokemon card from api and adds it
 
 
 };
-App.createCard = (pokemonCardImgURL, pokemonName, pokemonCardId) => { //generates card and handles click event on card
-    const card = $(`<img id= ${pokemonCardId} class="card" alt=${pokemonName} src=${pokemonCardImgURL}></img>`);
+App.createCard = (pokemonCardImgURL, pokemonName, pokemonCardId, cardName, cardType, cardSubtype, cardHP, cardRarity) => { //generates card and handles click event on card
+    //const card = $(`<img id= ${pokemonCardId} class="card" alt=${pokemonName} src=${pokemonCardImgURL}>`); 
+    const card = $('<img>')
+        .addClass('card')
+        .attr('id', pokemonCardId)
+        .attr('alt', pokemonName)
+        .attr('src', pokemonCardImgURL); //*new* uprava + chaining
+
 
     card.click(() => {
         $('.pokemon-active').removeClass('pokemon-active');
         $('.card-active').removeClass('card-active');
         card.addClass('card-active');
 
-        if ($('.spinner')) {
+        /* if ($('.spinner')) { 
             $('.spinner').remove();
         }
-        const spinner = $('<div class="spinner"></div>');
+        const spinner = $('<div class="spinner"></div>'); */ //*new* no longer needed
 
         if ($('.card-detail')) {
             $('.card-detail').remove();
@@ -351,7 +377,33 @@ App.createCard = (pokemonCardImgURL, pokemonName, pokemonCardId) => { //generate
         cardDetailImg.attr('alt', pokemonName.toLowerCase());
         cardDetailImg.attr('class', 'card-detail');
         App.statsArea.append(cardDetailImg);
-        App.statsArea.append(spinner);
+
+        //*new* now transfering detail info for card as parameters of function so that api is not overloaded with requests and loading of card info is also faster
+        const cardInfo = $(`<div class="detail-info">
+            <label><strong>Details for card:</strong></label>
+            <div class="detail-info-name">
+                <label><strong>Name:</strong> ${cardName}</label>
+            </div>
+            <div class="detail-info-type">
+                <label><strong>Type:</strong> ${cardType}</label> 
+            </div>
+            <div class="detail-info-subtype">
+                <label><strong>Subtype:</strong> ${cardSubtype}</label>
+            </div>
+            <div class="detail-info-id">
+                <label><strong>ID:</strong> ${pokemonCardId}</label>
+            </div>
+            <div class="detail-info-hp">
+                <label><strong>HP:</strong> ${cardHP}</label>
+            </div>
+            <div class="detail-info-rarity">
+                <label><strong>rarity:</strong> ${cardRarity}</label>
+            </div>
+        </div>`);
+
+        App.statsArea.append(cardInfo);
+
+        /* App.statsArea.append(spinner);
         $.get(`https://api.pokemontcg.io/v1/cards?name=${pokemonName}`).done((resp) => {
             const cardInfo = $(`<div class="detail-info">
             <label><b>Details for card:</b></label>
@@ -379,7 +431,7 @@ App.createCard = (pokemonCardImgURL, pokemonName, pokemonCardId) => { //generate
 
         }).always(() => {
             spinner.remove();
-        });
+        }); */
     });
     App.cardCollection.append(card);
 
@@ -389,9 +441,9 @@ App.createPokemonList = () => { // create list of pokemons from first gen [151 p
     App.pokemonSelect.detach();
     $('.pokemon-galery').append(`<p class="loading">Pokemons are loading...</p>`);
 
-
+    var promises = []; //*new* tried with promises but could not make it work
     for (let i = 1; i <= 151; i++) {
-        $.get(`https://pokeapi.co/api/v2/pokemon/${i}`).done((resp) => {
+        promises.push($.get(`https://pokeapi.co/api/v2/pokemon/${i}`).done((resp) => {
             if (resp.name.includes('-') && !resp.name.includes('mr')) {
                 const name = resp.name.replace('-', '');
                 App.pokemonGen1.push(name);
@@ -401,19 +453,21 @@ App.createPokemonList = () => { // create list of pokemons from first gen [151 p
                 App.pokemonGen1.push(resp.name);
                 App.createPokemon(resp.name);
             }
-        });
+        }));
 
     };
+    $.when(promises).done(console.log('done')); //*new* I was trying to remove the loading here, console log is for testing purpose. When observing console in browser the 'done' string appears a lot sooner then pokemons are appended to galery and therefore visible => the done action is executed before pokemons are even visible
     $('.loading').remove();
     App.pokemonSelect.appendTo('.pokemon-galery');
 
 
 };
 App.createPokemon = (pokemonName) => { //creates pokemons[gifs]. Handles click and double click events on pokemon
-    const pokemon = $('<img>');
-    pokemon.addClass('pokemon');
-    pokemon.attr('id', 'pokemon');
-    pokemon.attr('alt', pokemonName);
+    const pokemon = $('<img>')
+        .addClass('pokemon')
+        .attr('id', 'pokemon')
+        .attr('alt', pokemonName); //*new* chaining
+
     //had to add another if clause for mr mime
     if (pokemonName === 'mr-mime') {
         pokemonName = 'mrmime';
@@ -503,26 +557,26 @@ App.createPokemon = (pokemonName) => { //creates pokemons[gifs]. Handles click a
             $('.detail-info').remove();
         }
 
-        const pokemonDetailImg = $('<img>');
-        pokemonDetailImg.attr('src', `https://img.pokemondb.net/artwork/${pokemonName.toLowerCase()}.jpg`);
-        pokemonDetailImg.attr('alt', pokemonName);
-        pokemonDetailImg.attr('class', 'pokemon-detail');
+        const pokemonDetailImg = $('<img>')
+            .attr('src', `https://img.pokemondb.net/artwork/${pokemonName.toLowerCase()}.jpg`)
+            .attr('alt', pokemonName)
+            .attr('class', 'pokemon-detail'); //*new* chaining
         App.statsArea.append(pokemonDetailImg);
         App.statsArea.append(spinner);
         $.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}/`).done((resp) => {
             const pokemonInfo = $(`<div class="pokemon-info">
-            <label><b>Information on pokemon:</b></label>
+            <label><strong>Information on pokemon:</strong></label>
             <div class="detail-info-name">
-                <label><b>Name:</b> ${resp.name}</label>
+                <label><strong>Name:</strong> ${resp.name}</label>
             </div>
             <div class="detail-info-height">
-                <label><b>Height:</b> ${resp.height}</label>
+                <label><strong>Height:</strong> ${resp.height}</label>
             </div>
             <div class="detail-info-weight">
-                <label><b>Weight:</b> ${resp.weight}</label>
+                <label><strong>Weight:</strong> ${resp.weight}</label>
             </div>
             <div class="detail-info-id">
-                <label><b>ID:</b> ${resp.id}</label>
+                <label><strong>ID:</strong> ${resp.id}</label>
             </div>
         </div>`);
             App.statsArea.append(pokemonInfo);
@@ -532,6 +586,7 @@ App.createPokemon = (pokemonName) => { //creates pokemons[gifs]. Handles click a
         });
 
     });
+
     App.pokemonSelect.append(pokemon);
 
 };
@@ -542,14 +597,14 @@ $(document).ready(() => { //after DOM is ready...
     App.createPokemonList();
 
     App.scrollLeft.click(() => { //onclick scroll left, right and animation
-        $('.pokemon-select').animate({
-            scrollLeft: $('.pokemon-select').scrollLeft() - 800,
+        App.pokemonSelect.animate({ //*new* removed reselection $('.pokemon-select')
+            scrollLeft: App.pokemonSelect.scrollLeft() - 800,
         }, 600);
 
     });
     App.scrollRight.click(() => {
-        $('.pokemon-select').animate({
-            scrollLeft: $('.pokemon-select').scrollLeft() + 800,
+        App.pokemonSelect.animate({ //*new* removed reselection $('.pokemon-select')
+            scrollLeft: App.pokemonSelect.scrollLeft() + 800,
         }, 600);
 
     });
