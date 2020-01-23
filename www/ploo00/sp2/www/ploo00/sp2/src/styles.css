@@ -1,0 +1,39 @@
+
+
+.container-header {
+    margin-left: 5%;
+}
+
+header {
+    padding: 2% 0 2% 0;
+}
+
+.container-search {
+    width: 80%;
+    /* height: 20%; */
+    margin: 0 0 0 10%;
+    padding: 2% 15% 2% 15%;
+    background: url(https://eso.vse.cz/~ploo00/SP2/assets/media/background-search.jpg);
+    border-radius: 1%;
+}
+
+input {
+    width: 80%;
+    margin: 0 0.3em 0.3em 0;
+    padding: 0.35em 1.2em;
+    border: none;
+    border-radius: 4%;
+}
+
+button {
+    padding: 0.35em 1.2em;
+    border: 0.1em solid #FFFFFF;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.12em;
+    background-color: #7F99E9;
+    font-weight: 300;
+    color: #FFFFFF;
+    text-align: center;
+
+}
+

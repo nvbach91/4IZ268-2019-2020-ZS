@@ -1,0 +1,77 @@
+* {
+    box-sizing: border-box;
+}
+
+header {
+    padding: 2% 5% 1% 5%;
+    
+}
+
+footer {
+    position: fixed;
+    margin: 0;
+    height: 4%;
+    width: 100%;
+    bottom: 0;
+    background-color: #312F3D;
+    background: url(https://eso.vse.cz/~ploo00/SP2/assets/media/background-search.jpg);
+}
+
+.footer-text {
+    margin-left: 2%;
+    margin-top: 5px;
+}
+
+.video {
+    width: 50%;
+    float: left;
+    position: fixed;
+    right: 0;
+    /* min-height: 450px; */
+}
+
+.right {
+    text-align: right;
+}
+
+.info {
+    width: 50%;
+    float: left;
+    margin-left: 5%;
+}
+
+.wrapper {
+    width: 100%;
+    padding: 5% 0 0 5%;
+}
+
+.youTube {
+    box-sizing: border-box;
+    /* width: 100%;
+    height: auto; */
+}
+
+table {
+    text-align: center;
+    width: 70%;
+    padding: 3%;
+}
+
+td {
+    border-bottom: 1px solid #ddd;
+    height: 8%;
+}
+
+.lyrics {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 8%;
+}
+
+.button-favs {
+    margin-bottom: 3%;
+}
+
+.favs {
+    padding: 2% 0 5% 0;
+}
