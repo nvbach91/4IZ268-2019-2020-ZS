@@ -9,19 +9,20 @@ $(document).ready(() => {
                     const keys = Object.keys(data.rates)
                     keys.push("EUR") //pridani noveho prvku 
                     main.currencies = main.currencies.filter((c) => keys.some((r) => r === c.key)).sort(main.sortByName) //filtrace men ke kterym mame data a serazeni podle abecedy
-                    main.renderSelect("currencyFrom");
-                    main.renderSelect("currencyTo", 1);
+                    main.renderSelect("currencyFrom", localStorage.getItem("currencyFrom"));
+                    main.renderSelect("currencyTo", localStorage.getItem("currencyTo"));
                     main.renderSelect("favoriteCurrencyAdd", 1);
                     main.renderSelect("favoriteCurrency");
                     main.updateFavorite();
                     main.setUpFlags(); // nastavení obr. vlajky
                     main.fromCurrency.val(1) // nastaveni vstupu
                     main.getCurrencyValue()
+                    main.getCurrencyValue()
                 })
         }); 
         
         // pridani EventHandler
-    $('#fromCurrency').bind('keyup mouseup', main.getCurrencyValue);
+    $('#fromCurrency').bind('keydown', main.getCurrencyValue);
     $('select.convertor-select').change(main.getCurrencyValue);
     $('#addFavorite').click(main.addFavorite);
     $('#favoriteCurrency').change(main.changeFavorite);
@@ -31,6 +32,18 @@ $(document).ready(() => {
 class Main { 
 
     constructor() {
+        this.currencyFromLS = localStorage.getItem("currencyFrom") //update zustat selecty
+        this.currencyToLS = localStorage.getItem("currencyTo")
+        if (this.currencyFromLS === null || this.currencyFromLS === "") { //localStorage pro currencyFrom
+            localStorage.setItem ("currencyFrom", "0")
+            this.currencyFromLS = 0
+        }
+
+        if (this.currencyToLS === null || this.currencyFromLS === "") {
+            localStorage.setItem ("currencyTo", "1") //localStorage pro currencyTo
+            this.currencyToLS = 1
+        }
+
         this.currencies = [];
         this.intervalFavorite;
         this.topCurrencies = ["EUR", "CZK", "USD"] // muj top vyber $('#favoriteCurrency')
@@ -59,8 +72,9 @@ class Main {
     }
 
     changeFavorite = () => { //interval pro ziskani aktualnich kurzu po 20 sekundach
-        clearInterval(this.intervalFavorite);
-        this.intervalFavorite = setInterval(this.updateFavorite, 20000);
+
+       // clearInterval(this.intervalFavorite);
+       // this.intervalFavorite = setInterval(this.updateFavorite, 20000);
         this.updateFavorite();
     }
 
@@ -100,7 +114,7 @@ class Main {
         select.empty();
         let currency = [];
         this.currencies.forEach((c, index) => {
-            currency.push($(`<option ${selectedItem === index ? "selected" : ""}></option>`).text(c.currencyName).val(c.key));
+            currency.push($(`<option ${selectedItem === c.key ? "selected" : ""}></option>`).text(c.currencyName).val(c.key));
         });
         select.append(currency);
     }
@@ -122,6 +136,18 @@ class Main {
         });
     }
 
+ // pro odstranění favorite meny z localStorage
+    removeFavorite = (e) => {
+        const key = $(e.currentTarget).data("key")
+        let favorites = localStorage.getItem(this.favoriteCurrency.val());
+        if (favorites === null || favorites === "") {
+            favorites = [];
+        }
+        favorites = JSON.parse(favorites);
+        favorites = favorites.filter((obj) => obj !== key)
+        localStorage.setItem(this.favoriteCurrency.val(), JSON.stringify(favorites));
+        this.renderFavorite()
+    }
     renderFavorite = () => { //vykresli tabulku oblibenych
         const currency = this.favoriteCurrency.val();
         this.tableOfCurrency.empty(); //vyprazdeni tabulky
@@ -137,15 +163,33 @@ class Main {
                     row.append($(`<td>${c.flag}</td>`))
                     row.append($(`<td>${c.id}</td>`))
                     row.append($(`<td>${c.value}</td>`))
+                    const removeButton = $(`<td><a href="javascript:void(0)" data-key="${c.key}"><img src="cross.png" height="16" /></a></td>`)
+                    row.append(removeButton)
                     this.tableOfCurrency.append(row)
+                    removeButton.children("a").click(this.removeFavorite) 
                 });
             }
         }
     }
 
-    getCurrencyValue = () => { //zjisteni hdonoty meny
+    // omezeni vstupu ("e")
+    getCurrencyValue = (e) => { //pri zmene
         const from = this.currencyFrom.val(),
             to = this.currencyTo.val();
+        if (typeof e === "object" && e.keyCode === 69) { //ASCI
+                e.preventDefault() //zrusi udalost 
+                return false; 
+            }   
+      if (this.currencyToLS !=to) {
+          localStorage.setItem("currencyTo", to)
+          this.currencyToLS = to
+      }
+
+      if (this.currencyFromLS !=from) {
+          localStorage.setItem("currencyFrom", from)
+          this.currencyFromLS = from
+      }
+
         $.get(`https://api.exchangeratesapi.io/latest?base=${from}&symbols=${to}`)
             .then((data) => {
                 this.calculateCurrency(data, to);
