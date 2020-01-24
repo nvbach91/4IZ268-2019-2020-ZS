@@ -1,0 +1,170 @@
+{block customFoot}
+    <script src="js/lab-web-view.js" type="text/javascript"></script>
+{/block}
+{block modal}
+    {if !isset($web->domain)}
+        <!-- Modal -->
+        <div class="modal fade" id="web_modal_new" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">První analýza</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Zavřít">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Nově přidaný web je třeba analyzovat.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="analyse-new" data-goto="{plink Web:view}" class="btn btn-success">Spustit analýzu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {/if}
+{/block}
+
+{block content}
+    <!--begin:: Portlet-->
+    <div class="kt-portlet ">
+        <div class="kt-portlet__body">
+            <div class="kt-widget kt-widget--user-profile-3">
+                <div class="kt-widget__top">
+                    <div class="kt-widget__media">
+                        <img id="screenshot" src="//image.thum.io/get/width/400/crop/700/http://{$domain}/" style="width: 300px;" alt="screenshot">
+                    </div>
+                    <div class="kt-widget__content">
+                        <div class="kt-widget__head">
+                            <a href="http://{$domain}/" target="_blank" class="kt-widget__title">{$domain}</a>
+                            <div class="kt-widget__action">
+                                <button id="analyse" type="button" class="btn btn-success btn-sm btn-upper">analyzovat</button>&nbsp;
+                                <button type="button" class="btn btn-primary btn-sm btn-upper">navštívit</button>
+                                <a n:href="Web:view $domain, remove => true" class="btn btn-danger btn-sm btn-upper">odstranit</a>
+                            </div>
+                        </div>
+                        <div class="kt-widget__subhead kt-hidden">
+                            <a href="#"><i class="flaticon2-new-email"></i>jason@siastudio.com</a>
+                            <a href="#"><i class="flaticon2-calendar-3"></i>PR Manager </a>
+                            <a href="#"><i class="flaticon2-placeholder"></i>Melbourne</a>
+                        </div>
+                        <div class="kt-widget__info">
+                            <div class="kt-widget__desc" style="max-width: 45%;">
+                                {$web->description}
+                            </div>
+                        </div>
+                        <div class="kt-widget__info">
+                            <div class="kt-widget__stats d-flex align-items-center flex-fill">
+                                <div id="first_date" class="kt-widget__item">
+                                    <span class="kt-widget__date">První analýza</span>
+                                    <div class="kt-widget__label">
+                                        <span class="btn btn-label-brand btn-sm btn-bold btn-upper">{$web->first|date:'j. n. Y'}</span>
+                                    </div>
+                                </div>
+                                <div id="last_date" class="kt-widget__item">
+                                    <span class="kt-widget__date">Poslední analýza</span>
+                                    <div class="kt-widget__label">
+                                        <span class="btn btn-label-danger btn-sm btn-bold btn-upper">{$web->last|date:'j. n. Y'}</span>
+                                    </div>
+                                </div>
+                                <div id="score" class="kt-widget__item flex-fill">
+                                    <span class="kt-widget__subtitel">Aktuální skóre</span>
+                                    <div class="kt-widget__progress d-flex  align-items-center">
+                                        <div class="progress" style="height: 5px;width: 100%;">
+                                            <div class="progress-bar kt-bg-success" role="progressbar" style="width: {$web->score}%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <span class="kt-widget__stat">{$web->score}%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-widget__bottom">
+                    <div class="kt-widget__item">
+                        <div class="kt-widget__icon">
+                            <i class="flaticon-earth-globe"></i>
+                        </div>
+                        <div class="kt-widget__details">
+                            <span class="kt-widget__title">Doména</span>
+                            <span class="kt-widget__value"><span>$</span>249,500</span>
+                        </div>
+                    </div>
+                    <div class="kt-widget__item">
+                        <div class="kt-widget__icon">
+                            <i class="flaticon-interface-3"></i>
+                        </div>
+                        <div class="kt-widget__details">
+                            <span class="kt-widget__title">Webhosting</span>
+                            <span class="kt-widget__value"><span>$</span>164,700</span>
+                        </div>
+                    </div>
+                    <div id="validace_final" class="kt-widget__item">
+                        <div class="kt-widget__icon">
+                            <i class="flaticon-file-2"></i>
+                        </div>
+                        <div class="kt-widget__details">
+                            <span class="kt-widget__title">Zdrojový kód</span>
+                            <span class="kt-widget__value"><span>$</span>84,060</span>
+                        </div>
+                    </div>
+                    <div id="speed_final" class="kt-widget__item">
+                        <div class="kt-widget__icon">
+                            <i class="flaticon-dashboard"></i>
+                        </div>
+                        <div class="kt-widget__details">
+                            <span class="kt-widget__title">Rychlost</span>
+                            <a href="#" class="kt-widget__value kt-font-brand">View</a>
+                        </div>
+                    </div>
+                    <div class="kt-widget__item">
+                        <div class="kt-widget__icon">
+                            <i class="socicon-google"></i>
+                        </div>
+                        <div class="kt-widget__details">
+                            <span class="kt-widget__title">SEO</span>
+                            <a href="#" class="kt-widget__value kt-font-brand">View</a>
+                        </div>
+                    </div>
+                    <div class="kt-widget__item">
+                        <div class="kt-widget__icon">
+                            <i class="flaticon-network"></i>
+                        </div>
+                        <div class="kt-widget__details">
+                            <div class="kt-section__content kt-section__content--solid">
+                                <div class="kt-media-group">
+                                    <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="John Myer">
+                                        <img src="assets/media/users/100_7.jpg" alt="image">
+                                    </a>
+                                    <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Alison Brandy">
+                                        <img src="assets/media/users/100_3.jpg" alt="image">
+                                    </a>
+                                    <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Selina Cranson">
+                                        <img src="assets/media/users/100_2.jpg" alt="image">
+                                    </a>
+                                    <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Luke Walls">
+                                        <img src="assets/media/users/100_13.jpg" alt="image">
+                                    </a>
+                                    <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Micheal York">
+                                        <img src="assets/media/users/100_4.jpg" alt="image">
+                                    </a>
+                                    <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Micheal York">
+                                        <span>+3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Begin::Section-->
+    <div class="row">
+        {control validation 6}
+        {control speed 'desktop', 6}
+    </div>
+    <!--End::Section-->
+{/block}
