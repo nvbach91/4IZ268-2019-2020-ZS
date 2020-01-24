@@ -124,7 +124,7 @@ li {
 #fb-like {
     position: absolute;
     left: 5vw;
-    bottom: 20vh;
+    bottom: 15vh;
 }
 
 .preRestart {
@@ -143,6 +143,14 @@ li {
     display: inline;
     min-height: 300px;
     max-width: 500px;
+}
+#post-button{
+    margin-top: 50px;
+    display: flex;
+}
+#login-button{
+    margin-top: 50px;
+
 }
 
 @media screen and (max-width: 1900px) {

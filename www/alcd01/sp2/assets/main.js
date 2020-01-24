@@ -4,41 +4,8 @@
  * Updating lastScore using local storage
  */
 $(document).ready(function() {
-  document.querySelector(
-    ".scoreTable"
-  ).rows[0].cells[0].textContent = localStorage.getItem("firstName");
-  document.querySelector(
-    ".scoreTable"
-  ).rows[0].cells[1].textContent = localStorage.getItem("firstScore");
-
-  document.querySelector(
-    ".scoreTable"
-  ).rows[1].cells[0].textContent = localStorage.getItem("secondName");
-  document.querySelector(
-    ".scoreTable"
-  ).rows[1].cells[1].textContent = localStorage.getItem("secondScore");
-
-  document.querySelector(
-    ".scoreTable"
-  ).rows[2].cells[0].textContent = localStorage.getItem("thirdName");
-  document.querySelector(
-    ".scoreTable"
-  ).rows[2].cells[1].textContent = localStorage.getItem("thirdScore");
-
-  document.querySelector(
-    ".scoreTable"
-  ).rows[3].cells[0].textContent = localStorage.getItem("fourthName");
-  document.querySelector(
-    ".scoreTable"
-  ).rows[3].cells[1].textContent = localStorage.getItem("fourthScore");
-
-  document.querySelector(
-    ".scoreTable"
-  ).rows[4].cells[0].textContent = localStorage.getItem("fifthName");
-  document.querySelector(
-    ".scoreTable"
-  ).rows[4].cells[1].textContent = localStorage.getItem("fifthScore");
-
+  topFive();
+  
   $("#lastScoreList li").remove();
   lastScores = localStorage.getItem("lastScores");
   lastScoresEdited = lastScores.split(".").join("<br>");
@@ -63,28 +30,36 @@ $(document).ready(function() {
   });
 });
 
+$(document).ready(function (){
+  if(localStorage.getItem("fbName") != null){
+    console.log("Logged in using your name");
+  return $("#inputName").hide();
+  }
+  else{
+    console.log("Cannot log in using your name");
+    return $("#inputName").show()
+  }
+}); 
 /**
  * fill form for name and starting game
  */
 $(document).ready(function() {
   $("#play").click(function() {
     if ($("#inputName").val() != 0) {
-      $(".errorName").remove();
-      play();
-      $("canvas").wrap("<div class='window'></div>");
       var name = $("#inputName").val();
       $.session.set("inputName", name);
       //local Storage
       localStorage.setItem("nameLocalStorage", name);
-
-      $("main").remove();
-      console.log(localStorage.getItem("nameLocalStorage"));
-      console.log($.session.get("inputName"));
-      //loading screen
-      $(".window")
-        .parent()
-        .append("<div class='loading'>LOADING</div>");
-    } else {
+      return prePlay();
+    }
+    if(localStorage.getItem("fbName") != null){
+      var name = localStorage.getItem("fbName");
+      $.session.set("inputName", name);
+      //local Storage
+      localStorage.setItem("nameLocalStorage", name);
+      return prePlay();
+    }
+     else {
       $("main")
         .parent()
         .append("<div class='errorName'>Please enter name</div>");
@@ -92,6 +67,21 @@ $(document).ready(function() {
     }
   });
 });
+
+/**Tasks done before playing */
+function prePlay(){
+  $(".errorName").remove();
+  play();
+  $(".fbBtns").css("display","none");
+  $("canvas").wrap("<div class='window'></div>");
+  $("main").remove();
+  console.log(localStorage.getItem("nameLocalStorage"));
+  console.log($.session.get("inputName"));
+  //loading screen
+  $(".window")
+    .parent()
+    .append("<div class='loading'>LOADING</div>");
+};
 
 /**The main function, which is creating and updating everything in game */
 
@@ -224,7 +214,7 @@ function play() {
 
     stars = this.physics.add.group({
       key: "star",
-      repeat: 15,
+      repeat: 1,
       setXY: { x: 25, y: 0, stepX: 50 }
     });
 
@@ -572,6 +562,7 @@ function play() {
  * 
  */
 function Restart() {
+  $(".fbBtns").css("display","");
   LSFLS = $("li").text(); //last scores from local storage
   localStorage.setItem("lastScores", LSFLS);
   console.log(localStorage.getItem("lastScores"));
@@ -593,28 +584,32 @@ function Restart() {
       .append("<div class='loading'>LOADING</div>");
   });
   $("#reload").click(function() {
+    $(document).ready(function(){
+      if(localStorage.getItem("fbName") != null){
+        console.log("Logged in using your name")
+      return $("#inputName").remove();
+      }
+    });
     $("main").remove();
     $("#before").before(
       '<main><h1>SPACE DANGER</h1><label for="name"><input id="inputName" type="text" name="name" required placeholder="Name"></label><button id="play">PLAY!</button></main>'
     );
     $("#play").click(function() {
       if ($("#inputName").val() != 0) {
-        $(".errorName").remove();
-        play();
         var name = $("#inputName").val();
         $.session.set("inputName", name);
         //local Storage
         localStorage.setItem("nameLocalStorage", name);
-
-        $("main").remove();
-        console.log(localStorage.getItem("nameLocalStorage"));
-        console.log($.session.get("inputName"));
-
-        $("canvas").wrap("<div class='window'></div>");
-        return $(".window")
-          .parent()
-          .append("<div class='loading'>LOADING</div>");
-      } else {
+        return prePlay();
+      }
+      if(localStorage.getItem("fbName") != null){
+        var name = localStorage.getItem("fbName");
+        $.session.set("inputName", name);
+        //local Storage
+        localStorage.setItem("nameLocalStorage", name);
+        return prePlay();
+      }
+       else {
         $("main")
           .parent()
           .append("<div class='errorName'>Please enter name</div>");
