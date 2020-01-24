@@ -1,0 +1,194 @@
+body {
+    background-color: rgba(248, 236, 64, 0.829);
+    font-family: sans-serif;
+}
+
+.logo {
+    width: 350px;
+    height: 100px;
+    padding-bottom: 20px;
+    margin-left: auto;
+}
+
+
+.pokemon-galery {
+    height: 140px;
+    width: 100%;
+    min-width: 100%;
+    background-color: rgb(243, 243, 232);
+    border: solid 2px grey;
+    border-radius: 5px;
+}
+
+.pokemon-select {
+    display: flex;
+    margin-top:auto;
+    margin-bottom: auto;
+    flex-direction: row;
+    flex-grow: 1;
+    max-height: 100%;
+    overflow-x: scroll;
+    overflow-x: auto;
+    scrollbar-base-color: khaki;
+}
+.pokemon, .pokemon-in-collection{
+    padding: 10px 10px 10px 10px;
+    height: auto;
+    width: initial;
+    cursor: pointer;
+}
+.pokemon-active, .card-active{
+    border: solid 2px grey;
+    border-radius: 5px;
+}
+.pokemon-in-game{
+    background-color: rgb(243, 243, 232);
+    border: solid 2px grey;
+    border-radius: 5px;
+
+}
+.pokemon-to-guess{
+    height: 300px;
+    width: 350px;
+    background-color: rgb(243, 243, 232);
+    border: solid 2px grey;
+    border-radius: 5px;
+    margin-left: 20px;
+
+}
+.guess-select{
+   
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+   /*  flex-grow: 0; */
+    max-width: 100%;
+    /* margin: auto; */
+   /*  padding: 10px 0 0 10px; */
+    
+}
+.container-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: 0;
+    max-width: 90%;
+    margin: auto;
+    padding-top: 10px;
+    
+}
+
+.game-area {
+    width: 60% ;
+    height: 400px;
+    background-color: rgb(243, 243, 232);
+    border: solid 2px grey;
+    border-radius: 5px;
+
+}
+/* .wanted-pokemon{
+    height: 100px;
+    width: 100px;
+    margin-top: 120px;
+    background-color: rgb(243, 243, 232);
+    border: solid 2px grey;
+    border-radius: 5px;
+}
+.pokemon-to-guess{
+    height: 300px;
+    width: 350px;
+    margin-top: 20px;
+    margin-left: 20px;
+    background-color: rgb(243, 243, 232);
+    border: solid 2px grey;
+    border-radius: 5px;
+} */
+/* .bid-pokemon{
+    height: 100px;
+    width: 100px;
+    margin-top: 120px;
+    margin-left: 20px;
+    background-color: rgb(243, 243, 232);
+    border: solid 2px grey;
+    border-radius: 5px;
+} */
+
+.score-area{
+    width: 30%;
+    height: 200px;
+    background-color: rgb(243, 243, 232);
+    border: solid 2px grey;
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 20px;
+}
+.pokemon-collection{
+    /* width: 60%; */
+    overflow: scroll;
+    overflow-y: auto;
+    width: 600px;
+    height: 300px;
+    background-color: rgb(243, 243, 232);
+    border: solid 2px grey;
+    border-radius: 5px;
+    padding: 10px;
+}
+.card-collection{
+    /* width: 60%; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: scroll;
+    overflow-y: auto;
+    width: 600px;
+    height: 300px;
+    background-color: rgb(243, 243, 232);
+    border: solid 2px grey;
+    border-radius: 5px;
+    padding: 5px;
+}
+.card{
+    max-width: calc(100%/3);
+    max-height: calc(100%/3);
+    padding: 5px;
+}
+.card-detail{
+   max-width: 380px;
+   max-height: 600px;
+}
+.stats-area{
+    /* display: flex;
+    flex-direction: column; */
+    height: 800px;
+    width: 400px;
+    background-color: rgb(243, 243, 232);
+    border: solid 2px grey;
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 20px;
+
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid rgb(253, 65, 65);
+    border-bottom: 20px solid rgb(248, 224, 210);
+    border-radius: 50%;
+    animation: spinning 1s ease infinite;
+}
+
+@keyframes spinning {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

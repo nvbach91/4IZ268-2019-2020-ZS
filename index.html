@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="web, game, pokemon, vintage">
+    <meta name="author" content="Monika Dokoupilova">
+    <meta name="description" content="This is simple web browser game with pokemon theme.">
+    <title>Catch them all!</title>
+    <link rel="icon" type="image/x-icon" href="./pokemon.png">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <img class="logo" alt="logo" src="https://i.imgur.com/2tDUgPO.png">
+    <div class="container-row">
+        <h3>Select pokemon:</h3>
+        <div class="search-area-pokemon">
+            <input id="pokemon-wanted-name-input" placeholder="Search for pokemon..">
+            <button id="submit-button-wanted">Search</button>
+            <button id="cancel-search-select" class="hidden">Cancel</button>
+        </div>
+    </div>
+    <div class="container-row">
+        <button id="scroll-left" class="scroll">&lt;</button>
+        <div id="pokemon-galery" class="pokemon-galery">
+            <div id="pokemon-select" class="pokemon-select"></div> <!-- *new* used div instead of ul -->
+        </div>
+        <button id="scroll-right" class="scroll">&gt;</button>
+    </div>
+    <div class=container-row>
+        <div id="controlls">
+            <button id="tutorialButton">Tutorial</button>
+            <button id="soundMuteButton">Mute</button>
+            <button id="soundUnmuteButton">Unmute</button>
+            <button id="gameStartButton" class="hidden">Start</button>
+            <button id="gameRestartButton" class="hidden">Restart</button>
+            <div class="tutorial">
+                <h3>Welcome!</h3>
+                <ul>
+                    <!-- *new* added end tags -->
+                    <li>Start game by selecting pokemon to play for from top most box by doubleclick.</li>
+                    <li>Unless you have pokemon to bid in your collection, click start button.</li>
+                    <li>Otherwise you have to bid pokemon by doubeclicking on pokemon in your collection of your choice.
+                    </li>
+                    <li>Once the game starts you will have 15s to guess 3 pokemons on pictures.</li>
+                    <ul>
+                        <li>If you manage to guess 2 in limit, you get pokemon you played for.</li>
+                        <li>If you manage to guess 3 you will get a random card of pokemon in addition.</li>
+                        <li>If you won't be able to guess correctly more then once or until time pases, you loose.</li>
+                        <li>If there is pokemon bid, you looses that pokemon.</li>
+                    </ul>
+                    <li>Good luck and guess them all!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container-row">
+        <div id="game-area" class="game-area">
+            <button id="loadData-yes" class="hidden">Yes continue</button>
+            <button id="loadData-no" class="hidden">New Game</button>
+            <div class="container-row-game">
+                <div id="wanted-pokemon" class="wanted-pokemon"></div>
+                <div id="pokemon-guess-area" class="pokemon-guess-area"></div>
+                <div id="bid-pokemon" class="bid-pokemon"></div>
+            </div>
+            <p class="result" id="result"></p>
+        </div>
+
+        <div class="container">
+            <h3>Score area:</h3>
+            <div id="score-area" class="score-area">
+                <div class="score">
+                    <p>Total guessed: </p>
+                    <p id="guessed-total"> </p>
+                </div>
+                <div class="score">
+                    <p>Total missed: </p>
+                    <p id="missed-total"></p>
+                </div>
+                <div class="score">
+                    <p>Total pokemons: </p>
+                    <p id="pokemons-total"></p>
+                </div>
+                <div class="score">
+                    <p>Total cards: </p>
+                    <p id="cards-total"></p>
+                </div>
+                <div class="countdown">
+                    <p id="countdown"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-row">
+        <div class="container">
+            <h3>Pokemon collection:</h3>
+            <div class="search-area-pokemon-col">
+
+                <input id="pokemon-acquired-name-input" placeholder="Search for pokemon..">
+                <button id="submit-button-acquired">Search</button>
+                <button id="cancel-search-col" class="hidden">Cancel</button>
+            </div>
+            <div id="pokemon-collection" class="pokemon-collection"></div>
+            <h3>Card collection:</h3>
+            <div class="search-area-card-col">
+
+                <input id="pokemon-card-name-input" placeholder="Search for card..">
+                <button id="submit-button-card">Search</button>
+                <button id="cancel-search-card" class="hidden">Cancel</button>
+            </div>
+            <div id="card-collection" class="card-collection"></div>
+        </div>
+        <div class="container">
+            <h3>Pokemon/card detail:</h3>
+            <div id="stats-area" class="stats-area"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.3/howler.js"
+        integrity="sha256-FNAKr1U+8W8E3zROGSYO2dQKFHIpoGU/TVm8aGpGWUY=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.js"
+        integrity="sha256-2HAs3lxuJSrA/bAbF2bgaV55gSuX8vVsj2pCcWYqmY4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
