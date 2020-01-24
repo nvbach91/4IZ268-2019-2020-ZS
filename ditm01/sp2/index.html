@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="website, which allows you to manage your calendar" />
+    <meta name="author" content="Martin Ditz" />
+    <meta name="keywords" content="calendar google events " />
+    <link rel="stylesheet" href="main.css">
+    <link rel="icon" href="./res/favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap">
+    <title>Calendar Management</title>
+</head>
+
+<body>
+    <header>
+        <h1 class="heading">Manage your calendar</h1>
+        <button class="sign-in" id="authorize_button">Sign in</button>
+        <button class="sign-out" id="signout_button">Sign Out</button>
+    </header>
+    <main>
+        <form id="event-form">
+            <h2>Create new event</h2>
+            <label>Title</label>
+            <input id="title-input" class="input" type="text" required placeholder="Add title">
+            <label>Starting datetime</label>
+            <input id="start-input" class="input" type="datetime-local" required>
+            <label>Ending datetime</label>
+            <input id="end-input" class="input" type="datetime-local" required>
+            <label>Location</label>
+            <input id="location-input" class="input" type="text" placeholder="Add location">
+            <label>Description</label>
+            <textarea id="description-input" class="input" placeholder="Add description"></textarea>
+            <div class="buttons">
+                <button class="submit-button">Save your event</button>
+                <button class="reset-button" type="reset">Reset</button>
+            </div>
+        </form>
+        <div class="events-list">
+            <h2>List of events</h2>
+            <ul id="events-list"></ul>
+        </div>
+        <div class="detail-event">
+            <h2>Details of the event</h2>
+            <div id="detail-info"></div>
+        </div>
+    </main>
+
+    <pre id="content"></pre>
+
+    <footer>
+        <p>Vysoká škola ekonomická</p>
+        <p>ditm01</p>
+        <p>4IZ268 Webové technologie</p>
+        <p>Semestrální práce</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
