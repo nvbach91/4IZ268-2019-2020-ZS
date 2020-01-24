@@ -47,6 +47,10 @@ App.init = () => {
     App.guessedTotalText = $('#guessed-total'); //*new*
     App.pokemonsTotalText = $('#pokemons-total'); //*new*
     App.cardsTotalText = $('#cards-total'); //*new*
+    App.filtered = [];
+    App.cancelSearchSelect = $('#cancel-search-select');
+    App.cancelSearchCol = $('#cancel-search-col');
+    App.cancelSearchCard = $('#cancel-search-card');
 
 };
 App.checkStorage = () => { //retrieves stored data and loads application to last saved state
@@ -662,27 +666,74 @@ $(document).ready(() => { //after DOM is ready...
     //autocomplete inputs of search boxes
     $(function () {
         $('.search-response').remove();
+        //App.filtered = [];
         App.pokemonInputWanted.autocomplete({
             source: App.pokemonGen1,
-            close: () => {
+            open: () => {
+                App.pokemonSelect.children().hide();
+                var val = App.pokemonInputWanted.val();
+                /* App.filtered.push( */
+                App.pokemonSelect.children(`img[alt^=${val.toLowerCase()}]`).show();
+                App.cancelSearchSelect.show();
+                /* App.filtered.forEach(pokemon => {
+                    pokemon.show();
+
+                }); */
+                $('.search-response').remove();
+                //App.pokemonInputWanted.val()=filtered[0];
+            },
+            select: () => { //close
+                //$('.search-response').remove();
                 App.submitButtonWanted.click();
             }
-        });
+            /* close: () => {
+                App.cancelSearchSelect.show();
+            } */
+        }); // *source should be App.acquiredPokemons array, but doesn't work..
     });
     $(function () {
         $('.search-response').remove();
+        /* App.filtered = []; */
         App.pokemonInputAcquired.autocomplete({
             source: App.pokemonGen1,
-            close: () => {
+            open: () => {
+                App.pokemonCollection.children().hide();
+                var val = App.pokemonInputAcquired.val();
+                /* App.filtered.push( */
+                App.pokemonCollection.children(`img[alt^=${val.toLowerCase()}]`).show();
+                App.cancelSearchCol.show();
+                /* App.filtered.forEach(pokemon => {
+                    pokemon.show();
+
+                }); */
+                $('.search-response').remove();
+                //App.pokemonInputWanted.val()=filtered[0];
+            },
+            select: () => { //close
                 App.submitButtonAcquired.click();
             }
         }); // *source should be App.acquiredPokemons array, but doesn't work..
     });
     $(function () {
         $('.search-response').remove();
+        //App.filtered = [];
         App.pokemonInputCard.autocomplete({
             source: App.pokemonGen1,
-            close: () => {
+            open: () => {
+                App.cardCollection.children().hide();
+                var val = App.pokemonInputCard.val();
+                /* App.filtered.push( */
+                App.cardCollection.children(`img[alt^=${val.toLowerCase()}]`).show();
+                App.cancelSearchCard.show();
+                /* App.filtered.forEach(pokemon => {
+                    pokemon.show();
+
+                }); */
+                $('.search-response').remove();
+                //App.pokemonInputWanted.val()=filtered[0];
+            },
+            select: () => { //close
+
                 App.submitButtonCard.click();
             }
         }); // *source should be App.cardList array, but doesn't work..
@@ -690,15 +741,42 @@ $(document).ready(() => { //after DOM is ready...
 
     //search click events
     App.submitButtonWanted.click(() => { //search for pokemon from search input in pokemon galery [all pokemons that has not been acquired yet]
-        $('.search-response').remove();
-        var pokemonNameValue = (App.pokemonInputWanted.val()).trim();
+        var pokemonNameValue = '';
+        if (App.filtered.length !== 0) {
+
+            if (typeof App.filtered[0][0] === 'undefined') {
+                //App.cancelSearchCard.show();
+                App.pokemonSelect.children().show();
+                App.filtered = [];
+                $('.search-area-pokemon-col').append(`<p class="search-response">No such pokemon.</p>`);
+                return
+            }
+            else {
+                pokemonNameValue = App.filtered[0][0].alt;
+                App.cancelSearchSelect.show();
+                App.filtered = [];
+            }
+        }
+        else {
+            pokemonNameValue = (App.pokemonInputWanted.val()).trim();
+        }
+        console.log(pokemonNameValue);
+        //var pokemonNameValue = (App.pokemonInputWanted.val()).trim();
         App.pokemonInputWanted.val('');
         if (!pokemonNameValue) {
-            $('.search-area-pokemon').append(`<p class="search-response">Please eneter pokemon name.</p>`);
+            App.pokemonSelect.children().show();
+            if (!$('.search-response')) {
+                $('.search-area-pokemon-select').append(`<p class="search-response">Please eneter pokemon name.</p>`);
+            }
+            //$('.search-area-pokemon-col').append(`<p class="search-response">Please eneter pokemon name.</p>`);
         }
         else {
             var pokemon = $('#pokemon-select').children(`img[alt=${pokemonNameValue.toLowerCase()}]`);
             if (pokemon.length === 0) {
+                if ($('.search-response')) {
+                    $('.search-response').remove();
+
+                }
                 $('.search-area-pokemon').append(`<p class="search-response">Pokemon: ${pokemonNameValue} does not exist or is alredy in collection.</p>`);
             }
             else {
@@ -708,6 +786,9 @@ $(document).ready(() => { //after DOM is ready...
                     }, 500);
                     App.pokemonSelect.prepend(pokemon);
                     pokemon.trigger('click');
+                    if (App.filtered.indexOf(pokemon) !== 0) {
+                        pokemon.removeClass('pokemon-active');
+                    }
                 }
 
             }
@@ -716,10 +797,32 @@ $(document).ready(() => { //after DOM is ready...
     });
     App.submitButtonAcquired.click(() => { //search for pokemon from search input in collection [acquired pokemons]
         $('.search-response').remove();
-        var pokemonNameValue = (App.pokemonInputAcquired.val()).trim();
+        var pokemonNameValue = '';
+        if (App.filtered.length !== 0) {
+            if (typeof App.filtered[0][0] === 'undefined') {
+                //App.cancelSearchCard.show();
+                App.pokemonCollection.children().show();
+                App.filtered = [];
+                $('.search-area-pokemon-col').append(`<p class="search-response">No such pokemon yet.</p>`);
+                return
+            }
+            else {
+                pokemonNameValue = App.filtered[0][0].alt;
+                App.cancelSearchCol.show();
+                App.filtered = [];
+            }
+        }
+        else {
+            pokemonNameValue = (App.pokemonInputAcquired.val()).trim();
+        }
+        //var pokemonNameValue = (App.pokemonInputAcquired.val()).trim();
         App.pokemonInputAcquired.val('');
         if (!pokemonNameValue) {
-            $('.search-area-pokemon-col').append(`<p class="search-response">Please eneter pokemon name.</p>`);
+            App.pokemonCollection.children().show();
+            if (!$('.search-response')) {
+                $('.search-area-pokemon-col').append(`<p class="search-response">Please eneter pokemon name.</p>`);
+            }
+            //$('.search-area-pokemon-col').append(`<p class="search-response">Please eneter pokemon name.</p>`);
         }
         else {
             var pokemon = $('#pokemon-collection').children(`img[alt=${pokemonNameValue.toLowerCase()}]`);
@@ -733,6 +836,9 @@ $(document).ready(() => { //after DOM is ready...
                     }, 500);
                     App.pokemonCollection.prepend(pokemon);
                     pokemon.trigger('click');
+                    if (App.filtered.indexOf(pokemon) !== 0) {
+                        pokemon.removeClass('pokemon-active');
+                    }
                 }
 
             }
@@ -740,10 +846,31 @@ $(document).ready(() => { //after DOM is ready...
     });
     App.submitButtonCard.click(() => { //search for pokemon card by pokemon name in card collection
         $('.search-response').remove();
-        var pokemonNameValue = (App.pokemonInputCard.val()).trim();
+        var pokemonNameValue = '';
+        if (App.filtered.length !== 0) {
+            if (typeof App.filtered[0][0] === 'undefined') {
+                //App.cancelSearchCard.show();
+                App.cardCollection.children().show();
+                App.filtered = [];
+                $('.search-area-card-col').append(`<p class="search-response">No cards for this pokemon yet.</p>`);
+                return
+            }
+            else {
+                pokemonNameValue = App.filtered[0][0].alt;
+                App.cancelSearchCard.show();
+                App.filtered = [];
+            }
+        }
+        else {
+            pokemonNameValue = (App.pokemonInputCard.val()).trim();
+        }
+        //var pokemonNameValue = (App.pokemonInputCard.val()).trim();
         App.pokemonInputCard.val('');
         if (!pokemonNameValue) {
-            $('.search-area-card-col').append(`<p class="search-response">Please eneter pokemon name.</p>`);
+            App.cardCollection.children().show();
+            if (!$('.search-response')) {
+                $('.search-area-card-col').append(`<p class="search-response">Please eneter pokemon name.</p>`);
+            }
         }
         else {
             var card = $('#card-collection').children(`img[alt=${pokemonNameValue.toLowerCase()}]`);
@@ -761,6 +888,9 @@ $(document).ready(() => { //after DOM is ready...
                     }
                     else {
                         card.trigger('click');
+                        if (App.filtered.indexOf(pokemon) !== 0) {
+                            pokemon.removeClass('card-active');
+                        }
                     }
 
                 }
@@ -770,8 +900,31 @@ $(document).ready(() => { //after DOM is ready...
 
     });
 
+
     App.tutorialButton.click(() => { //displays tutorial
         $('.tutorial').toggle('slow');
+
+    });
+
+    App.cancelSearchSelect.click(() => {
+        $('.search-response').remove();
+        App.cancelSearchSelect.hide();
+        App.filtered = [];
+        App.pokemonSelect.children().show();
+
+    });
+    App.cancelSearchCol.click(() => {
+        $('.search-response').remove();
+        App.cancelSearchCol.hide();
+        App.filtered = [];
+        App.pokemonCollection.children().show();
+
+    });
+    App.cancelSearchCard.click(() => {
+        $('.search-response').remove();
+        App.cancelSearchCard.hide();
+        App.filtered = [];
+        App.cardCollection.children().show();
 
     });
 
