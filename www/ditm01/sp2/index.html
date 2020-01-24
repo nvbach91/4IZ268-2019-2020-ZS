@@ -5,19 +5,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="website, which allows you to manage your calendar" />
+    <meta name="author" content="Martin Ditz" />
+    <meta name="keywords" content="calendar google events" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap">
+    <link rel="icon" href="./res/favicon.png">
     <title>Calendar Management</title>
-    <link rel="stylesheet"  href="main.css">
 </head>
 
 <body>
     <header>
-        <h1 class="heading">Manage Your Calendar</h1>
+        <h1 class="heading">Manage your calendar</h1>
+        <div id="user"></div>
+        <button class="sign-in" id="authorize_button">Sign in</button>
+        <button class="sign-out" id="signout_button">Sign out</button>
     </header>
+    <main>
+        <form id="event-form">
+            <h2>Create new event</h2>
+            <label>Title</label>
+            <input id="title-input" class="input" type="text" required placeholder="Add title">
+            <label>Starting date</label>
+            <input id="start-picker" class="input" type="text" required>
+            <label>Starting time</label>
+            <input id="timestart" class="input" type="time">
+            <label>Ending date</label>
+            <input id="end-picker" class="input" type="text" required>
+            <label>Ending time</label>
+            <input id="timeend" class="input" type="time">
+            <label>Location</label>
+            <input id="location-input" class="input" type="text" placeholder="Add location">
+            <label>Description</label>
+            <textarea id="description-input" class="input" placeholder="Add description"></textarea>
+            <div class="buttons">
+                <button class="submit-button">Save your event</button>
+                <button class="reset-button" type="reset">Reset</button>
+            </div>
+        </form>
+        <div class="events-list">
+            <h2>List of events</h2>
+            <ul id="events-list"></ul>
+        </div>
+        <div class="detail-event">
+            <h2>Details of the event</h2>
+            <div id="detail-info"></div>
+        </div>
+    </main>
+
+    <pre id="content"></pre>
+
+    <footer>
+        <p>Vysoká škola ekonomická</p>
+        <p>ditm01</p>
+        <p>4IZ268 Webové technologie</p>
+        <p>Semestrální práce</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
     <script src="main.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </body>
 
 </html>
