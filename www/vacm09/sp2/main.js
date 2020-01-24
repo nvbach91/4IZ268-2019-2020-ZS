@@ -15,6 +15,10 @@ $(document).ready(function () {
 
         let params = buildApiParams(name, year, type);
 
+        $(".loading-icon").removeClass("hide");
+        $("#searchButton").attr("disabled", true);
+
+
         $.ajax({
             method: 'GET',
             url: 'http://www.omdbapi.com/',
@@ -25,7 +29,7 @@ $(document).ready(function () {
                     alert('Nebyly nalezeny žádné výsledky');
                     return;
                 }
-                $(".js-results").html('');
+                $(".js-results").html("")
                 $(".js-results").append(buildResultsHTML(response));
             },
             error: () => {
@@ -33,7 +37,13 @@ $(document).ready(function () {
             }
         })
 
+        setTimeout(function () {
+            $(".loading-icon").addClass("hide");
+            $("#searchButton").attr("disabled", false);
+        }, 3000)
+
     });
+
 
     $(document).on("click", ".favoriteButton", function () {
         var favoriteImdbID = $(this).val();
@@ -41,15 +51,27 @@ $(document).ready(function () {
         if (!isInFavorites(favoriteImdbID)) {
             addToFavoriteMovies(favoriteImdbID);
             document.getElementById(`favorite-${favoriteImdbID}`).innerHTML = 'Odebrat z oblíbených';
+            $.notify(
+                "Film byl přidán do oblíbených!", 'success'
+                );
         } else {
             removeFromFavorites(favoriteImdbID);
             document.getElementById(`favorite-${favoriteImdbID}`).innerHTML = 'Přidat do oblíbených';
+            $.notify('Film byl odebrán z oblíbených', 'error');
         }
     });
+
 
     $(document).on("click", ".detailButton", (event) => {
         localStorage.setItem("detailMovieID", event.target.id);
     });
+    
+    $(document).on("click", ".poster", (event) => {
+        console.log("EVENT", event.target.id);
+        localStorage.setItem("detailMovieID", event.target.id);
+        window.location.replace('./detail.html')
+    });
+
 });
 
 function addToFavoriteMovies(imdbID) {
@@ -80,14 +102,15 @@ function buildResultsHTML(res) {
         }
         html +=
             `<div id="${movie.imdbID}" class='movieItem'>
-                <h2>${movie.Title} (${movie.Year})</h2>
-                <img width: '50px' src='${movie.Poster}' alt="Movie image"/>
+                <h2>${movie.Title} (${movie.Year})</h2>        
+                <img id="${movie.imdbID}" class="poster" width='300' src="${movie.Poster === "N/A" ? "notfound.png" : movie.Poster}" alt="Movie image"/>
                 <button id="favorite-${movie.imdbID}" class="favoriteButton" value="${movie.imdbID}">${buttonText}</button>
                 <a id="${movie.imdbID}" class="detailButton" href="detail.html">Více informací</a>
             </div>`;
     });
     return html;
 }
+
 
 function buildApiParams(name, year, type) {
     let params = {

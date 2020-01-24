@@ -6,6 +6,13 @@ $(document).ready(function () {
         $(".favorites").html('<h3>Nemáte žádné filmy ve svém seznamu</h3>');
     }
     getMovieDetails(favoriteMovies);
+
+    $(document).on("click", ".getBack", function () {
+        var favoriteImdbID = $(this).val();
+        removeFromFavorites(favoriteImdbID);
+        $(this).parent().remove();
+    })
+
 });
 
 function getMovieDetails(imdbIDs) {
@@ -38,13 +45,24 @@ function buildDetailHTML(movie) {
         `<div class='movieDetailItem'>
             <h2>${movie.title} (${movie.year})</h2>
             <img width="150px" src="${movie.poster}" alt="Movie poster image">
+            <button class="getBack">Odebrat z oblíbených</button>
             <h3>Délka filmu: ${movie.length}</h3>
             <h3>Hodnotilo lidí: ${movie.rating_votes}</h3>
             <h3>Hodnocení: ${movie.rating}</h3>
+            <div class="track">
+            <div style="width:${movie.rating*10}px;background-color:yellow;height:21px;"></div>
+            </div>
             <p>${movie.plot}</p>
             <br>
-            <b>Hrají: </b>${actors}
+            <strong>Hrají: </strong>${actors}
         </div>`;
 
     return html;
+}
+
+function removeFromFavorites(imdbID) {
+    let movieList = JSON.parse(localStorage.getItem("favoriteMovies"));
+    movieList.splice(movieList.indexOf(imdbID), 1);
+    localStorage.setItem("favoriteMovies", JSON.stringify(movieList));
+    $.notify('Film byl odebrán z oblíbených','error');
 }

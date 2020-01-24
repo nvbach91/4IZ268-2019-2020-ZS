@@ -5,7 +5,6 @@ $(document).ready(function () {
     if (!detailMovieID) {
         window.location.replace('./index.html')
     }
-
     $.ajax({
         method: 'GET',
         url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${detailMovieID}`,
@@ -18,7 +17,6 @@ $(document).ready(function () {
                 alert('Detail filmu nebyl nalezen');
                 return;
             }
-            $(".movieDetail").html('');
             $(".movieDetail").append(buildDetailHTML(response));
         },
         error: () => {
@@ -33,14 +31,16 @@ function buildDetailHTML(movie) {
     html +=
         `<div class='movieDetailItem'>
             <h2>${movie.title} (${movie.year})</h2>
-            <img width="300px" src="${movie.poster}" alt="Movie poster image">
+            <img width="250" src="${movie.poster}" alt="Movie poster image">
             <h3>Délka filmu: ${movie.length}</h3>
             <h3>Hodnotilo lidí: ${movie.rating_votes}</h3>
             <h3>Hodnocení: ${movie.rating}</h3>
+            <div class="track">
+            <div style="width:${movie.rating*10}px;background-color:yellow;height:21px;"></div>
+            </div>
             <p>${movie.plot}</p>
             <br>
-            <b>Hrají: </b>${actors}
-            
+            <strong>Hrají: </strong>${actors}        
         </div>`;
     return html;
 }

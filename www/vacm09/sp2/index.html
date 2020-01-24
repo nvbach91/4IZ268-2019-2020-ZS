@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Alata&display=swap" rel="stylesheet">
-    <link rel='icon' href='favicon.ico' type='image/x-icon' />
-    <link rel="stylesheet" href="main.css">
+    <link href='favicon.ico' rel='icon' type='image/x-icon' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="main.css" rel="stylesheet">
     <title>Filmová databáze</title>
 </head>
 
 <body>
     <header>
-        <img src="video.png" alt="logo camera" width="80px">
+        <img src="video.png" alt="logo camera" width="80">
         <h1>
             <a href="index.html">~Filmová databáze~</a>
         </h1>
@@ -21,14 +22,17 @@
     <div class="search">
         <form>
             <input type="search" placeholder="Najdi si svůj film!(anglicky)" required="required" class="js-name">
-            <input type="text" placeholder="Rok vydání" class="js-year">
+            <input type="number" placeholder="Rok vydání" class="js-year">
             <select class="js-type">
-                <option value="" selected="selected">vyber typ</option>
+                <option value="">vyber typ</option>
                 <option value="episode">epizoda</option>
                 <option value="series">seriál</option>
                 <option value="movie">film</option>
             </select>
-            <button id="searchButton">Hledej</button>
+            <button id="searchButton">
+                <i class="loading-icon fa fa-spinner fa fa-spin hide"></i>
+                Hledej
+            </button>
         </form>
     </div>
     <div class="link">
@@ -40,6 +44,7 @@
         &copy; Miloslav Vach, 2020
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js"></script>
     <script src="main.js"></script>
 </body>
 
