@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WeatherAPI</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpeg" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div id="header">
+            <h1><a href=index.html>Aktuální počasí</a></h1>
+        </div>
+        <div id="searchContainer">
+            <input type="text" placeholder="Zadej město" id="searchInput">
+            <button id="searchBtn">Hledej</button> <br>
+            <input type="checkbox" id="favouriteBtn">Přidat k oblíbeným<br>
+        </div>
+
+        <div class="select">
+            <select id="selectBox" name="Oblíbená města">
+                <option id="favItem" value="" selected disabled>---Oblíbená města---</option>
+            </select>
+        </div>
+    </header>
+
+    <div id="weatherContainer">
+        <h2 id="cityHeader">Město</h2>
+        <br>
+        <div id="weatherIcon"><img id="documentIconImg"></div>
+        <br>
+        <table>
+            <tr>
+                <td>Popis:</td>
+                <td id="desc">--</td>
+            </tr>
+            <tr>
+                <td>Teplota:</td>
+                <td id="temp">--</td>
+            </tr>
+            <tr>
+                <td>Minimum:</td>
+                <td id="minTemp">--</td>
+            </tr>
+            <tr>
+                <td>Maximum:</td>
+                <td id="maxTemp">--</td>
+            </tr>
+            <tr>
+                <td>Tlak:</td>
+                <td id="pressure">--</td>
+            </tr>
+            <tr>
+                <td>Vlhkost:</td>
+                <td id="humidity">--</td>
+            </tr>
+            <tr>
+                <td>Rychlost větru:</td>
+                <td id="windSpeed">--</td>
+            </tr>
+        </table>
+    </div>
+    <div id="showImage"></div>
+
+
+    <div class="footer">
+        <p>4IT268 - Webové technologie, PAVM14. <a href="http://www.openweathermap.org">WeatherAPI</a>.</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://api.mapy.cz/loader.js"></script>
+    <script>Loader.load(null, { suggest: true });</script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
