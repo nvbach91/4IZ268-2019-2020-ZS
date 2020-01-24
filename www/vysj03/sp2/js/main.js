@@ -1,7 +1,7 @@
 $(document).ready(() => {
     $("#buttonNav").click(navigate);
     $("#buttonCancel").click(cancelRoute);
-    $("#buttonAdd").click(adddUnesco);
+    $("#buttonAdd").click(addUnesco);
 
     var m = new SMap(JAK.gel("map"));
     m.addDefaultLayer(SMap.DEF_BASE).enable();
@@ -22,31 +22,31 @@ $(document).ready(() => {
     var startMark = "https://api.mapy.cz/img/api/marker/drop-red.png";
     var markers = [];
     var coords = [];
-    var startPoint;
     var data;
+    var startPoint;
     var clickedMarker = false;
     var endPointCoords;
     var image = $("#image");
     var unesco = $("#unesco");
     var pathInfo = $("#path");
 
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            data = JSON.parse(this.responseText);
-            addInfo(data);
-        }
-    };
-    xmlhttp.open("GET", "json/data.json", true);
-    xmlhttp.send();
-
     var layer = new SMap.Layer.Marker();
     m.addLayer(layer);
     layer.enable();
     var unescoList = '';
 
+    $.ajax({
+        dataType: "json",
+        url: "https://api.myjson.com/bins/15rdki",
+        data: "json",
+        success: function(items) {
+            data = items;
+            addInfo(items);
+        }
+    });
+
     function addInfo(data) {
-        $.each(data, function (key, value) {
+        $.each(data, function(key, value) {
             var c = SMap.Coords.fromWGS84(value.coordinates);
             var options = {
                 url: picture,
@@ -104,8 +104,7 @@ $(document).ready(() => {
 
         if (startPoint) {
             startPointCoords = startPoint._coords;
-        }
-        else {
+        } else {
             startPointCoords = SMap.Coords.fromWGS84(14.41790, 50.12655);
             var options = {
                 url: startMark,
@@ -120,11 +119,11 @@ $(document).ready(() => {
         var coords = [startPointCoords, endPointCoords]
         var route = new SMap.Route(coords, found);
     };
+
     function mapClick(e) {
         if (clickedMarker) {
             clickedMarker = false;
-        }
-        else {
+        } else {
             var startPointCoords = SMap.Coords.fromEvent(e.data.event, m);
             if (startPoint) {
                 layer.removeMarker(startPoint);
@@ -178,12 +177,14 @@ $(document).ready(() => {
         pathInfo.html("");
         image.removeAttr("src");
         image.removeAttr("alt");
+        var centerZoom = m.computeCenterZoom(coords);
+        m.setCenterZoom(centerZoom[0], centerZoom[1]);
     };
 
     function noStartPoint() {
         if ("geolocation" in navigator) {
             console.log("GPS dostupná");
-            navigator.geolocation.getCurrentPosition(function (position) {
+            navigator.geolocation.getCurrentPosition(function(position) {
                 var lat = position.coords.latitude;
                 var lon = position.coords.longitude;
                 startPointCoords = SMap.Coords.fromWGS84(lon, lat);
@@ -202,6 +203,7 @@ $(document).ready(() => {
         startPoint.decorate(SMap.Marker.Feature.Draggable);
         layer.addMarker(startPoint);
     };
+
     function navigate() {
         if (startPoint) {
             layer.removeMarker(startPoint);
@@ -224,58 +226,52 @@ $(document).ready(() => {
         var route = new SMap.Route(coords, found);
     };
 
-    var favorites = $("#favorites");
+
 
     function addUnesco() {
-        var object = $("#select")[0].selectedIndex;
+        var favorite = JSON.parse(localStorage.getItem("favorite") || "[]");
 
         for (var i = 0; i < data.length; i++) {
-            if (data[i].id - 1 === object) {
-                var favorite = $("#select")[0].value;
-                object = {
+            var objectt = $("#select")[0].selectedIndex;
+
+            if (data[i].id - 1 === objectt) {
+
+                var object = {
                     name: data[i].name,
                     image: data[i].image
                 };
-                localStorage.setItem(favorite, JSON.stringify(object));
+                favorite.push(object);
+                console.log(favorite);
             }
+
+            localStorage.setItem("favorite", JSON.stringify(favorite));
+            reload();
+
         }
     }
 
-    function savedUnesco(name) {
-        var saveName = $("<div>")
-            .addClass("save-unesco")
-            .text(name)
-        return saveName;
+    function reload() {
+        var html = "";
+
+        JSON.parse(localStorage.getItem("favorite")).forEach(function(favorite) {
+            html += `<div class='favorite'><div class='favorite-name'>${favorite.name}</div><button class='remove-favorite'>remove</button></div>`
+
+        });
+        $("#favorites").empty().append(html);
+
+        $("#favorites .remove-favorite").click(function() {
+            removeFavorites($(this));
+        });
     }
+    reload();
 
-    function adddUnesco() {
-        favorites.html("");
-        addUnesco();
-        loadStorage();
+    function removeFavorites(removeButton) {
+
+        var favorite = JSON.parse(localStorage.getItem("favorite"));
+        var newFavorites = favorite.filter((favorite) => {
+            return favorite.name !== removeButton.siblings(".favorite-name").text();
+        })
+        localStorage.setItem("favorite", JSON.stringify(newFavorites));
+        removeButton.parent().remove();
     }
-
-    function deleteUnesco(saveFavorite) {
-        var deleteContent = $("<button>")
-            .addClass("delete")
-            .text("odebrat")
-            .click(function () {
-                localStorage.removeItem($(this).siblings()[0].lastChild.data);
-                saveFavorite.remove();
-            });
-        return deleteContent;
-    }
-
-    function loadStorage() {
-        for (var i = 0; i < localStorage.length; i++) {
-            var saveFavorite = $('<li>').addClass('save-content');
-            var value = localStorage.key(i);
-            var saveName = savedUnesco(value);
-            var deleteContent = deleteUnesco(saveFavorite);
-            saveFavorite.append(saveName);
-            saveFavorite.append(deleteContent);
-            favorites.append(saveFavorite);
-        }
-    };
-    loadStorage();
-
 });

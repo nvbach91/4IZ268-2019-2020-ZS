@@ -75,7 +75,8 @@ main {
     line-height: 1.5;
 }
 
-#unesco, #path {
+#unesco,
+#path {
     display: flex;
     text-align: left;
     padding: 10px;
@@ -97,15 +98,11 @@ main {
     width: 100%;
 }
 
-#favorites {
-    padding: px;
-}
-
-.save-content {
+.favorite {
     padding: 10px;
 }
 
-.delete {
+.remove-favorite {
     margin-top: 5px;
     padding: 10px;
     color: white;
