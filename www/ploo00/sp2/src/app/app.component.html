@@ -1,0 +1,101 @@
+<header>
+    <div>
+        <h2><a href="index.html"><img class="favicon" src="assets/media/favicon.png" alt="favicon">Hudební databáze</a>
+        </h2>
+    </div>
+</header>
+
+
+<div class="container-search">
+    <h4>Vyhledávání hudby</h4>
+    <form id="searchForm">
+        <input name="searchInput" [(ngModel)]="inputSearch" type="text" placeholder="Vyhledejte hudbu...">
+        <button type="submit">Go!</button>
+    </form>
+    <script>
+        var input = document.getElementByName('searchForm');
+        input.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementByName("searchInput").click();
+            }
+        });
+    </script>
+</div>
+<div class="wrapper">
+    <div class="info" *ngIf="split">
+        <div class="favs">
+            <h2 *ngIf="favourites.length > 0"><img src='./assets/media/heart.png' class='favicon'>Favourites</h2>
+            <div *ngFor="let item of favourites">
+                <a id="item" (click)="changeSong(item)" onmouseover="this.style.cursor='pointer'"
+                    onmouseout="this.style.cursor='default'">
+                    {{item.result[0].songName}}
+                </a>
+            </div>
+        </div>
+        <form id="favouritesForm">
+            <button type="submit" class="button-favs"><img class="favouriteButton" src="assets/media/like.png"
+                    alt="like">
+                Přidat do oblíbených
+            </button>
+        </form>
+
+        <table>
+            <tr>
+                <td>Album Title:</td>
+                <td>{{ this.split.result[0].albumTitle }}</td>
+            </tr>
+            <tr>
+                <td>Artist:</td>
+                <td>{{ this.split.result[0].artist }}</td>
+            </tr>
+            <!-- <tr>
+                <td>Featured Artists:</td>
+                <td>{{ this.split.result[0].featuredArtists }}</td>
+            </tr> -->
+            <tr>
+                <td>Genre:</td>
+                <td>{{ this.split.result[0].genre }}</td>
+            </tr>
+            <tr>
+                <td>Release Date:</td>
+                <td>{{ this.split.result[0].releaseDate }}</td>
+            </tr>
+            <tr>
+                <td>Song Name:</td>
+                <td>{{ this.split.result[0].songName }}</td>
+            </tr>
+            <!-- <tr>
+                        <td>Thumbnails:</td>
+                        <td>{{ this.split.result[0].thumbnails }}</td>
+                    </tr> -->
+        </table>
+        <table *ngIf="upperCaseSplit" class="lyrics">
+            <tr *ngFor="let item of upperCaseSplit">
+                <td>
+                    {{item}}
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <div *ngIf="!split && !first">
+        
+        Výsledek nenalezen.
+    </div>
+    <div>
+        <ngx-spinner type="pacman" color="yellow">
+            <p class="loading">Loading awesomness!!!</p>
+        </ngx-spinner>
+    </div>
+    <div class="video" *ngIf="split">
+        <iframe class="youtube" [src]="youtubeVideo | safe">
+        </iframe>
+    </div>
+
+</div>
+
+
+<footer>
+    <div class="footer-text">© 2020 Plotnikova Oleksandra</div>
+</footer>

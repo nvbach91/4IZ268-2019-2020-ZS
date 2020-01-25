@@ -1,0 +1,114 @@
+* {
+    box-sizing: border-box;
+}
+
+header {
+    padding: 2% 5% 1% 5%;
+    
+}
+
+.loading {
+    font-size: 20px; 
+    color: white;
+    text-align: center;
+}
+
+.favicon {
+    width: 32px;
+    height: 32px;
+}
+
+.favouriteButton {
+    width: 22px;
+    height: 22px;
+}
+
+footer {
+    position: fixed;
+    margin: 0;
+    height: 4%;
+    width: 100%;
+    bottom: 0;
+    background-color: #312F3D;
+    background: url(/assets/media/background-search.jpg);
+}
+
+.footer-text {
+    margin-left: 2%;
+    margin-top: 5px;
+}
+
+.container-search {
+    width: 80%;
+    /* height: 20%; */
+    margin: 0 0 0 10%;
+    padding: 2% 15% 2% 15%;
+    background: url(/assets/media/background-search.jpg);
+    border-radius: 1%;
+    position: sticky;
+    top: 0px;
+}
+
+
+.video {
+    width: 50%;
+    float: left;
+    position: fixed;
+    right: 0;
+    /* min-height: 450px; */
+}
+
+
+iframe {
+    width: 600px;
+    height: 400px;
+}
+
+.right {
+    text-align: right;
+}
+
+.info {
+    width: 50%;
+    float: left;
+    margin-left: 5%;
+}
+
+.wrapper {
+    width: 100%;
+    padding: 5% 0 0 5%;
+}
+
+.youTube {
+    box-sizing: border-box;
+}
+
+table {
+    text-align: center;
+    width: 70%;
+    padding: 3%;
+}
+
+td {
+    border-bottom: 1px solid #ddd;
+    height: 8%;
+}
+
+.lyrics {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 8%;
+}
+
+.button-favs {
+    margin-bottom: 3%;
+}
+
+.favs {
+    padding: 2% 0 5% 0;
+}
+
+.lyrics td {
+    border: none;
+}
+

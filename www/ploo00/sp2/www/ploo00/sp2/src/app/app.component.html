@@ -1,0 +1,85 @@
+<header>
+    <div class="row">
+        <div class="col-sm-6">
+            <h2><a href="index.html"><img src="assets/media/favicon.png" width="32px" height="32px">Hudební databáze</a>
+            </h2>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container-search">
+        <h4>Vyhledávání hudby</h4>
+        <form>
+            <input name="searchInput" [(ngModel)]="input" type="text" placeholder="Vyhledejte hudbu...">
+            <button (click)="Search()" type="submit">Go!</button>
+        </form>
+    </div>
+    <div class="wrapper">
+
+        <div class="info" *ngIf="split">
+            <button (click)="addToFavourites()" class="button-favs"><img src="assets/media/like.png" width="22px"
+                    height="22px">
+                Přidat do oblíbených
+            </button>
+            <table>
+                <tr>
+                    <td>Album Title:</td>
+                    <td>{{ this.split.result[0].albumTitle }}</td>
+                </tr>
+                <tr>
+                    <td>Artist:</td>
+                    <td>{{ this.split.result[0].artist }}</td>
+                </tr>
+                <!-- <tr>
+                <td>Featured Artists:</td>
+                <td>{{ this.split.result[0].featuredArtists }}</td>
+            </tr> -->
+                <tr>
+                    <td>Genre:</td>
+                    <td>{{ this.split.result[0].genre }}</td>
+                </tr>
+                <tr>
+                    <td>Release Date:</td>
+                    <td>{{ this.split.result[0].releaseDate }}</td>
+                </tr>
+                <tr>
+                    <td>Song Name:</td>
+                    <td>{{ this.split.result[0].songName }}</td>
+                </tr>
+                <!-- <tr>
+                    <td>Thumbnails:</td>
+                    <td>{{ this.split.result[0].thumbnails }}</td>
+                </tr> -->
+            </table>
+            <table class="lyrics">
+                <div *ngFor="let item of upperCaseSplit">
+                    {{ item }}
+                </div>
+            </table>
+            <div class="favs">
+                <h2 *ngIf="favourites">Favourites</h2>
+                <div>
+                    <span *ngFor="let item of favourites">
+                        <p>
+                            {{ item }}
+                        </p>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="video" *ngIf="split">
+            <iframe width="600px" height="400px" class="youtube" [src]="youtubeVideo | safe" scrolling="no"
+                frameborder="0">
+            </iframe>
+
+        </div>
+    </div>
+</main>
+
+
+<footer>
+    <div class="footer-text">© 2020 Plotnikova Oleksandra</div>
+</footer>
