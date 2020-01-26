@@ -1,3 +1,0 @@
-services:
-	- App\Modules\Lab\Model\LabManager()
-#	- App\Modules\Lab\Model\PageInsights('AIzaSyA6hOvvprvKzGtqRn6abcO9ZCMB3ppbhYU')
