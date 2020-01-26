@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<title>Example of the Authorization Code flow with Spotify</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $( function() {
+
+    var api_url = 'https://accounts.spotify.com/authorize'
+    var client_id = '8c7602a751304da5aecb8e4c9a3a6a6f'
+    var redirected_uri = 'https:%2F%2Fgoogle.com'
+
+    $( "#btn" ).click( function( event ) {
+
+        $.ajax({
+        type: 'GET',
+        url: api_url + "?client_id=" + client_id + "&redirected_uri=" + redirected_uri + "&scope=user-read-private%20user-read-email&response_type=token&state=123",
+        success: function(result){
+            window.alert(1)
+        }
+    })
+      } );
+    } );
+    </script>
+</head>
+
+<body>
+    <input id="btn" type="submit" value="A submit button">
+</body>
+
+</html>
