@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>Music Quiz</title>
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    const token = new URL(window.location).hash.split('&').filter(function(el) { if(el.match('access_token') !== null) return true; })[0].split('=')[1];
+    var my_device_id = ""; 
+    
+    $( function() {
+
+        window.onSpotifyWebPlaybackSDKReady = () => {
+            const player = new Spotify.Player({
+            name: 'quiz-player',
+            getOAuthToken: cb => { cb(token); }
+        });
+        
+        // Error handling
+        player.addListener('initialization_error', ({ message }) => { console.error(message); });
+        player.addListener('authentication_error', ({ message }) => { console.error(message); });
+        player.addListener('account_error', ({ message }) => { console.error(message); });
+        player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+        // Playback status updates
+        player.addListener('player_state_changed', state => { console.log(state); });
+
+        // Ready
+        player.addListener('ready', ({ device_id }) => {
+            console.log('Ready with Device ID', device_id);
+            my_device_id = device_id;
+            $.ajax({
+                url: 'https://api.spotify.com/v1/me/player',
+                type: 'PUT',
+                contentType: "application/json",
+                headers: {
+                    'Authorization' : 'Bearer ' + token,
+                },
+                data: JSON.stringify({ device_ids: [my_device_id] }),
+                success: function(data) {
+                    console.log(data);
+                }
+            })
+        });
+
+        // Not Ready
+        player.addListener('not_ready', ({ device_id }) => {
+            console.log('Device ID has gone offline', device_id);
+        });
+        
+        // Connect to the player!
+        player.connect();
+
+        console.log("deviceid: " + my_device_id)
+        
+
+        };
+
+        $( "#btn-play" ).click( function( event ) {
+        $.ajax({
+            url: 'https://api.spotify.com/v1/me/player/play',
+            type: 'PUT',
+            contentType: "application/json",
+            headers: {
+                'Authorization' : 'Bearer ' + token,
+            },
+            data: JSON.stringify({ device_id: my_device_id }),
+            success: function(data) {
+                console.log(data);
+            }
+        })
+    })
+    });
+
+</script>
+
+</head>
+
+<body>
+    <h1>QUIZ</h1>
+
+    <input id="btn-play" type="submit" value="Play button">
+    <input id="btn-device" type="submit" value="Get Device">
+    
+    
+    
+    
+    
+    
+    <script>
+        
+    
+    </script>
+</body>
+
+</html>

@@ -10,19 +10,12 @@
 
     var api_url = 'https://accounts.spotify.com/authorize'
     var client_id = '8c7602a751304da5aecb8e4c9a3a6a6f'
-    var redirected_uri = 'https:%2F%2Feso.vse.cz%2F~sala01%2Fsp2next%2F'
+    var redirect_uri = 'https://eso.vse.cz/~sala01/sp2next/quiz.html'
+    var scopes = "user-read-private user-read-email streaming user-modify-playback-state user-read-playback-state"
 
     $( "#btn" ).click( function( event ) {
-
-        /*$.ajax({
-        type: 'GET',
-        url: api_url + "?client_id=" + client_id + "&redirected_uri=" + redirected_uri + "&scope=user-read-private%20user-read-email&response_type=token&state=123",
-        success: function(result){
-            window.alert(1)
-        }*/
-        window.location.assign(api_url + "?client_id=" + client_id + "&redirect_uri=" + redirected_uri + "&scope=user-read-private%20user-read-email&response_type=token&state=123");
+        window.location.assign(api_url + "?client_id=" + client_id + "&redirect_uri=" + encodeURIComponent(redirect_uri) + "&scope=" + encodeURIComponent(scopes) + "&response_type=token&state=123");
     })
-      //} );
     } );
     </script>
 </head>
