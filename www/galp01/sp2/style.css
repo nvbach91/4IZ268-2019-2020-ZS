@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    height: 80vh;
+    justify-content: center;
+    align-items: left;
+    background: radial-gradient(ellipse at center, rgba(167,204,219,1) 0%, rgba(106,201,230,1) 52%, rgba(124,185,207,1) 77%, rgba(124,185,207,1) 100%);
+}
+#icon1{
+    width: 44;
+    height: 44
+
+}
+.days{
+    font-weight: bold;
+    font-size: large;
+}
+#forecast{
+   width: 20vw;
+background-color: rgb(255,255,255,0.4);
+
+}
+.things{
+    display:flex ;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.loader {
+    margin: auto;
+    border: 16px solid whitesmoke;
+    border-radius: 90%;
+    border-top: 16px solid #6C757D;
+    border-bottom:16px solid #6C757D;
+    width: 2vw;
+    height: 2vw;
+    animation: spin 1.5s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
