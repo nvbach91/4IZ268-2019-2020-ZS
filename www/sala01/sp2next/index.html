@@ -5,23 +5,14 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-    $( function() {
-
-    var api_url = 'https://accounts.spotify.com/authorize'
-    var client_id = '8c7602a751304da5aecb8e4c9a3a6a6f'
-    var redirect_uri = 'https://eso.vse.cz/~sala01/sp2next/quiz.html'
-    var scopes = "user-read-private user-read-email streaming user-modify-playback-state user-read-playback-state"
-
-    $( "#btn" ).click( function( event ) {
-        window.location.assign(api_url + "?client_id=" + client_id + "&redirect_uri=" + encodeURIComponent(redirect_uri) + "&scope=" + encodeURIComponent(scopes) + "&response_type=token&state=123");
-    })
-    } );
-    </script>
+<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+<script src="assets/js/index.js"></script>
 </head>
 
 <body>
-    <input id="btn" type="submit" value="A submit button">
+    <h1>Welcome to Music Quiz</h1>
+    <div id="btn" class="control">Let's Start</div>
+
 </body>
 
 </html>

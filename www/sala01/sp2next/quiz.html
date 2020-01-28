@@ -5,93 +5,25 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-<script src="quiz.js"></script>
-<link rel="stylesheet" type="text/css" href="style.css">
-<script>
-    const token = new URL(window.location).hash.split('&').filter(function(el) { if(el.match('access_token') !== null) return true; })[0].split('=')[1];
-    var my_device_id = ""; 
-    
-    $( function() {
-
-        window.onSpotifyWebPlaybackSDKReady = () => {
-            const player = new Spotify.Player({
-            name: 'quiz-player',
-            getOAuthToken: cb => { cb(token); }
-        });
-        
-        // Error handling
-        player.addListener('initialization_error', ({ message }) => { console.error(message); });
-        player.addListener('authentication_error', ({ message }) => { console.error(message); });
-        player.addListener('account_error', ({ message }) => { console.error(message); });
-        player.addListener('playback_error', ({ message }) => { console.error(message); });
-
-        // Playback status updates
-        player.addListener('player_state_changed', state => { console.log(state); });
-
-        // Ready
-        player.addListener('ready', ({ device_id }) => {
-            console.log('Ready with Device ID', device_id);
-            my_device_id = device_id;
-            //Choose this device to allow play in Browser
-            $.ajax({
-                url: 'https://api.spotify.com/v1/me/player',
-                type: 'PUT',
-                contentType: "application/json",
-                headers: {
-                    'Authorization' : 'Bearer ' + token,
-                },
-                data: JSON.stringify({ device_ids: [my_device_id] }),
-                success: function(data) {
-                    console.log(data);
-                }
-            })
-        });
-
-        // Not Ready
-        player.addListener('not_ready', ({ device_id }) => {
-            console.log('Device ID has gone offline', device_id);
-        });
-        
-        // Connect to the player!
-        player.connect();
-
-        console.log("deviceid: " + my_device_id)
-        
-
-        };
-
-        $( "#next" ).click( function( event ) {
-        $.ajax({
-            url: 'https://api.spotify.com/v1/me/player/play',
-            type: 'PUT',
-            contentType: "application/json",
-            headers: {
-                'Authorization' : 'Bearer ' + token,
-            },
-            data: JSON.stringify({ device_id: my_device_id }),
-            success: function(data) {
-                console.log(data);
-            }
-        })
-    })
-    });
-
-</script>
-
+<script src="assets/js/quiz.js"></script>
+<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
 <body>
 
     <div class="playlists-panel">
-        <div class="playlist-wrap">
-            <h3>Playlists</h3>
-            <div class="playlists-row">
-                <div class="playlist" id="1">1</div>
-                <div class="playlist" id="2">2</div>
-                <div class="playlist" id="3">3</div>
+        <div class="playlist-mainwrap">
+            <div class="playlist-wrap">
+                <h3>Playlists</h3>
+                <div class="playlists-row">
+                    <div class="playlist" id="playlist1">All Out 80s</div>
+                    <div class="playlist" id="playlist2">Best POP Songs</div>
+                    <div class="playlist" id="playlist3">Classic Esential</div>
+                </div>
             </div>
+            <div class="start-playlist" id="load-playlist">START</div>
         </div>
-        <div class="start-playlist">START</div>
+        <input type="text" id="playlist-uri" placeholder="Input playlist's URI" class="playlist-uri-input">
     </div>
 
     <div class="score-panel">
@@ -102,14 +34,16 @@
 
     <div class="control-panel">
         <div class="control-line">
-            <div class="option" id="1option"></div>
+            <div class="option" id="option1"></div>
+            <div class="control" id="pause">PAUSE</div>
             <div class="control" id="next">NEXT</div>
-            <div class="option" id="2option"></div>
+            <div class="control" id="play">PLAY</div>
+            <div class="option" id="option2"></div>
         </div>
         <div class="control-line">
-            <div class="option" id="3option"></div>
+            <div class="option" id="option3"></div>
             <div class="control" id="add">ADD</div>
-            <div class="option" id="4option"></div>
+            <div class="option" id="option4"></div>
         </div>
     </div>
 
