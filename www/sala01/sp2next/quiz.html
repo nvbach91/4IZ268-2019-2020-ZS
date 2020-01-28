@@ -4,6 +4,9 @@
 <script src="https://sdk.scdn.co/spotify-player.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+<script src="quiz.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
 <script>
     const token = new URL(window.location).hash.split('&').filter(function(el) { if(el.match('access_token') !== null) return true; })[0].split('=')[1];
     var my_device_id = ""; 
@@ -29,6 +32,7 @@
         player.addListener('ready', ({ device_id }) => {
             console.log('Ready with Device ID', device_id);
             my_device_id = device_id;
+            //Choose this device to allow play in Browser
             $.ajax({
                 url: 'https://api.spotify.com/v1/me/player',
                 type: 'PUT',
@@ -56,7 +60,7 @@
 
         };
 
-        $( "#btn-play" ).click( function( event ) {
+        $( "#next" ).click( function( event ) {
         $.ajax({
             url: 'https://api.spotify.com/v1/me/player/play',
             type: 'PUT',
@@ -77,20 +81,41 @@
 </head>
 
 <body>
-    <h1>QUIZ</h1>
 
-    <input id="btn-play" type="submit" value="Play button">
-    <input id="btn-device" type="submit" value="Get Device">
+    <div class="playlists-panel">
+        <div class="playlist-wrap">
+            <h3>Playlists</h3>
+            <div class="playlists-row">
+                <div class="playlist" id="1">1</div>
+                <div class="playlist" id="2">2</div>
+                <div class="playlist" id="3">3</div>
+            </div>
+        </div>
+        <div class="start-playlist">START</div>
+    </div>
+
+    <div class="score-panel">
+        <div >Winstrike</br><div id="winstrike">5</div></div>
+        <div class="info">Try to guess</div>
+        <div >Score</br><div id="score">6</div></div>
+    </div>
+
+    <div class="control-panel">
+        <div class="control-line">
+            <div class="option" id="1option"></div>
+            <div class="control" id="next">NEXT</div>
+            <div class="option" id="2option"></div>
+        </div>
+        <div class="control-line">
+            <div class="option" id="3option"></div>
+            <div class="control" id="add">ADD</div>
+            <div class="option" id="4option"></div>
+        </div>
+    </div>
+
+
     
     
-    
-    
-    
-    
-    <script>
-        
-    
-    </script>
 </body>
 
 </html>
