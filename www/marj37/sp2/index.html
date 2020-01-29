@@ -1,38 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://api.mapy.cz/loader.js"></script>
-    <script>Loader.load();</script>
-    <title>Plánovač výletů</title>
+
+    <title>Plánovač výletu</title>
 </head>
+
 <body>
     <div class="layout">
-    <h1>Plánovač výletů</h1>
-        
-        <div class="row justify-content-md-center " >
-                <div class="col ">
-                        Poznámky
-                      </div>
-                      <div class="col-5">
-                            <div id="m"></div>
-                      </div>
-                      <div class="col">
-                        Značky
-                      </div>
+        <h1>Plánovač výletu</h1>
+
+
+        <div class="row justify-content-md-center ">
+
+            <div class="col-5">
+                <div id="m"></div>
+            </div>
+            <div class="col my-col">
+                <div id="markers">
+                    <div class="table-row">
+                        <div class="title-cell"> Váš název Místa</div>
+                        <div class="coords-cell">Souřadnice</div>
+                        <div class="delete-cell">Smazat</div>
+                    </div>
+                </div>
+                <div id="notes">
+                    <div>Informace o trase
+
+                    </div>
+                    <div>
+                        <canvas id="my-chart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <div class="row">
-            <div class="col-12"> Předpověď počasí</div>
+            <div class="col-12"> Předpověď počasí
+                <div id="forecast">
+                    <div class="table-row">
+                        <div class="place-cell">Geografický Název místa (váš popis)</div>
+                        <div class="temperature-cell">Teplota v °C</div>
+                        <div class="forecast-cell">Počasí</div>
+                        <div class="wind-cell">Rychlost větru v m/s</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    
+        <div class="center">
+            <button id="route-button">Vytvořit výlet</button>
+            <button id="new-route-button">Nový výlet</button>
+        </div>
+        <div class="row guide">
+            <p>Návod na použití</p>
+            <ol>
+                <li>Vytvořte dvě značky na mapě kliknutím na místo, kde chcete aby byla značka. Budete vyzvání k zadání
+                    popisu značky.</li>
+                <li>Pokud chcete změnit značku, můžete jí smazat kliknutím na Smazat u příslušného řádku v tabulce
+                    vpravo. Pokud najedete na značku v mapě, zobrazí se vám její popis.</li>
+                <li>Pokud chcete vytvořit trasu v mapě a zobrazit informace o ní, klikněte na tlačítko Vytvořit výlet.
+                    Budete vyzvání k potvrzení.</li>
+                <li>Tlačítkem Nový výlet vymažete všechny údaje a resetujete mapu.</li>
+            </ol>
+        </div>
     </div>
+    <script src="https://api.mapy.cz/loader.js"></script>
+    <script>Loader.load();</script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="http://code.jquerygeo.com/jquery.geo-1.0.0-b3.min.js"></script>
     <script src="main.js"></script>
+
 </body>
+
 </html>
