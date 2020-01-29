@@ -54,7 +54,7 @@ $( function() {
     winstrike = $("#winstrike")
     score = $("#score")
     infospace =  $("#infospace")
-    playlists = [$( "#playlist1" ),$( "#playlist2" ),$( "#playlist3" )]
+    playlists = [$( "#playlist1" ),$( "#playlist2" ),$( "#playlist3" ),$( "#playlist4" ),$( "#playlist5" )]
 
     //End variable setting   
 
@@ -165,7 +165,7 @@ $( function() {
     // Load playlist
     $( "#load-playlist" ).click( function( event ) {
         //Shuffle on
-        sayInfo("Loading","black")
+        sayInfo("Loading","black",0,1000)
         $.ajax({
             url: 'https://api.spotify.com/v1/me/player/shuffle?state=true',
             type: 'PUT',
@@ -188,7 +188,7 @@ $( function() {
             data: JSON.stringify( { context_uri : playlist } ),
             success: function(){
                 zeroScore()
-                sayInfo("Loaded","black")
+                sayInfo("Loaded","black",0,0)
                 setOption()
             }
         })
@@ -199,6 +199,8 @@ $( function() {
         playlists[0].css("background-color", "#126b31")
         playlists[1].css("background-color", "#1db954")
         playlists[2].css("background-color", "#1db954")
+        playlists[3].css("background-color", "#1db954")
+        playlists[4].css("background-color", "#1db954")
 
         sessionStorage.setItem("playlist","spotify:playlist:37i9dQZF1DX4UtSsGT1Sbe")
 
@@ -207,6 +209,8 @@ $( function() {
         playlists[0].css("background-color", "#1db954")
         playlists[1].css("background-color", "#126b31")
         playlists[2].css("background-color", "#1db954")
+        playlists[3].css("background-color", "#1db954")
+        playlists[4].css("background-color", "#1db954")
 
         sessionStorage.setItem("playlist","spotify:playlist:6vI3xbpdPYYJmicjBieLcr")
     })
@@ -214,8 +218,28 @@ $( function() {
         playlists[0].css("background-color", "#1db954")
         playlists[1].css("background-color", "#1db954")
         playlists[2].css("background-color", "#126b31")
+        playlists[3].css("background-color", "#1db954")
+        playlists[4].css("background-color", "#1db954")
 
         sessionStorage.setItem("playlist","spotify:playlist:37i9dQZF1DWWEJlAGA9gs0")
+    })
+    playlists[3].click( function( event ){
+        playlists[0].css("background-color", "#1db954")
+        playlists[1].css("background-color", "#1db954")
+        playlists[2].css("background-color", "#1db954")
+        playlists[3].css("background-color", "#126b31")
+        playlists[4].css("background-color", "#1db954")
+
+        sessionStorage.setItem("playlist","spotify:playlist:1DX76Nhh8s4CAlRVkDQA9M")
+    })
+    playlists[4].click( function( event ){
+        playlists[0].css("background-color", "#1db954")
+        playlists[1].css("background-color", "#1db954")
+        playlists[2].css("background-color", "#126b31")
+        playlists[3].css("background-color", "#126b31")
+        playlists[4].css("background-color", "#1db954")
+
+        sessionStorage.setItem("playlist","spotify:playlist:2GtB2AgdIxtPXOjiywjvjt")
     })
 
 
@@ -310,11 +334,11 @@ $( function() {
 
     }
 
-    function sayInfo(message, color){
+    function sayInfo(message, color, i, o){
         infospace.empty()
         infospace.css("color",color)
         infospace.append(message)
-        infospace.fadeIn(300).fadeOut(1000)
+        infospace.fadeIn(i).fadeOut(o)
         setTimeout(function(){infospace.empty()},1300)
     }
 
