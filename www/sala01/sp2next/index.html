@@ -1,8 +1,8 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Example of the Authorization Code flow with Spotify</title>
-<link rel="stylesheet" href="style.css">
+<title>Welcome to Musiq Quiz</title>
+<link rel="stylesheet" href="assets/css/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -10,10 +10,34 @@
 </head>
 
 <body>
-    <h1>Welcome to Music Quiz game</h1>
-    
-    <div id="btn" class="control">Let's Start</div>
+    <div class="indexwrap">
+        <h1>Welcome to Music Quiz</h1>
+        <div class="htpbtnwrap">
+            <div class="howto">
+                First of all, to play Music Quiz you need to have <b>premium Spotify account</b>.<br><br>
+                
+                How to play:<br>
+                At the begining you need to choose playlist.<br>
+                You can choose from existing ones or set your own using URI. <br>
+                Keep in mind that if you pasted the URI into the appropriate form, <br>
+                the URI playlist will be loaded, not the chosen above. As soon as you press START, <br>
+                the playlist will load and the game will begin. <br><br>
+                For each correct option you are given one point. 
+                There is also a count of correct answers given in a row.<br><br>
 
+                Use the PLAY and PAUSE to control playback. The NEXT option will switch to the next song, 
+                but keep in mind that the winning streak will decline.<br>
+                If you like the playing song you can add the song to your Liked Song playlist by ADD button.<br><br>
+
+                GOOD LUCK AND HAVE FUN!
+                
+                
+                <div id="btn" class="control">Let's Start</div>
+                <sub>Pressing Let's Start button will redirect you to Spotify Authorization. After authorization you will redirect to Music Quiz page.</sub>
+            </div>
+            
+        </div>
+    </div>
 </body>
 
-</html>
+</html lang="en">

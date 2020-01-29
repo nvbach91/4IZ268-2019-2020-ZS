@@ -1,11 +1,13 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Music Quiz</title>
+<title>Game Music Quiz</title>
 <script src="https://sdk.scdn.co/spotify-player.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="assets/js/quiz.js?"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-<script src="assets/js/quiz.js"></script>
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
@@ -29,12 +31,13 @@
     </div>
 
     <div class="score-panel">
-        <div >Winstrike</br><div id="winstrike">0</div></div>
-        <div class="info" id="infospace">HELLO</div>
-        <div >Score</br><div id="score">0</div></div>
+        <div class="winstrike">Winstrike</br><div id="winstrike">0</div></div>
+        <div class="info" id="infospace"></div>
+        <div class="score">Score</br><div id="score">0</div></div>
     </div>
 
     <div class="control-panel">
+        <div id="slider"></div>
         <div class="control-line">
             <div class="option" id="option1"></div>
             <div class="control" id="pause">PAUSE</div>
@@ -54,4 +57,4 @@
     
 </body>
 
-</html>
+</htmllang="en">
