@@ -1,8 +1,7 @@
 const token = new URL(window.location).hash.split('&').filter(function(el) { if(el.match('access_token') !== null) return true; })[0].split('=')[1];
-option1 = "";
 
 $( function() {
-
+    //Start player setup
     window.onSpotifyWebPlaybackSDKReady = () => {
         const player = new Spotify.Player({
         name: 'quiz-player',
@@ -37,6 +36,8 @@ $( function() {
         })
     });
 
+
+
     // Not Ready
     player.addListener('not_ready', ({ device_id }) => {
         console.log('Device ID has gone offline', device_id);
@@ -45,10 +46,26 @@ $( function() {
     // Connect to the player!
     player.connect();
 
-    
-
     };
+    //End player setup;
 
+    //Variable setting
+    ids = [$("#option1"),$("#option2"),$("#option3"),$("#option4")]
+    winstrike = $("#winstrike")
+    score = $("#score")
+    infospace =  $("#infospace")
+    playlists = [$( "#playlist1" ),$( "#playlist2" ),$( "#playlist3" )]
+
+    //End variable setting   
+
+    //function to make score = 0
+    function zeroScore(){
+        winstrike.empty()
+        score.empty()
+
+        winstrike.append("0")
+        score.append("0")
+    }
 
     /*
     Start control section
@@ -95,7 +112,7 @@ $( function() {
             },
             data: JSON.stringify({ device_id: sessionStorage.getItem("device")}),
             success: function(data) {
-                console.log(data);
+                setOption()
             }
         })
     }
@@ -110,6 +127,7 @@ $( function() {
 
 
     $( "#next" ).click( function( event ) {
+        winstrikeZero();
         next();
     })
     
@@ -130,10 +148,7 @@ $( function() {
                     headers: {
                         'Authorization' : 'Bearer ' + token,
                     },
-                    data: JSON.stringify({ids:[data.item.id]}),
-                    success: function(data) {
-                        console.log(data)
-                    }
+                    data: JSON.stringify({ids:[data.item.id]})
                 })
             }
         })
@@ -150,14 +165,12 @@ $( function() {
     // Load playlist
     $( "#load-playlist" ).click( function( event ) {
         //Shuffle on
+        sayInfo("Loading","black")
         $.ajax({
             url: 'https://api.spotify.com/v1/me/player/shuffle?state=true',
             type: 'PUT',
             headers: {
                 'Authorization' : 'Bearer ' + token,
-            },
-            success: function(data) {
-                console.log(data);
             }
         })
         
@@ -173,21 +186,35 @@ $( function() {
                 'Authorization' : 'Bearer ' + token,
             },
             data: JSON.stringify( { context_uri : playlist } ),
-            success: function(data) {
-                console.log(data);
+            success: function(){
+                zeroScore()
+                sayInfo("Loaded","black")
+                setOption()
             }
         })
     })
     //--
     
-    $( "#playlist1" ).click( function( event ){
+    playlists[0].click( function( event ){
+        playlists[0].css("background-color", "#126b31")
+        playlists[1].css("background-color", "#1db954")
+        playlists[2].css("background-color", "#1db954")
+
         sessionStorage.setItem("playlist","spotify:playlist:37i9dQZF1DX4UtSsGT1Sbe")
-        setOption();
+
     })
-    $( "#playlist2" ).click( function( event ){
+    playlists[1].click( function( event ){
+        playlists[0].css("background-color", "#1db954")
+        playlists[1].css("background-color", "#126b31")
+        playlists[2].css("background-color", "#1db954")
+
         sessionStorage.setItem("playlist","spotify:playlist:6vI3xbpdPYYJmicjBieLcr")
     })
-    $( "#playlist3" ).click( function( event ){
+    playlists[2].click( function( event ){
+        playlists[0].css("background-color", "#1db954")
+        playlists[1].css("background-color", "#1db954")
+        playlists[2].css("background-color", "#126b31")
+
         sessionStorage.setItem("playlist","spotify:playlist:37i9dQZF1DWWEJlAGA9gs0")
     })
 
@@ -199,18 +226,18 @@ $( function() {
     /*
     Start option section
     */
-    function setOption(){
-        getOption();
-        $("#option1").append(sessionStorage.getItem("option1"))
-        $("#option2").append(sessionStorage.getItem("option2"))
-        $("#option3").append(sessionStorage.getItem("option3"))
-        $("#option4").append(sessionStorage.getItem("option4"))
-    }
+    /*
+    Set option to choose.
+    1. Getting info about playback
+    2. Get playing artist
+    3. Get related artist
+    */
 
-    // Getting related artist
-    function getOption(){
-        
-        artistID = 0;
+    
+    function setOption(){
+
+        setTimeout(function(){
+
         $.ajax({
             url: 'https://api.spotify.com/v1/me/player',
             type: 'GET',
@@ -219,26 +246,156 @@ $( function() {
                 'Authorization' : 'Bearer ' + token,
             },
             success: function(data, option) {
-                option1 = data.item.artists[1].name
-                window.artistID = data.item.artists[1].id
+                sessionStorage.setItem("option1", data.item.artists[0].name)
+                sessionStorage.setItem("artistID", data.item.artists[0].id)
+                $.ajax({
+                    url: 'https://api.spotify.com/v1/artists/' + sessionStorage.getItem("artistID") + '/related-artists',
+                    type: 'GET',
+                    contentType: "application/json",
+                    headers: {
+                        'Authorization' : 'Bearer ' + token,
+                    },
+                    success: function(data) {
+                        sessionStorage.setItem("option2", data.artists[0].name)
+                        sessionStorage.setItem("option3", data.artists[1].name)
+                        sessionStorage.setItem("option4", data.artists[2].name)
+
+                        ids[0].empty()       
+                        ids[1].empty()
+                        ids[2].empty()    
+                        ids[3].empty()
+                
+                        t = Math.floor(Math.random() * 4); 
+                        for (i = 0; i < 4; i++){
+                
+                            t = (t === 4)? 0 : t ;
+                            ids[i].append(sessionStorage.getItem("option" + (t + 1)))
+                            t++;
+                            
+                        }
+                    }
+                })
             }
         })
-        console.log(option1)
-        $.ajax({
-            url: 'https://api.spotify.com/v1/artists/' + sessionStorage.getItem("artistID") + '/related-artists',
-            type: 'GET',
-            contentType: "application/json",
-            headers: {
-                'Authorization' : 'Bearer ' + token,
-            },
-            success: function(data) {
-                sessionStorage.setItem("option2", data.artists[0].name)
-                sessionStorage.setItem("option3", data.artists[1].name)
-                sessionStorage.setItem("option4", data.artists[2].name)
-            }
-        })
+        },1000)
 
     }
+
+    function scoreInc(){
+        var temp = Number.parseInt(score.text());
+        score.empty()
+        score.append(temp + 1)
+    }
+
+    function winstrikeInc(){
+        var temp = Number.parseInt(winstrike.text());
+        winstrike.empty()
+        winstrike.append(temp + 1)
+    }
+
+    function winstrikeZero(){
+        winstrike.empty()
+        winstrike.append(0)
+    }
+
+    function sayNice(){
+        infospace.empty()
+        infospace.css("color","green")
+        infospace.append("NICE")  
+        infospace.fadeIn(300).fadeOut(1000)
+        setTimeout(function(){infospace.empty()},1300)
+
+
+
+
+    }
+
+    function sayInfo(message, color){
+        infospace.empty()
+        infospace.css("color",color)
+        infospace.append(message)
+        infospace.fadeIn(300).fadeOut(1000)
+        setTimeout(function(){infospace.empty()},1300)
+    }
+
+    function sayWrong(){
+        infospace.empty()
+        infospace.css("color","red")
+        infospace.append("WRONG")
+        infospace.fadeIn(300).fadeOut(1000)
+        setTimeout(function(){infospace.empty()},1300)
+
+
+
+
+    }
+
+
+    ids[0].click(function(event){
+        console.log(ids[0].text())
+        console.log(sessionStorage.getItem("option1"))
+        if (ids[0].text() === sessionStorage.getItem("option1")){
+            scoreInc()
+            winstrikeInc()
+
+            sayNice()
+
+            next()
+
+        }else{
+            winstrikeZero()
+            sayWrong()
+            next()
+        }
+
+    })
+    ids[1].click(function(event){
+        if (ids[1].text() === sessionStorage.getItem("option1")){
+            scoreInc()
+            winstrikeInc()
+
+            sayNice()
+            
+            next()
+        }else{
+            winstrikeZero()
+            sayWrong()
+            next()
+        }
+    })
+    ids[2].click(function(event){
+        if (ids[2].text()=== sessionStorage.getItem("option1")){
+            scoreInc()
+            winstrikeInc()
+
+            sayNice()
+
+            next()
+        }else{
+            winstrikeZero()
+            sayWrong()
+            next()
+        }
+    })
+    ids[3].click(function(event){
+        if (ids[3].text() === sessionStorage.getItem("option1")){
+            scoreInc()
+            winstrikeInc()
+
+            sayNice()
+
+            next()
+        }else{
+            winstrikeZero()
+
+            sayWrong()
+            next()
+        }
+    })
+        
+        
+
+    
 
 
 

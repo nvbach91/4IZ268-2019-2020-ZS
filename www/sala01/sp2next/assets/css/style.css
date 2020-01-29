@@ -53,6 +53,10 @@ h3{
     color: #ffffff;
 }
 
+.info{
+    position: absolute;
+}
+
 .playlist{
     height: 50px;
     width: 200px;
@@ -62,6 +66,11 @@ h3{
     margin-left: 30px;
     text-align: center;
     line-height: 50px;
+}
+.playlist:hover,
+.control:hover,
+.start-playlist:hover{
+    background-color: #199645;
 }
 
 .start-playlist{
@@ -123,7 +132,9 @@ h3{
     height: 50px;
     width: 200px;
     border: 6px solid #191414;
-    border-radius: 25px;    
+    border-radius: 25px;   
+    text-align: center; 
+    line-height: 50px;
 }
 
 .control{
