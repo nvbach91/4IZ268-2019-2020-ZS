@@ -29,6 +29,7 @@ const mapImageDTOToObject = (dto) => {
       name: image.user.name,
       instagram_username: image.user.instagram_username,
       twitter_username: image.user.twitter_username,
+      bio: image.user.bio,
     };
 
     return newImageObject;

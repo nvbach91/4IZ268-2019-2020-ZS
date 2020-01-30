@@ -59,6 +59,12 @@ class ImageDetailComponent extends Component {
               <img src={image.urls.regular} alt={image.alt_description} className="image" />
               <div>
                   <h2>{image.user.name}</h2>
+                  {image.user.bio && (
+                      <>
+                          <p>{image.user.bio}</p>
+                          <br />
+                      </>
+                  )}
                   {image.user.twitter_username && (
                       <p className="social-link">
                           <TwitterIcon />
