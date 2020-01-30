@@ -38,6 +38,7 @@
       "last 1 safari version"
     ]
   },
+  "homepage": "https://eso.vse.cz/~khar03/sp2",
   "devDependencies": {
     "redux-devtools-extension": "^2.13.8"
   }
