@@ -1,50 +1,52 @@
-const token = new URL(window.location).hash.split('&').filter(function(el) {
-    if (el.match('access_token') !== null) return true;
-  })[0].split('=')[1];
+
   
   $(function() {
+
+    const token = new URL(window.location).hash.split('&').filter(function(el) {
+        if (el.match('access_token') !== null) return true
+      })[0].split('=')[1]
     //Start player setup
     window.onSpotifyWebPlaybackSDKReady = () => {
       const player = new Spotify.Player({
         name: 'quiz-player',
         getOAuthToken: cb => {
-          cb(token);
+          cb(token)
         }
-      });
+      })
   
       // Error handling
       player.addListener('initialization_error', ({
         message
       }) => {
-        console.error(message);
-      });
+        console.error(message)
+      })
       player.addListener('authentication_error', ({
         message
       }) => {
-        console.error(message);
-      });
+        console.error(message)
+      })
       player.addListener('account_error', ({
         message
       }) => {
-        console.error(message);
-      });
+        console.error(message)
+      })
       player.addListener('playback_error', ({
         message
       }) => {
-        console.error(message);
-      });
+        console.error(message)
+      })
   
       // Playback status updates
       player.addListener('player_state_changed', state => {
-        console.log(state);
-      });
+        console.log(state)
+      })
   
       // Ready
       player.addListener('ready', ({
         device_id
       }) => {
-        console.log('Ready with Device ID', device_id);
-        sessionStorage.setItem("device", device_id);
+        console.log('Ready with Device ID', device_id)
+        sessionStorage.setItem("device", device_id)
         //Choose this device to allow play in Browser
         $.ajax({
           url: 'https://api.spotify.com/v1/me/player',
@@ -58,7 +60,7 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
           }),
           success: function(data) {}
         })
-      });
+      })
   
   
   
@@ -66,34 +68,37 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
       player.addListener('not_ready', ({
         device_id
       }) => {
-        console.log('Device ID has gone offline', device_id);
-      });
+        console.log('Device ID has gone offline', device_id)
+      })
   
       // Connect to the player!
-      player.connect();
+      player.connect()
   
-    };
-    //End player setup;
-  
-    $.ajax({
-      url: 'https://api.spotify.com/v1/me',
-      type: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-      },
-      success: function(data) {
-        sayInfo("Hello " + data.display_name, "black")
-      }
-    })
-  
+    }
+    //End player setup
+
     //Variable setting
     ids = [$("#option1"), $("#option2"), $("#option3"), $("#option4")]
     winstrike = $("#winstrike")
     score = $("#score")
     infospace = $("#infospace")
     playlists = [$("#playlist1"), $("#playlist2"), $("#playlist3"), $("#playlist4"), $("#playlist5")]
+    baseURL = 'https://api.spotify.com/v1'
+    headerToken = { 'Authorization': 'Bearer ' + token }
   
-    //End variable setting   
+    //End variable setting 
+
+    //Greetings
+    $.ajax({
+      url: baseURL,
+      type: 'GET',
+      headers: headerToken,
+      success: function(data) {
+        sayInfo("Hello " + data.display_name, "black")
+      }
+    })
+  
+    
   
     //function to make score = 0
     function zeroScore() {
@@ -111,14 +116,13 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
     $("#slider").slider({
       max: 100,
       min: 0,
+      value:100,
       change: function() {
         $.ajax({
-          url: 'https://api.spotify.com/v1/me/player/volume?volume_percent=' + Math.round($("#slider").slider("option", "value")),
+          url: baseURL + '/me/player/volume?volume_percent=' + Math.round($("#slider").slider("option", "value")),
           type: 'PUT',
           contentType: "application/json",
-          headers: {
-            'Authorization': 'Bearer ' + token,
-          },
+          headers: headerToken,
           data: JSON.stringify({
             device_id: sessionStorage.getItem("device")
           }),
@@ -131,12 +135,10 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
     //play
     function play() {
       $.ajax({
-        url: 'https://api.spotify.com/v1/me/player/play',
+        url: baseURL + '/me/player/play',
         type: 'PUT',
         contentType: "application/json",
-        headers: {
-          'Authorization': 'Bearer ' + token,
-        },
+        headers: headerToken,
         data: JSON.stringify({
           device_id: sessionStorage.getItem("device")
         }),
@@ -148,12 +150,10 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
     //pause
     function pause() {
       $.ajax({
-        url: 'https://api.spotify.com/v1/me/player/pause',
+        url: baseURL + '/me/player/pause',
         type: 'PUT',
         contentType: "application/json",
-        headers: {
-          'Authorization': 'Bearer ' + token,
-        },
+        headers: headerToken,
         data: JSON.stringify({
           device_id: sessionStorage.getItem("device")
         }),
@@ -165,12 +165,10 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
   
     function next() {
       $.ajax({
-        url: 'https://api.spotify.com/v1/me/player/next',
+        url: baseURL + '/me/player/next',
         type: 'POST',
         contentType: "application/json",
-        headers: {
-          'Authorization': 'Bearer ' + token,
-        },
+        headers: headerToken,
         data: JSON.stringify({
           device_id: sessionStorage.getItem("device")
         }),
@@ -181,38 +179,34 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
       })
     }
     $("#play").click(function(event) {
-      play();
+      play()
     })
   
   
     $("#pause").click(function(event) {
-      pause();
+      pause()
     })
   
   
     $("#next").click(function(event) {
-      winstrikeZero();
+      winstrikeZero()
       sayInfoFade("NEXT", "#1db954", 1, 1000)
-      next();
+      next()
     })
   
     // Add Music to "Liked Song" playlist
     $("#add").click(function(event) {
       $.ajax({
-        url: 'https://api.spotify.com/v1/me/player/currently-playing',
+        url: baseURL + '/me/player/currently-playing',
         type: 'GET',
-        headers: {
-          'Authorization': 'Bearer ' + token,
-        },
+        headers: headerToken,
         success: function(data) {
           console.log(data.item.id)
           $.ajax({
-            url: 'https://api.spotify.com/v1/me/tracks',
+            url: baseURL + '/me/tracks',
             type: 'PUT',
             contentType: "application/json",
-            headers: {
-              'Authorization': 'Bearer ' + token,
-            },
+            headers: headerToken,
             data: JSON.stringify({
               ids: [data.item.id]
             }),
@@ -237,24 +231,20 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
       //Shuffle on
       sayInfo("Loading", "black", 0, 1000)
       $.ajax({
-        url: 'https://api.spotify.com/v1/me/player/shuffle?state=true',
+        url: baseURL + '/me/player/shuffle?state=true',
         type: 'PUT',
-        headers: {
-          'Authorization': 'Bearer ' + token,
-        }
+        headers: headerToken
       })
   
-      var playlist = document.getElementById("playlist-uri").value;
+      var playlist = document.getElementById("playlist-uri").value
       if (playlist === "") {
-        playlist = sessionStorage.getItem("playlist");
+        playlist = sessionStorage.getItem("playlist")
       }
       $.ajax({
-        url: 'https://api.spotify.com/v1/me/player/play',
+        url: baseURL + '/me/player/play',
         type: 'PUT',
         contentType: "application/json",
-        headers: {
-          'Authorization': 'Bearer ' + token,
-        },
+        headers: headerToken,
         data: JSON.stringify({
           context_uri: playlist
         }),
@@ -335,12 +325,10 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
       setTimeout(function() {
   
         $.ajax({
-          url: 'https://api.spotify.com/v1/me/player',
+          url: baseURL + '/me/player',
           type: 'GET',
           contentType: "application/json",
-          headers: {
-            'Authorization': 'Bearer ' + token,
-          },
+          headers: headerToken,
           success: function(data, option) {
             sessionStorage.setItem("option1", data.item.artists[0].name)
             sessionStorage.setItem("artistID", data.item.artists[0].id)
@@ -348,9 +336,7 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
               url: 'https://api.spotify.com/v1/artists/' + sessionStorage.getItem("artistID") + '/related-artists',
               type: 'GET',
               contentType: "application/json",
-              headers: {
-                'Authorization': 'Bearer ' + token,
-              },
+              headers: headerToken,
               success: function(data) {
                 sessionStorage.setItem("option2", data.artists[0].name)
                 sessionStorage.setItem("option3", data.artists[1].name)
@@ -361,16 +347,16 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
                 ids[2].empty()
                 ids[3].empty()
   
-                t = Math.floor(Math.random() * 4);
+                t = Math.floor(Math.random() * 4)
                 for (i = 0; i < 4; i++) {
   
-                  t = (t === 4) ? 0 : t;
+                  t = (t === 4) ? 0 : t
                   ids[i].append(sessionStorage.getItem("option" + (t + 1)))
                   if (t === 0){
                     sessionStorage.setItem("rightOption", i)
                   }
                   
-                  t++;
+                  t++
   
                 }
               }
@@ -382,13 +368,13 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
     }
   
     function scoreInc() {
-      var temp = Number.parseInt(score.text());
+      var temp = Number.parseInt(score.text())
       score.empty()
       score.append(temp + 1)
     }
   
     function winstrikeInc() {
-      var temp = Number.parseInt(winstrike.text());
+      var temp = Number.parseInt(winstrike.text())
       winstrike.empty()
       winstrike.append(temp + 1)
     }
@@ -568,20 +554,16 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
       //Show album poster with name
       function showRightPic(){
         $.ajax({
-            url: 'https://api.spotify.com/v1/me/player/currently-playing',
+            url: baseURL + '/me/player/currently-playing',
             type: 'GET',
-            headers: {
-              'Authorization': 'Bearer ' + token,
-            },
+            headers: headerToken,
             success: function(data) {
                 temp0 = data
                 console.log(data)
                 $.ajax({
-                    url: 'https://api.spotify.com/v1/tracks/' + data.item.id,
+                    url: baseURL + '/tracks/' + data.item.id,
                     type: 'GET',
-                    headers: {
-                      'Authorization': 'Bearer ' + token,
-                    },
+                    headers: headerToken,
                     success: function(data) {
                         $('#poster').empty()
                         $('<img />')
@@ -594,7 +576,7 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
                                 opacity: 0,
                               }, 4000, function() {
                                 // Animation complete.
-                              });
+                              })
 
                               
                             

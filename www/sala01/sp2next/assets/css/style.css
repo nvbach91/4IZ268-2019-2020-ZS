@@ -172,7 +172,7 @@ h3 {
   justify-content: center;
 }
 
-#btn {
+#letsStartButton {
   margin: 20px auto;
 }
 
@@ -184,6 +184,7 @@ h3 {
   width: 50px;
   height: 50px;
   background: url("../img/slider-logo.jpg") no-repeat;
+  border-radius: 50px;
   margin-top: -10px;
   border-style: none;
 }
