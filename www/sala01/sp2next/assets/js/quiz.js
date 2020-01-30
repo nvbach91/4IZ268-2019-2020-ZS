@@ -366,6 +366,10 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
   
                   t = (t === 4) ? 0 : t;
                   ids[i].append(sessionStorage.getItem("option" + (t + 1)))
+                  if (t === 0){
+                    sessionStorage.setItem("rightOption", i)
+                  }
+                  
                   t++;
   
                 }
@@ -441,90 +445,165 @@ const token = new URL(window.location).hash.split('&').filter(function(el) {
   
   
     ids[0].click(function(event) {
+        showRightPic()
       console.log(ids[0].text())
       console.log(sessionStorage.getItem("option1"))
       if (ids[0].text() === sessionStorage.getItem("option1")) {
         scoreInc()
         winstrikeInc()
         sayNice()
-        next()
+        
   
         ids[0].css("border", "6px solid #1db954")
         setTimeout(function() {
           ids[0].css("border", "6px solid #191414")
-        }, 1000)
+          
+          next()
+        }, 1300)
+
+        
   
       } else {
         winstrikeZero()
         sayWrong()
-        next()
+        
         ids[0].css("border", "6px solid #a51717")
+        ids[sessionStorage.getItem("rightOption")].css("border", "6px solid #1db954")
         setTimeout(function() {
           ids[0].css("border", "6px solid #191414")
-        }, 1000)
+          ids[sessionStorage.getItem("rightOption")].css("border", "6px solid #191414")
+          next()
+        }, 1300)
+
+        
       }
   
     })
     ids[1].click(function(event) {
+        showRightPic()
       if (ids[1].text() === sessionStorage.getItem("option1")) {
         scoreInc()
         winstrikeInc()
         sayNice()
-        next()
+        
         ids[1].css("border", "6px solid #1db954")
         setTimeout(function() {
           ids[1].css("border", "6px solid #191414")
-        }, 1000)
+          next()
+        }, 1300)
+
+        
       } else {
         winstrikeZero()
         sayWrong()
-        next()
+        
         ids[1].css("border", "6px solid #a51717")
+        ids[sessionStorage.getItem("rightOption")].css("border", "6px solid #1db954")
         setTimeout(function() {
           ids[1].css("border", "6px solid #191414")
-        }, 1000)
+          ids[sessionStorage.getItem("rightOption")].css("border", "6px solid #191414")
+          next()
+        }, 1300)
+
+        
       }
     })
     ids[2].click(function(event) {
+        showRightPic()
       if (ids[2].text() === sessionStorage.getItem("option1")) {
         scoreInc()
         winstrikeInc()
         sayNice()
-        next()
+        
         ids[2].css("border", "6px solid #1db954")
         setTimeout(function() {
           ids[2].css("border", "6px solid #191414")
-        }, 1000)
+          next()
+        }, 1300)
+
+        
       } else {
         winstrikeZero()
         sayWrong()
-        next()
+        
         ids[2].css("border", "6px solid #a51717")
+        ids[sessionStorage.getItem("rightOption")].css("border", "6px solid #1db954")
         setTimeout(function() {
           ids[2].css("border", "6px solid #191414")
-        }, 1000)
+          ids[sessionStorage.getItem("rightOption")].css("border", "6px solid #191414")
+          next()
+        }, 1300)
+
+        
       }
     })
     ids[3].click(function(event) {
+        showRightPic()
       if (ids[3].text() === sessionStorage.getItem("option1")) {
         scoreInc()
         winstrikeInc()
         sayNice()
-        next()
+        
         ids[3].css("border", "6px solid #1db954")
         setTimeout(function() {
           ids[3].css("border", "6px solid #191414")
-        }, 1000)
+          next()
+        }, 1300)
+
+        
       } else {
         winstrikeZero()
         sayWrong()
-        next()
+        
         ids[3].css("border", "6px solid #a51717")
+        ids[sessionStorage.getItem("rightOption")].css("border", "6px solid #1db954")
         setTimeout(function() {
           ids[3].css("border", "6px solid #191414")
-        }, 1000)
+          ids[sessionStorage.getItem("rightOption")].css("border", "6px solid #191414")
+          next()
+        }, 1300) 
+
       }
     })
+      //Show album poster with name
+      function showRightPic(){
+        $.ajax({
+            url: 'https://api.spotify.com/v1/me/player/currently-playing',
+            type: 'GET',
+            headers: {
+              'Authorization': 'Bearer ' + token,
+            },
+            success: function(data) {
+                temp0 = data
+                console.log(data)
+                $.ajax({
+                    url: 'https://api.spotify.com/v1/tracks/' + data.item.id,
+                    type: 'GET',
+                    headers: {
+                      'Authorization': 'Bearer ' + token,
+                    },
+                    success: function(data) {
+                        $('#poster').empty()
+                        $('<img />')
+                        .attr('src', "" + data.album.images[1].url + "")         
+                            .attr('alt', data.album.name)
+                            .attr('id', "poster-img")
+                            .width(data.album.images[1].height).height(data.album.images[1].width)
+                            .appendTo($('#poster'))
+                            $( "#poster-img" ).animate({
+                                opacity: 0,
+                              }, 4000, function() {
+                                // Animation complete.
+                              });
+
+                              
+                            
+                    }
+                  })
+            }
+          })
+      }
+    
   
   
   
