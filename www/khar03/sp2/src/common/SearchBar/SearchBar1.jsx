@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateTermAction, searchImagesAction } from '../../logic/actions';
+import { TextField } from '@material-ui/core';
 import './SearchBar1.css';
 
 class SearchBar1 extends Component {
@@ -15,24 +16,14 @@ class SearchBar1 extends Component {
     const { searchTerm, updateTerm } = this.props;
     return (
       <>
-        <form
-          onSubmit={this.onFormSubmit}
-        >
-          <div>
-            <input
-              type="text"
+        <form onSubmit={this.onFormSubmit}>
+            <TextField
+              label="Search for images..."
+              variant="filled"
               value={searchTerm}
               onChange={(e) => updateTerm(e.target.value)}
-              placeholder="Vyhledej image"
+              className="searchbar"
             />
-          </div>
-
-          <div>
-            <button
-              onClick={this.onFormSubmit}
-            >
-            </button>
-          </div>
         </form>
       </>
     );

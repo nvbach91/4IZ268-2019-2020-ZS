@@ -1,0 +1,46 @@
+.detail {
+  display: flex;
+  flex-flow: column;
+
+  .headline {
+    text-transform: capitalize;
+  }
+
+  & > div {
+    padding: 15px 0;
+  }
+
+  .link {
+    cursor: pointer;
+    transition: all .15s linear;
+    font-size: 32px;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  .back-link {
+    float: left;
+  }
+
+  .favourite-link {
+    float: right;
+    color: #de1304;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+
+    & > svg {
+      margin-right: 10px;
+    }
+  }
+
+  .image {
+    clear: both;
+    width: 100%;
+    height: auto;
+  }
+}

@@ -1,1 +1,1 @@
-export { default as ImageList } from './ImageListtComponent';
+export { default as ImageList } from './ImageListComponent';
