@@ -1,41 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="cs">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Databáze knih</title>
+    <title>Database of books</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="images/favicon.png">
-    <link rel="stylesheet" href="bootstrap.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css" />
+    <meta name="description" content="Website for database of books">
+    <meta name="author" content="Elizaveta Ialinskaia">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/styles.css" />
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="index.html"><img src="images/favicon.png" width="40px" height="40px">
-                    Databáze knih</a>
+    <h1>Database of books</h1>
+    <div id="find">
+        <div id="form-header" class="closed">
+            <button id="open-form">Expand the form</button>
+        </div>
+        <div id="form-body">
+            <div>
+                <form id="form" class="closed">
+                    <label>Enter the title of book or name of author:<br>
+                        <input id="searched-text" type="text" name="searchedBook" pattern="^[\p{L}\w][\p{L}\w\s]*"
+                            autofocus required><br>
+                    </label>
+                    <label>
+                        <input class="radio" type="radio" name="way" value="intitle" checked>Search in book titles<br>
+                    </label>
+                    <label>
+                        <input class="radio" type="radio" name="way" value="inauthor">Search in the authors<br>
+                    </label>
+                    <label>
+                        <input class="radio" type="radio" name="way" value="subject">Search in categories<br>
+                    </label>
+                    <label>
+                        Show max.
+                        <input id="number-input" type="number" min="1" max="30" value="5">
+                        of occurrences.<br>
+                    </label>
+                    <input id="submit" type="submit" value="Find books">
+                    <input id="reset" type="reset" value="Reset">
+                </form>
             </div>
         </div>
-    </nav>
+    </div>
 
-    <div class="container">
-        <div class="jumbotron">
-            <h3 class="text-center">Vyhledávání knih</h3>
-            <form id="searchForm">
-                <input type="text" class="form-control" id="searchText" placeholder="Zadejte název, nebo autora knihy..">
-            </form>
+    <p>Welcome to our database of books! Here you can find any book or author. In addition, you can add and save in any book to your favorite list of books, can make own score or read
+        demo of book.
+    </p>
+
+    <div id="my-favorite-list">
+        <div id="list-group" class="group-line closed">
+            <div class="list-group-item">Preview</div>
+            <div class="list-group-item">Title of book</div>
+            <div class="list-group-item">Author</div>
+            <div class="list-group-item">Category</div>
+            <div class="list-group-item">Year of publication</div>
+            <div class="list-group-item">Score</div>
+            <div class="list-group-item">Excerpt from the book</div>
+            <div class="list-group-item">Remove from the favorite list</div>
+            <div class="list-group-item id">Don`t show</div>
         </div>
     </div>
-
-    <div class="container">
-        <div id="books" class="row"></div>
-    </div>
-
-    <div class="container">
-        <div id="book" class="well"></div>
-    </div>
+    <footer>2020 &copy; Elizaveta Ialinskaia</footer>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
