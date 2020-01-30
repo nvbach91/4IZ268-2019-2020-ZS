@@ -4,47 +4,23 @@
 }
 
 body {
-    font-family: 'Roboto';
+    font-family: 'Roboto', sans-serif;
 }
 
 html {
     scroll-behavior: smooth;
 }
 
-.logo {
-    position: absolute;
-    height: 70%;
+.top-bar {
+    width: 100%;
+    background-color: #306030;
+    padding-bottom: 10px;
 }
 
 img {
     height: 80px;
     padding-left: 10px;
     padding-top: 10px;
-}
-
-nav {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    background-color: #306030;
-    padding-bottom: 25px;
-}
-
-ul {
-    list-style-type: none;
-    text-decoration: none;
-}
-
-nav a {
-    text-decoration: none;
-    color: white;
-}
-
-nav li {
-    display: inline-block;
-    cursor: pointer;
-    font-size: 14px;
-    padding: 15px;
 }
 
 .layout {
@@ -54,7 +30,7 @@ nav li {
     width: 100%;
     background-color: #f0f0d8;
     margin-top: 20px;
-    border-radius: 5px
+    border-radius: 5px;
 }
 
 .search {
@@ -64,12 +40,43 @@ nav li {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+}
+
+.hidden-ui {
+    display: none;
+}
+
+.search>* {
+    flex: 1 100%;
+}
+
+.main-search {
+    flex: 1 30%;
+}
+
+.search-item {
+    flex: 1 auto;
+    margin: auto;
 }
 
 .search-bar {
-    flex: 1 70%;
+    flex: 1 30%;
     padding: 20px;
+}
+
+#submitSearchPatient {
+    float: left;
+    background-color: #306030;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #2e5c2e;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 2px 6px 0 rgba(0, 0, 0, 0.19);
 }
 
 .create-button {
@@ -77,7 +84,7 @@ nav li {
 }
 
 #patient-name-input {
-    width: 80%;
+    width: 100%;
     padding: 12px 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -85,6 +92,7 @@ nav li {
 }
 
 #new-patient-btn {
+    float: right;
     background-color: #e68331;
     border-style: solid;
     border-width: 3px;
@@ -112,21 +120,7 @@ nav li {
     width: 100%;
     text-align: left;
     padding: 20px;
-}
-
-.options {
-    list-style-type: none;
-    text-decoration: none;
-    padding-left: 0;
-}
-
-.options li {
-    display: inline-block;
-    font-size: 10px;
-}
-
-.options a {
-    color: black;
+    border-collapse: separate;
 }
 
 th, td {
@@ -139,4 +133,61 @@ th, td {
 
 .btn-primary:hover, .btn-primary:focus {
     background-color: #234623;
+}
+
+/*EXERCISES PAGE*/
+
+.exercises-list {
+    max-width: 1024px;
+    margin: auto;
+    width: 100%;
+    background-color: #f0f0d8;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+#planned-exercises-list {
+    border-collapse: separate;
+}
+
+#expired-exercises-list {
+    border-collapse: separate;
+}
+
+.list-of-exercises {
+    width: 100%;
+    text-align: left;
+    padding: 20px;
+}
+
+#add-new-exercise-btn {
+    background-color: #e68331;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #e67e29;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 2px 6px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+#dynamicName {
+    padding-top: 20px;
+    max-width: 1024px;
+    margin: auto;
+}
+
+.small-nav {
+    color: black;
+    font-size: 9px;
+}
+
+.small-nav:hover {
+    color: black;
 }
