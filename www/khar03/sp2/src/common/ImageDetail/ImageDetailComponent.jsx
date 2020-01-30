@@ -7,7 +7,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
-import { Container } from '@material-ui/core';
+import SaveIcon from '@material-ui/icons/Save';
+import { Container, Button } from '@material-ui/core';
 
 class ImageDetailComponent extends Component {
   getFavoriteIcon = (image) => {
@@ -40,7 +41,19 @@ class ImageDetailComponent extends Component {
                       className="link back-link"
                       onClick={backToResults}
                   />
-                  {this.getFavoriteIcon(image)}
+                  <div className="action-links">
+                      <Button
+                          variant="contained"
+                          color="primary"
+                          size="small"
+                          startIcon={<SaveIcon />}
+                          href={image.urls.raw}
+                          target="_blank"
+                      >
+                        Save
+                      </Button>
+                      {this.getFavoriteIcon(image)}
+                  </div>
               </div>
               <h1 className="headline">{headline}</h1>
               <img src={image.urls.regular} alt={image.alt_description} className="image" />

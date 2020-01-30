@@ -24,9 +24,15 @@
     float: left;
   }
 
-  .favourite-link {
+  .action-links {
     float: right;
+    display: flex;
+    justify-content: center;
+  }
+
+  .favourite-link {
     color: #de1304;
+    margin-left: 15px;
   }
 
   .social-link {
