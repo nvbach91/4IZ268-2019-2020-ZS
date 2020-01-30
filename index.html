@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="cz">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Birthday reminder</title>
+  <meta name="description" content="Birthday reminder app">
+  <meta name="keywords" content="Birthday, reminder">
+  <meta name="author" content="Mai Phuong Hoang">
+  <meta name="google-signin-client_id"
+    content="612048233583-pa8h8ndmvq4vn6csmih1q4rkthk1drn9.apps.googleusercontent.com">
+  <link rel='stylesheet' type="text/css" media="screen" href='assets/css/main.css' />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  <div class="data">
+    <button href="#" onclick="signOut();" class="btn btn-danger">Odhlásit</button>
+    <p>Profile Details</p>
+    <img id="pic" class="img-circle" width="100" height="100">
+    <p>Email Address</p>
+    <p id="email" class="alert alert-danger"></p>
+    <div id="myDIV" class="header">
+      <h2>Friends</h2>
+      <input type="text" id="myInput" placeholder="Jméno">
+      <span onclick="newElement()" class="addBtn">Add</span>
+    </div>
+    <ul id="myUL">
+      <li>Anna</li>
+    </ul>
+    <input id="myDate" type="date">
+    <button id="startButton">Start Countdown</button>
+    <div id="value"></div>
+    <div id='countdown'></div>
+  </div>
+  <script src="assets/javascript/main.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </main>
+</body>
+
+</html>
