@@ -6,8 +6,8 @@ body {
   font-family: 'Roboto', sans-serif;
   background: rgb(255, 255, 255);
   font-weight: normal;
-  min-width: 800px;
-  min-height: 600px;
+  min-width: 1400x;
+  min-height: 800px;
   height: 100vh;
 }
 
@@ -66,7 +66,8 @@ h3 {
   margin-left: -20px;
 }
 
-#poster-img{
+#poster-placeholder{
+    opacity: 0;
 }
 
 
