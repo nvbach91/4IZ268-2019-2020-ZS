@@ -16,6 +16,25 @@ const updateTermAction = (term) => (dispatch) => {
   dispatch({ type: UPDATE_SEARCH_TERM, payload: term });
 };
 
+const mapImageDTOToObject = (dto) => {
+  return dto.map((image) => {
+    const newImageObject = Object.create(null);
+
+    newImageObject.id = image.id;
+    newImageObject.urls = image.urls;
+    newImageObject.description = image.description;
+    newImageObject.alt_description = image.alt_description;
+    newImageObject.likes = image.likes;
+    newImageObject.user = {
+      name: image.user.name,
+      instagram_username: image.user.instagram_username,
+      twitter_username: image.user.twitter_username,
+    };
+
+    return newImageObject;
+  });
+};
+
 const searchImagesAction = () => (dispatch, getState) => {
   const { term } = getState().search;
   const imagesPerPage = 24;
@@ -24,14 +43,16 @@ const searchImagesAction = () => (dispatch, getState) => {
   superagent
     .get(`https://api.unsplash.com/search/photos?query=${term}&per_page=${imagesPerPage}&client_id=e444103ccb697612b0e4a0ad122bcb8f69dc063237bb31f8ee5e3720a51a7007`)
     .then((data) => {
+      const imageResponse = mapImageDTOToObject(data.body.results);
+
       const favoriteImages = JSON.parse(window.localStorage.getItem(localStorageKey)) || [];
       const favoriteImagesKeys = favoriteImages.map((image) => image.id);
-      data.body.results.forEach((result) => {
+      imageResponse.forEach((result) => {
         if (favoriteImagesKeys.includes(result.id)) {
           result.isFavorite = true;
         }
       });
-      dispatch({ type: SEARCH_SUCCESS, payload: data.body.results })
+      dispatch({ type: SEARCH_SUCCESS, payload: imageResponse })
     })
     .catch((error) => {
       dispatch({ type: SEARCH_FAILURE, payload: error });
