@@ -5,8 +5,11 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Aplikace pro vyhledávání a ukládání letů">
+    <meta name="author" content="Petr Frank">
     <title>Vyhledávač letů</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="shortcut icon" href="img/favicon-32x32.png" type="image/x-icon">
 </head>
 <body>
     <header>
@@ -15,18 +18,91 @@
     <div class="main">
         <div class="main-box1">
             <h2>Formulář</h2>
+            <form id="main-box1-form">
+                <div class="main-box1-form-row">
+                    <label>start</label>
+                    <input type="text" name="start" class="autocomplete" id="start" placeholder="město odlet">
+                    <label>cíl</label>
+                    <input type="text" name="finish" class="autocomplete" id="finish" placeholder="město přílet">
+                </div>
+                <div class="main-box1-form-row">
+                    <input type="text" name="starting_airport" id="starting_airport" placeholder="Zkratka letiště (poslední část názvu)">
+                    <img src="img/sipka.png" alt="sipka">
+                    <input type="text" name="finishing_airport" id="finishing_airport" placeholder="Zkratka letiště (poslední část názvu)">
+                    <button type="button" onclick="updateForm();">Přidat oblíbený let</button>
+                </div>
+                <div class="main-box1-form-row">
+                    <label>zadejte datum odletu</label>
+                    <input type="text" name="date" id="date" placeholder="dd/mm/yyyy">
+                </div>
+                <div class="main-box1-form-row">
+                    <input id="submit" type="submit" value="Odeslat">
+                </div>
+            </form>
+            <h2>Výsledky vyhledávání</h2>
+            <div class="main-box1-results">
+
+
+            </div>
+            <input id="button-save" type="submit" value="Uložit">
         </div>
         <div class="main-box2">
             <div class="main-box2-content1">
                 <h2>Oblíbená letiště</h2>
+                    <table id="table-airports">
+                        <tr>
+                            <th>Město odlet</th>
+                            <th>Odletového letiště</th>
+                            <th>Město přílet</th>
+                            <th>Cílové letiště</th>
+                            <th>Odebrat</th>
+                        </tr>
+                        <tr>
+                            <td>Prague</td>
+                            <td>PRG</td>
+                            <td>New York</td>
+                            <td>JFK</td>
+                            <td>smazat</td>
+                        </tr>
+                        <tr>
+                            <td>New York</td>
+                            <td>JFK</td>
+                            <td>Prague</td>
+                            <td>PRG</td>
+                            <td>smazat</td>
+                        </tr>
+                        <tr>
+                            <td>Prague</td>
+                            <td>PRG</td>
+                            <td>London</td>
+                            <td>LGW</td>
+                            <td>smazat</td>
+                        </tr>
+                        <tr>
+                            <td>London</td>
+                            <td>LGW</td>
+                            <td>Prague</td>
+                            <td>PRG</td>
+                            <td>smazat</td>
+                        </tr>
+                    </table>
             </div>
             <div class="main-box2-content2">
                 <h2>Moje lety</h2>
+                <div class="main-box2-results">
+
+                </div>
             </div>
         </div>
     </div>
     <footer>
-        <p>&copy;Petr Frank 2019</p>
+        <p>&copy;Petr Frank 2020</p>
     </footer>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="jss/main.js"></script>
+    <script>
+        autocomplete(document.getElementById("start"), data);
+        autocomplete(document.getElementById("finish"), data);
+    </script>
 </body>
 </html>

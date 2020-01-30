@@ -1,48 +1,163 @@
 * {
     box-sizing: border-box;
+    font-family: 'Questrial', sans-serif;
 }
 
 h1 {
-    color: blue;
+    color: black;
+    text-align: center;
+    font-size: 30px;
+    padding: 10px;
+
+}
+
+h2 {
+    padding: 10px;
+    text-align: center;
 }
 
 header {
-    background-color: aquamarine;
+    background-color: lightskyblue;
     padding: 40px;
 }
 
 footer {
-    background-color: aqua;
-    padding: 35px;
+    background-color: lightskyblue;
+    padding: 30px;
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
 }
 
 .main {
     display: flex;
-    height: 600px;
+    height: auto;
 }
 
 .main-box1 {
-    background-color: blue;
+    background-color: lightgrey;
     flex-direction: column;
-    width: 85%;
+    width: 70%;
+    text-align: center;
+    padding: 15px;
+    border-top: 5px inset gray;
+    border-bottom: 5px inset gray;
+    border-left: 5px inset gray;
+}
 
+#main-box1-form {
+
+}
+
+.main-box1-form-row {
+    padding: 15px;
+}
+
+.main-box1 input {
+    padding: 10px;
+    border-radius: 4px;
+    width: 35%;
+    background-color: DodgerBlue;
+    font-size: 16px;
+}
+
+.main-box1-form-row label {
+    display: block;
+    padding: 5px;
+}
+
+.main-box1-results {
+    padding: 10px;
 }
 
 .main-box2 {
     flex-direction: column;
-    width: 15%;
+    width: 30%;
     display: flex;
 }
 
 .main-box2-content1 {
     flex-direction: row;
-    background-color: black;
-    height: 50%;
-    color: white;
+    height: auto;
+    padding: 10px;
+    background-color: darkgrey;
+    border-top: 5px inset gray;
+    border-right: 5px inset gray;
+    border-left: 2px outset gray;
 }
 
 .main-box2-content2 {
     flex-direction: row;
-    background-color: blueviolet;
-    height: 50%;
+    background-color: darkgray;
+    height: 100%;
+    padding: 10px;
+    border-right: 5px inset gray;
+    border-bottom: 5px inset gray;
+    border-left: 2px outset gray;
+    border-top: 2px solid black;
+}
+
+#table-airports {
+    border: 3px solid black;
+    text-align: center;
+    padding: 3px;
+    border-collapse: collapse;
+    background-color: white;
+    font-size: 14px;
+
+}
+
+#table-airports th, td {
+    border: 1px solid black;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.main-box1-form-row .autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+}
+.main-box1-form-row input {
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px;
+}
+.main-box1-form-row .autocomplete {
+    background-color: #f1f1f1;
+    width: 60%;
+}
+.main-box1-form-row input[type=submit] {
+    background-color: DodgerBlue;
+    color: #fff;
+}
+.main-box1-form-row .autocomplete-items {
+    position: relative;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+.main-box1-form-row .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+.main-box1-form-row .autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+}
+.main-box1-form-row .autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
 }
