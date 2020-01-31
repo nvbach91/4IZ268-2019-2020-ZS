@@ -41,7 +41,20 @@ for (var a = 1; a < table.rows.length; a++) {
         console.log(index);
     };
 }
+
 /*--------------------- search ----------------------------*/
+
+
+function searchFlight() {
+    var starting_airport = document.getElementById("starting_airport").value;
+    var finishing_airport = document.getElementById("finishing_airport").value;
+    var date = document.getElementById("date").value;
+    var dataUrl = "https://api.skypicker.com/flights?fly_from=" + starting_airport + "&fly_to=" + finishing_airport + "&date_from=" + date + "&partner=picky&curr=CZK&adults=1&max_stopovers=2";
+
+    $.getJSON(dataUrl).done(function (data) {
+        console.log(data.volumeInfo.price);
+    })
+};
 
 
 /*--------------------- autocomplete (https://www.w3schools.com/howto/howto_js_autocomplete.asp) ----------------------------*/
@@ -126,13 +139,13 @@ function autocomplete(inp, arr) {
             x[i].classList.remove("autocomplete-active");
         }
     }
-    function closeAllLists(elmnt) {
+    function closeAllLists(field) {
         /*close all autocomplete lists in the document,
         except the one passed as an argument:*/
-        var x = document.getElementsByClassName("autocomplete-items");
-        for (var i = 0; i < x.length; i++) {
-            if (elmnt != x[i] && elmnt != inp) {
-                x[i].parentNode.removeChild(x[i]);
+        var result = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < result.length; i++) {
+            if (field != result[i] && field != inp) {
+                result[i].parentNode.removeChild(result[i]);
             }
         }
     }

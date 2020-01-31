@@ -21,28 +21,29 @@
             <form id="main-box1-form">
                 <div class="main-box1-form-row">
                     <label>start</label>
-                    <input type="text" name="start" class="autocomplete" id="start" placeholder="město odlet">
+                    <input type="text" name="start" class="autocomplete" id="start" placeholder="město odlet" autocomplete="off">
                     <label>cíl</label>
-                    <input type="text" name="finish" class="autocomplete" id="finish" placeholder="město přílet">
+                    <input type="text" name="finish" class="autocomplete" id="finish" placeholder="město přílet" autocomplete="off">
                 </div>
                 <div class="main-box1-form-row">
-                    <input type="text" name="starting_airport" id="starting_airport" placeholder="Zkratka letiště (poslední část názvu)">
+                    <input type="text" name="starting_airport" id="starting_airport" placeholder="Zkratka letiště (poslední část názvu)" autocomplete="off">
                     <img src="img/sipka.png" alt="sipka">
-                    <input type="text" name="finishing_airport" id="finishing_airport" placeholder="Zkratka letiště (poslední část názvu)">
+                    <input type="text" name="finishing_airport" id="finishing_airport" placeholder="Zkratka letiště (poslední část názvu)" autocomplete="off">
                     <button type="button" onclick="updateForm();">Přidat oblíbený let</button>
                 </div>
                 <div class="main-box1-form-row">
                     <label>zadejte datum odletu</label>
-                    <input type="text" name="date" id="date" placeholder="dd/mm/yyyy">
+                    <input type="text" name="date" id="date" placeholder="dd/mm/yyyy" autocomplete="off">
                 </div>
                 <div class="main-box1-form-row">
-                    <input id="submit" type="submit" value="Odeslat">
+                    <input id="submit" type="button" value="Odeslat" onclick="searchFlight()">
                 </div>
             </form>
             <h2>Výsledky vyhledávání</h2>
             <div class="main-box1-results">
+                <ul id="results">
 
-
+                </ul>
             </div>
             <input id="button-save" type="submit" value="Uložit">
         </div>
