@@ -1,0 +1,52 @@
+.detail {
+  display: flex;
+  flex-flow: column;
+
+  .headline {
+    text-transform: capitalize;
+  }
+
+  & > div {
+    padding: 15px 0;
+  }
+
+  .link {
+    cursor: pointer;
+    transition: all .15s linear;
+    font-size: 32px;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  .back-link {
+    float: left;
+  }
+
+  .action-links {
+    float: right;
+    display: flex;
+    justify-content: center;
+  }
+
+  .favourite-link {
+    color: #de1304;
+    margin-left: 15px;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+
+    & > svg {
+      margin-right: 10px;
+    }
+  }
+
+  .image {
+    clear: both;
+    width: 100%;
+    height: auto;
+  }
+}
