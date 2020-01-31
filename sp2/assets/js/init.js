@@ -7,10 +7,10 @@
 }(document, 'script', 'facebook-jssdk'));
 window.fbAsyncInit = function () {
   FB.init({
-    appId: '2434119713477221',
+    appId: '176242250448171',
     cookie: true,
     xfbml: true,
     version: 'v5.0'
   });
-
-}
+  FB.AppEvents.logPageView();
+};
