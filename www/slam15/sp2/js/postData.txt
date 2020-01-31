@@ -1,2 +1,0 @@
-// post status on user's profile using Graph API
-export const postStatus = () => {};
