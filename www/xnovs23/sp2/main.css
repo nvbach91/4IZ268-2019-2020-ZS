@@ -1,0 +1,205 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.top-bar {
+    width: 100%;
+    background-color: #306030;
+    padding-bottom: 10px;
+}
+
+img {
+    height: 80px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.layout {
+    max-width: 1024px;
+    margin: auto;
+    display: flex;
+    width: 100%;
+    background-color: #f0f0d8;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.search {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.hidden-ui {
+    display: none;
+}
+
+.search>* {
+    flex: 1 100%;
+}
+
+.main-search {
+    flex: 1 30%;
+}
+
+.search-item {
+    flex: 1 auto;
+    margin: auto;
+}
+
+.search-bar {
+    flex: 1 30%;
+    padding: 20px;
+}
+
+#submitSearchPatient {
+    float: left;
+    background-color: #306030;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #2e5c2e;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 2px 6px 0 rgba(0, 0, 0, 0.19);
+}
+
+.create-button {
+    padding: 20px;
+}
+
+#patient-name-input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#new-patient-btn {
+    float: right;
+    background-color: #e68331;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #e67e29;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 2px 6px 0 rgba(0, 0, 0, 0.19);
+}
+
+.list {
+    max-width: 1024px;
+    margin: auto;
+    display: flex;
+    width: 100%;
+    background-color: #f0f0d8;
+    margin-top: 20px;
+    border-radius: 5px
+}
+
+#patient-list {
+    width: 100%;
+    text-align: left;
+    padding: 20px;
+    border-collapse: separate;
+}
+
+th, td {
+    width: 25%;
+}
+
+.btn-primary {
+    background-color: #306030;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #234623;
+}
+
+/*EXERCISES PAGE*/
+
+.exercises-list {
+    max-width: 1024px;
+    margin: auto;
+    width: 100%;
+    background-color: #f0f0d8;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+#planned-exercises-list {
+    border-collapse: separate;
+}
+
+#expired-exercises-list {
+    border-collapse: separate;
+}
+
+.list-of-exercises {
+    width: 100%;
+    text-align: left;
+    padding: 20px;
+}
+
+#add-new-exercise-btn {
+    background-color: #e68331;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #e67e29;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 2px 6px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+#dynamicName {
+    padding-top: 20px;
+    max-width: 1024px;
+    margin: auto;
+}
+
+.small-nav {
+    color: black;
+    font-size: 9px;
+}
+
+.small-nav:hover {
+    color: black;
+}
+
+#submitBackToPatientsButton {
+    margin: 10px;
+    border-color: #306030;
+    color: #306030;
+    font-size: 12px;
+}
+
+#submitBackToPatientsButton{
+    background-color: #306030;
+    color: white;
+}
