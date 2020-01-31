@@ -4,7 +4,7 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto';
 }
 
 html {
@@ -42,16 +42,8 @@ img {
     align-items: center;
 }
 
-.hidden-ui {
-    display: none;
-}
-
 .search>* {
     flex: 1 100%;
-}
-
-.main-search {
-    flex: 1 30%;
 }
 
 .search-item {
@@ -181,25 +173,4 @@ th, td {
     padding-top: 20px;
     max-width: 1024px;
     margin: auto;
-}
-
-.small-nav {
-    color: black;
-    font-size: 9px;
-}
-
-.small-nav:hover {
-    color: black;
-}
-
-#submitBackToPatientsButton {
-    margin: 10px;
-    border-color: #306030;
-    color: #306030;
-    font-size: 12px;
-}
-
-#submitBackToPatientsButton{
-    background-color: #306030;
-    color: white;
 }
