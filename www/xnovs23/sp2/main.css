@@ -191,3 +191,15 @@ th, td {
 .small-nav:hover {
     color: black;
 }
+
+#submitBackToPatientsButton {
+    margin: 10px;
+    border-color: #306030;
+    color: #306030;
+    font-size: 12px;
+}
+
+#submitBackToPatientsButton{
+    background-color: #306030;
+    color: white;
+}
