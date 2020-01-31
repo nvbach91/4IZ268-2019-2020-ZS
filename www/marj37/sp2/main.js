@@ -1,28 +1,63 @@
-var markersTable = document.querySelector('#markers')
+$(document).ready(function(){
+var markersTable = $('#markers')
 var notes = document.querySelector('#notes')
 var markerCounter = 0;
 var routeCounter = 0;
 var routeButton = document.querySelector('#route-button');
 var newRouteButton = document.querySelector('#new-route-button');
 var forecastProjection = document.querySelector('#forecast');
-var obrazek = 'https://api.mapy.cz/img/api/marker/drop-red.png';
+var image = 'https://api.mapy.cz/img/api/marker/drop-red.png';
 var deviceLatitude = 49.741039;
 var deviceLongitude = 15.336030;
-
+var markers = [];
 var center = SMap.Coords.fromWGS84(deviceLongitude, deviceLatitude);
+var errorOccured = document.createElement('p');
+errorOccured.innerText = 'Trasu není možné vypočítat!';
+errorOccured.id = 'route-error';
 var m = new SMap(JAK.gel("m"), center);
 m.addControl(new SMap.Control.Sync()); /* Aby mapa reagovala na změnu velikosti průhledu */
 m.addDefaultLayer(SMap.DEF_BASE).enable(); /* Turistický podklad */
 var mouse = new SMap.Control.Mouse(SMap.MOUSE_PAN | SMap.MOUSE_WHEEL | SMap.MOUSE_ZOOM); /* Ovládání myší */
 m.addControl(mouse);
-var vrstvaMarker = new SMap.Layer.Marker();
-m.addLayer(vrstvaMarker);
-vrstvaMarker.enable();
+var layerMarker = new SMap.Layer.Marker();
+m.addLayer(layerMarker);
+layerMarker.enable();
 
 
-var znacky = [];
-newRouteButton.addEventListener('click', () => {
-  history.go(0);
+
+
+newRouteButton.addEventListener('click', () => {//refresh tlačítko-smazat všechna data
+  markerCounter = 0;
+  routeCounter = 0;
+  markers.splice(0, 1);
+  markers.splice(1, 1);
+  $('#m').remove();
+  var newMap = document.createElement('div');
+  newMap.id = 'm';
+  $('#map-projection').append(newMap);
+
+  m = new SMap(JAK.gel("m"), center);
+  m.addControl(new SMap.Control.Sync()); /* Aby mapa reagovala na změnu velikosti průhledu */
+  m.addDefaultLayer(SMap.DEF_BASE).enable(); /* Turistický podklad */
+  var mouse = new SMap.Control.Mouse(SMap.MOUSE_PAN | SMap.MOUSE_WHEEL | SMap.MOUSE_ZOOM); /* Ovládání myší */
+  m.addControl(mouse);
+  layerMarker = new SMap.Layer.Marker();
+  m.addLayer(layerMarker);
+  layerMarker.enable();
+
+  markers.splice(0, 1);
+  markers.splice(1, 1);
+  m.getSignals().addListener(window, 'map-click', click);
+  $('.table-row').remove();
+  $('.notes-data').remove();
+  $('.chartjs-size-monitor').remove();
+  $('#my-chart').remove();
+  $('#route-error').remove();
+  var newChart = document.createElement('canvas');
+  newChart.id = 'my-chart';
+  var chartProjection = $('#chart-projection');
+  chartProjection.append(newChart);
+
 });
 
 function click(e, elm) {
@@ -38,30 +73,29 @@ function click(e, elm) {
   }
   else {
     var options = {
-      url: obrazek,
+      url: image,
       title: titleInput,
       anchor: { left: 10, bottom: 1 }
     };
-    console.log(coords);
-    var znacka = new SMap.Marker(coords, null, options);
-    znacky.push(znacka);
-    vrstvaMarker.addMarker(znacka);
-    createMarkerRow(znacka);
+    var marker = new SMap.Marker(coords, null, options);
+    markers.push(marker);
+    layerMarker.addMarker(marker);
+    createMarkerRow(marker);
     markerCounter++;
   }
 };
 
-const createMarkerRow = (znacka) => {
+const createMarkerRow = (marker) => {
   const markerRow = document.createElement('div');
   markerRow.className = "table-row";
-  markersTable.appendChild(markerRow);
+  markersTable.append(markerRow);
 
   const titleCell = document.createElement('div');
   titleCell.className = "title-cell";
-  titleCell.innerText = znacka.getTitle();
+  titleCell.innerText = marker.getTitle();
 
   const coordsCell = document.createElement('div');
-  coordsCell.innerText = znacka.getCoords();
+  coordsCell.innerText = marker.getCoords();
   coordsCell.className = "coords-cell";
 
   const deleteButton = document.createElement('button');
@@ -70,13 +104,13 @@ const createMarkerRow = (znacka) => {
 
   deleteButton.addEventListener('click', () => {
     markersTable.removeChild(markerRow);
-    vrstvaMarker.removeMarker(znacka);
-    if (znacka.getId() === znacky[0].getId()) {
-      znacky.splice(0, 1);
+    layerMarker.removeMarker(marker);
+    if (marker.getId() === markers[0].getId()) {
+      markers.splice(0, 1);
       markerCounter--;
     }
     else {
-      znacky.splice(1, 1);
+      markers.splice(1, 1);
       markerCounter--;
     }
 
@@ -89,41 +123,50 @@ const createMarkerRow = (znacka) => {
 
 var nalezeno = function (route) {
   if (routeCounter === 0) {
-    var vrstva = new SMap.Layer.Geometry();
-    m.addLayer(vrstva).enable();
-
-    var coords = route.getResults().geometry;
-    var cz = m.computeCenterZoom(coords);
-    m.setCenterZoom(cz[0], cz[1]);
-    var g = new SMap.Geometry(SMap.GEOMETRY_POLYLINE, null, coords);
-    vrstva.addGeometry(g);
-
-    const routeLength = document.createElement('div');
-    routeLength.innerText = `Celková délka trasy: ${route.getResults().length} metrů`;
-    notes.appendChild(routeLength);
-    const routeAscent = document.createElement('div');
-    routeAscent.innerText = `Celkové stoupání: ${route.getResults().ascent} metrů`;
-    notes.appendChild(routeAscent);
-    const routeDescent = document.createElement('div');
-    routeDescent.innerText = `Celkové klesání: ${route.getResults().descent} metrů`;
-    notes.appendChild(routeDescent);
-    $(".delete-button").remove();
-    var graphData = route.getResults().altitude;
-    var ctx = document.getElementById('my-chart');
-    var myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: graphData,
-        datasets: [{
-          label: 'Profil trasy',
-          data: graphData,
-          borderColor: "rgba(255, 99, 132, 1)",
-          fill: false
-        }]
-      },
-    })
-
     routeCounter++;
+    var layer = new SMap.Layer.Geometry();
+    m.addLayer(layer).enable();
+    var errorMessage = route.getResults();
+    var error = errorMessage.error;
+    if (error === true) {
+      notes.appendChild(errorOccured);
+      $(".delete-button").remove();
+    }
+    else {
+      var coords = route.getResults().geometry;
+      var cz = m.computeCenterZoom(coords);
+      m.setCenterZoom(cz[0], cz[1]);
+      var g = new SMap.Geometry(SMap.GEOMETRY_POLYLINE, null, coords);
+      layer.addGeometry(g);
+      const routeLength = document.createElement('div');
+      routeLength.className = 'notes-data';
+      routeLength.innerText = `Celková délka trasy: ${route.getResults().length} metrů`;
+      notes.appendChild(routeLength);
+      const routeAscent = document.createElement('div');
+      routeAscent.className = 'notes-data';
+      routeAscent.innerText = `Celkové stoupání: ${route.getResults().ascent} metrů`;
+      notes.appendChild(routeAscent);
+      const routeDescent = document.createElement('div');
+      routeDescent.className = 'notes-data';
+      routeDescent.innerText = `Celkové klesání: ${route.getResults().descent} metrů`;
+      notes.appendChild(routeDescent);
+      $(".delete-button").remove();
+      var graphData = route.getResults().altitude;
+      var ctx = $('#my-chart');
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: graphData,
+          datasets: [{
+            label: 'Profil trasy',
+            data: graphData,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            fill: false
+          }]
+        },
+      })
+
+    }
   }
 
 
@@ -132,7 +175,7 @@ var nalezeno = function (route) {
 
 routeButton.addEventListener('click', () => {
   if (routeCounter !== 0) {
-    alert('již jste jednu trasu vytvořil.');
+    alert('Již jste jednu trasu vytvořil.');
     return;
   }
   var confirmation = prompt('Opravdu chcete vytvořit trasu na mapě? Pro vytvoření klikněte na Ok. Po odsouhlasení již nebude možné změnit značky na mapě.', 'Ano');
@@ -140,7 +183,7 @@ routeButton.addEventListener('click', () => {
     alert
     return;
   }
-  if (znacky.length < 2) {
+  if (markers.length < 2) {
     alert("Musíte zadat obě značky");
     return;
   }
@@ -148,14 +191,15 @@ routeButton.addEventListener('click', () => {
     var loader = document.createElement('div');
     loader.classList.add('loader');
     var coords = [
-      SMap.Coords.fromWGS84(znacky[0].getCoords().x, znacky[0].getCoords().y),
-      SMap.Coords.fromWGS84(znacky[1].getCoords().x, znacky[1].getCoords().y)
+      SMap.Coords.fromWGS84(markers[0].getCoords().x, markers[0].getCoords().y),
+      SMap.Coords.fromWGS84(markers[1].getCoords().x, markers[1].getCoords().y)
     ];
     forecastProjection.appendChild(loader);
-    weatherForecast(coords[0].y, coords[0].x, coords[1].y, coords[1].x, loader);
+    if (routeCounter === 0) {
+      weatherForecast(coords[0].y, coords[0].x, coords[1].y, coords[1].x, loader);
+    }
   }
   var route = new SMap.Route(coords, nalezeno);
-
 });
 
 var weatherForecast = (latOne, lonOne, latTwo, lonTwo, loader) => {
@@ -170,12 +214,12 @@ var weatherForecast = (latOne, lonOne, latTwo, lonTwo, loader) => {
 
     var placeCell = document.createElement('div');
     placeCell.className = 'place-cell'
-    placeCell.innerText = forecastData.name + ' ( ' + znacky[0].getTitle() + ' )';
+    placeCell.innerText = forecastData.name + ' ( ' + markers[0].getTitle() + ' )';
     forecastRow.appendChild(placeCell);
 
     var temperatureCell = document.createElement('div');
     temperatureCell.className = 'temperature-cell'
-    temperatureCell.innerText = forecastData.main.temp;
+    temperatureCell.innerText = forecastData.main.temp + ' / ' + (forecastData.main.temp * 1.8 + 32).toFixed(2);
     forecastRow.appendChild(temperatureCell);
 
     var forecastCell = document.createElement('div');
@@ -199,12 +243,12 @@ var weatherForecast = (latOne, lonOne, latTwo, lonTwo, loader) => {
 
     var placeCell = document.createElement('div');
     placeCell.className = 'place-cell'
-    placeCell.innerText = forecastData.name + ' ( ' + znacky[1].getTitle() + ' )';
+    placeCell.innerText = forecastData.name + ' ( ' + markers[1].getTitle() + ' )';
     forecastRow.appendChild(placeCell);
 
     var temperatureCell = document.createElement('div');
     temperatureCell.className = 'temperature-cell'
-    temperatureCell.innerText = forecastData.main.temp;
+    temperatureCell.innerText = forecastData.main.temp + ' / ' + (forecastData.main.temp * 1.8 + 32).toFixed(2);
     forecastRow.appendChild(temperatureCell);
 
     var forecastCell = document.createElement('div');
@@ -221,7 +265,8 @@ var weatherForecast = (latOne, lonOne, latTwo, lonTwo, loader) => {
   });
   xhrOne.addEventListener('error', function (e) {
     console.error('XHR error', e);
-  });  
+  });
   xhrTwo.send();
 };
 m.getSignals().addListener(window, 'map-click', click);
+})

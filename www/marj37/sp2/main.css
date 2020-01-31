@@ -38,26 +38,26 @@ h1 {
     margin: 5px 0;
 }
 
-.table-row {
+.table-row, .table-header {
     display: flex;
     width: 100%;
     border: 1px solid black;
     flex-grow: 1;
 }
 
-.title-cell {
+.title-cell, .title-title-cell {
     width: 25%;
     text-align: center;
     border-right: solid 1px black;
 }
 
-.coords-cell {
+.coords-cell, .coords-title-cell {
     width: 50%;
     text-align: center;
     border-right: solid 1px black;
 }
 
-.delete-cell {
+.delete-cell, .delete-title-cell {
     width: 25%;
     text-align: center;
 }
@@ -73,25 +73,25 @@ canvas {
     margin: 0 auto;
 }
 
-.place-cell {
+.place-cell, .place-title-cell {
     width: 25%;
     text-align: center;
     border-right: solid 1px black;
 }
 
-.temperature-cell {
+.temperature-cell, .temperature-title-cell {
     width: 25%;
     text-align: center;
     border-right: solid 1px black;
 }
 
-.forecast-cell {
+.forecast-cell, .forecast-title-cell {
     width: 25%;
     text-align: center;
     border-right: solid 1px black;
 }
 
-.wind-cell {
+.wind-cell, .wind-title-cell {
     width: 25%;
     text-align: center;
     border-right: solid 1px black;
