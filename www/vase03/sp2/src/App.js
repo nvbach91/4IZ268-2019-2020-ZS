@@ -1,11 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import logo from './logo.svg';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import * as firebase from "firebase/app";
-import { Button, Nav } from 'react-bootstrap';
-//import './App.css';
+import { GoogleLogin, GoogleLogout} from 'react-google-login';
+import { Nav } from 'react-bootstrap';
 import NotePage from './NotePage.js';
-import Firebase from './Firebase.js';
 
 function App() {
 
@@ -20,9 +16,9 @@ function App() {
   };
 
 //Response for failure situations
-  const badResponse = () => {
-    alert('Bad response from Google. Page is going to be refreshed. Try to login one more, please.');
-    window.location.replace('http://localhost:3000/');
+  const badResponse = e => {
+    console.log(e);
+    //window.location.replace("/");
   };
 
   //Update state for cases when page was refreshed (consistensy)
