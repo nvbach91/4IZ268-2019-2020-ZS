@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Game Music Quiz</title>
+    <meta charset="UTF-8">
+    <meta name="desctiption" content="Music Quiz" />
+    <meta name="keyword" content="Spotify, Music, Quiz" />
+    <meta name="author" content="sala01" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.ico" />
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/sunny/jquery-ui.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+    <div class="playlists-panel">
+        <div class="playlist-mainwrap">
+            <div class="playlist-wrap">
+                <h3>Playlists</h3>
+                <div class="playlists-row">
+                    <div class="playlist" id="playlist1">All Out 80s</div>
+                    <div class="playlist" id="playlist2">Best POP Songs</div>
+                    <div class="playlist" id="playlist3">Classic Esential</div>
+                    <div class="playlist" id="playlist4">Zlatá česká klasika</div>
+                    <div class="playlist" id="playlist5">Best of '10</div>
+                </div>
+            </div>
+            <div class="start-playlist" id="load-playlist">START</div>
+        </div>
+        <input type="text" id="playlist-uri" placeholder="Input playlist's URI" class="playlist-uri-input">
+    </div>
+
+    <div class="score-panel">
+        <div class="winstrike">Winstreak</br>
+            <div id="winstrike">0</div>
+        </div>
+        <div class="info-poster-wrap">
+            <div id="poster"><img scr="" id="poster-placeholder" width="300" height="300"></div>
+            <div class="info" id="infospace"></div>
+        </div>
+        <div class="score">Score</br>
+            <div id="score">0</div>
+        </div>
+    </div>
+
+    <div class="control-panel">
+        <div id="slider"></div>
+        <div class="control-line">
+            <div class="option" id="option1"></div>
+            <div class="control" id="pause">PAUSE</div>
+            <div class="control" id="next">NEXT</div>
+            <div class="control" id="play">PLAY</div>
+            <div class="option" id="option2"></div>
+        </div>
+        <div class="control-line">
+            <div class="option" id="option3"></div>
+            <div class="control" id="add">ADD</div>
+            <div class="option" id="option4"></div>
+        </div>
+    </div>
+
+
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="assets/js/quiz.js"></script>
+</body>
+
+</htmllang="en">
