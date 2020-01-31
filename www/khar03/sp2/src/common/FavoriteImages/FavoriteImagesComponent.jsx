@@ -21,8 +21,7 @@ class FavoriteImagesComponent extends Component {
           actionIcon={
             <IconButton aria-label={`info about ${image.alt_description}`}>
               <InfoIcon
-                style={{ color: '#fff' }}
-              />
+                style={{ color: '#fff' }}/>
             </IconButton>
           }
           onClick={() => (showPhotoDetail(image))}

@@ -46,10 +46,19 @@ const searchReducer = (state = initialState, action) => {
     }
 
     case MARK_AS_FAVORITE: {
-      const newDetail = state.detail.id === action.payload.id ? action.payload : state.detail;
+      const newDetail = state.detail ? action.payload : null;
+      const newResult = [...state.result].map(photo =>
+      {
+        if (photo.id === action.payload.id) {
+          photo = action.payload;
+        }
+        return photo;
+      });
+
       return {
         ...state,
-        detail: {...newDetail},
+        detail: newDetail,
+        result: newResult,
       }
     }
 
