@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="cs">
 
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,34 +21,53 @@
             <button id="open-form">Expand the form</button>
         </div>
         <div id="form-body">
-            <div>
-                <form id="form" class="closed">
-                    <label>Enter the title of book or name of author:<br>
-                        <input id="searched-text" type="text" name="searchedBook" pattern="^[\p{L}\w][\p{L}\w\s]*"
-                            autofocus required><br>
-                    </label>
-                    <label>
-                        <input class="radio" type="radio" name="way" value="intitle" checked>Search in book titles<br>
-                    </label>
-                    <label>
-                        <input class="radio" type="radio" name="way" value="inauthor">Search in the authors<br>
-                    </label>
-                    <label>
+            <form id="form" class="closed">
+                <label>Enter the title of book or name of author:<br>
+                    <input id="searched-text" type="text" name="searchedBook" pattern="^[\p{L}\w][\p{L}\w\s]*" autofocus
+                        required><br>
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="way" value="intitle" checked>Search in book titles<br>
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="way" value="inauthor">Search in the authors<br>
+                </label>
+                <!--<label>
                         <input class="radio" type="radio" name="way" value="subject">Search in categories<br>
-                    </label>
-                    <label>
-                        Show max.
-                        <input id="number-input" type="number" min="1" max="30" value="5">
-                        of occurrences.<br>
-                    </label>
-                    <input id="submit" type="submit" value="Find books">
-                    <input id="reset" type="reset" value="Reset">
-                </form>
-            </div>
+                    </label>-->
+
+
+                <select id="ctg">
+                    <option value="detective">Detective</option>
+                    <option value="fiction">Fiction</option>
+                    <option value="horror">Horror</option>
+                    <option value="drama">Drama</option>
+                    <option value="satire">Satire</option>
+                </select>
+
+                <label>
+                    Show max.
+                    <input id="number-input" type="number" min="1" max="30" value="5">
+                    of occurrences.<br>
+                </label>
+
+                <select id="lng">
+                    <option id="english" value="en">English</option>
+                    <option id="russian" value="ru">Russian</option>
+                    <option id="chinese" value="zh">Chinese</option>
+                    <option id="czech" value="cs">Czech</option>
+                </select>
+
+
+                <input id="submit" type="submit" value="Find books">
+                <input id="reset" type="reset" value="Reset">
+            </form>
         </div>
     </div>
+    </div>
 
-    <p>Welcome to our database of books! Here you can find any book or author. In addition, you can add and save in any book to your favorite list of books, can make own score or read
+    <p>Welcome to our database of books! Here you can find any book or author. In addition, you can add and save in any
+        book to your favorite list of books, can make own score or read
         demo of book.
     </p>
 
