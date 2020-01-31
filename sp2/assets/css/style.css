@@ -1,0 +1,78 @@
+html {font-family: 'Roboto', sans-serif;font-size:16px;line-height:1em;height:100%;}
+body {
+  height: 100%;
+  background: #ffffff;
+  background: -moz-linear-gradient(-45deg, #ffffff 0%, #ffffff 50%, #F2F2F2 50%, #F2F2F2 50%, #F2F2F2 100%);
+  background: -webkit-linear-gradient(-45deg, #ffffff 0%,#ffffff 50%,#F2F2F2 50%,#F2F2F2 50%,#F2F2F2 100%);
+  background: -o-linear-gradient(-45deg, #ffffff 0%,#ffffff 50%,#F2F2F2 50%,#F2F2F2 50%,#F2F2F2 100%);
+  background: linear-gradient(135deg, #ffffff 0%,#ffffff 50%,#F2F2F2 50%,#F2F2F2 50%,#F2F2F2 100%);
+}
+
+.p-2{ 
+border-radius: 20px;
+}
+.border{ 
+color: white
+}
+#logo{ 
+height: 40px;
+}
+#page-content {
+  flex: 1 0 auto;
+}
+
+#sticky-footer {
+  flex-shrink: none;
+}
+.jumbotron{
+    height: 30px;
+}
+.bg-black {
+    background-color: #000
+}
+
+#logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px
+}
+
+.navbar-brand {
+    padding: 14px 20px;
+    font-size: 16px
+}
+
+.navbar-nav {
+    width: 100%
+}
+
+.nav-item {
+    padding: 6px 14px;
+    text-align: center
+}
+
+.nav-link {
+    padding-bottom: 10px
+}
+
+.v-line {
+    background-color: gray;
+    width: 1px;
+    height: 20px
+}
+
+.navbar-collapse.collapse.in {
+    display: block !important
+}
+.row{
+    margin-top: 100px;
+}
+
+
+
+
+
+
+
+
+
