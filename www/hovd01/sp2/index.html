@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Simple deck builder for Magic: The Gathering.">
+    <meta name="author" content="Daniel Hovorka">
+    <meta name="keywords" content="MTG Magic Magic: The Gathering deck builder">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MTG - Deck builder | News</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+</head>
+
+<body>
+    <header>
+        <div class="jumbotron logoback text-center">
+            <h1>MTG - Deck builder</h1>
+            <div class="row">
+                <div class="col">
+                    <img src="assets/img/logo.png" class="img-fluid" alt="MTG logo">
+                </div>
+                <div class="col">
+                    <img src="assets/img/logodb.png" class="img-fluid" alt="Deck builder: logo">
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <div class="navbar-brand">Menu: </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="">Deck Builder</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-9 deck-builder print-cols" id="db-content">
+                    <h2>DECK BUILDER</h2>
+                    <div class="line"></div>
+                    <div class="labeling">
+                        <label for="input-name">
+                            Name:
+                        </label>
+                        <input type="text" class="style-20-left" id="input-name" placeholder="Black Lotus">
+                    </div>
+                    <div class="labeling">
+                        <label for="input-edition">
+                            Edition:
+                        </label>
+                        <select id="input-edition" class="style-20-left">
+                            <option value="0" selected="selected">All</option>
+                            <option value="TBD">Theros Beyond Death</option>
+                            <option value="PTHB">Theros Beyond Death (Alternate)</option>
+                            <option value="ELD">Throne of Eldraine</option>
+                            <option value="PELD">Throne of Eldraine (Alternate)</option>
+                            <option value="M20">Core Set 2020</option>
+                            <option value="MH1">Modern Horizons</option>
+                            <option value="WAR">War of the Spark</option>
+                            <option value="RNA">Ravnica Allegiance</option>
+                            <option value="UMA">Ultimate Masters</option>
+                            <option value="GRN">Guilds of Ravnica</option>
+                            <option value="M19">Core Set 2019</option>
+                            <option value="BBD">Battlebond</option>
+                            <option value="DOM">Dominaria</option>
+                            <option value="A25">Masters 25</option>
+                            <option value="RIX">Rivals of Ixalan</option>
+                            <option value="UST">Unstable</option>
+                            <option value="IMA">Iconic Masters</option>
+                            <option value="XLN">Ixalan</option>
+                            <option value="HOU">Hour of Devastation</option>
+                            <option value="AKH">Amonkhet </option>
+                            <option value="MM3">Modern Masters 2017</option>
+                            <option value="AER">Aether Revolt</option>
+                            <option value="KLD">Kaladesh</option>
+                            <option value="CN2">Conspiracy: Take the Crown</option>
+                            <option value="EMN">Eldritch Moon</option>
+                            <option value="EMA">Eternal Masters</option>
+                            <option value="SOI">Shadows over Innistrad</option>
+                            <option value="OGW">Oath of the Gatewatch</option>
+                            <option value="BFZ">Battle for Zendikar</option>
+                            <option value="ORI">Magic Origins</option>
+                            <option value="MM2">Modern Masters 2015</option>
+                            <option value="DTK">Dragons of Tarkir</option>
+                            <option value="FRF">Fate Reforged</option>
+                            <option value="KTK">Khans of Tarkir</option>
+                            <option value="M15">Magic 2015</option>
+                            <option value="CNS">Conspiracy</option>
+                            <option value="JOU">Journey into Nyx</option>
+                            <option value="BNG">Born of the Gods</option>
+                            <option value="THS">Theros</option>
+                            <option value="M14">Magic 2014</option>
+                            <option value="MMA">Modern Masters</option>
+                            <option value="DGM">Dragon's Maze</option>
+                            <option value="GTC">Gatecrash</option>
+                            <option value="RTR">Return to Ravnica</option>
+                            <option value="M13">Magic 2013</option>
+                            <option value="AVR">Avacyn Restored</option>
+                            <option value="DKA">Dark Ascension</option>
+                            <option value="ISD">Innistrad</option>
+                            <option value="M12">Magic 2012</option>
+                            <option value="NPH">New Phyrexia</option>
+                            <option value="MBS">Mirrodin Besieged</option>
+                            <option value="SOM">Scars of Mirrodin</option>
+                            <option value="M11">Magic 2011</option>
+                            <option value="ROE">Rise of the Eldrazi</option>
+                            <option value="WWK">Worldwake</option>
+                            <option value="ZEN">Zendikar</option>
+                            <option value="M10">Magic 2010</option>
+                            <option value="ARB">Alara Reborn</option>
+                            <option value="CON">Conflux</option>
+                            <option value="ALA">Shards of Alara</option>
+                            <option value="EVE">Eventide</option>
+                            <option value="SHM">Shadowmoor</option>
+                            <option value="MOR">Morningtide</option>
+                            <option value="LRW">Lorwyn</option>
+                            <option value="10E">Tenth Edition</option>
+                            <option value="FUT">Future Sight</option>
+                            <option value="PLC">Planar Chaos</option>
+                            <option value="TSP">Time Spiral</option>
+                            <option value="TSB">Time Spiral Timeshifted</option>
+                            <option value="CSP">Coldsnap</option>
+                            <option value="DIS">Dissension</option>
+                            <option value="GPT">Guildpact</option>
+                            <option value="RAV">Ravnica: City of Guilds</option>
+                            <option value="9ED">Ninth Edition</option>
+                            <option value="SOK">Saviors of Kamigawa</option>
+                            <option value="UNH">Unhinged</option>
+                            <option value="BOK">Betrayers of Kamigawa</option>
+                            <option value="CHK">Champions of Kamigawa</option>
+                            <option value="5DN">Fifth Dawn</option>
+                            <option value="DST">Darksteel</option>
+                            <option value="MRD">Mirrodin</option>
+                            <option value="8ED">Eighth Edition</option>
+                            <option value="SCG">Scourge</option>
+                            <option value="LGN">Legions</option>
+                            <option value="ONS">Onslaught</option>
+                            <option value="JUD">Judgment</option>
+                            <option value="TOR">Torment</option>
+                            <option value="ODY">Odyssey</option>
+                            <option value="7ED">Seventh Edition</option>
+                            <option value="APC">Apocalypse</option>
+                            <option value="PLS">Planeshift</option>
+                            <option value="PTK">Portal Three Kingdoms</option>
+                            <option value="INV">Invasion</option>
+                            <option value="PCY">Prophecy</option>
+                            <option value="NEM">Nemesis</option>
+                            <option value="MMQ">Mercadian Masques</option>
+                            <option value="6ED">Classic Sixth Edition</option>
+                            <option value="P02">Portal Second Age</option>
+                            <option value="UDS">Urza's Destiny</option>
+                            <option value="ULG">Urza's Legacy</option>
+                            <option value="USG">Urza's Saga</option>
+                            <option value="EXO">Exodus</option>
+                            <option value="UGL">Unglued</option>
+                            <option value="POR">Portal</option>
+                            <option value="STH">Stronghold</option>
+                            <option value="TMP">Tempest</option>
+                            <option value="5ED">Fifth Edition</option>
+                            <option value="WTH">Weatherlight</option>
+                            <option value="VIS">Visions</option>
+                            <option value="MIR">Mirage</option>
+                            <option value="ALL">Alliances</option>
+                            <option value="ICE">Ice Age</option>
+                            <option value="4ED">Fourth Edition</option>
+                            <option value="CHR">Chronicles</option>
+                            <option value="HML">Homelands</option>
+                            <option value="FEM">Fallen Empires</option>
+                            <option value="3ED">Revised Edition</option>
+                            <option value="DRK">The Dark</option>
+                            <option value="ATQ">Antiquities</option>
+                            <option value="LEG">Legends</option>
+                            <option value="ARN">Arabian Nights</option>
+                            <option value="2UE">Unlimited Edition</option>
+                            <option value="LEB">Limited Edition Beta</option>
+                            <option value="LEA">Limited Edition Alpha</option>
+                            <option value="BTD">Beatdown Box Set</option>
+                            <option value="BRB">Battle Royale Box Set</option>
+                            <option value="S99">Starter 1999</option>
+                        </select>
+                    </div>
+
+                    <div class="labeling">
+                        <label for="rarity">
+                            Rarity:
+                        </label>
+                        <input type="radio" name="optionsRadios" id="rarity" class="style-20-left" value="mythic">
+                        <img src="assets/img/rarity/mythic.gif" class="img-fluid" alt="mythic symbol"> Mythic
+                        <input type="radio" name="optionsRadios" class="style-20-left" value="rare">
+                        <img src="assets/img/rarity/rare.gif" class="img-fluid" alt="rare symbol"> Rare
+                        <input type="radio" name="optionsRadios" class="style-20-left" value="uncommon">
+                        <img src="assets/img/rarity/uncommon.gif" class="img-fluid" alt="uncommon symbol"> Uncommon
+                        <input type="radio" name="optionsRadios" class="style-20-left" value="common">
+                        <img src="assets/img/rarity/common.gif" class="img-fluid" alt="common symbol"> Common
+                        <input type="radio" name="optionsRadios" class="style-20-left" value="">
+                        <img src="assets/img/rarity/special.gif" class="img-fluid" alt="common symbol"> All
+                    </div>
+
+                    <div class="labeling">
+                        <label for="colour">
+                            Colour:
+                        </label>
+                        <input type="checkbox" name="checkbox-colour" id="colour" class="style-20-left input-colour"
+                            value="b">
+                        <img src="assets/img/colour/black.gif" class="img-fluid" alt="black mana symbol"> Black
+                        <input type="checkbox" name="checkbox-colour" class="style-20-left input-colour" value="u">
+                        <img src="assets/img/colour/blue.gif" class="img-fluid" alt="blue mana symbol"> Blue
+                        <input type="checkbox" name="checkbox-colour" class="style-20-left input-colour" value="g">
+                        <img src="assets/img/colour/green.gif" class="img-fluid" alt="green mana symbol"> Green
+                        <input type="checkbox" name="checkbox-colour" class="style-20-left input-colour" value="w">
+                        <img src="assets/img/colour/white.gif" class="img-fluid" alt="white mana symbol"> White
+                        <input type="checkbox" name="checkbox-colour" class="style-20-left input-colour" value="r">
+                        <img src="assets/img/colour/red.gif" class="img-fluid" alt="red mana symbol"> Red
+                        <!--<input type="checkbox" name="checkbox-colour" id="input-colour" class="style-20-left" value="multicolor">
+                        Show only multi-colour cards
+                        <button type="button" class="btn btn-outline-secondary style-20-left" data-toggle="popover"
+                            title="Show only multi-colour cards option"
+                            data-content="If this checkbox is checked only cards, which are multicoloured (from colours selected), will be shown.">?</button> -->
+                    </div>
+
+                    <div class="labeling">
+                        <label for="type">
+                            Type:
+                        </label>
+                        <input type="checkbox" name="checkbox-type" id="type" class="style-20-left input-type"
+                            value="t%3Abasic+t%3Aland+">
+                        <img src="assets/img/type/land.jpg" class="img-fluid" alt="land symbol"> Basic land
+                        <input type="checkbox" name="checkbox-type" class="style-20-left input-type" value="t%3Aland+">
+                        <img src="assets/img/type/land.jpg" class="img-fluid" alt="land symbol"> Non-Basic land
+                        <input type="checkbox" name="checkbox-type" class="style-20-left input-type"
+                            value="t%3Acreature+">
+                        <img src="assets/img/type/creature.jpg" class="img-fluid" alt="creature symbol"> Creature
+                        <input type="checkbox" name="checkbox-type" class="style-20-left input-type"
+                            value="t%3Ainstant+">
+                        <img src="assets/img/type/instant.jpg" class="img-fluid" alt="instant symbol"> Instant
+                        <input type="checkbox" name="checkbox-type" class="style-20-left input-type"
+                            value="t%3Asorcery+">
+                        <img src="assets/img/type/sorcery.jpg" class="img-fluid" alt="sorcery symbol"> Sorcery
+                        <input type="checkbox" name="checkbox-type" class="style-20-left input-type"
+                            value="t%3Aenchantment+">
+                        <img src="assets/img/type/enchantment.jpg" class="img-fluid" alt="enchantment symbol">
+                        Enchantment
+                        <input type="checkbox" name="checkbox-type" class="style-20-left input-type"
+                            value="t%3Aartifact+">
+                        <img src="assets/img/type/artifact.jpg" class="img-fluid" alt="artifact symbol"> Artifact
+                        <input type="checkbox" name="checkbox-type" class="style-20-left input-type"
+                            value="t%3Aplaneswalker"> Planeswalker
+                    </div>
+
+                    <div class="labeling">
+                        <button type="button" class="btn btn-block btn-secondary" id="search">Search</button>
+                    </div>
+                    <hr>
+                </div>
+
+                <div class="col-md-3 print-cols" id="news">
+                    <h2>NEWS</h2>
+                    <div class="line"></div>
+                    More news at: <a href="https://magic.wizards.com/en/articles">magic.wizards.com</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center">
+        <p>&#169; Daniel Hovorka, last update: 30.1.2020</p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/FileSaver.js"></script>
+</body>
+
+</html>

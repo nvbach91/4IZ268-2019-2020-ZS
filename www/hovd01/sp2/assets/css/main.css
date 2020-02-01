@@ -1,0 +1,130 @@
+.jumbotron {
+    margin-bottom: 0;
+    background-color: #555;
+}
+
+.logoback {
+    padding-left: 10%;
+}
+
+.logoback h1 {
+    height: 0px;
+    width: 0px;
+    font-size: 0px;
+}
+
+.container-fluid {
+    max-width: 90%;
+}
+
+.deck-builder {
+    border-right: 5px solid #555;
+}
+
+.line {
+    background-color: #555;
+    height: 5px;
+    margin-bottom: 15px;
+}
+
+.line-sub {
+    background-color: #555;
+    height: 2px;
+    margin-bottom: 7px;
+}
+
+.labeling {
+    margin-top: 30px;
+}
+
+.style-20-left {
+    margin-left: 20px;
+}
+
+.cards-found {
+    border-right: 2px solid #555;
+    min-height: 600px;
+    max-height: 875px;
+}
+
+.deck-builder hr {
+    margin-bottom: 7px;
+}
+
+.cards-deck{
+    max-height: 875px;
+}
+
+.card-display {
+    margin-top: 20px;
+    min-height: 200px;
+}
+
+main {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.overflow-auto {
+    padding-top: 10px;
+}
+
+.clear {
+    float: none;
+}
+
+.card-image {
+    margin-right: 20px;
+}
+
+label {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+footer {
+    height: 40px;
+    color: black;
+    background-color: #555;
+    font-style: italic;
+}
+
+.save-button-style {
+    margin: -7px;
+    margin-right: 3px;
+}
+
+@media screen and (max-width: 767px) {
+    .deck-builder {
+        border: none;
+    }
+    .cards-found {
+        border: none;
+        min-height: 0px;
+    }
+    .save-button-style {
+        margin-right: 3px;
+        margin-top: -5px;
+    }
+}
+
+@media print {
+    .logoback h1 {
+        height: 100%;
+        width: 100%;
+        font-size: 50px;
+    }
+    .img-fluid {
+        height: 0px;
+    }
+    .deck-builder {
+        border: none;
+    }
+    .cards-found {
+        border: none;
+        min-height: 0px;
+    }
+    .print-cols {
+        min-width: 100%;
+    }
+}
