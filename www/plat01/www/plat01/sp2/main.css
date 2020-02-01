@@ -1,0 +1,31 @@
+h1{
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-size: 30px;
+    color: rgb(180, 13, 13);
+    margin-left: 50px;
+}
+
+input{
+    margin: 10px 0;
+    padding: 10px;
+    width: 20%;
+}
+
+body{
+    font-family: sans-serif;
+    line-height: 39px;
+}
+
+button {
+    background-color: rgb(180, 13, 13) ;
+    color: white;
+    border: none;
+    padding: 12px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin-left: 10px;
+  }
+
