@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <link rel="stylesheet" type="text/html" href="path/to/font-awesome/css/font-awesome.min.css">
+    <title>Weather</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato&amp;display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="header">
+      <div class="info">MyLogo</div>
+      <div class="info">Weather Aplication</div>
+      <div class="searchBoxMain">
+        <form class="searchBox" onsubmit="return false;" autocomplete="off">
+          <!-- method="get" action="https://api.teleport.org/api/cities/?search=" -->
+          <input class="searchInput" type="text" name="SearchField" placeholder="Search">
+          <button class="searchButton" type="submit">
+          <img src="./img/icons8-search-24.png" alt="search">
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="loader"></div>
+    <div class="mainField">
+      <div class="currentDayInfo">
+        <div>
+          <div class="timeZone"></div>
+          <button class="favorite"><img src="./img/icons8-star-16-add.png" alt="add_favorite_icon" class="addRemoveBtn"/></button>
+        </div>
+        <div class="temperature">
+          <div class="temperature-section">
+            <h2 class="temperature-degree">Degree</h2>
+            <span></span>
+          </div>
+        </div>
+        <div class="choseTemp">
+          <button id="iWant°C" class="addTempBtn"><img src="./img/celsius.png" alt="celsiusBtn"></button>
+          <button id="iWant°F" class="addTempBtn"><img src="./img/fahrenheit.png" alt="fahrBtn"></button>
+        </div>
+        <div>
+          <div class="icon_main"></div>
+          <div class="icon_text"></div>
+        </div>
+        <div class="fiveDayInfo">
+        </div>
+        <div class="favoriteCity">
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./js/app.js"></script>
+  </body>
+</html>
